@@ -10,6 +10,7 @@ import User from './User'
 import Route from './Route'
 import Favorite from './Favorite'
 import Link from './Link'
+import Share from './Share'
 
 const appReducer = combineReducers({
   ui,
@@ -21,6 +22,7 @@ const appReducer = combineReducers({
   Alert,
   User,
   Favorite,
+  Share,
   Link
 })
 

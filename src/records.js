@@ -15,6 +15,7 @@ export const Bundle = Record({
   creator: null,
   collection_id: null,
   links: null,
+  shares: null,
   links_count: null,
   favorited: null,
   favorites_count: null,
@@ -47,6 +48,13 @@ export const Link = Record({
   created_at: null
 })
 
+export const Share = Record({
+  id: null,
+  resource: null,
+  user: null,
+  permission: null,
+  created_at: null
+})
 
 export const Route = Record({
   bundleId: null,
