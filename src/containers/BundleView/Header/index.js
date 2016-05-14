@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleBundleButton from '../ToggleBundleButton'
-import { ChangeCollection } from '../../../components'
+import { ChangeCollection, ShareBundle } from '../../../components'
 import './index.css'
 
 export default class BundleViewHeader extends React.Component {
@@ -29,6 +29,8 @@ export default class BundleViewHeader extends React.Component {
           collections={collections}
           updateBundle={updateBundle}
         />
+
+        <ShareBundle bundle={bundle} />
 
         <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
       </div>
