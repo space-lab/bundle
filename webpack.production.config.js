@@ -1,11 +1,11 @@
 var webpack = require('webpack')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
+//var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: __dirname,
   entry: './src/index',
   output: {
-    path: 'dist',
+    path: 'dist/assets',
     filename: 'bundle.js'
   },
   devtool: 'source-map',
@@ -18,10 +18,9 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new ExtractTextPlugin('bundle.css')
+    //new webpack.optimize.DedupePlugin(),
+    //new webpack.optimize.UglifyJsPlugin(),
+    //new ExtractTextPlugin('bundle.css')
   ],
   module: {
     loaders: [
@@ -32,7 +31,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'postcss-loader')
+        loaders: ['style-loader', 'css-loader', 'postcss-loader']
+        //loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'postcss-loader')
       }
     ]
   },

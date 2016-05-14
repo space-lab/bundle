@@ -19,8 +19,7 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       'React': 'react'
-    }),
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    })
   ],
   module: {
     loaders: [

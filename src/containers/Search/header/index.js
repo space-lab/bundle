@@ -13,7 +13,7 @@ export default class SearchHeader extends React.Component {
 
     return (
       <div className='search-header-wrapper'>
-        <input className='search-input animated flipInX' type='text'
+        <input className='search-input' type='text'
           placeholder='Search...' onChange={this.onChange}
           value={query || ''} />
         <Link to='/bundles' className='icon ion-ios-search close-icon' />

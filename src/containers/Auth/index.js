@@ -2,6 +2,7 @@ import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { currentUserSelector } from '../../selectors'
 import * as userActions from '../../actions/User'
+import api from '../../api'
 import './index.css'
 
 const connectState = (state) => ({
@@ -48,8 +49,8 @@ export default class Auth extends React.Component {
         <Link to='/' className='logo'>B</Link>
         <div className='description'>Bundle up your resources together for love</div>
         <div className='auth-methods'>
-          <a className='method facebook' href='http://localhost:3000/auth/facebook'>Authenticate With Facebook</a>
-          <a className='method twitter' href='http://localhost:3000/auth/twitter'>Authenticate With Twitter</a>
+          <a className='method facebook' href={api.auth('facebook')}>Authenticate With Facebook</a>
+          <a className='method twitter' href={api.auth('twitter')}>Authenticate With Twitter</a>
         </div>
       </div>
     )

@@ -14,7 +14,7 @@ export default function Search ({
       />
 
       <input
-        className='search-input animated flipInX'
+        className='search-input'
         type='text'
         placeholder='Search...'
         style={{ 'display': search ? 'block' : 'none' }}
