@@ -1,15 +1,20 @@
 var webpack = require('webpack')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 //var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: __dirname,
   entry: './src/index',
   output: {
-    path: 'dist/assets',
-    filename: 'bundle.js'
+    path: 'dist/',
+    filename: 'assets/js/bundle.js'
   },
   devtool: 'source-map',
   plugins: [
+    new CopyWebpackPlugin([
+      { context: 'assets/', from: '**/*', to: 'assets' },
+      { from: 'index.html' }
+    ]),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': '"production"'
