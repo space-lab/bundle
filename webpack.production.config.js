@@ -23,8 +23,12 @@ module.exports = {
     new webpack.ProvidePlugin({
       'React': 'react'
     }),
-    //new webpack.optimize.DedupePlugin(),
-    //new webpack.optimize.UglifyJsPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
     //new ExtractTextPlugin('bundle.css')
   ],
   module: {
