@@ -11,6 +11,7 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), 
     new CopyWebpackPlugin([
       { context: 'assets/', from: '**/*', to: 'assets' },
       { from: 'index.html' }
