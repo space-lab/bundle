@@ -5,6 +5,7 @@ let bundlesSelector = state => state.Bundle.get('byId')
 let collectionsSelector = state => state.Collection.get('byId')
 let favoritesSelector = state => state.Favorite.get('byId')
 let usersSelector = state => state.User.get('byId')
+let sharesSelector = state => state.Share.get('byId')
 
 let currentBundleIdSelector = state => state.Route.bundleId
 let currentCollectionIdSelector = state => state.Route.collectionId
@@ -12,8 +13,13 @@ let currentUserIdSelector = state => state.User.get('current')
 let currentLinksSelector = state => state.Link.get('current')
 
 export const currentBundleSelector = createSelector(
-  [currentBundleIdSelector, bundlesSelector],
-  (id, bundles) => bundles.get(id)
+  [currentBundleIdSelector, bundlesSelector, sharesSelector],
+  (id, bundles, shares) => {
+    if (!bundles.get(id)) return null
+
+    return bundles.get(id)
+      .update('shares', ids => ids.map(id => shares.get(id)))
+  }
 )
 
 export const currentCollectionSelector = createSelector(
@@ -75,4 +81,9 @@ export const sortedFavoritesSelector = createSelector(
     .sortBy(item => item.get('created_at'))
     .reverse()
     .toList()
+)
+
+export const currentBundleSharesSelector = createSelector(
+  [currentBundleSelector, sharesSelector],
+  (bundle, shares) => bundle.shares.map(id => shares.get(id))
 )
