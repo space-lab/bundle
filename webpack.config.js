@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/index',
   output: {
     path: __dirname,
-    filename: 'bundle.js'
+    filename: 'assets/js/bundle.js'
   },
   devtool: 'source-map',
   devServer: {
@@ -13,13 +13,13 @@ module.exports = {
   },
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new webpack.ProvidePlugin({
-      'React': 'react'
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': '"development"'
       }
+    }),
+    new webpack.ProvidePlugin({
+      'React': 'react'
     })
   ],
   module: {
