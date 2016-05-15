@@ -53,6 +53,7 @@ export const Share = Record({
   resource: null,
   user: null,
   permission: null,
+  type: null,
   created_at: null
 })
 
