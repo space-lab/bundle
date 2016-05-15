@@ -6,13 +6,16 @@ import './index.css'
 export default class ShareBundleModal extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record,
+    changeSharePermission: React.PropTypes.func
   }
 
   renderShares () {
     let shares = this.props.bundle.shares
 
     return shares.map(share => {
-      return <Share key={share.id} share={share} />
+      return <Share key={share.id} share={share}
+        changeSharePermission={this.props.changeSharePermission}
+      />
     })
   }
 

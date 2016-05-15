@@ -13,6 +13,9 @@ export default function (state = defaultState, action) {
 
       return state
 
+    case 'SAVE_SHARE':
+      return state.setIn(['byId', action.share.id], action.share)
+
     default:
       return state
   }
