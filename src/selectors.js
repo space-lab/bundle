@@ -13,12 +13,14 @@ let currentUserIdSelector = state => state.User.get('current')
 let currentLinksSelector = state => state.Link.get('current')
 
 export const currentBundleSelector = createSelector(
-  [currentBundleIdSelector, bundlesSelector, sharesSelector],
-  (id, bundles, shares) => {
+  [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
+  (id, bundles, shares, users) => {
     if (!bundles.get(id)) return null
 
     return bundles.get(id)
-      .update('shares', ids => ids.map(id => shares.get(id)))
+      .update('shares', ids => ids.map(id => {
+        return shares.get(id).update('user', id => users.get(id))
+      }))
   }
 )
 

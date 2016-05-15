@@ -1,0 +1,24 @@
+.share-list-item {
+  width: 100%;
+  height: 70px;
+  border-top: 1px solid #e3e3e3;
+  display: flex;
+
+  .user-avatar, .user-information, user-permission {
+    display: inline-block;;
+  }
+
+  .user-avatar {
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+    }
+  }
+
+  .user-information {
+  }
+
+  .user-permission {
+  }
+}
