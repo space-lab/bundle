@@ -1,16 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import './index.css'
+import { SHARE_PERMISSIONS } from '../../../constants'
 
-export default class Share extends React.Component {
+
+export default class ShareItem extends React.Component {
   static propTypes = {
     share: ImmutablePropTypes.record,
     changeSharePermission: React.PropTypes.func
   }
-
-  static Permissions = [
-    { id: 1, name: 'View' },
-    { id: 2, name: 'Edit' }
-  ]
 
   permissionChanged (e) {
     let permissionId = e.target.value
@@ -21,7 +18,7 @@ export default class Share extends React.Component {
 
   renderPermission () {
     let selected = this.props.share.permission
-    let options = Share.Permissions
+    let options = SHARE_PERMISSIONS
 
     return (
       <select value={selected.get('id')} onChange={::this.permissionChanged}>

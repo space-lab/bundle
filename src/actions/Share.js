@@ -19,3 +19,16 @@ export function changeSharePermission (shareId, permissionId) {
     dispatch({ type: 'RECEIVE_SHARES', shares })
   }
 }
+
+export function inviteUsers (resource, id, payload) {
+  return async function (dispatch) {
+    let response = await request.post(api.invite(resource, id), payload)
+    let result = fromJS(normalize(response.data, shareSchema).entities)
+
+    let users = result.get('users').valueSeq().map(item => new User(item))
+    let shares = result.get('shares').valueSeq().map(item => new Share(item))
+
+    dispatch({ type: 'RECEIVE_USERS', users })
+    dispatch({ type: 'RECEIVE_SHARES', shares })
+  }
+}

@@ -1,19 +1,21 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
-import Share  from '../Share'
+import InviteUsers  from '../InviteUsers'
+import ShareItem  from '../ShareItem'
 import './index.css'
 
 export default class ShareBundleModal extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record,
-    changeSharePermission: React.PropTypes.func
+    changeSharePermission: React.PropTypes.func,
+    inviteUsers: React.PropTypes.func
   }
 
   renderShares () {
     let shares = this.props.bundle.shares
 
     return shares.map(share => {
-      return <Share key={share.id} share={share}
+      return <ShareItem key={share.id} share={share}
         changeSharePermission={this.props.changeSharePermission}
       />
     })
@@ -24,7 +26,12 @@ export default class ShareBundleModal extends React.Component {
 
     return (
       <div className='change-collection-modal'>
-      {::this.renderShares()}
+        <InviteUsers
+          resourceName='Bundle'
+          resourceId={this.props.bundle.id}
+          inviteUsers={this.props.inviteUsers}
+        />
+        {::this.renderShares()}
       </div>
     )
   }

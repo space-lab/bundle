@@ -9,7 +9,8 @@ export default class BundleViewHeader extends React.Component {
     toggleEdit: React.PropTypes.func,
     collections: ImmutablePropTypes.map,
     updateBundle: React.PropTypes.func,
-    changeSharePermission: React.PropTypes.func
+    changeSharePermission: React.PropTypes.func,
+    inviteUsers: React.PropTypes.func
   }
 
   render () {
@@ -34,6 +35,7 @@ export default class BundleViewHeader extends React.Component {
         <ShareBundle
           bundle={bundle}
           changeSharePermission={this.props.changeSharePermission}
+          inviteUsers={this.props.inviteUsers}
         />
 
         <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />

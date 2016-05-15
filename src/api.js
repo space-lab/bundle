@@ -8,7 +8,8 @@ let paths = {
   favorite: (resource, id) => `${API_BASE}/${resource}/${id}/favorite`,
   favorites: () => `${API_BASE}/favorites`,
   fetchLink: (url) => FETCHER_URL + url,
-  me: () => `${API_BASE}/me`
+  me: () => `${API_BASE}/me`,
+  invite: (resource, id) => `${API_BASE}/${resource}/${id}/invite`,
 }
 
 export default paths
