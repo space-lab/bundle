@@ -1,5 +1,5 @@
-import Header from './Header'
-import Body from './Body'
+import Header from './header'
+import Body from './body'
 
 import './index.css'
 

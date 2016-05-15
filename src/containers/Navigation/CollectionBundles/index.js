@@ -5,7 +5,7 @@ import * as collectionActions from '../../../actions/Collection'
 import * as bundleActions from '../../../actions/Bundle'
 import * as favoriteActions from '../../../actions/Favorite'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import Wrapper from './Wrapper'
+import Wrapper from './wrapper'
 
 const connectState = (state) => ({
   collection: currentCollectionSelector(state),

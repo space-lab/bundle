@@ -5,7 +5,7 @@ import { sortedFavoritesSelector } from '../../../selectors'
 import * as bundleActions from '../../../actions/Bundle'
 import * as collectionActions from '../../../actions/Collection'
 import * as favoriteActions from '../../../actions/Favorite'
-import Wrapper from './Wrapper'
+import Wrapper from './wrapper'
 
 const connectState = (state) => ({
   favorites: sortedFavoritesSelector(state),
