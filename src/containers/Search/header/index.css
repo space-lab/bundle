@@ -12,12 +12,12 @@
     color: #B4B4B4;
     cursor: pointer;
     top: 27px;
-    right: 15px;
+    right: 20px;
 
     display: inline-block;
     width: 24px;
     height: 24px;
-    background: url(/assets/images/x.svg) no-repeat;
+    background: url(/assets/images/x.svg) center center no-repeat;
   }
 
   .search-input {

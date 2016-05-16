@@ -38,7 +38,9 @@ export default class BundleViewHeader extends React.Component {
           inviteUsers={this.props.inviteUsers}
         />
 
-        <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        <div className='align-right'>
+          <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        </div>
       </div>
     )
   }

@@ -26,7 +26,7 @@ export default function Wrapper ({
           <h2 className='title'>Collections</h2>
           <div className='nav'>
             <span className='icon create-collection-icon' onClick={generateNewCollection}></span>
-            <Link to='/search' className='icon ion-ios-search search-icon' />
+            <Link to='/search' className='icon search-icon' />
           </div>
         </ResourceNavigation.Header>
 
