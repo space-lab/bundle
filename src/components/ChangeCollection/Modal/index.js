@@ -46,7 +46,7 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   renderItem (item, isCurrent) {
-    let checkIcon = isCurrent ? <span className='icon collection-check-icon' /> : null
+    let checkIcon = isCurrent ? <div className='icon collection-check-icon' /> : null
 
     if (!item) return false
 
@@ -57,7 +57,6 @@ export default class ChangeCollectionModal extends React.Component {
 
         <span>{item.name}</span>
         {checkIcon}
-        <div className='separator'/>
       </div>
     )
   }
@@ -76,15 +75,18 @@ export default class ChangeCollectionModal extends React.Component {
 
     return (
       <div className='change-collection-modal'>
-        <input type='text'
-          className='search-input'
-          placeholder='Search Collections...'
-          value={this.props.ui.q}
-          onChange={::this.onQuoryChange}
-        />
-        <span className='icon ion-ios-search close-icon'
-          onClick={::this.onCloseClick}
-        />
+        <div className='search-container'>
+          <input type='text'
+            className='search-input'
+            placeholder='Search Collections...'
+            value={this.props.ui.q}
+            onChange={::this.onQuoryChange}
+          />
+          <span className='icon ion-ios-search close-icon'
+            onClick={::this.onCloseClick}
+          />
+        </div>
+
         <div className='search-results'>
           {this.renderSearchResult()}
         </div>

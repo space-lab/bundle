@@ -6,78 +6,87 @@
   box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.10);
   border-radius: 3px;
   width: 250px;
+  max-height: 400px;
   z-index: 1;
-  height: 400px;
+  box-sizing: border-box;
+  padding: 15px 10px;
 
-  .close-icon {
-    position: absolute;
-    color: #B4B4B4;
-    cursor: pointer;
-    right: 13px;
-    top: 19px;
+  .search-container {
+    position: relative;
 
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: url(/assets/images/x.svg) no-repeat;
-  }
+    .search-input {
+      background: #FCFCFC;
+      border: 1px solid #ECECEC;
+      border-radius: 13px;
+      font-family: Avenir-Light;
+      font-size: 14px;
+      color: #B4B4B4;
+      line-height: 21px;
+      text-indent: 10px;
+      color: #4E4E4E;
+      padding: 2px;
+      width: 100%;
+    }
 
-  .collection-check-icon {
-    color: #B4B4B4;
-    cursor: pointer;
-    position: absolute;
-    right: -8px;
-    top: 5px;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    background: url(/assets/images/collection-check.svg) no-repeat;
-  }
+    .close-icon {
+      position: absolute;
+      cursor: pointer;
 
-  .search-input {
-    background: #FCFCFC;
-    border: 1px solid #ECECEC;
-    border-radius: 13px;
-    font-family: Avenir-Light;
-    font-size: 14px;
-    color: #B4B4B4;
-    line-height: 21px;
-    text-indent: 10px;
-    color: #4E4E4E;
-    padding: 2px;
-    margin: 3px 0;
-    outline: none;
-    margin-left: 13px;
-    margin-top: 13px;
-    width: 89%;
+      right: 3px;
+      top: 0px;
+
+      width: 27px;
+      height: 27px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+    }
   }
 
   .search-results {
-    padding-left: 3px;
-    padding-top: 20px;
     overflow-y: scroll;
-    height: 87%;
-    padding: 12px 13px;
+    padding-top: 15px;
 
     .item {
       font-family: Avenir-Book;
       font-size: 16px;
       color: #414141;
-      letter-spacing: 0px;
-      padding-bottom: 15px;
       position: relative;
       cursor: pointer;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1px solid #F1F1F1;
+      transition: background-color linear 200ms;
+
+      &:last-child {
+        border-bottom: 0px;
+      }
+
+      span {
+        width: 200px;
+        padding-left: 10px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+      }
+
+      &:hover {
+        background-color: #ebf3fa
+      }
 
       &.current {
         font-family: Avenir-Medium;
         font-weight: bold;
       }
 
-      .separator {
-        width: 100%;
-        height: 1px;
-        background-color: #F1F1F1;
-        margin-top: 10px;
+      .collection-check-icon {
+        cursor: pointer;
+        position: absolute;
+        right: 3px;
+        top: 8px;
+        width: 24px;
+        height: 24px;
+        background: url(/assets/images/collection-check.svg) center center no-repeat;
       }
     }
   }
