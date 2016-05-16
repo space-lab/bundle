@@ -21,15 +21,21 @@ class Editable extends React.Component {
   }
 
   render () {
-    let { value, placeholder, editMode, type } = this.props
+    let { value, placeholder, editMode, type, focus } = this.props
 
     if (editMode) {
       if (type == 'textarea') {
-        return <textarea defaultValue={value || ''} placeholder={placeholder}
+        return <textarea
+          defaultValue={value || ''}
+          placeholder={placeholder}
+          autoFocus={focus}
           onKeyUp={this.handleKeyUp.bind(this)}
         />
       } else {
-        return <input defaultValue={value || ''} placeholder={placeholder}
+        return <input
+          defaultValue={value || ''}
+          placeholder={placeholder}
+          autoFocus={focus}
           onKeyUp={this.handleKeyUp.bind(this)}
         />
       }
@@ -45,7 +51,8 @@ class Editable extends React.Component {
     placeholder: React.PropTypes.string,
     editMode: React.PropTypes.bool.isRequired,
     enterAction: React.PropTypes.func,
-    onChange: React.PropTypes.func
+    onChange: React.PropTypes.func,
+    focus: React.PropTypes.bool
   }
 }
 
