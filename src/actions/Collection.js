@@ -31,7 +31,7 @@ export function getCollections () {
 export function generateNewCollection (id) {
   let collection = new Collection({
     id,
-    name: 'Name Collection...',
+    name: '',
     editMode: true,
     created_at: new Date().toISOString()
   })

@@ -13,12 +13,10 @@ export default class Alerts extends React.Component {
     if (!alert) return false
 
     return (
-      <Alert.Wrapper>
-        <Alert type={alert.get('type')}
-          alerts={alert.get('list')}
-          removeAlert={removeAlert}
-        />
-      </Alert.Wrapper>
+      <Alert type={alert.get('type')}
+        alerts={alert.get('list')}
+        removeAlert={removeAlert}
+      />
     )
   }
 

@@ -2,6 +2,7 @@ import * as bundleActions from '../../actions/Bundle'
 import * as linkActions from '../../actions/Link'
 import * as searchActions from '../../actions/Search'
 import * as collectionActions from '../../actions/Collection'
+import * as shareActions from '../../actions/Share'
 
 import { connect } from 'react-redux'
 import { linksWithoutAuthors } from '../../helpers'
@@ -27,6 +28,7 @@ const connectProps = {
   ...bundleActions,
   ...collectionActions,
   ...linkActions,
+  ...shareActions,
   ...searchActions
 }
 

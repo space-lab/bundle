@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleBundleButton from '../ToggleBundleButton'
-import { ChangeCollection } from '../../../components'
+import { ChangeCollection, ShareBundle } from '../../../components'
 import './index.css'
 
 export default class BundleViewHeader extends React.Component {
@@ -8,11 +8,13 @@ export default class BundleViewHeader extends React.Component {
     bundle: ImmutablePropTypes.record,
     toggleEdit: React.PropTypes.func,
     collections: ImmutablePropTypes.map,
-    updateBundle: React.PropTypes.func
+    updateBundle: React.PropTypes.func,
+    changeSharePermission: React.PropTypes.func,
+    inviteUsers: React.PropTypes.func
   }
 
   render () {
-    let { ui, bundle, toggleEdit, collections, updateBundle } = this.props
+    let { ui, bundle, toggleEdit, collections } = this.props
 
     if (bundle.isNewBundle) {
       return (
@@ -27,10 +29,18 @@ export default class BundleViewHeader extends React.Component {
         <ChangeCollection
           bundle={bundle}
           collections={collections}
-          updateBundle={updateBundle}
+          updateBundle={this.props.updateBundle}
         />
 
-        <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        <ShareBundle
+          bundle={bundle}
+          changeSharePermission={this.props.changeSharePermission}
+          inviteUsers={this.props.inviteUsers}
+        />
+
+        <div className='align-right'>
+          <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        </div>
       </div>
     )
   }

@@ -1,0 +1,6 @@
+.invite-users-container {
+  .invite-input-container, .invite-button-container {
+    width: 100%;
+    height: 50px;
+  }
+}

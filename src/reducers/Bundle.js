@@ -13,6 +13,11 @@ export default function (state = defaultState, action) {
       return state
         .setIn(['byId', action.bundle.id], action.bundle)
 
+
+    case 'ADD_SHARES_TO_BUNDLE':
+      return state
+        .updateIn(['byId', action.bundleId, 'shares'], shares => shares.concat(action.shares))
+
     case 'ADD_LINK_ID_TO_BUNDLE':
       return state
         .updateIn(['byId', action.bundleId, 'links'], links => links.unshift(action.linkId))

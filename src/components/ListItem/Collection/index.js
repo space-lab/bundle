@@ -30,7 +30,9 @@ export default function CollectionListItem ({
           <h1>
             <Editable
               value={name}
+              placeholder='Name Collection...'
               editMode={editMode}
+              focus={true}
               enterAction={value => createCollection(id, value)}
             />
           </h1>

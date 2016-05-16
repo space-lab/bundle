@@ -1,5 +1,4 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import Wrapper from './Wrapper'
 import './index.css'
 
 function alertContent (alerts) {
@@ -14,14 +13,14 @@ export default function Alert ({ type, alerts, removeAlert }) {
   const content = alertContent(alerts)
 
   return (
-    <div className={`alert alert-${type}`}>
-      {content}
-      <button onClick={removeAlert}>x</button>
+    <div className='alerts-container'>
+      <div className={`alert alert-${type}`}>
+        {content}
+        <div className='close-icon' onClick={removeAlert}/>
+      </div>
     </div>
   )
 }
-
-Alert.Wrapper = Wrapper
 
 Alert.propTypes = {
   type: React.PropTypes.string.isRequired,

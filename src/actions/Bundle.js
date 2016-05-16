@@ -1,5 +1,5 @@
 import { fromJS, Map, List } from 'immutable'
-import { Bundle, User, Link } from '../records'
+import { Bundle, User, Link, Share } from '../records'
 import { bundleSchema } from '../normalizers'
 import { normalize } from 'normalizr'
 import { NEW_BUNDLE_ID } from '../constants'
@@ -10,13 +10,16 @@ import api from './../api'
 function reduceBundle (data, dispatch) {
   let result = fromJS(normalize(data, bundleSchema).entities)
     .update('links', links => links || Map())
+    .update('shares', shares => shares || Map())
 
   let bundle = new Bundle(result.get('bundles').first())
   let users = result.get('users').valueSeq().map(item => new User(item))
   let links = result.get('links').valueSeq().map(item => new Link(item))
+  let shares = result.get('shares').valueSeq().map(item => new Share(item))
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_LINKS', links })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
 }
 

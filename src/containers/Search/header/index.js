@@ -16,7 +16,7 @@ export default class SearchHeader extends React.Component {
         <input className='search-input' type='text'
           placeholder='Search...' onChange={this.onChange}
           value={query || ''} />
-        <Link to='/bundles' className='icon ion-ios-search close-icon' />
+        <Link to='/bundles' className='icon close-icon' />
       </div>
     )
   }
