@@ -1,8 +1,9 @@
+import request from 'axios'
+import { normalize, arrayOf } from 'normalizr'
 import { fromJS } from 'immutable'
+
 import { Share, User } from '../records'
 import { shareSchema } from '../normalizers'
-import { normalize, arrayOf } from 'normalizr'
-import request from 'axios'
 import api from './../api'
 
 export function changeSharePermission (id, type, permissionId) {

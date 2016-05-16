@@ -26,7 +26,7 @@ export default class InviteUsers extends React.Component {
       return { email: email.trim(), permission_id: permission }
     })
 
-    this.props.inviteUsers(resource, id, { data }).then(()=> {
+    this.props.inviteUsers(resource, id, { data }).then(() => {
       this.props.resetUI()
       this.refs.email.value = ''
     })
@@ -55,7 +55,8 @@ export default class InviteUsers extends React.Component {
     return (
       <div className='invite-users-container'>
         <div className='invite-input-container'>
-          <textarea defaultValue={value || ''}
+          <textarea
+            defaultValue={value || ''}
             ref='email'
             placeholder='Enter name, or email'
             onKeyUp={::this.handleKeyUp}
