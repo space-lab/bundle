@@ -9,7 +9,7 @@ export default function Search ({
     <div className='search-container-wrapper'>
       <span
         onClick={onClick}
-        className='icon ion-ios-search search-icon'
+        className='icon search-icon'
         style={{ 'display': search ? 'none' : 'block' }}
       />
 

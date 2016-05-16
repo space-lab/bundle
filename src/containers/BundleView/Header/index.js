@@ -32,13 +32,15 @@ export default class BundleViewHeader extends React.Component {
           updateBundle={this.props.updateBundle}
         />
 
-        <ShareBundle
-          bundle={bundle}
-          changeSharePermission={this.props.changeSharePermission}
-          inviteUsers={this.props.inviteUsers}
-        />
+        <div className='align-right'>
+          <ShareBundle
+            bundle={bundle}
+            changeSharePermission={this.props.changeSharePermission}
+            inviteUsers={this.props.inviteUsers}
+          />
 
-        <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+          <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        </div>
       </div>
     )
   }

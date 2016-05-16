@@ -82,7 +82,7 @@ export default class ChangeCollectionModal extends React.Component {
             value={this.props.ui.q}
             onChange={::this.onQuoryChange}
           />
-          <span className='icon ion-ios-search close-icon'
+          <span className='icon close-icon'
             onClick={::this.onCloseClick}
           />
         </div>

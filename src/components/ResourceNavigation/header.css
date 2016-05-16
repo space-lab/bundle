@@ -27,14 +27,14 @@
       display: inline-block;
       width: 24px;
       height: 24px;
-      background: url(/assets/images/search-icon.svg) no-repeat;
+      background: url(/assets/images/search-icon.svg) center center no-repeat;
     }
 
     .create-collection-icon {
       display: inline-block;
       width: 24px;
       height: 24px;
-      background: url(/assets/images/collection-add.svg) no-repeat;
+      background: url(/assets/images/collection-add.svg) center center no-repeat;
     }
 
     .title {

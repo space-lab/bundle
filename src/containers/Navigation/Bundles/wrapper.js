@@ -31,7 +31,7 @@ export default function Wrapper ({
           <h2 style={styles} className='title'>Bundles</h2>
 
           <div className='nav'>
-            <Link to='/search' className='icon ion-ios-search search-icon' />
+            <Link to='/search' className='icon search-icon' />
           </div>
         </ResourceNavigation.Header>
 

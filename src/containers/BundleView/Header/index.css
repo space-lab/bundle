@@ -1,3 +1,10 @@
+.bundle-view-header-wrapper {
+  height: 65px;
+  border-bottom: 1px solid #ECECEC;
+  display: flex;
+  align-items: center;
+}
+
 .icon {
   font-size: 24px;
   cursor: pointer;
@@ -22,15 +29,7 @@
   background: url(/assets/images/down-arrow.svg) no-repeat center center;
 }
 
-
-.bundle-view-header-wrapper {
-  height: 65px;
-  border-bottom: 1px solid #ECECEC;
-  display: flex;
-  align-items: center;
-}
-
-.toggle-btn-wrapper {
+.align-right {
   margin-left: auto;
   display: inline-block;
 }
