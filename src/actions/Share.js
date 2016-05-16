@@ -11,12 +11,15 @@ export function changeSharePermission (shareId, permissionId) {
     let response = await request.put(api.shares(shareId), payload)
     let result = fromJS(normalize(response.data, shareSchema).entities)
 
+    if (result.get('users')) {
+      let users = result.get('users').valueSeq().map(item => new User(item))
+      dispatch({ type: 'RECEIVE_USERS', users })
+    }
 
-    let users = result.get('users').valueSeq().map(item => new User(item))
-    let shares = result.get('shares').valueSeq().map(item => new Share(item))
-
-    dispatch({ type: 'RECEIVE_USERS', users })
-    dispatch({ type: 'RECEIVE_SHARES', shares })
+    if (result.get('shares')) {
+      let shares = result.get('shares').valueSeq().map(item => new Share(item))
+      dispatch({ type: 'RECEIVE_SHARES', shares })
+    }
   }
 }
 
@@ -25,12 +28,17 @@ export function inviteUsers (resource, id, payload) {
     let response = await request.post(api.invite(resource, id), payload)
     let result = fromJS(normalize(response.data, arrayOf(shareSchema)).entities)
 
-    let users = result.get('users').valueSeq().map(item => new User(item))
-    let shares = result.get('shares').valueSeq().map(item => new Share(item))
-    let shareIds = shares.map(share => share.id)
+    if (result.get('users')) {
+      let users = result.get('users').valueSeq().map(item => new User(item))
+      dispatch({ type: 'RECEIVE_USERS', users })
+    }
 
-    dispatch({ type: 'RECEIVE_USERS', users })
-    dispatch({ type: 'RECEIVE_SHARES', shares })
-    dispatch({ type: 'ADD_SHARES_TO_BUNDLE', shares: shareIds, bundleId: id })
+    if (result.get('shares')) {
+      let shares = result.get('shares').valueSeq().map(item => new Share(item))
+      let shareIds = shares.map(share => share.id)
+
+      dispatch({ type: 'RECEIVE_SHARES', shares })
+      dispatch({ type: 'ADD_SHARES_TO_BUNDLE', shares: shareIds, bundleId: id })
+    }
   }
 }

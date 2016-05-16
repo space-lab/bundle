@@ -26,7 +26,9 @@ export default class InviteUsers extends React.Component {
       return { email: email.trim(), permission_id: permission }
     })
 
-    this.props.inviteUsers(resource, id, { data })
+    this.props.inviteUsers(resource, id, { data }).then(()=> {
+      this.props.resetUI()
+    })
   }
 
   permissionChanged (e) {
