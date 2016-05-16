@@ -11,9 +11,10 @@ export default class ShareItem extends React.Component {
 
   permissionChanged (e) {
     let permissionId = e.target.value
-    let shareId = this.props.share.id
+    let id = this.props.share.id
+    let type = this.props.share.type
 
-    this.props.changeSharePermission(shareId, permissionId)
+    this.props.changeSharePermission(id, type, permissionId)
   }
 
   renderPermission () {

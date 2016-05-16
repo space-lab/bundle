@@ -5,10 +5,12 @@ import { normalize, arrayOf } from 'normalizr'
 import request from 'axios'
 import api from './../api'
 
-export function changeSharePermission (shareId, permissionId) {
+export function changeSharePermission (id, type, permissionId) {
   return async function (dispatch) {
+    let url = type == 'share' ? api.shares(id) : api.invites(id)
     let payload = { permission_id: permissionId }
-    let response = await request.put(api.shares(shareId), payload)
+
+    let response = await request.put(url, payload)
     let result = fromJS(normalize(response.data, shareSchema).entities)
 
     if (result.get('users')) {
