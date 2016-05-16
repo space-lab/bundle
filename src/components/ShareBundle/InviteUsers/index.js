@@ -28,6 +28,7 @@ export default class InviteUsers extends React.Component {
 
     this.props.inviteUsers(resource, id, { data }).then(()=> {
       this.props.resetUI()
+      this.refs.email.value = ''
     })
   }
 
@@ -55,6 +56,7 @@ export default class InviteUsers extends React.Component {
       <div className='invite-users-container'>
         <div className='invite-input-container'>
           <textarea defaultValue={value || ''}
+            ref='email'
             placeholder='Enter name, or email'
             onKeyUp={::this.handleKeyUp}
           />
