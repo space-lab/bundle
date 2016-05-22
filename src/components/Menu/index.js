@@ -13,11 +13,10 @@ export default class Menu extends React.Component {
   }
 
   render () {
-    let { headline, children, left, bottom } = this.props
-    let styles = { left, bottom }
+    let { headline, children } = this.props
 
     return (
-      <div style={styles} className='menu'>
+      <div className='menu'>
         {this.renderHeadline(headline)}
 
         {children}
@@ -26,8 +25,6 @@ export default class Menu extends React.Component {
   }
 
   static propTypes = {
-    left: React.PropTypes.string,
-    bottom: React.PropTypes.string,
     headline: React.PropTypes.string
   }
 }
