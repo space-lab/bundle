@@ -3,6 +3,11 @@ import { Editable } from 'components'
 
 @ui()
 export default class Name extends React.Component {
+  static propTypes = {
+    value: React.PropTypes.string,
+    editMode: React.PropTypes.bool.isRequired
+  }
+
   render () {
     let {
       value,
@@ -23,7 +28,4 @@ export default class Name extends React.Component {
   }
 }
 
-Name.propTypes = {
-  value: React.PropTypes.string,
-  editMode: React.PropTypes.bool.isRequired
-}
+
