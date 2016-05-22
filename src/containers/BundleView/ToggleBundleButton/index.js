@@ -1,4 +1,4 @@
-import { shouldShow } from '../../../helpers'
+import { shouldShow } from 'helpers'
 
 export default function ToggleBundleButton ({ toggleEdit, editMode }) {
   return (

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import { fromJS } from 'immutable'
-import { NEW_BUNDLE_ID } from '../../constants'
-import * as routeActions from '../../actions/Route'
+import { NEW_BUNDLE_ID } from 'constants'
+import * as routeActions from 'actions/Route'
 import './index.css'
 
 import {

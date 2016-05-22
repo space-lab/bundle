@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { Alert } from '../../components'
-import * as alertActions from '../../actions/Alert'
+import { Alert } from 'components'
+import * as alertActions from 'actions/Alert'
 
 const connectProps = (state) => ({ alert: state.Alert.first() })
 const connectActions = { ...alertActions }

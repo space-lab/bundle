@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { List, ListItem } from '../../../components'
+import { List, ListItem } from 'components'
 import './index.css'
 
 function isAnyResult (searchResults) {

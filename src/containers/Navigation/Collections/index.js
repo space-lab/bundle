@@ -1,9 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { sortedCollectionsSelector } from '../../../selectors'
-import { nextId } from '../../../helpers'
-import * as collectionActions from '../../../actions/Collection'
-import * as favoriteActions from '../../../actions/Favorite'
+import { sortedCollectionsSelector } from 'selectors'
+import { nextId } from 'helpers'
+import * as collectionActions from 'actions/Collection'
+import * as favoriteActions from 'actions/Favorite'
 import Wrapper from './Wrapper'
 
 const connectState = (state) => ({

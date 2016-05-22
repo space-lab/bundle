@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import * as searchActions from '../../actions/Search'
-import * as bundleActions from '../../actions/Bundle'
-import * as favoriteActions from '../../actions/Favorite'
+import * as searchActions from 'actions/Search'
+import * as bundleActions from 'actions/Bundle'
+import * as favoriteActions from 'actions/Favorite'
 import SearchWrapper from './wrapper'
 
 const connectState = (state) => ({ searchResults: state.Search.get('result') })

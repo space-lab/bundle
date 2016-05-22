@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { currentUserSelector } from '../../selectors'
+import { currentUserSelector } from 'selectors'
 
 import ui from 'redux-ui'
 import SideNavigationTop from './top'

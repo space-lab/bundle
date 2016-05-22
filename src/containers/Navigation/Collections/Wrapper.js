@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { List, ListItem, ResourceNavigation } from '../../../components'
+import { List, ListItem, ResourceNavigation } from 'components'
 
 export default function Wrapper ({
   collections,

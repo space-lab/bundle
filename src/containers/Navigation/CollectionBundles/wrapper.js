@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { ResourceNavigation, List, ListItem } from '../../../components'
+import { ResourceNavigation, List, ListItem } from 'components'
 
 function bundleUrl (collection, bundle) {
   return `/collections/${collection.get('id')}/bundles/${bundle.get('id')}`

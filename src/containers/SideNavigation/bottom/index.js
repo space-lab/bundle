@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
-import { Modal, Menu, UserMenu } from '../../../components'
+import { Modal, Menu, UserMenu } from 'components'
 
 export default function SideNavigationBottom ({
   isOpen,

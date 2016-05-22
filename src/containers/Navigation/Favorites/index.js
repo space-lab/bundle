@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { sortedFavoritesSelector } from '../../../selectors'
-import * as bundleActions from '../../../actions/Bundle'
-import * as collectionActions from '../../../actions/Collection'
-import * as favoriteActions from '../../../actions/Favorite'
+import { sortedFavoritesSelector } from 'selectors'
+import * as bundleActions from 'actions/Bundle'
+import * as collectionActions from 'actions/Collection'
+import * as favoriteActions from 'actions/Favorite'
 import Wrapper from './wrapper'
 
 const connectState = (state) => ({

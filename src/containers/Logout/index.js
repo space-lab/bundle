@@ -1,6 +1,6 @@
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import * as userActions from '../../actions/User'
+import * as userActions from 'actions/User'
 
 const connectProps = { ...userActions }
 

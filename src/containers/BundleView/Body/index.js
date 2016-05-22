@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Name from './Name'
 import Description from './Description'
-import { BundleView, Editable } from '../../../components'
-import { AddLink } from '../../'
+import { BundleView, Editable } from 'components'
+import { AddLink } from 'containers'
 
 import './index.css'
 

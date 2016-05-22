@@ -1,5 +1,5 @@
 import ui from 'redux-ui'
-import { Editable } from '../../../../components'
+import { Editable } from 'components'
 
 @ui()
 export default class Name extends React.Component {
