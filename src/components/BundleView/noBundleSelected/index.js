@@ -1,3 +1,12 @@
+import { Autocomplete } from 'components'
+
 export default function noBundleSelected () {
-  return <div>No Bundle Selected</div>
+  return <div>
+    No Bundle Selected...
+    <br/>
+    <br/>
+    <br/>
+
+    <Autocomplete/>
+  </div>
 }
