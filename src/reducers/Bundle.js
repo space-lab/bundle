@@ -1,5 +1,5 @@
-import { Bundle } from '../records'
-import { NEW_BUNDLE_ID } from '../constants'
+import { Bundle } from 'records'
+import { NEW_BUNDLE_ID } from 'constants'
 import { fromJS, Map, List } from 'immutable'
 
 let defaultState = Map({

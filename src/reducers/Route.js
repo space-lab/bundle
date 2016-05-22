@@ -1,6 +1,6 @@
-import { Route } from '../records'
 import { fromJS } from 'immutable'
-import { NEW_BUNDLE_ID } from '../constants'
+import { Route } from 'records'
+import { NEW_BUNDLE_ID } from 'constants'
 
 export default function (state = new Route(), action) {
   switch (action.type) {

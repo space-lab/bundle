@@ -2,7 +2,7 @@ import { createStore, compose } from 'redux'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 
-import rootReducer from '../reducers'
+import rootReducer from 'reducers'
 
 import errorHandler from './middlewares/errorHandler'
 import thunk from './middlewares/thunk'
