@@ -53,5 +53,6 @@ CollectionListItem.propTypes = {
   bundles_count: React.PropTypes.number.isRequired,
   shares_count: React.PropTypes.number.isRequired,
   createCollection: React.PropTypes.func.isRequired,
+  close: React.PropTypes.func.isRequired,
   editMode: React.PropTypes.bool
 }

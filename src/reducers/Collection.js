@@ -22,6 +22,7 @@ export default function (state = defaultState, action) {
     case 'UNFAVORITE_COLLECTION':
       return state.updateIn(['byId', action.id], (col) => col.set('favorited', false))
 
+    case 'CLOSE_COLLECTION':
     case 'REMOVE_COLLECTION':
       return state.deleteIn(['byId', action.id])
 

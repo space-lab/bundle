@@ -13,7 +13,7 @@ export default class ListToolbar extends React.Component {
     favorite: React.PropTypes.func.isRequired,
     unfavorite: React.PropTypes.func.isRequired,
     remove: React.PropTypes.func.isRequired,
-    close: React.PropTypes.func.isRequired,
+    close: React.PropTypes.func,
     editMode: React.PropTypes.bool
   }
 
