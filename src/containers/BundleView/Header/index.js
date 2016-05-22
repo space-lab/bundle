@@ -18,10 +18,10 @@ export default class BundleViewHeader extends React.Component {
 
     if (bundle.isNewBundle) {
       return (
-       <div className='bundle-view-header-wrapper'>
-         <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
-       </div>
-     )
+        <div className='bundle-view-header-wrapper'>
+          <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+        </div>
+      )
     }
 
     return (
@@ -32,14 +32,17 @@ export default class BundleViewHeader extends React.Component {
           updateBundle={this.props.updateBundle}
         />
 
-        <ShareBundle
-          bundle={bundle}
-          changeSharePermission={this.props.changeSharePermission}
-          inviteUsers={this.props.inviteUsers}
-        />
-
         <div className='align-right'>
-          <ToggleBundleButton editMode={ui.editMode} toggleEdit={toggleEdit} />
+          <ShareBundle
+            bundle={bundle}
+            changeSharePermission={this.props.changeSharePermission}
+            inviteUsers={this.props.inviteUsers}
+          />
+
+          <ToggleBundleButton
+            editMode={ui.editMode}
+            toggleEdit={toggleEdit}
+          />
         </div>
       </div>
     )

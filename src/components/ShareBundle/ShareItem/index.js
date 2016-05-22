@@ -39,7 +39,8 @@ export default class ShareItem extends React.Component {
         </div>
 
         <div className='user-information'>
-          {share.user.name} / {share.user.email}
+          <div className='name'>{share.user.name}</div>
+          <div className='email'>{share.user.email}</div>
         </div>
 
         <div className='user-permission'>

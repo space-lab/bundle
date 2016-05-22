@@ -31,25 +31,25 @@
 
 .align-right {
   margin-left: auto;
-  display: inline-block;
+  display: flex;
 }
 
-.btn.mod-toggle {
-  width: 95px;
+.button {
+  display: inline-block;
   height: 30px;
-  background-color: #FFF;
+  padding: 0 20px;
+  margin-left: 15px;
   border: 1px solid #6C90F3;
   color: #6C90F3;
-  font-family: Avenir-Book;
+  background-color: white;
   font-size: 15px;
   line-height: 25px;
   cursor: pointer;
-  border-radius: 34px;
+  border-radius: 15px;
   outline: none;
-  transition: all .05s ease-in-out;
+  transition: all linear 200ms;
 
   &:hover {
-    transition: all .05s ease-in-out;
     color: #FFF;
     background-color: #6C90F3;
   }

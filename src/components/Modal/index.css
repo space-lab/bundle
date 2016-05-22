@@ -1,0 +1,14 @@
+.modal {
+  position: absolute;
+  z-index: 1;
+
+  padding: 15px 10px;
+
+  background: white;
+
+  border-radius: 3px;
+  border: 1px solid #DCDCDC;
+
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.10);
+  box-sizing: border-box;
+}

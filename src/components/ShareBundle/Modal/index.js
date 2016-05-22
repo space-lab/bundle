@@ -1,7 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
-import InviteUsers  from '../InviteUsers'
-import ShareItem  from '../ShareItem'
+import InviteUsers from '../InviteUsers'
+import ShareItem from '../ShareItem'
+import { Modal } from './../../'
 import './index.css'
 
 export default class ShareBundleModal extends React.Component {
@@ -25,14 +26,15 @@ export default class ShareBundleModal extends React.Component {
     if (!this.props.ui.isOpen) return false
 
     return (
-      <div className='change-collection-modal'>
+      <Modal className='share-bundle-modal'>
         <InviteUsers
           resourceName='Bundle'
           resourceId={this.props.bundle.id}
           inviteUsers={this.props.inviteUsers}
         />
+
         {::this.renderShares()}
-      </div>
+      </Modal>
     )
   }
 }

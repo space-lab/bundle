@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
+import { Modal } from './../../../components'
 import './index.css'
 
 export default class ChangeCollectionModal extends React.Component {
@@ -74,7 +75,7 @@ export default class ChangeCollectionModal extends React.Component {
     if (!this.props.ui.isOpen) return false
 
     return (
-      <div className='change-collection-modal'>
+      <Modal className='change-collection-modal'>
         <div className='search-container'>
           <input type='text'
             className='search-input'
@@ -90,7 +91,7 @@ export default class ChangeCollectionModal extends React.Component {
         <div className='search-results'>
           {this.renderSearchResult()}
         </div>
-      </div>
+      </Modal>
     )
   }
 }
