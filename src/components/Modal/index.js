@@ -10,7 +10,7 @@ export default class Modal extends React.Component {
     let { children, style, className } = this.props
 
     return (
-      <div className={'modal ' + className} style={style}>
+      <div className={className + ' modal'} style={style}>
         {children}
       </div>
     )
