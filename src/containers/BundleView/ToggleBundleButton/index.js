@@ -5,7 +5,7 @@ export default function ToggleBundleButton ({ toggleEdit, editMode }) {
     <div className='toggle-btn-wrapper'>
       <button
         style={shouldShow(!editMode)}
-        className='btn mod-toggle'
+        className='button'
         onClick={toggleEdit.bind(this, false)}
       >
         Edit
@@ -13,7 +13,7 @@ export default function ToggleBundleButton ({ toggleEdit, editMode }) {
 
       <button
         style={shouldShow(editMode)}
-        className='btn mod-toggle'
+        className='button'
         onClick={toggleEdit.bind(this, true)}
       >
         Save
