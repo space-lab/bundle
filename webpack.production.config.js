@@ -1,9 +1,13 @@
+var path = require('path')
 var webpack = require('webpack')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 //var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: __dirname,
+  resolve: {
+    root: path.resolve('./src')
+  },
   entry: './src/index',
   output: {
     path: 'dist/',
