@@ -1,5 +1,10 @@
 .share-bundle-modal {
   width: 435px;
+
   right: -10px;
   top: -10px;
+
+  padding: 0;
+
+
 }

@@ -3,9 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from '../../../constants'
 import './index.css'
 
-@ui({
-  state: { value: '', permission: 1 }
-})
+@ui({ state: { value: '', permission: 1 } })
 export default class InviteUsers extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string,
@@ -54,8 +52,11 @@ export default class InviteUsers extends React.Component {
 
     return (
       <div className='invite-users-container'>
-        <div className='invite-input-container'>
-          <textarea
+        <div className='full-row'>
+          <div className='to'>To:</div>
+
+          <input
+            className='invite-user-input'
             defaultValue={value || ''}
             ref='email'
             placeholder='Enter name, or email'
@@ -63,9 +64,11 @@ export default class InviteUsers extends React.Component {
           />
         </div>
 
-        <div className='invite-button-container'>
+        <div className='full-row'>
           <span>Members</span>
+
           {::this.renderPermission()}
+
           <button onClick={::this.inviteUsers}>Invite</button>
         </div>
       </div>
