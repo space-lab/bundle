@@ -23,7 +23,7 @@ export default function CollectionListItem ({
 
   return (
     <div>
-      <ListToolbar id={id} {...toolbarProps} />
+      <ListToolbar id={id} editMode={editMode} {...toolbarProps} />
 
       <Link to={url} onClick={event => editMode && event.preventDefault()}>
         <div>
