@@ -64,12 +64,17 @@ export default class InviteUsers extends React.Component {
           />
         </div>
 
-        <div className='full-row'>
-          <span>Members</span>
+        <div className='full-row members'>
+          <span>Members can</span>
 
           {::this.renderPermission()}
 
-          <button onClick={::this.inviteUsers}>Invite</button>
+          <button
+            className='button'
+            onClick={::this.inviteUsers}
+          >
+            Invite
+         </button>
         </div>
       </div>
     )
