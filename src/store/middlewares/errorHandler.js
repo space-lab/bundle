@@ -1,5 +1,5 @@
 import { applyMiddleware } from 'redux'
-import { addAlert } from './../../actions/Alert'
+import { addAlert } from 'actions/Alert'
 
 function errorHandler () {
   return (next) => (action) => {

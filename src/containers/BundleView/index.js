@@ -1,11 +1,12 @@
-import * as bundleActions from '../../actions/Bundle'
-import * as linkActions from '../../actions/Link'
-import * as searchActions from '../../actions/Search'
-import * as collectionActions from '../../actions/Collection'
-import * as shareActions from '../../actions/Share'
+
+import * as linkActions from 'actions/Link'
+import * as shareActions from 'actions/Share'
+import * as searchActions from 'actions/Search'
+import * as bundleActions from 'actions/Bundle'
+import * as collectionActions from 'actions/Collection'
 
 import { connect } from 'react-redux'
-import { linksWithoutAuthors } from '../../helpers'
+import { linksWithoutAuthors } from 'helpers'
 import {
   currentBundleSelector,
   currentLinkSelector
@@ -25,11 +26,11 @@ const connectState = (state) => ({
 })
 
 const connectProps = {
-  ...bundleActions,
-  ...collectionActions,
   ...linkActions,
   ...shareActions,
-  ...searchActions
+  ...searchActions,
+  ...bundleActions,
+  ...collectionActions
 }
 
 @ui({

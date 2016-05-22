@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { BundleView } from '../../../components'
+import { BundleView } from 'components'
 import './index.css'
 
 export default function LinkPreview ({ link, currentUser, addLinkHandler }) {

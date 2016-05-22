@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleBundleButton from '../ToggleBundleButton'
-import { ChangeCollection, ShareBundle } from '../../../components'
+import { ChangeCollection, ShareBundle } from 'components'
 import './index.css'
 
 export default class BundleViewHeader extends React.Component {

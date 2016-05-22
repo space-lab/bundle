@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { ResourceNavigation, List, ListItem } from '../../../components'
+import { ResourceNavigation, List, ListItem } from 'components'
 
 export default class Container extends React.Component {
   renderBundleListItem (bundle, index) {

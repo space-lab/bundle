@@ -1,4 +1,4 @@
-import { SideNavigation, Alerts, Auth } from '..'
+import { SideNavigation, Alerts, Auth } from 'containers'
 import './style.css'
 
 export default class App extends React.Component {

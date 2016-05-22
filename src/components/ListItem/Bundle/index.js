@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { Date, ListToolbar } from './../..'
+import { Date, ListToolbar } from 'components'
 
 export default function BundleListItem ({
   id,

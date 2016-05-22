@@ -1,10 +1,10 @@
 import { fromJS } from 'immutable'
-import { Bundle, Collection } from '../records'
-import { collectionSchema } from '../normalizers'
+import { Bundle, Collection } from 'records'
+import { collectionSchema } from 'normalizers'
 import { normalize } from 'normalizr'
 
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 export function getCollection (id) {
   return async function (dispatch) {

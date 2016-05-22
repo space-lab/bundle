@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
-import { ResourceNavigation, List, ListItem } from '../../../components'
-import { NEW_BUNDLE_ID } from '../../../constants'
+import { ResourceNavigation, List, ListItem } from 'components'
+import { NEW_BUNDLE_ID } from 'constants'
 import './wrapper.css'
 
 export default function Wrapper ({

@@ -1,8 +1,8 @@
 import { Provider } from 'react-redux'
 import { Router } from 'react-router'
 
-import { store, history } from './../../store/store'
-import routes from './../../routes'
+import { store, history } from 'store/store'
+import routes from 'routes'
 
 export default function Root () {
   return (

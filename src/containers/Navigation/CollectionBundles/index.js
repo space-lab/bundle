@@ -1,9 +1,9 @@
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { currentCollectionSelector, sortedCollectionBundlesSelector } from '../../../selectors'
-import * as collectionActions from '../../../actions/Collection'
-import * as bundleActions from '../../../actions/Bundle'
-import * as favoriteActions from '../../../actions/Favorite'
+import { currentCollectionSelector, sortedCollectionBundlesSelector } from 'selectors'
+import * as collectionActions from 'actions/Collection'
+import * as bundleActions from 'actions/Bundle'
+import * as favoriteActions from 'actions/Favorite'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Wrapper from './wrapper'
 

@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
-import { Modal } from './../../../components'
+import { Modal } from 'components'
 import './index.css'
 
 export default class ChangeCollectionModal extends React.Component {

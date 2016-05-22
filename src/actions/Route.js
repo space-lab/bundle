@@ -1,4 +1,4 @@
-import { NEW_BUNDLE_ID } from '../constants'
+import { NEW_BUNDLE_ID } from 'constants'
 
 export function routeChangeBundleId (bundleId) {
   return { type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId }

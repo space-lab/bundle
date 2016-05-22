@@ -1,8 +1,12 @@
+var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
   context: __dirname,
   entry: './src/index',
+  resolve: {
+    root: path.resolve('./src')
+  },
   output: {
     path: __dirname,
     filename: 'assets/js/bundle.js'

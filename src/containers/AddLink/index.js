@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { currentBundleSelector, currentUserSelector } from '../../selectors'
-import { nextId } from '../../helpers'
-import * as bundleActions from '../../actions/Bundle'
-import * as linkActions from '../../actions/Link'
+import { nextId } from 'helpers'
+import * as bundleActions from 'actions/Bundle'
+import * as linkActions from 'actions/Link'
 import EnterUrl from './EnterUrl'
 import LinkPreview from './LinkPreview'
 

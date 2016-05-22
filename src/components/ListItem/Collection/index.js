@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import { ListToolbar, Editable } from './../..'
+import { ListToolbar, Editable } from 'components'
 
 function sharedWithText (count) {
   if (count || count === 0) {

@@ -1,6 +1,6 @@
 import { List, fromJS } from 'immutable'
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 export function getSearchResult (value) {
   return async function (dispatch) {

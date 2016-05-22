@@ -1,4 +1,4 @@
-import { User } from '../records'
+import { User } from 'records'
 import { fromJS, Map } from 'immutable'
 
 let defaultState = fromJS({

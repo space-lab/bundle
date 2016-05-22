@@ -1,4 +1,4 @@
-import { API_BASE, FETCHER_URL } from './constants'
+import { API_BASE, FETCHER_URL } from 'constants'
 
 let paths = {
   bundles: (id = '') => `${API_BASE}/bundles/${id}`,

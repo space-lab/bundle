@@ -1,4 +1,4 @@
-import { ResourceNavigation } from '../../../components'
+import { ResourceNavigation } from 'components'
 
 export default function Container () {
   return (
