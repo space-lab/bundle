@@ -44,7 +44,7 @@ export default class Container extends React.Component {
     return `/collections/${collection.get('id')}/bundles/${bundle.get('id')}`
   }
 
-  renderBundleList (bundles, listItemProps) {
+  renderBundleList (bundles, collection, listItemProps) {
     return bundles.map((bundle, index) => {
       return <ListItem key={index}
         {...bundle.toJS()}
@@ -53,7 +53,7 @@ export default class Container extends React.Component {
         url={this.getBundleUrl(collection, bundle)}
         type={'bundle'}
         remove={::this.removeBundle}
-        active={bundle.id === bundleId}
+        active={bundle.id === this.props.bundleId}
       />
     })
   }
@@ -62,7 +62,6 @@ export default class Container extends React.Component {
     let {
       collection,
       bundles,
-      bundleId,
       children,
       ...listItemProps
     } = this.props
@@ -81,7 +80,7 @@ export default class Container extends React.Component {
 
           <ResourceNavigation.Body>
             <List>
-              {this.renderBundleList(bundles, listItemProps)}
+              {this.renderBundleList(bundles, collection, listItemProps)}
             </List>
           </ResourceNavigation.Body>
         </div>
