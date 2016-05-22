@@ -1,9 +1,14 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
+
+import SearchHeader from './header'
+import SearchBody from './body'
+
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as favoriteActions from 'actions/Favorite'
-import SearchWrapper from './wrapper'
+
+import './index.css'
 
 const connectState = (state) => ({ searchResults: state.Search.get('result') })
 const connectProps = {
@@ -14,9 +19,16 @@ const connectProps = {
 
 @connect(connectState, connectProps)
 export default class SearchContainer extends React.Component {
+  static propTypes = {
+    searchResults: ImmutablePropTypes.map,
+    query: React.PropTypes.string,
+    removeBundle: React.PropTypes.func,
+    favorite: React.PropTypes.func,
+    unfavorite: React.PropTypes.func
+  }
+
   componentWillMount () {
     let query = this.props.routeParams.query
-
     if (query) this.props.getSearchResult(query)
   }
 
@@ -32,20 +44,25 @@ export default class SearchContainer extends React.Component {
   }
 
   render () {
-    const { searchResults, routeParams } = this.props
+    let {
+      routeParams,
+      favorite,
+      unfavorite,
+      removeBundle,
+      searchResults
+    } = this.props
 
     return (
-      <SearchWrapper
-        query={routeParams.query}
-        searchResults={searchResults}
-        removeBundle={this.props.removeBundle}
-        favorite={this.props.favorite}
-        unfavorite={this.props.unfavorite}
-      />
+      <div className='search-wrapper'>
+        <SearchHeader query={routeParams.query} />
+
+        <SearchBody
+          removeBundle={removeBundle}
+          favorite={favorite}
+          unfavorite={unfavorite}
+          searchResults={searchResults}
+        />
+      </div>
     )
   }
-}
-
-SearchContainer.propTypes = {
-  searchResults: ImmutablePropTypes.map
 }
