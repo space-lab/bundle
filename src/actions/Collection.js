@@ -58,3 +58,7 @@ export function removeCollection (id) {
     dispatch({ type: 'REMOVE_COLLECTION', id })
   }
 }
+
+export function closeCollection (id) {
+  return { type: 'CLOSE_COLLECTION', id }
+}

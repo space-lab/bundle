@@ -4,8 +4,9 @@ import { List, ListItem, ResourceNavigation } from 'components'
 export default function Wrapper ({
   collections,
   generateNewCollection,
-  removeCollection,
   createCollection,
+  removeCollection,
+  closeCollection,
   ...listItemProps
 }) {
   let collectionsList = collections.map((collection, index) => {
@@ -15,6 +16,7 @@ export default function Wrapper ({
       Component={ListItem.Collection}
       type={'collection'}
       remove={removeCollection}
+      close={closeCollection}
       createCollection={createCollection}
     />
   })

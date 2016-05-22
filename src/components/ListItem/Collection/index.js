@@ -23,7 +23,7 @@ export default function CollectionListItem ({
 
   return (
     <div>
-      <ListToolbar id={id} {...toolbarProps} />
+      <ListToolbar id={id} editMode={editMode} {...toolbarProps} />
 
       <Link to={url} onClick={event => editMode && event.preventDefault()}>
         <div>
@@ -53,5 +53,6 @@ CollectionListItem.propTypes = {
   bundles_count: React.PropTypes.number.isRequired,
   shares_count: React.PropTypes.number.isRequired,
   createCollection: React.PropTypes.func.isRequired,
+  close: React.PropTypes.func.isRequired,
   editMode: React.PropTypes.bool
 }
