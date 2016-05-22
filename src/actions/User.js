@@ -1,7 +1,7 @@
-import { User } from '../records'
+import { User } from 'records'
 
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 export function setCurrentUser (user) {
   localStorage.setItem('auth_token', user.auth_token)

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable'
-import { Bundle, Collection } from '../records'
+import { Bundle, Collection } from 'records'
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 export function getFavorites () {
   return async function (dispatch) {

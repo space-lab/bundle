@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect'
-import { NEW_BUNDLE_ID } from './constants'
+import { NEW_BUNDLE_ID } from 'constants'
 
 let bundlesSelector = state => state.Bundle.get('byId')
 let collectionsSelector = state => state.Collection.get('byId')

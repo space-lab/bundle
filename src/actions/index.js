@@ -1,20 +1,21 @@
-import * as Alert from './Alert'
-import * as Bundle from './Bundle'
-import * as Collection from './Collection'
-import * as Search from './Search'
-import * as Share from './Share'
-import * as User from './User'
-import * as Favorite from './Favorite'
-import * as Route from './Route'
 import * as Link from './Link'
+import * as User from './User'
+import * as Route from './Route'
+import * as Alert from './Alert'
+import * as Share from './Share'
+import * as Bundle from './Bundle'
+import * as Search from './Search'
+import * as Favorite from './Favorite'
+import * as Collection from './Collection'
 
 export const allActions = {
-  ...Alert,
-  ...Bundle,
-  ...Collection,
-  ...Search,
-  ...User,
-  ...Favorite,
-  ...Route,
   ...Link
+  ...User,
+  ...Route,
+  ...Alert,
+  ...Share,
+  ...Bundle,
+  ...Search,
+  ...Favorite,
+  ...Collection,
 }

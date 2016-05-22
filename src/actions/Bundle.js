@@ -1,11 +1,13 @@
 import { fromJS, Map, List } from 'immutable'
-import { Bundle, User, Link, Share } from '../records'
-import { bundleSchema } from '../normalizers'
 import { normalize } from 'normalizr'
-import { NEW_BUNDLE_ID } from '../constants'
+
+import { Bundle, User, Link, Share } from 'records'
+import { bundleSchema } from 'normalizers'
+
+import { NEW_BUNDLE_ID } from 'constants'
 
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 function reduceBundle (data, dispatch) {
   let result = fromJS(normalize(data, bundleSchema).entities)
