@@ -1,11 +1,13 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
+
+import { ResourceNavigation, List, ListItem } from 'components'
 import { currentCollectionSelector, sortedCollectionBundlesSelector } from 'selectors'
+
 import * as collectionActions from 'actions/Collection'
 import * as bundleActions from 'actions/Bundle'
 import * as favoriteActions from 'actions/Favorite'
-import ImmutablePropTypes from 'react-immutable-proptypes'
-import Wrapper from './wrapper'
 
 const connectState = (state) => ({
   collection: currentCollectionSelector(state),
@@ -38,11 +40,52 @@ export default class Container extends React.Component {
     browserHistory.goBack()
   }
 
+  getBundleUrl (collection, bundle) {
+    return `/collections/${collection.get('id')}/bundles/${bundle.get('id')}`
+  }
+
+  renderBundleList (bundles, listItemProps) {
+    return bundles.map((bundle, index) => {
+      return <ListItem key={index}
+        {...bundle.toJS()}
+        {...listItemProps}
+        Component={ListItem.Bundle}
+        url={this.getBundleUrl(collection, bundle)}
+        type={'bundle'}
+        remove={::this.removeBundle}
+        active={bundle.id === bundleId}
+      />
+    })
+  }
+
   render () {
-    const { collection } = this.props
+    let {
+      collection,
+      bundles,
+      bundleId,
+      children,
+      ...listItemProps
+    } = this.props
 
     if (!collection || !collection.get('full_response')) return false
 
-    return <Wrapper {...this.props} removeBundle={this.removeBundle.bind(this)}/>
+    return (
+      <ResourceNavigation bundleView={children}>
+        <div className='bundles-navigation'>
+          <ResourceNavigation.Header>
+            <h2 className='title'>{collection.name}</h2>
+            <div className='nav'>
+              <Link to='/search' className='icon search-icon' />
+            </div>
+          </ResourceNavigation.Header>
+
+          <ResourceNavigation.Body>
+            <List>
+              {this.renderBundleList(bundles, listItemProps)}
+            </List>
+          </ResourceNavigation.Body>
+        </div>
+      </ResourceNavigation>
+    )
   }
 }
