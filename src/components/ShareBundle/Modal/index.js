@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import InviteUsers from '../InviteUsers'
 import ShareItem from '../ShareItem'
-import { Modal } from './../../'
+import { Modal } from 'components'
 import './index.css'
 
 export default class ShareBundleModal extends React.Component {

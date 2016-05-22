@@ -1,6 +1,6 @@
 import ui from 'redux-ui'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { SHARE_PERMISSIONS } from '../../../constants'
+import { SHARE_PERMISSIONS } from 'constants'
 import './index.css'
 
 @ui({ state: { value: '', permission: 1 } })

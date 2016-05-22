@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { SHARE_PERMISSIONS } from '../../../constants'
+import { SHARE_PERMISSIONS } from 'constants'
 import './index.css'
 
 export default class ShareItem extends React.Component {

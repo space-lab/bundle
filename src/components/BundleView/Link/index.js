@@ -1,6 +1,6 @@
-import Date from '../../Date'
+import Date from 'components/Date'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { urlDomain, shouldShow } from '../../../helpers'
+import { urlDomain, shouldShow } from 'helpers'
 
 import './index.css'
 
