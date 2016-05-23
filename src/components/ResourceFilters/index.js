@@ -4,7 +4,8 @@ import './index.css'
 @ui()
 export default class ResourceFilters extends React.Component {
   static propTypes = {
-    ui: React.PropTypes.object
+    ui: React.PropTypes.object.isRecuared,
+    updateUI: React.PropTypes.func.isRecuared
   }
 
   filterClass (filter) {
