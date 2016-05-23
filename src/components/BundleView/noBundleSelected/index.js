@@ -1,4 +1,4 @@
-import { Autocomplete } from 'components'
+import { TagInput } from 'components'
 
 export default function noBundleSelected () {
   return <div>
@@ -7,6 +7,6 @@ export default function noBundleSelected () {
     <br/>
     <br/>
 
-    <Autocomplete emails={[]} />
+    <TagInput/>
   </div>
 }
