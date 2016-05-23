@@ -19,7 +19,7 @@ export default function CollectionListItem ({
   createCollection,
   ...toolbarProps
 }) {
-  let url = '/collections/' + id
+  let url = '/collection/' + id
 
   return (
     <div>

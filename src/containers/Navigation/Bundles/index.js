@@ -48,7 +48,7 @@ export default class Container extends React.Component {
         {...bundle.toJS()}
         {...listItemProps}
         Component={ListItem.Bundle}
-        url={'/bundles/' + bundle.id}
+        url={'/bundle/' + bundle.id}
         type={'bundle'}
         active={bundle.id === this.props.bundleId}
         remove={::this.removeBundle}

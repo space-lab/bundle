@@ -41,7 +41,7 @@ export default class Container extends React.Component {
   }
 
   getBundleUrl (collection, bundle) {
-    return `/collections/${collection.get('id')}/bundles/${bundle.get('id')}`
+    return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
   }
 
   renderBundleList (bundles, collection, listItemProps) {

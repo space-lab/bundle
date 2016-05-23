@@ -22,8 +22,8 @@ function renderList (searchResults, listType, component, props) {
   let { removeBundle, favorite, unfavorite } = props
 
   return searchResults.map((item, index) => {
-    let url = `/${listType}/${item.get('id')}`
     let type = (listType == 'bundles') ? 'bundle' : 'collection'
+    let url = `/${type}/${item.get('id')}`
 
     return <ListItem
              key={index}
