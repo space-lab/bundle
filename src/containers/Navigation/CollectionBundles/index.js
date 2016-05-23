@@ -41,7 +41,7 @@ export default class Container extends React.Component {
   }
 
   getBundleUrl (collection, bundle) {
-    return `/collections/${collection.get('id')}/bundles/${bundle.get('id')}`
+    return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
   }
 
   renderBundleList (bundles, collection, listItemProps) {
@@ -72,9 +72,11 @@ export default class Container extends React.Component {
       <ResourceNavigation bundleView={children}>
         <div className='bundles-navigation'>
           <ResourceNavigation.Header>
-            <h2 className='title'>{collection.name}</h2>
-            <div className='nav'>
-              <Link to='/search' className='icon search-icon' />
+            <div className='title-and-actions'>
+              <h2 className='title'>{collection.name}</h2>
+              <div className='nav'>
+                <Link to='/search' className='icon search-icon' />
+              </div>
             </div>
           </ResourceNavigation.Header>
 

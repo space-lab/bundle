@@ -1,10 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
-import { ResourceNavigation, List, ListItem } from 'components'
+import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { NEW_BUNDLE_ID } from 'constants'
-import { sortedBundlesSelector } from 'selectors'
+import { filteredBundlesSelector } from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
@@ -12,8 +13,8 @@ import * as favoriteActions from 'actions/Favorite'
 
 import './index.css'
 
-const connectState = (state) => ({
-  bundles: sortedBundlesSelector(state),
+const connectState = (state, props) => ({
+  bundles: filteredBundlesSelector(state, props),
   bundleId: state.Route.bundleId,
   search: state.Search
 })
@@ -24,6 +25,10 @@ const connectProps = {
   ...favoriteActions
 }
 
+@ui({
+  key: 'bundle-navigation',
+  state: { filter: 'recent' }
+})
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
   static propTypes = {
@@ -41,6 +46,10 @@ export default class Container extends React.Component {
     browserHistory.push('/bundles')
   }
 
+  changeFilter (filter, e) {
+    e.preventDefault()
+  }
+
   renderBundleList (bundles, listItemProps) {
     return bundles.map((bundle, index) => {
       return <ListItem
@@ -48,7 +57,7 @@ export default class Container extends React.Component {
         {...bundle.toJS()}
         {...listItemProps}
         Component={ListItem.Bundle}
-        url={'/bundles/' + bundle.id}
+        url={'/bundle/' + bundle.id}
         type={'bundle'}
         active={bundle.id === this.props.bundleId}
         remove={::this.removeBundle}
@@ -64,11 +73,14 @@ export default class Container extends React.Component {
       <ResourceNavigation>
         <div className='bundles-navigation'>
           <ResourceNavigation.Header>
-            <h2 style={styles} className='title'>Bundles</h2>
+            <div className='title-and-actions'>
+              <h2 style={styles} className='title'>Bundles</h2>
 
-            <div className='nav'>
-              <Link to='/search' className='icon search-icon' />
+              <div className='nav'>
+                <Link to='/search' className='icon search-icon' />
+              </div>
             </div>
+            <ResourceFilters />
           </ResourceNavigation.Header>
 
           <ResourceNavigation.Body>

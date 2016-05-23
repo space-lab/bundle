@@ -47,7 +47,7 @@ export default class BundleNewContainer extends React.Component {
     }
 
     createBundle(payload).then(bundle => {
-      let newBundleRoutePath = `/bundles/${bundle.id}`
+      let newBundleRoutePath = `/bundle/${bundle.id}`
       browserHistory.push(newBundleRoutePath)
     })
   }
