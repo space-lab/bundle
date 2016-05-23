@@ -7,6 +7,6 @@ export default function noBundleSelected () {
     <br/>
     <br/>
 
-    <Autocomplete/>
+    <Autocomplete emails={[]} />
   </div>
 }

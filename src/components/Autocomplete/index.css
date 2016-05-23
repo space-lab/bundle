@@ -1,0 +1,32 @@
+.autocomplete {
+  .tag {
+    display: inline-block;
+    background-color: #F0F0F0;
+
+    height: 25px;
+    line-height: 25px;
+
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin-right: 10px;
+
+    border-radius: 3px;
+
+    .close {
+      position: relative;
+      top: 3px;
+      left: 4px;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+      opacity: 1;
+      transition: opacity linear 200ms;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}
