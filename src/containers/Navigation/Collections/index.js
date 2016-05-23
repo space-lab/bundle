@@ -1,8 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-import { List, ListItem, ResourceNavigation } from 'components'
+import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { nextId } from 'helpers'
 import { sortedCollectionsSelector } from 'selectors'
 
@@ -18,6 +19,10 @@ const connectProps = {
   ...favoriteActions
 }
 
+@ui({
+  key: 'collection-navigation',
+  state: { filter: 'recent' }
+})
 @connect(connectState, connectProps)
 export default class CollectionsNavigationContainer extends React.Component {
   static propTypes = {
@@ -69,11 +74,7 @@ export default class CollectionsNavigationContainer extends React.Component {
               </div>
             </div>
 
-            <div className='filters'>
-              <a href='#' className='filter active'>Recent</a>
-              <a href='#' className='filter'>Mine</a>
-              <a href='#' className='filter'>Shared with me</a>
-            </div>
+            <ResourceFilters />
           </ResourceNavigation.Header>
 
           <ResourceNavigation.Body>

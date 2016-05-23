@@ -1,0 +1,24 @@
+.resource-filters {
+  display: flex;
+  justify-content: space-around;
+  margin-left: -5px;
+
+  .filter {
+    cursor: pointer;
+    font-family: Avenir-Light;
+    font-size: 16px;
+    color: #444;
+    line-height: 18px;
+    padding-bottom: 15px;
+
+    &.active {
+      color: #000;
+      border-bottom: 1px solid #000;
+    }
+
+    &:hover {
+      color: #000;
+      border-bottom: 1px solid #000;
+    }
+  }
+}

@@ -9,29 +9,6 @@
       align-items: center;
     }
 
-    .filters {
-      display: flex;
-      justify-content: space-around;
-      margin-left: -5px;
-
-      .filter {
-        font-family: Avenir-Light;
-        font-size: 16px;
-        color: #000000;
-        line-height: 18px;
-        padding-bottom: 15px;
-
-        &.active {
-          border-bottom: 1px solid #000;
-          font-family: Avenir-Medium;
-        }
-
-        &:hover {
-          border-bottom: 1px solid #000;
-        }
-      }
-    }
-
     .icon {
       font-size: 24px;
       margin-left: 10px;

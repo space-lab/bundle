@@ -1,8 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
-import { ResourceNavigation, List, ListItem } from 'components'
+import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { NEW_BUNDLE_ID } from 'constants'
 import { sortedBundlesSelector } from 'selectors'
 
@@ -24,6 +25,10 @@ const connectProps = {
   ...favoriteActions
 }
 
+@ui({
+  key: 'bundle-navigation',
+  state: { filter: 'recent' }
+})
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
   static propTypes = {
@@ -39,6 +44,10 @@ export default class Container extends React.Component {
   removeBundle (...args) {
     this.props.removeBundle(...args)
     browserHistory.push('/bundles')
+  }
+
+  changeFilter (filter, e) {
+    e.preventDefault()
   }
 
   renderBundleList (bundles, listItemProps) {
@@ -71,12 +80,7 @@ export default class Container extends React.Component {
                 <Link to='/search' className='icon search-icon' />
               </div>
             </div>
-
-            <div className='filters'>
-              <a href='#' className='filter active'>Recent</a>
-              <a href='#' className='filter'>Mine</a>
-              <a href='#' className='filter'>Shared with me</a>
-            </div>
+            <ResourceFilters />
           </ResourceNavigation.Header>
 
           <ResourceNavigation.Body>
