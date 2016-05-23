@@ -7,6 +7,18 @@ import { AddLink } from 'containers'
 import './index.css'
 
 export default class BundleViewBody extends React.Component {
+  static propTypes = {
+    bundle: ImmutablePropTypes.record,
+    users: ImmutablePropTypes.map,
+    links: ImmutablePropTypes.map,
+    currentLink: ImmutablePropTypes.record,
+    toggleEditMode: React.PropTypes.func,
+    handleLinkEdit: React.PropTypes.func,
+    handleLinkRemove: React.PropTypes.func,
+    handleChange: React.PropTypes.func,
+    ui: React.PropTypes.object
+  }
+
   render () {
     let {
       bundle,
@@ -48,15 +60,3 @@ export default class BundleViewBody extends React.Component {
 
 BundleView.Name = Name
 BundleView.Description = Description
-
-BundleViewBody.propTypes = {
-  bundle: ImmutablePropTypes.record,
-  users: ImmutablePropTypes.map,
-  links: ImmutablePropTypes.map,
-  currentLink: ImmutablePropTypes.record,
-  toggleEditMode: React.PropTypes.func,
-  handleLinkEdit: React.PropTypes.func,
-  handleLinkRemove: React.PropTypes.func,
-  handleChange: React.PropTypes.func,
-  ui: React.PropTypes.object
-}

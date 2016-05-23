@@ -1,19 +1,17 @@
+import ui from 'redux-ui'
+import { connect } from 'react-redux'
+
+import { currentBundleSelector, currentLinkSelector } from 'selectors'
+
+import { linksWithoutAuthors } from 'helpers'
+
+import Bundle from './Bundle'
 
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
-
-import { connect } from 'react-redux'
-import { linksWithoutAuthors } from 'helpers'
-import {
-  currentBundleSelector,
-  currentLinkSelector
-} from '../../selectors'
-
-import Wrapper from './Wrapper'
-import ui from 'redux-ui'
 
 const connectState = (state) => ({
   bundle: currentBundleSelector(state),
@@ -63,17 +61,6 @@ export default class BundleViewContainer extends React.Component {
     }
   }
 
-  handleLinkRemove (index) {
-    const { bundle, updateBundle } = this.props
-    const linkId = bundle.getIn(['links', index])
-
-    const payload = {
-      links_attributes: [{id: linkId, _destroy: true }]
-    }
-
-    updateBundle(bundle.id, payload)
-  }
-
   toggleEdit (save) {
     let { toggleEditMode, bundle, links, updateBundle, updateUI, ui } = this.props
     let bundleLinks = bundle.links.map(id => links.get(id))
@@ -91,17 +78,12 @@ export default class BundleViewContainer extends React.Component {
   }
 
   render () {
-    let { bundle, updateBundleInfo, updateLink} = this.props
+    let { bundle } = this.props
 
     if (!bundle || !bundle.full_response) {
       return false
     }
 
-    return <Wrapper {...this.props}
-      handleChange={updateBundleInfo}
-      handleLinkEdit={updateLink}
-      handleLinkRemove={::this.handleLinkRemove}
-      toggleEdit={::this.toggleEdit}
-    />
+    return <Bundle {...this.props} toggleEdit={::this.toggleEdit} />
   }
 }

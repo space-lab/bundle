@@ -1,10 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import { sortedCollectionsSelector } from 'selectors'
+import { Link } from 'react-router'
+
+import { List, ListItem, ResourceNavigation } from 'components'
 import { nextId } from 'helpers'
+import { sortedCollectionsSelector } from 'selectors'
+
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
-import Wrapper from './Wrapper'
 
 const connectState = (state) => ({
   collections: sortedCollectionsSelector(state)
@@ -28,13 +31,50 @@ export default class CollectionsNavigationContainer extends React.Component {
 
   generateNewCollection () {
     let id = nextId(this.props.collections)
-
     this.props.generateNewCollection(id)
   }
 
+  renderCollectionList (collections, listItemProps) {
+    let { removeCollection, closeCollection, createCollection } = this.props
+
+    return collections.map((collection, index) => {
+      return <ListItem key={index}
+        {...collection.toJS()}
+        {...listItemProps}
+        Component={ListItem.Collection}
+        type={'collection'}
+        remove={removeCollection}
+        close={closeCollection}
+        createCollection={createCollection}
+      />
+    })
+  }
+
   render () {
-    return <Wrapper {...this.props}
-      generateNewCollection={this.generateNewCollection.bind(this)}
-    />
+    let { collections, generateNewCollection, ...listItemProps } = this.props
+
+    return (
+      <ResourceNavigation>
+        <div className='bundles-navigation'>
+          <ResourceNavigation.Header>
+            <h2 className='title'>Collections</h2>
+            <div className='nav'>
+              <span
+                className='icon create-collection-icon'
+                onClick={::this.generateNewCollection}
+              />
+
+              <Link to='/search' className='icon search-icon' />
+            </div>
+          </ResourceNavigation.Header>
+
+          <ResourceNavigation.Body>
+            <List>
+              {this.renderCollectionList(collections, listItemProps)}
+            </List>
+          </ResourceNavigation.Body>
+        </div>
+      </ResourceNavigation>
+    )
   }
 }

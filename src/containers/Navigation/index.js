@@ -5,16 +5,15 @@ import * as routeActions from 'actions/Route'
 import './index.css'
 
 import {
+  Bundle,
   BundleNavigation,
   CollectionNavigation,
   CollectionBundlesNavigation,
   FavoriteNavigation,
-  NotificationNavigation,
-  BundleView,
-  BundleNew
-} from '..'
+  NotificationNavigation
+} from 'containers'
 
-import { BundleView as BundleViewComponent } from '../../components'
+import { BundleView as BundleViewComponent } from 'components'
 
 const connectState = (state) => ({
   Route: state.Route.toJS()
@@ -81,7 +80,7 @@ export default class Navigation extends React.Component {
       return BundleViewComponent.noBundleSelected
     }
 
-    return this.isNewBundle(this.props) ? BundleNew : BundleView
+    return this.isNewBundle(this.props) ? Bundle.New : Bundle.View
   }
 
   shouldChangeNavigationView (props) {

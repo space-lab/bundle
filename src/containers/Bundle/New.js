@@ -2,8 +2,10 @@ import { connect } from 'react-redux'
 import ui from 'redux-ui'
 import { browserHistory } from 'react-router'
 import { NEW_BUNDLE_ID } from 'constants'
+
 import { linksWithoutAuthors } from 'helpers'
-import Wrapper from 'containers/BundleView/Wrapper'
+
+import Bundle from './Bundle'
 
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
@@ -56,22 +58,17 @@ export default class BundleNewContainer extends React.Component {
   }
 
   render () {
-    let {
-      currentBundle, currentLink,
-      updateBundleInfo, updateLink
-    } = this.props
+    let { currentBundle, updateBundleInfo, updateLink } = this.props
 
     if (!currentBundle) return false
 
-    return (
-      <Wrapper {...this.props}
-        bundle={currentBundle}
-        currentLink={currentLink}
-        handleChange={updateBundleInfo}
-        handleLinkEdit={updateLink}
-        handleLinkRemove={::this.removeLink}
-        toggleEdit={::this.saveBundle}
-      />
-    )
+    return <Bundle
+      {...this.props}
+      bundle={currentBundle}
+      handleChange={updateBundleInfo}
+      handleLinkEdit={updateLink}
+      handleLinkRemove={::this.removeLink}
+      toggleEdit={::this.saveBundle}
+    />
   }
 }

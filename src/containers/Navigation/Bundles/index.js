@@ -1,11 +1,16 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { Link, browserHistory } from 'react-router'
+
+import { ResourceNavigation, List, ListItem } from 'components'
+import { NEW_BUNDLE_ID } from 'constants'
 import { sortedBundlesSelector } from 'selectors'
+
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'
-import Wrapper from './wrapper'
+
+import './index.css'
 
 const connectState = (state) => ({
   bundles: sortedBundlesSelector(state),
@@ -36,7 +41,43 @@ export default class Container extends React.Component {
     browserHistory.push('/bundles')
   }
 
+  renderBundleList (bundles, listItemProps) {
+    return bundles.map((bundle, index) => {
+      return <ListItem
+        key={index}
+        {...bundle.toJS()}
+        {...listItemProps}
+        Component={ListItem.Bundle}
+        url={'/bundles/' + bundle.id}
+        type={'bundle'}
+        active={bundle.id === this.props.bundleId}
+        remove={::this.removeBundle}
+      />
+    })
+  }
+
   render () {
-    return <Wrapper {...this.props} removeBundle={this.removeBundle.bind(this)}/>
+    let { bundles, search, ...listItemProps } = this.props
+    let styles = { 'display': search.get('open') ? 'none' : 'block' }
+
+    return (
+      <ResourceNavigation>
+        <div className='bundles-navigation'>
+          <ResourceNavigation.Header>
+            <h2 style={styles} className='title'>Bundles</h2>
+
+            <div className='nav'>
+              <Link to='/search' className='icon search-icon' />
+            </div>
+          </ResourceNavigation.Header>
+
+          <ResourceNavigation.Body>
+            <List>
+              {this.renderBundleList(bundles, listItemProps)}
+            </List>
+          </ResourceNavigation.Body>
+        </div>
+      </ResourceNavigation>
+    )
   }
 }
