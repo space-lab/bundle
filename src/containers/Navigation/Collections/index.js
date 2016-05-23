@@ -57,14 +57,22 @@ export default class CollectionsNavigationContainer extends React.Component {
       <ResourceNavigation>
         <div className='bundles-navigation'>
           <ResourceNavigation.Header>
-            <h2 className='title'>Collections</h2>
-            <div className='nav'>
-              <span
-                className='icon create-collection-icon'
-                onClick={::this.generateNewCollection}
-              />
+            <div className='title-and-actions'>
+              <h2 className='title'>Collections</h2>
+              <div className='nav'>
+                <span
+                  className='icon create-collection-icon'
+                  onClick={::this.generateNewCollection}
+                />
 
-              <Link to='/search' className='icon search-icon' />
+                <Link to='/search' className='icon search-icon' />
+              </div>
+            </div>
+
+            <div className='filters'>
+              <a href='#' className='filter active'>Recent</a>
+              <a href='#' className='filter'>Mine</a>
+              <a href='#' className='filter'>Shared with me</a>
             </div>
           </ResourceNavigation.Header>
 

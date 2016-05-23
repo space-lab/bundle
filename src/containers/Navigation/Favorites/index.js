@@ -99,8 +99,10 @@ export default class Container extends React.Component {
       <ResourceNavigation>
         <div className='favorites-navigation'>
           <ResourceNavigation.Header>
-            <div className='top-nav'>
-              <h2 className='title'>Favorites</h2>
+            <div className='title-and-actions'>
+              <div className='top-nav'>
+                <h2 className='title'>Favorites</h2>
+              </div>
             </div>
           </ResourceNavigation.Header>
           <ResourceNavigation.Body>

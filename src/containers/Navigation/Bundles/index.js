@@ -64,10 +64,18 @@ export default class Container extends React.Component {
       <ResourceNavigation>
         <div className='bundles-navigation'>
           <ResourceNavigation.Header>
-            <h2 style={styles} className='title'>Bundles</h2>
+            <div className='title-and-actions'>
+              <h2 style={styles} className='title'>Bundles</h2>
 
-            <div className='nav'>
-              <Link to='/search' className='icon search-icon' />
+              <div className='nav'>
+                <Link to='/search' className='icon search-icon' />
+              </div>
+            </div>
+
+            <div className='filters'>
+              <a href='#' className='filter active'>Recent</a>
+              <a href='#' className='filter'>Mine</a>
+              <a href='#' className='filter'>Shared with me</a>
             </div>
           </ResourceNavigation.Header>
 
