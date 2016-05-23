@@ -4,19 +4,15 @@
   margin-left: -5px;
 
   .filter {
-    cursor: pointer;
+    padding-bottom: 15px;
+    line-height: 18px;
+    color: #444;
+
     font-family: Avenir-Light;
     font-size: 16px;
-    color: #444;
-    line-height: 18px;
-    padding-bottom: 15px;
+    cursor: pointer;
 
-    &.active {
-      color: #000;
-      border-bottom: 1px solid #000;
-    }
-
-    &:hover {
+    &.active, &:hover {
       color: #000;
       border-bottom: 1px solid #000;
     }

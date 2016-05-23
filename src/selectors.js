@@ -56,17 +56,18 @@ export const sortedBundlesSelector = createSelector(
     .toList()
 )
 
-export const FilteredBundlesSelector = createSelector(
+export const filteredBundlesSelector = createSelector(
   [sortedBundlesSelector, getFilter, currentUserIdSelector],
   (bundles, filter, currentUser) => {
-    if (filter == 'recent') return bundles.slice(0, 15)
-
-    if (filter == 'mine') {
-      return bundles.filter(bundle => bundle.creator == currentUser)
-    }
-
-    if (filter == 'shared') {
-      return bundles.filter(bundle => bundle.creator != currentUser)
+    switch (filter) {
+      case 'recent':
+        return bundles.slice(0, 15)
+      case 'mine':
+        return bundles.filter(bundle => bundle.creator == currentUser)
+      case 'shared':
+        return bundles.filter(bundle => bundle.creator != currentUser)
+      default:
+        return bundles
     }
   }
 )

@@ -5,7 +5,7 @@ import { Link, browserHistory } from 'react-router'
 
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { NEW_BUNDLE_ID } from 'constants'
-import { FilteredBundlesSelector } from 'selectors'
+import { filteredBundlesSelector } from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
@@ -14,7 +14,7 @@ import * as favoriteActions from 'actions/Favorite'
 import './index.css'
 
 const connectState = (state, props) => ({
-  bundles: FilteredBundlesSelector(state, props),
+  bundles: filteredBundlesSelector(state, props),
   bundleId: state.Route.bundleId,
   search: state.Search
 })
