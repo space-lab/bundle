@@ -12,6 +12,8 @@ let currentCollectionIdSelector = state => state.Route.collectionId
 let currentUserIdSelector = state => state.User.get('current')
 let currentLinksSelector = state => state.Link.get('current')
 
+let getFilter = (state, props) => props.ui.filter
+
 export const currentBundleSelector = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
   (id, bundles, shares, users) => {
@@ -52,6 +54,21 @@ export const sortedBundlesSelector = createSelector(
     .sortBy(bundle => bundle.created_at)
     .reverse()
     .toList()
+)
+
+export const FilteredBundlesSelector = createSelector(
+  [sortedBundlesSelector, getFilter, currentUserIdSelector],
+  (bundles, filter, currentUser) => {
+    if (filter == 'recent') return bundles.slice(0, 15)
+
+    if (filter == 'mine') {
+      return bundles.filter(bundle => bundle.creator == currentUser)
+    }
+
+    if (filter == 'shared') {
+      return bundles.filter(bundle => bundle.creator != currentUser)
+    }
+  }
 )
 
 export const sortedCollectionsSelector = createSelector(
