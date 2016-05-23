@@ -36,7 +36,8 @@
 
   .search-results {
     overflow-y: scroll;
-    padding-top: 15px;
+    margin-top: 10px;
+    height: 346px;
 
     .item {
       font-family: Avenir-Book;
