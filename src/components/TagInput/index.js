@@ -7,35 +7,34 @@ import './index.css'
 
 @ui({
   state: {
-    emails: List(['irakli.janiashvili@gmail.com', 'viri@viri.com']),
-    autoFocus: true
+    tags: List(['irakli.janiashvili@gmail.com', 'viri@viri.com'])
   }
 })
 export default class TagInput extends React.Component {
-  addEmail (email) {
+  addTag (tag) {
     let { ui, updateUI } = this.props
-    let emails = ui.emails.push(email)
+    let tags = ui.tags.push(tag)
 
-    updateUI('emails', emails)
+    updateUI('tags', tags)
   }
 
-  handleEmailRemove (index) {
+  handleTagRemoval (index) {
     let { ui, updateUI } = this.props
-    let emails = ui.emails.delete(index)
+    let tags = ui.tags.delete(index)
 
-    updateUI('emails', emails)
+    updateUI('tags', tags)
   }
 
-  renderEmailList () {
+  renderTagList () {
     let { ui } = this.props
 
-    return ui.emails.map((email, index) => {
+    return ui.tags.map((tag, index) => {
       return (
         <div className='tag' key={index}>
-          {email}
+          {tag}
 
           <i className='close'
-            onClick={this.handleEmailRemove.bind(this, index)}
+            onClick={this.handleTagRemoval.bind(this, index)}
           />
         </div>
       )
@@ -43,15 +42,14 @@ export default class TagInput extends React.Component {
   }
 
   render () {
-    let { ui } = this.props
-
     return (
       <div className='taginput'>
-        {this.renderEmailList()}
+        {this.renderTagList()}
 
         <Autocomplete
-          onFinishInput={::this.addEmail}
-          autoFocus={ui.autoFocus}
+          placeholder='Enter name, or email'
+          onFinishInput={::this.addTag}
+          autoFocus={true}
         />
       </div>
     )
