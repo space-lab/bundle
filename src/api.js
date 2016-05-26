@@ -6,7 +6,7 @@ export default {
   shares: (id = '') => `${API_BASE}/shares/${id}`,
   invites: (id = '') => `${API_BASE}/invites/${id}`,
   searchResource: (query) => `${API_BASE}/search/resource?q=${query}`,
-  searchUsers: (query) => `${API_BASE}/search/user?q=${query}`,
+  searchUsers: (query) => `${API_BASE}/search/users?q=${query}`,
   favorite: (resource, id) => `${API_BASE}/${resource}/${id}/favorite`,
   favorites: () => `${API_BASE}/favorites`,
   fetchLink: (url) => FETCHER_URL + url,

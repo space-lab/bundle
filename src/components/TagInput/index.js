@@ -50,6 +50,7 @@ export default class TagInput extends React.Component {
           placeholder='Enter name, or email'
           onFinishInput={::this.addTag}
           autoFocus={true}
+          autocomplete={this.props.autocomplete}
         />
       </div>
     )
