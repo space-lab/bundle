@@ -1,15 +1,16 @@
 import request from 'axios'
 import api from 'api'
+import { fromJS } from 'immutable'
+import { UserAutocomplete } from 'records'
 
-// TODO
-// Normalize
-// Immutable records
-
-export function getUsers (value) {
+export function getAutocompleteUsers (value) {
   return async function (dispatch) {
-    let response = await request.get(api.searchUsers(value))
-    console.log(response)
+    const response = await request.get(api.searchUsers(value))
+    let users = fromJS(response.data).map(user => new UserAutocomplete(user))
 
-    //dispatch({ type: 'RECEIVE_USERS', response })
+    dispatch({ type: 'RECEIVE_AUTOCOMPLETE_USERS', users })
   }
+}
+export function resetAutocompleteUsers () {
+  return { type: 'RESET_AUTOCOMPLETE_USERS' }
 }
