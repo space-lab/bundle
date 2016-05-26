@@ -11,6 +11,10 @@ import './index.css'
   }
 })
 export default class TagInput extends React.Component {
+  componentWillUnmount () {
+    this.props.resetData()
+  }
+
   addTag (tag) {
     let { ui, updateUI } = this.props
     let tags = ui.tags.push(tag)
@@ -47,10 +51,11 @@ export default class TagInput extends React.Component {
         {this.renderTagList()}
 
         <Autocomplete
-          placeholder='Enter name, or email'
-          onFinishInput={::this.addTag}
           autoFocus={true}
-          autocomplete={this.props.autocomplete}
+          placeholder='Enter name, or email'
+          data={this.props.data}
+          getData={this.props.getData}
+          onFinishInput={::this.addTag}
         />
       </div>
     )

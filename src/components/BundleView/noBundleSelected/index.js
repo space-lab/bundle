@@ -3,6 +3,7 @@ import { TagInput } from 'components'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state) => ({
+  data: state.UserAutocomplete
 })
 
 const connectProps = {
@@ -19,7 +20,11 @@ export default class NoBundleSelected extends React.Component {
         <br/>
         <br/>
 
-        <TagInput {...this.props} autocomplete={this.props.getUsers} />
+        <TagInput
+          data={this.props.data}
+          getData={this.props.getAutocompleteUsers}
+          resetData={this.props.resetAutocompleteUsers}
+        />
       </div>
     )
   }

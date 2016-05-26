@@ -3,9 +3,10 @@ import './index.css'
 export default class Autocomplete extends React.Component {
   static propTypes = {
     autoFocus: React.PropTypes.bool,
-    onFinishInput: React.PropTypes.func.isRequired,
     placeholder: React.PropTypes.string,
-    autocomplete: React.PropTypes.func.isRequired
+    //data: React.PropTypes.array, TODO
+    getData: React.PropTypes.func.isRequired,
+    onFinishInput: React.PropTypes.func.isRequired
   }
 
   getInput = () => this.refs.input
@@ -29,16 +30,16 @@ export default class Autocomplete extends React.Component {
       case ',':
         return this.sendValue(value.slice(0, -1))
       default:
-        return this.props.autocomplete(value)
+        return this.props.getData(value)
     }
   }
 
   renderAutocompleteList () {
-    return (
-      <div className='list'>
-        1
+    return this.props.data.map((entry) => {
+      return <div className='list'>
+        {entry.name}
       </div>
-    )
+    })
   }
 
   render () {
