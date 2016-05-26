@@ -62,3 +62,9 @@ export const Route = Record({
   collectionId: null,
   navigationView: 'bundles'
 })
+
+export const UserAutocomplete = Record({
+  id: null,
+  image: null,
+  name: null
+})
