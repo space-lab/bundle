@@ -29,13 +29,21 @@ export default class TagInput extends React.Component {
     updateUI('tags', tags)
   }
 
+  renderTagOrUser (tag) {
+    if (typeof tag === 'string') {
+      return tag
+    } else {
+      return <div><img src={tag.image} /> {tag.name}</div>
+    }
+  }
+
   renderTagList () {
     let { ui } = this.props
 
     return ui.tags.map((tag, index) => {
       return (
         <div className='tag' key={index}>
-          {tag}
+          {this.renderTagOrUser(tag)}
 
           <i className='close'
             onClick={this.handleTagRemoval.bind(this, index)}

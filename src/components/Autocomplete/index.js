@@ -43,7 +43,7 @@ export default class Autocomplete extends React.Component {
         {this.props.data.map((entry) => {
           return (
             <div key={entry.id} className='item' onClick={this.sendValue.bind(this, entry)}>
-              {entry.name}
+              <img src={entry.image}/> {entry.name}
             </div>
           )
         })}

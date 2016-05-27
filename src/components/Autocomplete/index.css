@@ -9,8 +9,33 @@
     background: white;
 
     .item {
+      height: 50px;
       cursor: pointer;
       border-bottom: 1px solid #ECECEC;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0 10px;
+      background: white;
+      transition: background linear 200ms;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+
+      &:hover {
+        background: #EBF3FA;
+      }
+
+      img {
+        $size: 36px;
+
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        background-color: #EEE;
+        margin-right: 10px;
+      }
     }
   }
 }
