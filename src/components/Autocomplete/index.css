@@ -6,6 +6,11 @@
   }
 
   .list {
-    background: green;
+    background: white;
+
+    .item {
+      cursor: pointer;
+      border-bottom: 1px solid #ECECEC;
+    }
   }
 }

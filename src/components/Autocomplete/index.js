@@ -21,25 +21,35 @@ export default class Autocomplete extends React.Component {
     }
   }
 
-  onKeyUp (event) {
-    let { key, target: { value } } = event
+  handleOnKeyUp (event) {
+    const { key, target: { value } } = event
 
     switch (key) {
       case 'Enter':
         return this.sendValue(value)
       case ',':
         return this.sendValue(value.slice(0, -1))
-      default:
-        return this.props.getData(value)
     }
   }
 
+  handleOnChange () {
+    const value = this.getInputValue()
+    return this.props.getData(value)
+  }
+
   renderAutocompleteList () {
-    return this.props.data.map((entry) => {
-      return <div className='list'>
-        {entry.name}
+    return (
+      <div className='list'>
+        {this.props.data.map((entry) => {
+          return (
+            <div key={entry.id} className='item' onClick={this.sendValue.bind(this, entry)}>
+              {entry.name}
+            </div>
+          )
+        })}
       </div>
-    })
+    )
+
   }
 
   render () {
@@ -49,8 +59,9 @@ export default class Autocomplete extends React.Component {
           ref='input'
           type='text'
           placeholder={this.props.placeholder}
-          onKeyUp={::this.onKeyUp}
           autoFocus={this.props.autoFocus}
+          onKeyUp={::this.handleOnKeyUp}
+          onChange={::this.handleOnChange}
         />
 
         {this.renderAutocompleteList()}
