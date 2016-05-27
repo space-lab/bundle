@@ -1,12 +1,14 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import './index.css'
 
 export default class Autocomplete extends React.Component {
   static propTypes = {
     autoFocus: React.PropTypes.bool,
     placeholder: React.PropTypes.string,
-    //data: React.PropTypes.array, TODO
+    data: ImmutablePropTypes.list.isRequired,
     getData: React.PropTypes.func.isRequired,
-    onFinishInput: React.PropTypes.func.isRequired
+    onFinishInput: React.PropTypes.func.isRequired,
+    addedIds: ImmutablePropTypes.list.isRequired
   }
 
   getInput = () => this.refs.input
@@ -14,11 +16,15 @@ export default class Autocomplete extends React.Component {
   setInputValue = (value) => this.getInput().value = value
   resetInput = () => this.setInputValue('')
 
-  sendValue (value) {
-    if (value) {
-      this.props.onFinishInput(value)
+  sendValue (entry) {
+    if (entry && !this.alreadyAdded(entry.id)) {
+      this.props.onFinishInput(entry)
       this.resetInput()
     }
+  }
+
+  alreadyAdded (id) {
+    return this.props.addedIds.includes(id)
   }
 
   handleOnKeyUp (event) {
@@ -41,9 +47,21 @@ export default class Autocomplete extends React.Component {
     return (
       <div className='list'>
         {this.props.data.map((entry) => {
+          const className = 'item' + (this.alreadyAdded(entry.id) ? ' active' : '')
+
           return (
-            <div key={entry.id} className='item' onClick={this.sendValue.bind(this, entry)}>
-              <img src={entry.image}/> {entry.name}
+            <div
+              key={entry.id}
+              className={className}
+              onClick={this.sendValue.bind(this, entry)}>
+              <img src={entry.image}/>
+
+              <span>{entry.name}</span>
+
+              {this.alreadyAdded(entry.id)
+                ? <div className='check-icon' />
+                : null
+              }
             </div>
           )
         })}

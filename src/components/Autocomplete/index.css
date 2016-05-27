@@ -17,7 +17,7 @@
       box-sizing: border-box;
       padding: 0 10px;
       background: white;
-      transition: background linear 200ms;
+      transition: all linear 200ms;
 
       &:last-child {
         border-bottom: 0;
@@ -35,6 +35,23 @@
         border-radius: 50%;
         background-color: #EEE;
         margin-right: 10px;
+      }
+
+      .check-icon {
+        margin-left: auto;
+        width: 24px;
+        height: 24px;
+        background: url(/assets/images/collection-check.svg) center center no-repeat;
+      }
+    }
+
+    .active {
+      img, span {
+        opacity: 0.3;
+      }
+
+      &:hover {
+        background: none;
       }
     }
   }

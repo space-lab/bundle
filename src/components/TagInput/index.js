@@ -1,5 +1,5 @@
 import ui from 'redux-ui'
-import { List } from 'immutable'
+import { List, fromJS } from 'immutable'
 
 import { Autocomplete } from 'components'
 
@@ -17,7 +17,7 @@ export default class TagInput extends React.Component {
 
   addTag (tag) {
     let { ui, updateUI } = this.props
-    let tags = ui.tags.push(tag)
+    let tags = ui.tags.push(fromJS(tag))
 
     updateUI('tags', tags)
   }
@@ -27,6 +27,12 @@ export default class TagInput extends React.Component {
     let tags = ui.tags.delete(index)
 
     updateUI('tags', tags)
+  }
+
+  getAddedIds () {
+    return this.props.ui.tags
+      .filter(value => typeof value !== 'string')
+      .map(value => value.id)
   }
 
   renderTagOrUser (tag) {
@@ -64,6 +70,7 @@ export default class TagInput extends React.Component {
           data={this.props.data}
           getData={this.props.getData}
           onFinishInput={::this.addTag}
+          addedIds={this.getAddedIds()}
         />
       </div>
     )
