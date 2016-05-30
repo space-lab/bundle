@@ -1,9 +1,21 @@
 import ui from 'redux-ui'
+import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from 'constants'
+import { TagInput } from 'components'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 import './index.css'
 
+const connectState = (state) => ({
+  data: state.UserAutocomplete
+})
+
+const connectProps = {
+  ...userAutocompleteActions
+}
+
 @ui({ state: { value: '', permission: 1 } })
+@connect(connectState, connectProps)
 export default class InviteUsers extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string,
@@ -53,14 +65,10 @@ export default class InviteUsers extends React.Component {
     return (
       <div className='invite-users-container'>
         <div className='full-row'>
-          <div className='to'>To:</div>
-
-          <input
-            className='invite-user-input'
-            defaultValue={value || ''}
-            ref='email'
-            placeholder='Enter name, or email'
-            onKeyUp={::this.handleKeyUp}
+          <TagInput
+            data={this.props.data}
+            getData={this.props.getAutocompleteUsers}
+            resetData={this.props.resetAutocompleteUsers}
           />
         </div>
 
@@ -71,8 +79,7 @@ export default class InviteUsers extends React.Component {
 
           <button
             className='button'
-            onClick={::this.inviteUsers}
-          >
+            onClick={::this.inviteUsers}>
             Invite
          </button>
         </div>

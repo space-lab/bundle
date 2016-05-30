@@ -6,9 +6,7 @@ import { Autocomplete } from 'components'
 import './index.css'
 
 @ui({
-  state: {
-    tags: List(['irakli.janiashvili@gmail.com', 'viri@viri.com'])
-  }
+  state: { tags: List() }
 })
 export default class TagInput extends React.Component {
   componentWillUnmount () {
@@ -43,6 +41,10 @@ export default class TagInput extends React.Component {
     }
   }
 
+  renderTo () {
+    return this.props.ui.tags.size !== 0 ? <div className='to'>To:</div> : null
+  }
+
   renderTagList () {
     let { ui } = this.props
 
@@ -62,6 +64,7 @@ export default class TagInput extends React.Component {
   render () {
     return (
       <div className='taginput'>
+        {this.renderTo()}
         {this.renderTagList()}
 
         <Autocomplete

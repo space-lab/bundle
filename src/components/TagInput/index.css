@@ -1,18 +1,26 @@
 $height: 25px;
 
 .taginput {
-  .tag, input {
-    height: $height;
-    line-height: $height;
-    font-size: 15px;
-    margin-bottom: 8px;
-  }
-
+  width: 100%;
   display: inline-block;
 
   .tag {
-    display: inherit;
+    height: $height;
+    line-height: $height;
+    font-size: 15px;
+  }
+
+  .to {
+    display: inline-block;
+    margin-right: 8px;
+    height: $height;
+    line-height: $height;
+  }
+
+  .tag {
+    display: inline-block;
     background-color: #F0F0F0;
+    margin-bottom: 8px;
 
     box-sizing: border-box;
     padding: 0 10px;
