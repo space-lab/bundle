@@ -14,7 +14,7 @@ const connectProps = {
   ...userAutocompleteActions
 }
 
-@ui({ state: { value: '', permission: 1 } })
+@ui({ state: { values: [], permission: 1 } })
 @connect(connectState, connectProps)
 export default class InviteUsers extends React.Component {
   static propTypes = {
@@ -23,23 +23,19 @@ export default class InviteUsers extends React.Component {
     inviteUsers: React.PropTypes.func
   }
 
-  handleKeyUp ({ target }) {
-    this.props.updateUI('value', target.value)
+  inviteUsers () {
+    const { values, permission } = this.props.ui
+    const { inviteUsers, resetUI, resourceId, resourceName } = this.props
+    const data = values.map(value => {
+      return { id: value.id, permission_id: permission }
+    })
+
+    inviteUsers(resourceName, resourceId, { data })
+      .then(() => resetUI())
   }
 
-  inviteUsers () {
-    let permission = this.props.ui.permission
-    let id = this.props.resourceId
-    let resource = this.props.resourceName
-
-    let data = this.props.ui.value.split(',').map(email => {
-      return { email: email.trim(), permission_id: permission }
-    })
-
-    this.props.inviteUsers(resource, id, { data }).then(() => {
-      this.props.resetUI()
-      this.refs.email.value = ''
-    })
+  handleValueChange (values) {
+    this.props.updateUI('values', values)
   }
 
   permissionChanged (e) {
@@ -47,8 +43,8 @@ export default class InviteUsers extends React.Component {
   }
 
   renderPermission () {
-    let selected = this.props.ui.permission
-    let options = SHARE_PERMISSIONS
+    const selected = this.props.ui.permission
+    const options = SHARE_PERMISSIONS
 
     return (
       <select value={selected} onChange={::this.permissionChanged}>
@@ -60,8 +56,6 @@ export default class InviteUsers extends React.Component {
   }
 
   render () {
-    let value = this.props.ui.value
-
     return (
       <div className='invite-users-container'>
         <div className='full-row'>
@@ -69,6 +63,7 @@ export default class InviteUsers extends React.Component {
             data={this.props.data}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
+            handleChange={::this.handleValueChange}
           />
         </div>
 

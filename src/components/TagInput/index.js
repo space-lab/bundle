@@ -1,29 +1,35 @@
-import ui from 'redux-ui'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, fromJS } from 'immutable'
-
+import ui from 'redux-ui'
 import { Autocomplete } from 'components'
-
 import './index.css'
 
-@ui({
-  state: { tags: List() }
-})
+@ui({ state: { tags: List() } })
 export default class TagInput extends React.Component {
+  static propTypes = {
+    data: ImmutablePropTypes.list.isRequired,
+    getData: React.PropTypes.func.isRequired,
+    resetData: React.PropTypes.func.isRequired,
+    handleChange: React.PropTypes.func.isRequired
+  }
+
   componentWillUnmount () {
     this.props.resetData()
   }
 
   addTag (tag) {
-    let { ui, updateUI } = this.props
+    let { ui, updateUI, handleChange } = this.props
     let tags = ui.tags.push(fromJS(tag))
 
+    handleChange(tags.toJS())
     updateUI('tags', tags)
   }
 
   handleTagRemoval (index) {
-    let { ui, updateUI } = this.props
+    let { ui, updateUI, handleChange } = this.props
     let tags = ui.tags.delete(index)
 
+    handleChange(tags.toJS())
     updateUI('tags', tags)
   }
 
