@@ -18,16 +18,16 @@ export default class TagInput extends React.Component {
   }
 
   addTag (tag) {
-    let { ui, updateUI, handleChange } = this.props
-    let tags = ui.tags.push(fromJS(tag))
+    const { ui, updateUI, handleChange } = this.props
+    const tags = ui.tags.push(fromJS(tag))
 
     handleChange(tags.toJS())
     updateUI('tags', tags)
   }
 
   handleTagRemoval (index) {
-    let { ui, updateUI, handleChange } = this.props
-    let tags = ui.tags.delete(index)
+    const { ui, updateUI, handleChange } = this.props
+    const tags = ui.tags.delete(index)
 
     handleChange(tags.toJS())
     updateUI('tags', tags)
@@ -52,7 +52,7 @@ export default class TagInput extends React.Component {
   }
 
   renderTagList () {
-    let { ui } = this.props
+    const { ui } = this.props
 
     return ui.tags.map((tag, index) => {
       return (
