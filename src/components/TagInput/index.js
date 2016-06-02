@@ -43,7 +43,7 @@ export default class TagInput extends React.Component {
     if (typeof tag === 'string') {
       return tag
     } else {
-      return <div><img src={tag.image} /> {tag.name}</div>
+      return <div><img src={tag.image}/>{tag.name}</div>
     }
   }
 
@@ -78,7 +78,7 @@ export default class TagInput extends React.Component {
           placeholder='Enter name, or email'
           data={this.props.data}
           getData={this.props.getData}
-          onFinishInput={::this.addTag}
+          onInputFinish={::this.addTag}
           addedIds={this.getAddedIds()}
         />
       </div>

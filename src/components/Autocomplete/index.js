@@ -7,7 +7,7 @@ export default class Autocomplete extends React.Component {
     placeholder: React.PropTypes.string,
     data: ImmutablePropTypes.list.isRequired,
     getData: React.PropTypes.func.isRequired,
-    onFinishInput: React.PropTypes.func.isRequired,
+    onInputFinish: React.PropTypes.func.isRequired,
     addedIds: ImmutablePropTypes.list.isRequired
   }
 
@@ -18,7 +18,7 @@ export default class Autocomplete extends React.Component {
 
   sendValue (entry) {
     if (entry && !this.alreadyAdded(entry.id)) {
-      this.props.onFinishInput(entry)
+      this.props.onInputFinish(entry)
       this.resetInput()
     }
   }

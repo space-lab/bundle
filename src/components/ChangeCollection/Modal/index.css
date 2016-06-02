@@ -50,7 +50,7 @@
       transition: background-color linear 200ms;
 
       &:last-child {
-        border-bottom: 0px;
+        border-bottom: none;
       }
 
       span {
