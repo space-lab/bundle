@@ -1,0 +1,59 @@
+.autocomplete {
+  input {
+    width: 100%;
+    border: none;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+  }
+
+  .list {
+    background: white;
+
+    .item {
+      height: 50px;
+      cursor: pointer;
+      border-bottom: 1px solid #ECECEC;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      background: white;
+      transition: all linear 200ms;
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      &:hover {
+        background: #EBF3FA;
+      }
+
+      img {
+        $size: 36px;
+
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        background-color: #EEE;
+        margin-right: 10px;
+      }
+
+      .check-icon {
+        margin-left: auto;
+        width: 24px;
+        height: 24px;
+        background: url(/assets/images/collection-check.svg) center center no-repeat;
+      }
+    }
+
+    .active {
+      img, span {
+        opacity: 0.3;
+      }
+
+      &:hover {
+        background: none;
+      }
+    }
+  }
+}

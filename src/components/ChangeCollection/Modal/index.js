@@ -10,7 +10,7 @@ export default class ChangeCollectionModal extends React.Component {
     updateBundle: React.PropTypes.func,
   }
 
-  onQuoryChange (e) {
+  onQueryChange (e) {
     this.props.updateUI('q', e.target.value)
   }
 
@@ -81,7 +81,7 @@ export default class ChangeCollectionModal extends React.Component {
             className='search-input'
             placeholder='Search Collections...'
             value={this.props.ui.q}
-            onChange={::this.onQuoryChange}
+            onChange={::this.onQueryChange}
           />
           <span className='icon close-icon'
             onClick={::this.onCloseClick}

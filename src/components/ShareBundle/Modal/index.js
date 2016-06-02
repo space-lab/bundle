@@ -9,7 +9,6 @@ export default class ShareBundleModal extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record,
     changeSharePermission: React.PropTypes.func,
-    inviteUsers: React.PropTypes.func
   }
 
   renderShares () {
@@ -28,9 +27,9 @@ export default class ShareBundleModal extends React.Component {
     return (
       <Modal className='share-bundle-modal'>
         <InviteUsers
+          {...this.props}
           resourceName='Bundle'
           resourceId={this.props.bundle.id}
-          inviteUsers={this.props.inviteUsers}
         />
 
         {::this.renderShares()}

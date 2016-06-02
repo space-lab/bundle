@@ -51,7 +51,7 @@
       transition: background-color linear 200ms;
 
       &:last-child {
-        border-bottom: 0px;
+        border-bottom: none;
       }
 
       span {
@@ -74,7 +74,6 @@
       }
 
       .collection-check-icon {
-        cursor: pointer;
         position: absolute;
         right: 3px;
         top: 8px;

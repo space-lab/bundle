@@ -1,0 +1,70 @@
+$height: 25px;
+
+.taginput {
+  width: 100%;
+  display: inline-block;
+
+  .tag {
+    height: $height;
+    line-height: $height;
+    font-size: 15px;
+  }
+
+  .to {
+    display: inline-block;
+    margin-right: 8px;
+    height: $height;
+    line-height: $height;
+  }
+
+  .tag {
+    display: inline-block;
+    background-color: #F0F0F0;
+    margin-bottom: 8px;
+
+    box-sizing: border-box;
+    padding: 0 10px;
+    margin-right: 10px;
+
+    border-radius: 3px;
+
+    div {
+      display: inline-block;
+      position: relative;
+      padding-left: 24px;
+
+      img {
+        position: absolute;
+        top: 2.5px;
+        left: -5px;
+
+        $size: 20px;
+        width: $size;
+        height: $size;
+        border-radius: 50%;
+        background-color: #EEE;
+      }
+    }
+
+    .close {
+      position: relative;
+      top: 3px;
+      left: 4px;
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+      opacity: 1;
+      transition: opacity linear 200ms;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .selected {
+    background-color: #D4D4D4;
+  }
+}

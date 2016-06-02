@@ -1,33 +1,36 @@
-import ui from 'redux-ui'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { SHARE_PERMISSIONS } from 'constants'
+import { TagInput } from 'components'
 import './index.css'
 
-@ui({ state: { value: '', permission: 1 } })
+@ui({ state: { values: [], permission: 1 } })
 export default class InviteUsers extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string,
     resourceName: React.PropTypes.string,
-    inviteUsers: React.PropTypes.func
-  }
-
-  handleKeyUp ({ target }) {
-    this.props.updateUI('value', target.value)
+    inviteUsers: React.PropTypes.func,
+    userAutocomplete: ImmutablePropTypes.list,
+    getAutocompleteUsers: React.PropTypes.func,
+    resetAutocompleteUsers: React.PropTypes.func
   }
 
   inviteUsers () {
-    let permission = this.props.ui.permission
-    let id = this.props.resourceId
-    let resource = this.props.resourceName
-
-    let data = this.props.ui.value.split(',').map(email => {
-      return { email: email.trim(), permission_id: permission }
+    const { values, permission } = this.props.ui
+    const { inviteUsers, resetUI, resourceId, resourceName } = this.props
+    const data = values.map(value => {
+      return { id: value.id, permission_id: permission }
     })
 
-    this.props.inviteUsers(resource, id, { data }).then(() => {
-      this.props.resetUI()
-      this.refs.email.value = ''
-    })
+    inviteUsers(resourceName, resourceId, { data })
+      .then(() => {
+        resetUI()
+        this.props.resetAutocompleteUsers()
+      })
+  }
+
+  handleValueChange (values) {
+    this.props.updateUI('values', values)
   }
 
   permissionChanged (e) {
@@ -35,8 +38,8 @@ export default class InviteUsers extends React.Component {
   }
 
   renderPermission () {
-    let selected = this.props.ui.permission
-    let options = SHARE_PERMISSIONS
+    const selected = this.props.ui.permission
+    const options = SHARE_PERMISSIONS
 
     return (
       <select value={selected} onChange={::this.permissionChanged}>
@@ -48,19 +51,15 @@ export default class InviteUsers extends React.Component {
   }
 
   render () {
-    let value = this.props.ui.value
-
     return (
       <div className='invite-users-container'>
         <div className='full-row'>
-          <div className='to'>To:</div>
-
-          <input
-            className='invite-user-input'
-            defaultValue={value || ''}
-            ref='email'
-            placeholder='Enter name, or email'
-            onKeyUp={::this.handleKeyUp}
+          <TagInput
+            data={this.props.userAutocomplete}
+            bundle={this.props.bundle}
+            getData={this.props.getAutocompleteUsers}
+            resetData={this.props.resetAutocompleteUsers}
+            handleChange={::this.handleValueChange}
           />
         </div>
 
@@ -71,8 +70,7 @@ export default class InviteUsers extends React.Component {
 
           <button
             className='button'
-            onClick={::this.inviteUsers}
-          >
+            onClick={::this.inviteUsers}>
             Invite
          </button>
         </div>
