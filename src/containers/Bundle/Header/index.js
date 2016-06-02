@@ -38,7 +38,6 @@ export default class BundleViewHeader extends React.Component {
 
   renderViewBundleHeader () {
     let { ui, bundle, toggleEdit, collections } = this.props
-    console.log(this.props)
 
     return (
       <div className='bundle-view-header-wrapper'>

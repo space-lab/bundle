@@ -1,3 +1,4 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { SHARE_PERMISSIONS } from 'constants'
 import { TagInput } from 'components'
@@ -8,7 +9,10 @@ export default class InviteUsers extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string,
     resourceName: React.PropTypes.string,
-    inviteUsers: React.PropTypes.func
+    inviteUsers: React.PropTypes.func,
+    userAutocomplete: ImmutablePropTypes.list,
+    getAutocompleteUsers: React.PropTypes.func,
+    resetAutocompleteUsers: React.PropTypes.func
   }
 
   inviteUsers () {
