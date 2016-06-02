@@ -1,8 +1,19 @@
+import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleEditMode from './ToggleEditMode'
 import { ChangeCollection, ShareBundle } from 'components'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 import './index.css'
 
+const connectState = (state) => ({
+  userAutocomplete: state.UserAutocomplete
+})
+
+const connectProps = {
+  ...userAutocompleteActions
+}
+
+@connect(connectState, connectProps)
 export default class BundleViewHeader extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record,
@@ -27,6 +38,7 @@ export default class BundleViewHeader extends React.Component {
 
   renderViewBundleHeader () {
     let { ui, bundle, toggleEdit, collections } = this.props
+    console.log(this.props)
 
     return (
       <div className='bundle-view-header-wrapper'>
@@ -37,16 +49,9 @@ export default class BundleViewHeader extends React.Component {
         />
 
         <div className='align-right'>
-          <ShareBundle
-            bundle={bundle}
-            changeSharePermission={this.props.changeSharePermission}
-            inviteUsers={this.props.inviteUsers}
-          />
+          <ShareBundle {...this.props} />
 
-          <ToggleEditMode
-            editMode={ui.editMode}
-            toggleEdit={toggleEdit}
-          />
+          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit} />
         </div>
       </div>
     )

@@ -1,21 +1,9 @@
 import ui from 'redux-ui'
-import { connect } from 'react-redux'
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from 'constants'
 import { TagInput } from 'components'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
 import './index.css'
 
-const connectState = (state) => ({
-  data: state.UserAutocomplete
-})
-
-const connectProps = {
-  ...userAutocompleteActions
-}
-
 @ui({ state: { values: [], permission: 1 } })
-@connect(connectState, connectProps)
 export default class InviteUsers extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string,
@@ -60,7 +48,7 @@ export default class InviteUsers extends React.Component {
       <div className='invite-users-container'>
         <div className='full-row'>
           <TagInput
-            data={this.props.data}
+            data={this.props.userAutocomplete}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
             handleChange={::this.handleValueChange}
