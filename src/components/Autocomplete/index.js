@@ -8,7 +8,7 @@ export default class Autocomplete extends React.Component {
     data: ImmutablePropTypes.list.isRequired,
     getData: React.PropTypes.func.isRequired,
     onInputFinish: React.PropTypes.func.isRequired,
-    addedIds: ImmutablePropTypes.list.isRequired
+    addedIds: ImmutablePropTypes.set.isRequired
   }
 
   getInput = () => this.refs.input

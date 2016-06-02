@@ -23,7 +23,10 @@ export default class InviteUsers extends React.Component {
     })
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => resetUI())
+      .then(() => {
+        resetUI()
+        this.props.resetAutocompleteUsers()
+      })
   }
 
   handleValueChange (values) {
@@ -53,6 +56,7 @@ export default class InviteUsers extends React.Component {
         <div className='full-row'>
           <TagInput
             data={this.props.userAutocomplete}
+            bundle={this.props.bundle}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
             handleChange={::this.handleValueChange}

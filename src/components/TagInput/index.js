@@ -8,6 +8,7 @@ import './index.css'
 export default class TagInput extends React.Component {
   static propTypes = {
     data: ImmutablePropTypes.list.isRequired,
+    bundle: ImmutablePropTypes.record.isRequired,
     getData: React.PropTypes.func.isRequired,
     resetData: React.PropTypes.func.isRequired,
     handleChange: React.PropTypes.func.isRequired
@@ -34,9 +35,12 @@ export default class TagInput extends React.Component {
   }
 
   getAddedIds () {
-    return this.props.ui.tags
+    const invitedIds = this.props.bundle.shares.map(share => share.user.id)
+    const invitingIds = this.props.ui.tags
       .filter(value => typeof value !== 'string')
       .map(value => value.id)
+
+    return invitingIds.concat(invitedIds).toSet()
   }
 
   renderTagOrUser (tag) {
