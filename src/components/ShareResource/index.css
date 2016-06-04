@@ -1,5 +1,8 @@
-.share-resource-wrapper {
-  display: inline-block;
-  position: relative;
-  margin: auto;
+.share-resource-modal {
+  width: 435px;
+
+  right: -10px;
+  top: -10px;
+
+  padding: 0;
 }

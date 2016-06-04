@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import listensToClickOutside from 'react-onclickoutside/decorator'
 import ui from 'redux-ui'
-import Modal from 'components/ShareResource/Modal'
+import { ShareResource } from 'components'
 
 @ui({
   state: { q: '', isOpen: false, position: null }
@@ -36,7 +36,7 @@ export default class ToolbarShareItem extends React.Component {
     return (
       <div className='relative-toolbar' ref='toolbar'>
         <div className='icon icon-toolbar-share' onClick={::this.openModal}/>
-        <Modal {...this.props} position={this.props.ui.position}/>
+        <ShareResource {...this.props} position={this.props.ui.position}/>
       </div>
     )
   }
