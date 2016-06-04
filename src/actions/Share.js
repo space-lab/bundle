@@ -39,9 +39,10 @@ export function inviteUsers (resource, id, payload) {
     if (result.get('shares')) {
       let shares = result.get('shares').valueSeq().map(item => new Share(item))
       let shareIds = shares.map(share => share.id)
+      let type = (resource == 'Bundle') ? 'ADD_SHARES_TO_BUNDLE' :  'ADD_SHARES_TO_COLLECTION'
 
       dispatch({ type: 'RECEIVE_SHARES', shares })
-      dispatch({ type: 'ADD_SHARES_TO_BUNDLE', shares: shareIds, bundleId: id })
+      dispatch({ type, shares: shareIds, resourceId: id })
     }
   }
 }

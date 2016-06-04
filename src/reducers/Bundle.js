@@ -16,7 +16,7 @@ export default function (state = defaultState, action) {
 
     case 'ADD_SHARES_TO_BUNDLE':
       return state
-        .updateIn(['byId', action.bundleId, 'shares'], shares => shares.concat(action.shares))
+        .updateIn(['byId', action.resourceId, 'shares'], shares => shares.concat(action.shares))
 
     case 'ADD_LINK_ID_TO_BUNDLE':
       return state

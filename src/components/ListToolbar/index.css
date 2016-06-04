@@ -35,8 +35,7 @@ $size: 18px;
     display: inline-block;
 
     .share-resource-modal {
-      position: absolute;
-      left: 0px;
+      position: fixed;
     }
   }
 }

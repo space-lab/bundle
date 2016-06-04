@@ -26,7 +26,7 @@ export default class ShareResourceModal extends React.Component {
     if (!this.props.ui.isOpen) return false
 
     return (
-      <Modal className='share-resource-modal'>
+      <Modal style={this.props.position} className='share-resource-modal'>
         <InviteUsers
           {...this.props}
           resourceName={this.props.resourceName}

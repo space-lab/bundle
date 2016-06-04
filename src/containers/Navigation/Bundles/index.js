@@ -13,8 +13,6 @@ import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
-import './index.css'
-
 const connectState = (state, props) => ({
   bundles: currentBundlesSelector(state, props),
   bundleId: state.Route.bundleId,

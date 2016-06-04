@@ -30,6 +30,10 @@ export default function (state = defaultState, action) {
     case 'ALL_COLLECTIONS_RECEIVED':
       return state.set('receivedAll', true)
 
+    case 'ADD_SHARES_TO_COLLECTION':
+      return state
+        .updateIn(['byId', action.resourceId, 'shares'], shares => shares.concat(action.shares))
+
     default:
       return state
   }
