@@ -29,4 +29,14 @@ $size: 18px;
       background-image: url('/assets/images/toolbar-$(icon).svg');
     }
   }
+
+  .relative-toolbar {
+    position: relative;
+    display: inline;
+
+    .share-resource-modal {
+      position: absolute;
+      left: 0px;
+    }
+  }
 }

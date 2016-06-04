@@ -56,7 +56,7 @@ export default class InviteUsers extends React.Component {
         <div className='full-row'>
           <TagInput
             data={this.props.userAutocomplete}
-            bundle={this.props.bundle}
+            resource={this.props.resource}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
             handleChange={::this.handleValueChange}

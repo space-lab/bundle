@@ -12,7 +12,9 @@ let currentCollectionIdSelector = state => state.Route.collectionId
 let currentUserIdSelector = state => state.User.get('current')
 let currentLinksSelector = state => state.Link.get('current')
 
-let getFilter = (state, props) => props.ui.filter
+let getFilter = (state, props) => {
+  return props ? props.ui.filter : null
+}
 
 export const currentBundleSelector = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
@@ -106,4 +108,13 @@ export const sortedFavoritesSelector = createSelector(
 export const currentBundleSharesSelector = createSelector(
   [currentBundleSelector, sharesSelector],
   (bundle, shares) => bundle.shares.map(id => shares.get(id))
+)
+
+export const currentBundlesSelector = createSelector(
+  [filteredBundlesSelector, sharesSelector, usersSelector],
+  (bundles, shares, users) => {
+    return bundles.map(bundle => bundle.update('shares', ids => ids.map(id => {
+      return shares.get(id).update('user', id => users.get(id))
+    })))
+  }
 )
