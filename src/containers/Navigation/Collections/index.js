@@ -12,8 +12,8 @@ import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
-const connectState = (state) => ({
-  collections: currentCollectionsSelector(state),
+const connectState = (state, props) => ({
+  collections: currentCollectionsSelector(state, props),
   userAutocomplete: state.UserAutocomplete
 })
 
@@ -29,7 +29,7 @@ const connectProps = {
   state: { filter: 'recent' }
 })
 @connect(connectState, connectProps)
-export default class CollectionsNavigationContainer extends React.Component {
+export default class Container extends React.Component {
   static propTypes = {
     collections: ImmutablePropTypes.list
   }

@@ -12,9 +12,7 @@ let currentCollectionIdSelector = state => state.Route.collectionId
 let currentUserIdSelector = state => state.User.get('current')
 let currentLinksSelector = state => state.Link.get('current')
 
-let getFilter = (state, props) => {
-  return props ? props.ui.filter : null
-}
+let getFilter = (state, props) => props.ui.filter
 
 export const currentBundleSelector = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],

@@ -32,7 +32,7 @@ $size: 18px;
 
   .relative-toolbar {
     position: relative;
-    display: inline;
+    display: inline-block;
 
     .share-resource-modal {
       position: absolute;

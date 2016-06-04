@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable'
 import { normalize, arrayOf } from 'normalizr'
 
-import { Bundle, Collection, Share } from 'records'
+import { Bundle, Collection, Share, User } from 'records'
 import { collectionSchema } from 'normalizers'
 
 import request from 'axios'
@@ -12,12 +12,14 @@ export function getCollection (id) {
     let response = await request.get(api.collections(id))
     let result = normalize(response.data, collectionSchema).entities
     let bundles = Object.values(result.bundles || []).map(item => new Bundle(fromJS(item)))
+    let users = Object.values(result.users || []).map(item => new User(fromJS(item)))
     let shares = Object.values(result.shares || []).map(item => new Share(fromJS(item)))
     let collections = Object.values(result.collections).map(item => new Collection(fromJS(item)))
 
+    dispatch({ type: 'RECEIVE_USERS', users })
+    dispatch({ type: 'RECEIVE_SHARES', shares })
     dispatch({ type: 'RECEIVE_BUNDLES', bundles })
     dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
-    dispatch({ type: 'RECEIVE_SHARES', shares })
   }
 }
 
@@ -25,11 +27,13 @@ export function getCollections () {
   return async function (dispatch) {
     let response = await request.get(api.collections())
     let result = normalize(response.data, arrayOf(collectionSchema)).entities
+    let users = Object.values(result.users || []).map(item => new User(fromJS(item)))
     let shares = Object.values(result.shares || []).map(item => new Share(fromJS(item)))
     let collections = Object.values(result.collections).map(item => new Collection(fromJS(item)))
 
-    dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
+    dispatch({ type: 'RECEIVE_USERS', users })
     dispatch({ type: 'RECEIVE_SHARES', shares })
+    dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
     dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
   }
 }
