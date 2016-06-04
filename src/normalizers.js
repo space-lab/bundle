@@ -8,7 +8,8 @@ export const shareSchema = new Schema('shares', { idAttribute: 'id' })
 
 
 collectionSchema.define({
-  bundles: arrayOf(bundleSchema)
+  bundles: arrayOf(bundleSchema),
+  shares: arrayOf(shareSchema)
 })
 
 bundleSchema.define({
