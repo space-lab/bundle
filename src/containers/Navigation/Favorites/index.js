@@ -3,14 +3,14 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
 import { ResourceNavigation, List, ListItem } from 'components'
-import { sortedFavoritesSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
 
 const connectState = (state) => ({
-  favorites: sortedFavoritesSelector(state),
+  favorites: Selectors.sortedFavorites(state),
   bundles: state.Bundle.get('byId'),
   collections: state.Collection.get('byId'),
   bundleId: state.Route.bundleId,

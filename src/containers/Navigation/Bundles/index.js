@@ -5,7 +5,7 @@ import { Link, browserHistory } from 'react-router'
 
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { NEW_BUNDLE_ID } from 'constants'
-import { currentBundlesSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
@@ -14,7 +14,7 @@ import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state, props) => ({
-  bundles: currentBundlesSelector(state, props),
+  bundles: Selectors.currentBundles(state, props),
   bundleId: state.Route.bundleId,
   search: state.Search,
   userAutocomplete: state.UserAutocomplete

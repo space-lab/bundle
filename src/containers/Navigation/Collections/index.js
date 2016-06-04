@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { nextId } from 'helpers'
-import { currentCollectionsSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
@@ -13,7 +13,7 @@ import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state, props) => ({
-  collections: currentCollectionsSelector(state, props),
+  collections: Selectors.currentCollections(state, props),
   userAutocomplete: state.UserAutocomplete
 })
 

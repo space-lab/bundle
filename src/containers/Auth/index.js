@@ -1,6 +1,5 @@
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import { currentUserSelector } from 'selectors'
 import * as userActions from 'actions/User'
 import api from 'api'
 import './index.css'

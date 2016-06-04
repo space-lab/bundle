@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { currentBundleSelector, currentUserSelector } from '../../selectors'
+import Selectors from 'selectors'
 import { nextId } from 'helpers'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
@@ -7,8 +7,8 @@ import EnterUrl from './EnterUrl'
 import LinkPreview from './LinkPreview'
 
 const connectState = (state) => ({
-  bundle: currentBundleSelector(state),
-  currentUser: currentUserSelector(state)
+  bundle: Selectors.currentBundle(state),
+  currentUser: Selectors.currentUser(state)
 })
 
 const connectProps = {
