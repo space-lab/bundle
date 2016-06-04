@@ -5,18 +5,23 @@ import { Link } from 'react-router'
 
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { nextId } from 'helpers'
-import { sortedCollectionsSelector } from 'selectors'
+import { currentCollectionsSelector } from 'selectors'
 
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
+import * as shareActions from 'actions/Share'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state) => ({
-  collections: sortedCollectionsSelector(state)
+  collections: currentCollectionsSelector(state),
+  userAutocomplete: state.UserAutocomplete
 })
 
 const connectProps = {
   ...collectionActions,
-  ...favoriteActions
+  ...favoriteActions,
+  ...shareActions,
+  ...userAutocompleteActions
 }
 
 @ui({
@@ -51,6 +56,8 @@ export default class CollectionsNavigationContainer extends React.Component {
         remove={removeCollection}
         close={closeCollection}
         createCollection={createCollection}
+        resourceName={'Collection'}
+        resource={collection}
       />
     })
   }

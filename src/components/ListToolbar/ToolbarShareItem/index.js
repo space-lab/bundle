@@ -20,8 +20,11 @@ export default class ToolbarShareItem extends React.Component {
   }
 
   openModal () {
-    let { resource, getBundle, updateUI } = this.props
-    if (!resource.full_response) getBundle(resource.id)
+    let { resource, resourceName, getBundle, updateUI } = this.props
+
+    if (!resource.full_response && resourceName == 'Bundle') {
+      getBundle(resource.id)
+    }
 
     updateUI('isOpen', true)
   }

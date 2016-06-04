@@ -30,9 +30,9 @@ export const Collection = Record({
   name: '',
   bundles_count: 0,
   favorites_count: 0,
-  shares_count: 0,
   favorited: false,
   bundles: List(),
+  shares: List(),
   full_response: false,
   created_at: null,
   editMode: false

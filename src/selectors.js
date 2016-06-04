@@ -58,6 +58,15 @@ export const sortedBundlesSelector = createSelector(
     .toList()
 )
 
+export const sortedCollectionsSelector = createSelector(
+  collectionsSelector,
+  collections => collections
+    .valueSeq()
+    .sortBy(col => col.created_at)
+    .reverse()
+    .toList()
+)
+
 export const filteredBundlesSelector = createSelector(
   [sortedBundlesSelector, getFilter, currentUserIdSelector],
   (bundles, filter, currentUser) => {
@@ -74,14 +83,22 @@ export const filteredBundlesSelector = createSelector(
   }
 )
 
-export const sortedCollectionsSelector = createSelector(
-  collectionsSelector,
-  collections => collections
-    .valueSeq()
-    .sortBy(col => col.created_at)
-    .reverse()
-    .toList()
+export const filteredCollectionsSelector = createSelector(
+  [sortedCollectionsSelector, getFilter, currentUserIdSelector],
+  (collections, filter, currentUser) => {
+    switch (filter) {
+      case 'recent':
+        return collections.slice(0, 15)
+      case 'mine':
+        return collections.filter(collection => collection.creator == currentUser)
+      case 'shared':
+        return collections.filter(collection => collection.creator != currentUser)
+      default:
+        return collections
+    }
+  }
 )
+
 
 export const sortedCollectionBundlesSelector = createSelector(
   [currentCollectionSelector, bundlesSelector],
@@ -114,6 +131,15 @@ export const currentBundlesSelector = createSelector(
   [filteredBundlesSelector, sharesSelector, usersSelector],
   (bundles, shares, users) => {
     return bundles.map(bundle => bundle.update('shares', ids => ids.map(id => {
+      return shares.get(id).update('user', id => users.get(id))
+    })))
+  }
+)
+
+export const currentCollectionsSelector = createSelector(
+  [filteredCollectionsSelector, sharesSelector, usersSelector],
+  (collections, shares, users) => {
+    return collections.map(col => col.update('shares', ids => ids.map(id => {
       return shares.get(id).update('user', id => users.get(id))
     })))
   }
