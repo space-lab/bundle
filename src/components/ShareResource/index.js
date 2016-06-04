@@ -8,9 +8,10 @@ import Modal from './Modal'
   state: { q: '', isOpen: false }
 })
 @listensToClickOutside()
-export default class ShareBundle extends React.Component {
+export default class ShareResource extends React.Component {
   static propTypes = {
-    bundle: ImmutablePropTypes.record
+    resource: ImmutablePropTypes.record,
+    resourceName: React.PropTypes.string
   }
 
   handleClickOutside (e) {
@@ -25,7 +26,7 @@ export default class ShareBundle extends React.Component {
 
   render () {
     return (
-      <div className='share-bundle-wrapper'>
+      <div className='share-resource-wrapper'>
         <button className='button' onClick={::this.openModal}>
           Share
         </button>

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleEditMode from './ToggleEditMode'
-import { ChangeCollection, ShareBundle } from 'components'
+import { ChangeCollection, ShareResource } from 'components'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 import './index.css'
 
@@ -48,7 +48,11 @@ export default class BundleViewHeader extends React.Component {
         />
 
         <div className='align-right'>
-          <ShareBundle {...this.props} />
+          <ShareResource
+            {...this.props}
+            resourceName='Bundle'
+            resource={this.props.bundle}
+          />
 
           <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit} />
         </div>
