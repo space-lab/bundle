@@ -46,7 +46,7 @@ export const reduceCollection = (data, dispatch, isArray) => {
 
   let users = Object.values(result.users || []).map(item => new User(fromJS(item)))
   let shares = Object.values(result.shares || []).map(item => new Share(fromJS(item)))
-  let collections = Object.values(result.collections).map(item => new Collection(fromJS(item)))
+  let collections = Object.values(result.collections || []).map(item => new Collection(fromJS(item)))
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
