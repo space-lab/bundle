@@ -24,6 +24,12 @@ export const nextId = items => {
   return (max - 1).toString()
 }
 
+export const getRecord = (Model, data) => new Model(fromJS(data))
+
+export const getRecords = (Model, data) => {
+  return fromJS(data).map(item => new Model(item))
+}
+
 export const reduceBundle = (data, dispatch) => {
   let result = fromJS(normalize(data, bundleSchema).entities)
     .update('links', links => links || Map())

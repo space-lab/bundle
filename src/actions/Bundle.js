@@ -1,7 +1,7 @@
 import { fromJS, Map, List } from 'immutable'
 import { Bundle, User, Link, Share } from 'records'
 import { NEW_BUNDLE_ID } from 'constants'
-import { reduceBundle } from 'helpers'
+import { reduceBundle, getRecords } from 'helpers'
 
 import request from 'axios'
 import api from 'api'
@@ -26,13 +26,13 @@ export const createBundle = payload => async dispatch => {
 }
 
 export const getBundle = id => async dispatch => {
-  let response = await request.get(api.bundles(id))
-  reduceBundle(response.data, dispatch)
+  let { data } = await request.get(api.bundles(id))
+  reduceBundle(data, dispatch)
 }
 
 export const getBundles = () => async dispatch => {
-  let response = await request.get(api.bundles())
-  let bundles = fromJS(response.data).map(item => new Bundle(item))
+  let { data } = await request.get(api.bundles())
+  let bundles = getRecords(Bundle, data)
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
 }

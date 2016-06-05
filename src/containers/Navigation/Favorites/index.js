@@ -58,7 +58,8 @@ export default class Container extends React.Component {
       <ListItem
         key={index}
         Component={ListItem.Collection}
-        {...collection.toJS()} {...rest}
+        {...collection.toJS()}
+        {...rest}
         url={'/collection/' + collection.id}
         type={'collection'}
         active={collection.id === collectionId}
