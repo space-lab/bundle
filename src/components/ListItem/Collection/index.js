@@ -15,7 +15,7 @@ export default function CollectionListItem ({
   name,
   created_at,
   bundles_count,
-  shares,
+  shares_count,
   editMode,
   createCollection,
   ...toolbarProps
@@ -39,7 +39,7 @@ export default function CollectionListItem ({
           </h1>
           <h2>
             <span>{bundles_count} Bundle</span>
-            <span>{sharedWithText(shares.length)}</span>
+            <span>{sharedWithText(shares_count)}</span>
           </h2>
         </div>
       </Link>
@@ -52,7 +52,7 @@ CollectionListItem.propTypes = {
   name: React.PropTypes.string.isRequired,
   created_at: React.PropTypes.string.isRequired,
   bundles_count: React.PropTypes.number.isRequired,
-  shares: React.PropTypes.array.isRequired,
+  shares_count: React.PropTypes.number.isRequired,
   createCollection: React.PropTypes.func.isRequired,
   close: React.PropTypes.func.isRequired,
   editMode: React.PropTypes.bool

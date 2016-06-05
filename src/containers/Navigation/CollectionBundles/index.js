@@ -11,7 +11,7 @@ import * as favoriteActions from 'actions/Favorite'
 
 const connectState = (state) => ({
   collection: Selectors.currentCollection(state),
-  bundles: SelectorssortedCollectionBundles(state),
+  bundles: Selectors.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId
 })
