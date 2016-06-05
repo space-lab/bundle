@@ -24,7 +24,6 @@ export const sortedFavorites = createSelector(
       }
     })
     .map(res => res.update('shares', ids => ids.map(id => {
-      let share = shares.get(id)
-      return share ? share.update('user', id => users.get(id)) : id
+      return shares.get(id).update('user', id => users.get(id))
     })))
 )
