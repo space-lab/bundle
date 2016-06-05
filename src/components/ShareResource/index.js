@@ -5,19 +5,22 @@ import ShareItem from './ShareItem'
 import { Modal } from 'components'
 import './index.css'
 
-export default class ShareResourceModal extends React.Component {
+export default class ShareResource extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record,
     resourceName: React.PropTypes.string,
     changeSharePermission: React.PropTypes.func,
+    removeShare: React.PropTypes.func
   }
 
   renderShares () {
-    let shares = this.props.resource.shares
+    let { resource, removeShare, changeSharePermission } = this.props
 
-    return shares.map(share => {
+    return resource.shares.map(share => {
       return <ShareItem key={share.id} share={share}
-        changeSharePermission={this.props.changeSharePermission}
+        resourceId={resource.id}
+        changeSharePermission={changeSharePermission}
+        removeShare={removeShare}
       />
     })
   }

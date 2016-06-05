@@ -16,6 +16,8 @@ export default function (state = defaultState, action) {
     case 'SAVE_SHARE':
       return state.setIn(['byId', action.share.id], action.share)
 
+    case 'REMOVE_SHARE':
+      return state.deleteIn(['byId', action.id])
     default:
       return state
   }

@@ -5,7 +5,9 @@ import './index.css'
 export default class ShareItem extends React.Component {
   static propTypes = {
     share: ImmutablePropTypes.record,
-    changeSharePermission: React.PropTypes.func
+    resourceId: React.PropTypes.string,
+    changeSharePermission: React.PropTypes.func,
+    removeShare: React.PropTypes.func
   }
 
   permissionChanged (e) {
@@ -30,7 +32,7 @@ export default class ShareItem extends React.Component {
   }
 
   render () {
-    let share = this.props.share
+    let { share, resourceId, removeShare } = this.props
 
     return (
       <div className='share-list-item'>
@@ -46,6 +48,12 @@ export default class ShareItem extends React.Component {
         <div className='user-permission'>
           {::this.renderPermission()}
         </div>
+
+        <span
+          className='icon close-icon'
+          onClick={() => removeShare(share.id, share.type, resourceId)}>
+          x
+        </span>
       </div>
     )
   }
