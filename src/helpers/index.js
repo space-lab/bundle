@@ -42,14 +42,19 @@ export const reduceBundle = (data, dispatch) => {
 
 export const reduceCollection = (data, dispatch, isArray) => {
   let schema = isArray ? arrayOf(collectionSchema) : collectionSchema
-  let result = normalize(data, schema).entities
+  let result = fromJS(normalize(data, schema).entities)
+    .update('users', links => links || Map())
+    .update('shares', shares => shares || Map())
+    .update('bundles', shares => shares || Map())
 
-  let users = Object.values(result.users || []).map(item => new User(fromJS(item)))
-  let shares = Object.values(result.shares || []).map(item => new Share(fromJS(item)))
-  let collections = Object.values(result.collections || []).map(item => new Collection(fromJS(item)))
+  let users = result.get('users').valueSeq().map(item => new User(item))
+  let shares = result.get('shares').valueSeq().map(item => new Share(item))
+  let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
+  let collections = result.get('collections').valueSeq().map(item => new Collection(item))
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
 }

@@ -70,7 +70,7 @@ export const sortedCollectionBundles = createSelector(
 
     return collection.bundles
       .map(id => bundles.get(id))
-      .sortBy(col => col.created_at)
+      .sortBy(bundle => bundle.created_at)
       .reverse()
       .toList()
       .map(bundle => bundle.update('shares', ids => ids.map(id => {
