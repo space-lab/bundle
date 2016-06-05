@@ -34,6 +34,7 @@ export const reduceBundle = (data, dispatch) => {
   let result = fromJS(normalize(data, bundleSchema).entities)
     .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
+    .update('users', users => users || Map())
 
   let bundle = new Bundle(result.get('bundles').first())
   let users = result.get('users').valueSeq().map(item => new User(item))
@@ -52,6 +53,7 @@ export const reduceCollection = (data, dispatch, isArray) => {
     .update('users', links => links || Map())
     .update('shares', shares => shares || Map())
     .update('bundles', shares => shares || Map())
+    .update('collections', colls => colls || Map())
 
   let users = result.get('users').valueSeq().map(item => new User(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
