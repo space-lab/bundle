@@ -2,8 +2,9 @@ import { API_BASE, FETCHER_URL } from 'constants'
 
 export default {
   auth: (provider) => `${API_BASE}/auth/${provider}`,
-  me: () => `${API_BASE}/me`,
-  email: () => `${API_BASE}/email`,
+
+  me: () => `${API_BASE}/users/me`,
+  user: (id) => `${API_BASE}/users/${id}`,
 
   bundles: (id = '') => `${API_BASE}/bundles/${id}`,
   collections: (id = '') => `${API_BASE}/collections/${id}`,

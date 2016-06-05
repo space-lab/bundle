@@ -19,9 +19,9 @@ export const authenticateUser = auth_token => {
   }
 }
 
-export const updateUserEmail = (email) =>  {
+export const updateUser = (user, data) =>  {
   return async function (dispatch) {
-    let response = await request.put(api.email(), { email })
+    let response = await request.put(api.user(user.id), { user: data})
     return dispatch(setCurrentUser(response.data))
   }
 }

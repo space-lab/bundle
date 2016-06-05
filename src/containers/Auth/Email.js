@@ -2,14 +2,15 @@ import api from 'api'
 
 export default class Email extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
+    updateUser: React.PropTypes.func.isRequired
   }
 
-  updateUserEmail () {
-    const { updateUserEmail } = this.props
+  updateUser () {
+    const { user, updateUser } = this.props
     const email = this.refs.email.value
 
-    if (email) updateUserEmail(email)
+    if (email) updateUser(user, { email })
   }
 
   render () {
@@ -31,11 +32,11 @@ export default class Email extends React.Component {
               type='email'
               placeholder='Type in email...'
               autoFocus={true}
-              onKeyUp={({ key }) => key === 'Enter' && this.updateUserEmail()}/>
+              onKeyUp={({ key }) => key === 'Enter' && this.updateUser()}/>
 
             <div
               className='button'
-              onClick={::this.updateUserEmail}>
+              onClick={::this.updateUser}>
               Get me in!
             </div>
           </div>
