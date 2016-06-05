@@ -17,7 +17,9 @@ export default class Email extends React.Component {
     return (
       <div className='auth-wrapper'>
         <div className='logo'>B</div>
-        <div className='greeting'>Welcome <span className='name'>{user.name}</span>!</div>
+        <div className='greeting'>
+          Welcome <span className='name'>{user.name}</span>!
+        </div>
 
         <div className='auth-content'>
           <div className='title'>Please type in your email to continue.</div>
