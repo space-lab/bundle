@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { currentUserSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import ui from 'redux-ui'
 import SideNavigationTop from './top'
@@ -8,7 +8,7 @@ import SideNavigationBottom from './bottom'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: currentUserSelector(state)
+  currentUser: Selectors.currentUser(state)
 })
 
 @ui({

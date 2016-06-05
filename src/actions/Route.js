@@ -1,17 +1,17 @@
 import { NEW_BUNDLE_ID } from 'constants'
 
-export function routeChangeBundleId (bundleId) {
-  return { type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId }
-}
+export const routeChangeBundleId =  bundleId => ({
+  type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId
+})
 
-export function routeChangeNewBundle () {
-  return { type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId: NEW_BUNDLE_ID }
-}
+export const routeChangeNewBundle = () => ({
+  type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId: NEW_BUNDLE_ID
+})
 
-export function routeChangeNavigationView (view) {
-  return { type: 'ROUTE_CHANGE_NAVIGATION_VIEW', view }
-}
+export const routeChangeNavigationView = view => ({
+  type: 'ROUTE_CHANGE_NAVIGATION_VIEW', view
+})
 
-export function routeChangeNavigationCollectionId (collectionId) {
-  return { type: 'ROUTE_CHANGE_NAVIGATION_COLLECTION_ID', collectionId }
-}
+export const routeChangeNavigationCollectionId = collectionId => ({
+  type: 'ROUTE_CHANGE_NAVIGATION_COLLECTION_ID', collectionId
+})

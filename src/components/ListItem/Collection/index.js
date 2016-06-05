@@ -1,3 +1,4 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
 import { ListToolbar, Editable } from 'components'
 

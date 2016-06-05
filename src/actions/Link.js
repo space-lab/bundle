@@ -3,25 +3,23 @@ import { Link } from '../records'
 import request from 'axios'
 import api from './../api'
 
-export function clearCurrentLink (bundleId) {
-  return { type: 'CLEAR_CURRENT_LINK' , bundleId }
+export const fetchLink = (url, bundleId) => async dispatch => {
+  let { data } = await request.get(api.fetchLink(url))
+
+  let link = new Link({
+    url: data.url,
+    title: data.title,
+    description: data.description,
+    image: data.image
+  })
+
+  dispatch({ type: 'SET_CURRENT_LINK', link, bundleId})
 }
 
-export function fetchLink (url, bundleId) {
-  return async function (dispatch) {
-    let response = await request.get(api.fetchLink(url))
+export const clearCurrentLink = bundleId => ({
+  type: 'CLEAR_CURRENT_LINK' , bundleId
+})
 
-    let link = new Link({
-      url: response.data.url,
-      title: response.data.title,
-      description: response.data.description,
-      image: response.data.image
-    })
-
-    dispatch({ type: 'SET_CURRENT_LINK', link, bundleId})
-  }
-}
-
-export function updateLink (id, field, value) {
-  return { type: 'UPDATE_LINK', id, field, value }
-}
+export const updateLink = (id, field, value) => ({
+  type: 'UPDATE_LINK', id, field, value
+})

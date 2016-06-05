@@ -3,24 +3,29 @@ import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
 import { ResourceNavigation, List, ListItem } from 'components'
-import { sortedFavoritesSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
+import * as shareActions from 'actions/Share'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state) => ({
-  favorites: sortedFavoritesSelector(state),
+  favorites: Selectors.sortedFavorites(state),
   bundles: state.Bundle.get('byId'),
   collections: state.Collection.get('byId'),
   bundleId: state.Route.bundleId,
-  collectionId: state.Route.collectionId
+  collectionId: state.Route.collectionId,
+  userAutocomplete: state.UserAutocomplete
 })
 
 const connectProps = {
   ...bundleActions,
   ...collectionActions,
-  ...favoriteActions
+  ...favoriteActions,
+  ...shareActions,
+  ...userAutocompleteActions
 }
 
 @connect(connectState, connectProps)
@@ -47,34 +52,39 @@ export default class Container extends React.Component {
   }
 
   renderCollectionListItem (collection, index) {
-    const { ...listItemProps, collectionId, createCollection, removeCollection } = this.props
+    const { ...rest, collectionId, removeCollection, closeCollection } = this.props
 
     return (
       <ListItem
         key={index}
         Component={ListItem.Collection}
-        {...collection.toJS()} {...listItemProps}
+        {...collection.toJS()}
+        {...rest}
         url={'/collection/' + collection.id}
         type={'collection'}
         active={collection.id === collectionId}
-        createCollection={createCollection}
+        close={closeCollection}
         remove={removeCollection}
+        resourceName={'Collection'}
+        resource={collection}
       />
     )
   }
 
   renderBundleListItem (bundle, index) {
-    const { ...listItemProps, bundleId, removeBundle } = this.props
+    const { ...rest, bundleId, removeBundle } = this.props
 
     return (
       <ListItem
         key={index}
         Component={ListItem.Bundle}
-        {...bundle.toJS()} {...listItemProps}
+        {...bundle.toJS()} {...rest}
         url={'/bundle/' + bundle.id}
         type={'bundle'}
         active={bundle.id === bundleId}
         remove={removeBundle}
+        resourceName={'Bundle'}
+        resource={bundle}
       />
     )
   }
@@ -87,9 +97,9 @@ export default class Container extends React.Component {
       let type = item.get('type')
 
       if (type == 'Bundle') {
-        return this.renderBundleListItem(bundles.get(id), index)
+        return this.renderBundleListItem(item, index)
       } else {
-        return this.renderCollectionListItem(collections.get(id), index)
+        return this.renderCollectionListItem(item, index)
       }
     })
   }
