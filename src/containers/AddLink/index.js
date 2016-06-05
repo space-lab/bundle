@@ -42,7 +42,6 @@ export default class BundleAddLink extends React.Component {
   }
 
   handeUrlEnter (url) {
-    console.log(url)
     this.props.fetchLink(url, this.props.bundle.id)
   }
 
