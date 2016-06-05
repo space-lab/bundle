@@ -1,4 +1,3 @@
-import { Link } from 'react-router'
 import api from 'api'
 
 export default class Email extends React.Component {
@@ -7,9 +6,25 @@ export default class Email extends React.Component {
   }
 
   render () {
+    const { user } = this.props
     return (
       <div className='auth-wrapper'>
-        here goes form
+        <div className='logo'>B</div>
+        <div className='greeting'>Welcome <span className='name'>{user.name}</span>!</div>
+
+        <div className='auth-content'>
+          <div className='title'>Please type in your email to continue.</div>
+
+          <div className='form'>
+            <input
+              className='input'
+              type='email'
+              placeholder='Type in email...'
+              autoFocus={true}/>
+
+            <div className='button'>Get me in!</div>
+          </div>
+        </div>
       </div>
     )
   }

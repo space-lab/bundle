@@ -6,12 +6,13 @@ export default class Login extends React.Component {
     return (
       <div className='auth-wrapper'>
         <Link to='/' className='logo'>B</Link>
+
         <div className='description'>Bundle up your resources together for love</div>
-        <div className='auth-methods'>
-          <a className='method facebook' href={api.auth('facebook')}>
+        <div className='auth-content'>
+          <a className='method button facebook' href={api.auth('facebook')}>
             Authenticate With Facebook
           </a>
-          <a className='method twitter' href={api.auth('twitter')}>
+          <a className='method button twitter' href={api.auth('twitter')}>
             Authenticate With Twitter
           </a>
         </div>

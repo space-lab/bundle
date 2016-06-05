@@ -48,7 +48,7 @@ export default class Auth extends React.Component {
   }
 
   render () {
-    let { children } = this.props
+    let { children, currentUser } = this.props
 
     if (this.shouldNotRender()) {
       // TODO: loading screen...
@@ -56,7 +56,7 @@ export default class Auth extends React.Component {
     } else if (this.shouldRenderLogin()) {
       return <Login />
     } else if (this.shouldRenderEmail()) {
-      return <Email />
+      return <Email user={currentUser} />
     } else {
       return children
     }
