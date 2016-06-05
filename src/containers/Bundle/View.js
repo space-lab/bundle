@@ -1,10 +1,8 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 
-import { currentBundleSelector, currentLinkSelector } from 'selectors'
-
+import Selectors from 'selectors'
 import { linksWithoutAuthors } from 'helpers'
-
 import Bundle from './Bundle'
 
 import * as linkActions from 'actions/Link'
@@ -14,10 +12,10 @@ import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 
 const connectState = (state) => ({
-  bundle: currentBundleSelector(state),
+  bundle: Selectors.currentBundle(state),
   users: state.User.get('byId'),
   links: state.Link.get('byId'),
-  currentLink: currentLinkSelector(state),
+  currentLink: Selectors.currentLink(state),
   bundleId: state.Route.bundleId,
   collections: state.Collection.get('byId'),
   receivedAllCollections: state.Collection.get('receivedAll')

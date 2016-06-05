@@ -29,7 +29,7 @@ export default class ListToolbar extends React.Component {
 
     return (
       <div className='list-toolbar'>
-        <ToolbarShareItem />
+        <ToolbarShareItem {...this.props}/>
 
         <ToolbarDeleteItem id={id} remove={remove} />
 

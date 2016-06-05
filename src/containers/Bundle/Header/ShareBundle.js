@@ -1,8 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import listensToClickOutside from 'react-onclickoutside/decorator'
 import ui from 'redux-ui'
-import './index.css'
-import Modal from './Modal'
+import { ShareResource } from 'components'
+
+import './ShareBundle.css'
 
 @ui({
   state: { q: '', isOpen: false }
@@ -10,7 +11,8 @@ import Modal from './Modal'
 @listensToClickOutside()
 export default class ShareBundle extends React.Component {
   static propTypes = {
-    bundle: ImmutablePropTypes.record
+    resource: ImmutablePropTypes.record,
+    resourceName: React.PropTypes.string
   }
 
   handleClickOutside (e) {
@@ -30,7 +32,7 @@ export default class ShareBundle extends React.Component {
           Share
         </button>
 
-        <Modal {...this.props} />
+        <ShareResource {...this.props} />
       </div>
     )
   }

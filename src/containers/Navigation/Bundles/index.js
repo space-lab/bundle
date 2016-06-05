@@ -5,24 +5,27 @@ import { Link, browserHistory } from 'react-router'
 
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
 import { NEW_BUNDLE_ID } from 'constants'
-import { filteredBundlesSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'
-
-import './index.css'
+import * as shareActions from 'actions/Share'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state, props) => ({
-  bundles: filteredBundlesSelector(state, props),
+  bundles: Selectors.currentBundles(state, props),
   bundleId: state.Route.bundleId,
-  search: state.Search
+  search: state.Search,
+  userAutocomplete: state.UserAutocomplete
 })
 
 const connectProps = {
   ...bundleActions,
   ...searchActions,
-  ...favoriteActions
+  ...favoriteActions,
+  ...shareActions,
+  ...userAutocompleteActions
 }
 
 @ui({
@@ -61,6 +64,8 @@ export default class Container extends React.Component {
         type={'bundle'}
         active={bundle.id === this.props.bundleId}
         remove={::this.removeBundle}
+        resource={bundle}
+        resourceName={'Bundle'}
       />
     })
   }

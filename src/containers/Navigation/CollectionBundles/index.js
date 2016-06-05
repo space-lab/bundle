@@ -3,23 +3,28 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
 import { ResourceNavigation, List, ListItem } from 'components'
-import { currentCollectionSelector, sortedCollectionBundlesSelector } from 'selectors'
+import Selectors from 'selectors'
 
 import * as collectionActions from 'actions/Collection'
 import * as bundleActions from 'actions/Bundle'
 import * as favoriteActions from 'actions/Favorite'
+import * as shareActions from 'actions/Share'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state) => ({
-  collection: currentCollectionSelector(state),
-  bundles: sortedCollectionBundlesSelector(state),
+  collection: Selectors.currentCollection(state),
+  bundles: Selectors.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
-  collectionId: state.Route.collectionId
+  collectionId: state.Route.collectionId,
+  userAutocomplete: state.UserAutocomplete
 })
 
 const connectProps = {
   ...collectionActions,
   ...bundleActions,
-  ...favoriteActions
+  ...favoriteActions,
+  ...shareActions,
+  ...userAutocompleteActions
 }
 
 @connect(connectState, connectProps)
@@ -54,6 +59,8 @@ export default class Container extends React.Component {
         type={'bundle'}
         remove={::this.removeBundle}
         active={bundle.id === this.props.bundleId}
+        resourceName={'Bundle'}
+        resource={bundle}
       />
     })
   }
