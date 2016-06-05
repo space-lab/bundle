@@ -5,6 +5,13 @@ export default class Email extends React.Component {
     user: React.PropTypes.object.isRequired
   }
 
+  updateUserEmail () {
+    const { updateUserEmail } = this.props
+    const email = this.refs.email.value
+
+    if (email) updateUserEmail(email)
+  }
+
   render () {
     const { user } = this.props
     return (
@@ -17,12 +24,18 @@ export default class Email extends React.Component {
 
           <div className='form'>
             <input
+              ref='email'
               className='input'
               type='email'
               placeholder='Type in email...'
-              autoFocus={true}/>
+              autoFocus={true}
+              onKeyUp={({ key }) => key === 'Enter' && this.updateUserEmail()}/>
 
-            <div className='button'>Get me in!</div>
+            <div
+              className='button'
+              onClick={::this.updateUserEmail}>
+              Get me in!
+            </div>
           </div>
         </div>
       </div>

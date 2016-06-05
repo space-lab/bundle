@@ -19,6 +19,13 @@ export function authenticateUser (auth_token) {
   }
 }
 
+export function updateUserEmail (email) {
+  return async function (dispatch) {
+    let response = await request.put(api.email(), { email })
+    return dispatch(setCurrentUser(response.data))
+  }
+}
+
 export function logoutUser () {
   localStorage.removeItem('auth_token')
   return { type: 'RESET_STATE'}
