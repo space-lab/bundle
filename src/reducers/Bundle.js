@@ -49,10 +49,9 @@ export default function (state = defaultState, action) {
     case 'REMOVE_SHARE':
       if (!state.getIn(['byId', action.resourceId])) return state
 
-      return state
-        .updateIn(['byId', action.resourceId, 'shares'], shares => {
-          return shares.delete(shares.indexOf(action.id))
-        })
+      return state.updateIn(['byId', action.resourceId, 'shares'], shares => {
+        return shares.delete(shares.indexOf(action.id))
+      })
 
     default:
       return state

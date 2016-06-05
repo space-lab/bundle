@@ -43,7 +43,6 @@ export const inviteUsers = (resource, id, payload) => async dispatch => {
   }
 }
 
-
 export const removeShare = (id, type, resourceId) => async dispatch => {
   let url = type == 'share' ? api.shares(id) : api.invites(id)
   let response = await request.delete(url)

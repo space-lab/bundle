@@ -4,10 +4,10 @@ import './index.css'
 
 export default class ShareItem extends React.Component {
   static propTypes = {
-    share: ImmutablePropTypes.record,
-    resourceId: React.PropTypes.string,
-    changeSharePermission: React.PropTypes.func,
-    removeShare: React.PropTypes.func
+    share: ImmutablePropTypes.record.isRequired,
+    resourceId: React.PropTypes.string.isRequired,
+    changeSharePermission: React.PropTypes.func.isRequired,
+    removeShare: React.PropTypes.func.isRequired
   }
 
   permissionChanged (e) {
@@ -50,8 +50,7 @@ export default class ShareItem extends React.Component {
         </div>
 
         <span className='icon close-icon'
-          onClick={() => removeShare(share.id, share.type, resourceId)}
-        />
+          onClick={() => removeShare(share.id, share.type, resourceId)}/>
       </div>
     )
   }

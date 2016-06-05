@@ -7,10 +7,11 @@ import './index.css'
 
 export default class ShareResource extends React.Component {
   static propTypes = {
-    resource: ImmutablePropTypes.record,
-    resourceName: React.PropTypes.string,
-    changeSharePermission: React.PropTypes.func,
-    removeShare: React.PropTypes.func
+    resource: ImmutablePropTypes.record.isRequired,
+    resourceName: React.PropTypes.string.isRequired,
+    changeSharePermission: React.PropTypes.func.isRequired,
+    removeShare: React.PropTypes.func.isRequired,
+    position: React.PropTypes.object
   }
 
   renderShares () {
