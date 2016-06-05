@@ -2,12 +2,12 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import Login from './Login'
 import Email from './Email'
-import { currentUserSelector } from 'selectors'
+import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: state.User.getIn(['byId', state.User.get('current')])
+  currentUser: Selectors.currentUser(state)
 })
 
 const connectProps = {
