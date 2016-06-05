@@ -49,11 +49,9 @@ export default class ShareItem extends React.Component {
           {::this.renderPermission()}
         </div>
 
-        <span
-          className='icon close-icon'
-          onClick={() => removeShare(share.id, share.type, resourceId)}>
-          x
-        </span>
+        <span className='icon close-icon'
+          onClick={() => removeShare(share.id, share.type, resourceId)}
+        />
       </div>
     )
   }
