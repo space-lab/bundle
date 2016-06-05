@@ -73,5 +73,8 @@ export const sortedCollectionBundles = createSelector(
       .sortBy(col => col.created_at)
       .reverse()
       .toList()
+      .map(bundle => bundle.update('shares', ids => ids.map(id => {
+        return shares.get(id).update('user', id => users.get(id))
+      })))
   }
 )
