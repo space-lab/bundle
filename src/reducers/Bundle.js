@@ -46,6 +46,13 @@ export default function (state = defaultState, action) {
     case 'UPDATE_BUNDLE_INFO':
       return state.setIn(['byId', action.bundleId, action.field], action.value)
 
+    case 'REMOVE_SHARE':
+      if (!state.getIn(['byId', action.resourceId])) return state
+
+      return state.updateIn(['byId', action.resourceId, 'shares'], shares => {
+        return shares.delete(shares.indexOf(action.id))
+      })
+
     default:
       return state
   }

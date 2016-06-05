@@ -36,4 +36,11 @@
   .user-permission {
     margin-left: auto;
   }
+
+  .close-icon {
+    margin-right: -6px;
+    width: 28px;
+    height: 28px;
+    background: url(/assets/images/x.svg) center center no-repeat;
+  }
 }
