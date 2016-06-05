@@ -1,8 +1,9 @@
-import { Link, browserHistory } from 'react-router'
+import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import Login from './Login'
+import Email from './Email'
 import { currentUserSelector } from 'selectors'
 import * as userActions from 'actions/User'
-import api from 'api'
 import './index.css'
 
 const connectState = (state) => ({
@@ -16,7 +17,7 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class Auth extends React.Component {
   componentWillMount () {
-    let {currentUser, location, setCurrentUser, authenticateUser } = this.props
+    let {currentUser, setCurrentUser, authenticateUser } = this.props
     let { query } = this.props.location
     let auth_token = localStorage.getItem('auth_token')
 
@@ -38,25 +39,26 @@ export default class Auth extends React.Component {
     return !this.props.currentUser && this.getAuthToken()
   }
 
+  shouldRenderLogin () {
+    return !this.props.currentUser || !this.getAuthToken()
+  }
+
+  shouldRenderEmail () {
+    return this.props.currentUser && !this.props.currentUser.email
+  }
+
   render () {
-    let { children, currentUser } = this.props
+    let { children } = this.props
 
-    if (currentUser) return <div>{children}</div>
-    if (this.shouldNotRender()) return false
-
-    return (
-      <div className='auth-wrapper'>
-        <Link to='/' className='logo'>B</Link>
-        <div className='description'>Bundle up your resources together for love</div>
-        <div className='auth-methods'>
-          <a className='method facebook' href={api.auth('facebook')}>
-            Authenticate With Facebook
-          </a>
-          <a className='method twitter' href={api.auth('twitter')}>
-            Authenticate With Twitter
-          </a>
-        </div>
-      </div>
-    )
+    if (this.shouldNotRender()) {
+      // TODO: loading screen...
+      return false
+    } else if (this.shouldRenderLogin()) {
+      return <Login />
+    } else if (this.shouldRenderEmail()) {
+      return <Email />
+    } else {
+      return children
+    }
   }
 }
