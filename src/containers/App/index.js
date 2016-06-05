@@ -7,8 +7,8 @@ export default class App extends React.Component {
 
     return (
       <Auth location={this.props.location}>
-        <Alerts />
         <div className='application-container'>
+          <Alerts />
           <SideNavigation />
           {children}
         </div>

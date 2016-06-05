@@ -19,6 +19,11 @@ export const authenticateUser = auth_token => {
   }
 }
 
+export const updateUser = (user, data) => async dispatch => {
+  let response = await request.put(api.user(user.id), { user: data})
+  return dispatch(setCurrentUser(response.data))
+}
+
 export const logoutUser = () => {
   localStorage.removeItem('auth_token')
   return { type: 'RESET_STATE'}
