@@ -13,7 +13,7 @@ export default class ToggleEditMode extends React.Component {
       <div className='toggle-btn-wrapper'>
         <button
           style={shouldShow(!editMode)}
-          className='button'
+          className='round-button'
           onClick={toggleEdit.bind(this, false)}
         >
           Edit
@@ -21,7 +21,7 @@ export default class ToggleEditMode extends React.Component {
 
         <button
           style={shouldShow(editMode)}
-          className='button'
+          className='round-button'
           onClick={toggleEdit.bind(this, true)}
         >
           Save

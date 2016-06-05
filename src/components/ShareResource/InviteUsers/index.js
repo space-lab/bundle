@@ -69,7 +69,7 @@ export default class InviteUsers extends React.Component {
           {::this.renderPermission()}
 
           <button
-            className='button'
+            className='round-button'
             onClick={::this.inviteUsers}>
             Invite
          </button>

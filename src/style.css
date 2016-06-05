@@ -46,3 +46,24 @@ a {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.round-button {
+  display: inline-block;
+  height: 30px;
+  padding: 0 20px;
+  margin-left: 15px;
+  border: 1px solid #6C90F3;
+  color: #6C90F3;
+  background-color: white;
+  font-size: 15px;
+  line-height: 25px;
+  cursor: pointer;
+  border-radius: 15px;
+  outline: none;
+  transition: all linear 200ms;
+
+  &:hover {
+    color: #FFF;
+    background-color: #6C90F3;
+  }
+}

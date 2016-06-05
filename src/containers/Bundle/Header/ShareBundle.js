@@ -28,7 +28,7 @@ export default class ShareBundle extends React.Component {
   render () {
     return (
       <div className='share-bundle-wrapper'>
-        <button className='button' onClick={::this.openModal}>
+        <button className='round-button' onClick={::this.openModal}>
           Share
         </button>
 
