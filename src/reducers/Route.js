@@ -17,18 +17,14 @@ export default function (state = new Route(), action) {
       return state.set('collectionId', action.collectionId)
 
     case 'ROUTE_RESET_BUNDLE_ID':
-      if (state.bundleId == action.id) {
-        return state.set('bundleId', null)
-      } else {
-        return state
-      }
+      return state.bundleId == action.id
+        ? state.set('bundleId', null)
+        : state
 
     case 'ROUTE_RESET_COLLECTION_ID':
-      if (state.collectionId == action.id) {
-        return state.set('collectionId', null)
-      } else {
-        return state
-      }
+      return state.collectionId == action.id
+        ? state.set('collectionId', null)
+        : state
 
     default:
       return state

@@ -16,15 +16,18 @@ export default function (state = defaultState, action) {
 
     case 'ADD_SHARES_TO_BUNDLE':
       return state
-        .updateIn(['byId', action.resourceId, 'shares'], shares => shares.concat(action.shares))
+        .updateIn(['byId', action.resourceId, 'shares'], shares =>
+          shares.concat(action.shares))
 
     case 'ADD_LINK_ID_TO_BUNDLE':
       return state
-        .updateIn(['byId', action.bundleId, 'links'], links => links.unshift(action.linkId))
+        .updateIn(['byId', action.bundleId, 'links'], links =>
+          links.unshift(action.linkId))
 
     case 'REMOVE_LINK_ID_FROM_BUNDLE':
       return state
-        .updateIn(['byId', action.bundleId, 'links'], links => links.delete(action.index))
+        .updateIn(['byId', action.bundleId, 'links'], links =>
+          links.delete(action.index))
 
     case 'RECEIVE_BUNDLES':
       action.bundles.forEach(bundle => {
@@ -35,10 +38,12 @@ export default function (state = defaultState, action) {
       return state
 
     case 'FAVORITE_BUNDLE':
-      return state.updateIn(['byId', action.id], (bundle) => bundle.set('favorited', true))
+      return state.updateIn(['byId', action.id], bundle =>
+        bundle.set('favorited', true))
 
     case 'UNFAVORITE_BUNDLE':
-      return state.updateIn(['byId', action.id], (bundle) => bundle.set('favorited', false))
+      return state.updateIn(['byId', action.id], bundle =>
+        bundle.set('favorited', false))
 
     case 'REMOVE_BUNDLE':
       return state.deleteIn(['byId', action.id])
@@ -49,9 +54,12 @@ export default function (state = defaultState, action) {
     case 'REMOVE_SHARE':
       if (!state.getIn(['byId', action.resourceId])) return state
 
-      return state.updateIn(['byId', action.resourceId, 'shares'], shares => {
-        return shares.delete(shares.indexOf(action.id))
-      })
+      return state.updateIn(['byId', action.resourceId, 'shares'], shares =>
+        shares.delete(shares.indexOf(action.id)))
+
+    case 'REMOVE_COLLECTION':
+      return state.update('byId', bundles =>
+        bundles.filter(bundle => bundle.collection_id !== action.id))
 
     default:
       return state
