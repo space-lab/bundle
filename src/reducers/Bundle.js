@@ -53,6 +53,9 @@ export default function (state = defaultState, action) {
         return shares.delete(shares.indexOf(action.id))
       })
 
+    case 'REMOVE_COLLECTION':
+      return state.update('byId', bundles => bundles.filter(bundle => bundle.collection_id !== action.id))
+
     default:
       return state
   }

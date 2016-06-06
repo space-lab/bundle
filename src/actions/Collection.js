@@ -30,7 +30,7 @@ export const createCollection = (id, name) => async dispatch => {
   let { data } = await request.post(api.collections(), { name })
 
   reduceCollection(data, dispatch)
-  dispatch({ type: 'REMOVE_COLLECTION', id })
+  dispatch({ type: 'CLOSE_COLLECTION', id })
 }
 
 export const removeCollection = id => async dispatch => {
