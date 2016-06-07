@@ -7,7 +7,7 @@ import request from 'axios'
 import api from 'api'
 
 export const generateNewBundle = () => {
-  let bundle = new Bundle({
+  const bundle = new Bundle({
     id: NEW_BUNDLE_ID,
     name: '',
     description: '',
@@ -19,20 +19,20 @@ export const generateNewBundle = () => {
 }
 
 export const createBundle = payload => async dispatch => {
-  let { data } = await request.post(api.bundles(), { bundle: payload })
+  const { data } = await request.post(api.bundles(), { bundle: payload })
 
-  reduceBundle(data, dispatch)
+  reduceBundle(data, NEW_BUNDLE_ID, dispatch)
   return data
 }
 
 export const getBundle = id => async dispatch => {
-  let { data } = await request.get(api.bundles(id))
-  reduceBundle(data, dispatch)
+  const { data } = await request.get(api.bundles(id))
+  reduceBundle(data, id, dispatch)
 }
 
 export const getBundles = () => async dispatch => {
-  let { data } = await request.get(api.bundles())
-  let bundles = getRecords(Bundle, data)
+  const { data } = await request.get(api.bundles())
+  const bundles = getRecords(Bundle, data)
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
 }
@@ -46,8 +46,8 @@ export const removeBundle = (id) => async dispatch => {
 }
 
 export const updateBundle = (id, payload) => async (dispatch) => {
-  let response = await request.put(api.bundles(id), { bundle: payload })
-  reduceBundle(response.data, dispatch)
+  const response = await request.put(api.bundles(id), { bundle: payload })
+  reduceBundle(response.data, id, dispatch)
 }
 
 export const addCurrentLinkToBundle = (bundleId, link) => (dispatch) => {
@@ -59,7 +59,6 @@ export const addCurrentLinkToBundle = (bundleId, link) => (dispatch) => {
 export const removeLinkFromBundle = (bundleId, index) => ({
   type: 'REMOVE_LINK_ID_FROM_BUNDLE', bundleId, index
 })
-
 
 export const updateBundleInfo = (bundleId, field, value) => ({
   type: 'UPDATE_BUNDLE_INFO', bundleId, field, value
