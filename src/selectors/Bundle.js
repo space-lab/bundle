@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import { NEW_BUNDLE_ID } from 'constants'
 import { currentCollection } from './Collection'
+import { unNormaliseResources } from 'helpers'
 
 let bundlesSelector = state => state.Bundle.get('byId')
 let usersSelector = state => state.User.get('byId')
@@ -49,10 +50,6 @@ export const filteredBundles = createSelector(
   }
 )
 
-export const currentBundleShares = createSelector(
-  [currentBundle, sharesSelector],
-  (bundle, shares) => bundle.shares.map(id => shares.get(id))
-)
 
 export const currentBundles = createSelector(
   [filteredBundles, sharesSelector, usersSelector],
@@ -68,13 +65,6 @@ export const sortedCollectionBundles = createSelector(
   (collection, bundles, shares, users) => {
     if (!collection) return []
 
-    return collection.bundles
-      .map(id => bundles.get(id))
-      .sortBy(bundle => bundle.created_at)
-      .reverse()
-      .toList()
-      .map(bundle => bundle.update('shares', ids => ids.map(id => {
-        return shares.get(id).update('user', id => users.get(id))
-      })))
+    return unNormaliseResources(collection.bundles, bundles, shares, users)
   }
 )

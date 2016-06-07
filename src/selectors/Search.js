@@ -11,7 +11,7 @@ export const currentSearchResult = createSelector(
   [searchSelector, bundlesSelector, collectionsSelector, sharesSelector, usersSelector],
   (search, bundles, collections, shares, users) => {
     return search
-      .update('bundles', data => unNormaliseResources (data, bundles, shares, users))
-      .update('collections', data => unNormaliseResources (data, collections, shares, users))
+      .update('bundles', data => unNormaliseResources(data, bundles, shares, users))
+      .update('collections', data => unNormaliseResources(data, collections, shares, users))
   }
 )
