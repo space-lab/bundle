@@ -2,7 +2,7 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 
 import Selectors from 'selectors'
-import { linksWithoutAuthors } from 'helpers'
+import { linksWithAuthorIds } from 'helpers'
 import Bundle from './Bundle'
 
 import * as linkActions from 'actions/Link'
@@ -60,15 +60,23 @@ export default class BundleViewContainer extends React.Component {
   }
 
   toggleEdit (save) {
-    let { toggleEditMode, bundle, links, updateBundle, updateUI, ui } = this.props
-    let bundleLinks = bundle.links.map(id => links.get(id))
+    const {
+      bundle,
+      links,
+      toggleEditMode,
+      updateBundle,
+      updateUI,
+      ui
+    } = this.props
+
+    const bundleLinks = bundle.links.map(id => links.get(id))
 
     if (!save) return updateUI('editMode', !ui.editMode)
 
     const payload = {
       name: ui.name,
       description: ui.description,
-      links_attributes: linksWithoutAuthors(bundleLinks)
+      links_attributes: linksWithAuthorIds(bundleLinks)
     }
 
     updateBundle(bundle.id, payload)
@@ -76,7 +84,7 @@ export default class BundleViewContainer extends React.Component {
   }
 
   render () {
-    let { bundle } = this.props
+    const { bundle } = this.props
 
     if (!bundle || !bundle.full_response) {
       return false
