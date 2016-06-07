@@ -7,7 +7,8 @@ import * as userActions from 'actions/User'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.currentUser(state)
+  currentUser: Selectors.currentUser(state),
+  routing: state.routing
 })
 
 const connectProps = {
@@ -17,12 +18,12 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class Auth extends React.Component {
   componentWillMount () {
-    let {currentUser, setCurrentUser, authenticateUser } = this.props
-    let { query } = this.props.location
-    let auth_token = localStorage.getItem('auth_token')
+    const {currentUser, setCurrentUser, authenticateUser } = this.props
+    const { query } = this.props.location
+    const auth_token = localStorage.getItem('auth_token')
 
     if (query.authenticated === "true") {
-      let user = JSON.parse(query.user)
+      const user = JSON.parse(query.user)
       setCurrentUser(user)
 
       browserHistory.push('/')
@@ -48,7 +49,7 @@ export default class Auth extends React.Component {
   }
 
   render () {
-    let { children, currentUser, updateUser } = this.props
+    const { children, currentUser, updateUser } = this.props
 
     if (this.shouldNotRender()) {
       // TODO: loading screen...
