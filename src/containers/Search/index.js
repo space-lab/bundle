@@ -6,21 +6,32 @@ import SearchBody from './body'
 
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
+import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
+import * as shareActions from 'actions/Share'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import Selectors from 'selectors'
 
 import './index.css'
 
-const connectState = (state) => ({ searchResults: state.Search.get('result') })
+const connectState = (state) => ({
+  searchResult: Selectors.currentSearchResult(state),
+  userAutocomplete: state.UserAutocomplete
+})
+
 const connectProps = {
   ...bundleActions,
+  ...collectionActions,
   ...searchActions,
-  ...favoriteActions
+  ...favoriteActions,
+  ...shareActions,
+  ...userAutocompleteActions
 }
 
 @connect(connectState, connectProps)
 export default class SearchContainer extends React.Component {
   static propTypes = {
-    searchResults: ImmutablePropTypes.map,
+    searchResult: ImmutablePropTypes.map,
     query: React.PropTypes.string,
     removeBundle: React.PropTypes.func,
     favorite: React.PropTypes.func,
@@ -44,24 +55,12 @@ export default class SearchContainer extends React.Component {
   }
 
   render () {
-    let {
-      routeParams,
-      favorite,
-      unfavorite,
-      removeBundle,
-      searchResults
-    } = this.props
+    let query = this.props.routeParams.query
 
     return (
       <div className='search-wrapper'>
-        <SearchHeader query={routeParams.query} />
-
-        <SearchBody
-          removeBundle={removeBundle}
-          favorite={favorite}
-          unfavorite={unfavorite}
-          searchResults={searchResults}
-        />
+        <SearchHeader query={query} />
+        <SearchBody {...this.props}/>
       </div>
     )
   }

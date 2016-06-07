@@ -1,9 +1,14 @@
 import { Map, List } from 'immutable'
 
-export default function (state = Map(), action) {
+const defaultState = Map({
+  bundles: List(),
+  collections: List()
+})
+
+export default function (state = defaultState, action) {
   switch (action.type) {
-    case 'FETCH_SEARCH_RESULTS':
-      return state.set('result', action.result)
+    case 'SAVE_SEARCH_RESULT':
+      return action.result
 
     default:
       return state
