@@ -20,6 +20,11 @@ export const linksWithoutAuthors = links => {
   return links.map(link => link.delete('creator'))
 }
 
+export const linksWithAuthorIds = links => {
+  return links.map(link =>
+    link.toMap().set('creator_id', link.get('creator')).remove('creator'))
+}
+
 export const nextId = items => {
   const max = items.keySeq().filter(id => id < 0).max() || 0
   return (max - 1).toString()
