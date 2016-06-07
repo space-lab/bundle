@@ -14,17 +14,20 @@ export const authenticateUser = auth_token => {
   request.defaults.headers.common['AUTH-TOKEN'] = auth_token
 
   return async function (dispatch) {
-    let { data } = await request.get(api.me())
-    return dispatch(setCurrentUser(data))
+    const { data } = await request.get(api.me())
+
+    return data
+      ? dispatch(setCurrentUser(data))
+      : dispatch(logoutUser())
   }
 }
 
 export const updateUser = (user, data) => async dispatch => {
-  let response = await request.put(api.user(user.id), { user: data})
+  const response = await request.put(api.user(user.id), { user: data})
   return dispatch(setCurrentUser(response.data))
 }
 
 export const logoutUser = () => {
   localStorage.removeItem('auth_token')
-  return { type: 'RESET_STATE'}
+  return { type: 'RESET_STATE' }
 }
