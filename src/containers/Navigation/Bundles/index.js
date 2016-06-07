@@ -53,25 +53,22 @@ export default class Container extends React.Component {
     e.preventDefault()
   }
 
-  renderBundleList (bundles, listItemProps) {
+  renderBundleList (bundles, props) {
     return bundles.map((bundle, index) => {
       return <ListItem
+        {...props}
         key={index}
-        {...bundle.toJS()}
-        {...listItemProps}
-        Component={ListItem.Bundle}
-        url={'/bundle/' + bundle.id}
-        type={'bundle'}
-        active={bundle.id === this.props.bundleId}
-        remove={::this.removeBundle}
         resource={bundle}
         resourceName={'Bundle'}
+        Component={ListItem.Bundle}
+        active={bundle.id === this.props.bundleId}
+        remove={::this.removeBundle}
       />
     })
   }
 
   render () {
-    let { bundles, search, ...listItemProps } = this.props
+    let { bundles, search, ...props } = this.props
     let styles = { 'display': search.get('open') ? 'none' : 'block' }
 
     return (
@@ -90,7 +87,7 @@ export default class Container extends React.Component {
 
           <ResourceNavigation.Body>
             <List>
-              {this.renderBundleList(bundles, listItemProps)}
+              {this.renderBundleList(bundles, props)}
             </List>
           </ResourceNavigation.Body>
         </div>

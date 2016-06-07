@@ -10,36 +10,28 @@ function sharedWithText (count) {
   }
 }
 
-export default function CollectionListItem ({
-  id,
-  name,
-  created_at,
-  bundles_count,
-  shares_count,
-  editMode,
-  createCollection,
-  ...toolbarProps
-}) {
-  let url = '/collection/' + id
+export default function CollectionListItem (props) {
+  let { resource, createCollection } = props
+  let url = props.url || `/collection/${resource.id}`
 
   return (
     <div>
-      <ListToolbar id={id} editMode={editMode} {...toolbarProps} />
+      <ListToolbar {...props} />
 
-      <Link to={url} onClick={event => editMode && event.preventDefault()}>
+      <Link to={url} onClick={event => resource.editMode && event.preventDefault()}>
         <div>
           <h1>
             <Editable
-              value={name}
+              value={resource.name}
               placeholder='Name Collection...'
-              editMode={editMode}
+              editMode={resource.editMode}
               focus={true}
-              enterAction={value => createCollection(id, value)}
+              enterAction={value => createCollection(resource.id, value)}
             />
           </h1>
           <h2>
-            <span>{bundles_count} Bundle</span>
-            <span>{sharedWithText(shares_count)}</span>
+            <span>{resource.bundles_count} Bundle</span>
+            <span>{sharedWithText(resource.shares_count)}</span>
           </h2>
         </div>
       </Link>
@@ -48,12 +40,7 @@ export default function CollectionListItem ({
 }
 
 CollectionListItem.propTypes = {
-  id: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  created_at: React.PropTypes.string.isRequired,
-  bundles_count: React.PropTypes.number.isRequired,
-  shares_count: React.PropTypes.number.isRequired,
-  createCollection: React.PropTypes.func.isRequired,
-  close: React.PropTypes.func.isRequired,
-  editMode: React.PropTypes.bool
+  resource: ImmutablePropTypes.record.isRequired,
+  url: React.PropTypes.string,
+  createCollection: React.PropTypes.func.isRequired
 }

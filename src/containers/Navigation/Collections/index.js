@@ -44,20 +44,18 @@ export default class Container extends React.Component {
     this.props.generateNewCollection(id)
   }
 
-  renderCollectionList (collections, listItemProps) {
+  renderCollectionList (collections, props) {
     let { removeCollection, closeCollection, createCollection } = this.props
 
     return collections.map((collection, index) => {
       return <ListItem key={index}
-        {...collection.toJS()}
-        {...listItemProps}
+        {...props}
+        resource={collection}
+        resourceName={'Collection'}
         Component={ListItem.Collection}
-        type={'collection'}
         remove={removeCollection}
         close={closeCollection}
         createCollection={createCollection}
-        resourceName={'Collection'}
-        resource={collection}
       />
     })
   }

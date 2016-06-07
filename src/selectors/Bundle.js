@@ -64,8 +64,8 @@ export const currentBundles = createSelector(
 )
 
 export const sortedCollectionBundles = createSelector(
-  [currentCollection, bundlesSelector],
-  (collection, bundles) => {
+  [currentCollection, bundlesSelector, sharesSelector, usersSelector],
+  (collection, bundles, shares, users) => {
     if (!collection) return []
 
     return collection.bundles
