@@ -36,8 +36,9 @@ export const getRecords = (Model, data) => {
   return fromJS(data).map(item => new Model(item))
 }
 
-export const reduceBundle = (data, oldId, dispatch) => {
-  const result = fromJS(normalize(data, bundleSchema).entities)
+export const reduceBundle = (data, oldId, dispatch, isArray) => {
+  const schema = isArray ? arrayOf(bundleSchema) : bundleSchema
+  const result = fromJS(normalize(data, schema).entities)
     .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
     .update('users', users => users || Map())
@@ -52,7 +53,7 @@ export const reduceBundle = (data, oldId, dispatch) => {
   dispatch({ type: 'RECEIVE_SHARES', shares })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
 
-  if (bundle.id !== oldId) {
+  if (oldId && bundle.id !== oldId) {
     dispatch({ type: 'REMOVE_BUNDLE', id: oldId })
     browserHistory.push(`/bundle/${bundle.id}`)
   }
@@ -76,4 +77,15 @@ export const reduceCollection = (data, dispatch, isArray) => {
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
+}
+
+export const unNormaliseResources = (data, resources, shares, users) => {
+  return data
+    .map(id => resources.get(id))
+    .sortBy(resource => resource.created_at)
+    .reverse()
+    .toList()
+    .map(resource => resource.update('shares', ids => ids.map(id => {
+      return shares.get(id).update('user', id => users.get(id))
+    })))
 }

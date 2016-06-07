@@ -49,18 +49,16 @@ export default class Container extends React.Component {
     return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
   }
 
-  renderBundleList (bundles, collection, listItemProps) {
+  renderBundleList (bundles, collection, props) {
     return bundles.map((bundle, index) => {
       return <ListItem key={index}
-        {...bundle.toJS()}
-        {...listItemProps}
-        Component={ListItem.Bundle}
+        {...props}
+        resource={bundle}
+        resourceName={'Bundle'}
         url={this.getBundleUrl(collection, bundle)}
-        type={'bundle'}
+        Component={ListItem.Bundle}
         remove={::this.removeBundle}
         active={bundle.id === this.props.bundleId}
-        resourceName={'Bundle'}
-        resource={bundle}
       />
     })
   }

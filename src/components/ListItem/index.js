@@ -4,12 +4,12 @@ import './index.css'
 
 export default function ListItem ({
   Component,
-  ...componentProps,
-  active
+  active,
+  ...props
 }) {
   return (
     <div className={'list-item' + (active ? ' list-item-active' : '')}>
-      <Component {...componentProps} />
+      <Component {...props} />
     </div>
   )
 }

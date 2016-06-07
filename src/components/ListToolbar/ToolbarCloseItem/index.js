@@ -5,11 +5,9 @@ export default class ToolbarCloseItem extends React.Component {
   }
 
   render () {
-    let { id, close } = this.props
-
     return (
       <div className='icon icon-toolbar-close'
-        onClick={close.bind(this, id)}
+        onClick={close.bind(this, this.props.id)}
       />
     )
   }

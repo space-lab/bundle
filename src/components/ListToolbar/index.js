@@ -1,3 +1,4 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToolbarShareItem from './ToolbarShareItem'
 import ToolbarCloseItem from './ToolbarCloseItem'
 import ToolbarDeleteItem from './ToolbarDeleteItem'
@@ -7,25 +8,26 @@ import './index.css'
 
 export default class ListToolbar extends React.Component {
   static propTypes = {
-    type: React.PropTypes.string.isRequired,
-    id: React.PropTypes.string.isRequired,
-    favorited: React.PropTypes.bool,
+    resource: ImmutablePropTypes.record.isRequired,
+    resourceName: React.PropTypes.string.isRequired,
     favorite: React.PropTypes.func.isRequired,
     unfavorite: React.PropTypes.func.isRequired,
     remove: React.PropTypes.func.isRequired,
-    close: React.PropTypes.func,
-    editMode: React.PropTypes.bool
+    close: React.PropTypes.func
   }
 
   renderRegularItems () {
     let {
-      type,
-      id,
+      resource,
+      resourceName,
       favorited,
       favorite,
       unfavorite,
       remove
     } = this.props
+
+    let id = resource.id
+    let type = resourceName.toLowerCase()
 
     return (
       <div className='list-toolbar'>
@@ -36,7 +38,7 @@ export default class ListToolbar extends React.Component {
         <ToolbarFavoriteItem
           type={type}
           id={id}
-          favorited={favorited}
+          favorited={resource.favorited}
           favorite={favorite}
           unfavorite={unfavorite}
         />
@@ -45,17 +47,17 @@ export default class ListToolbar extends React.Component {
   }
 
   renderEditModeItems () {
-    let { id, close } = this.props
+    let { resource, close } = this.props
 
     return (
       <div className='list-toolbar'>
-        <ToolbarCloseItem id={id} close={close} />
+        <ToolbarCloseItem id={resource.id} close={close} />
       </div>
     )
   }
 
   render () {
-    return this.props.editMode
+    return this.props.resource.editMode
       ? this.renderEditModeItems()
       : this.renderRegularItems()
   }

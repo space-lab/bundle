@@ -52,39 +52,34 @@ export default class Container extends React.Component {
   }
 
   renderCollectionListItem (collection, index) {
-    const { ...rest, collectionId, removeCollection, closeCollection } = this.props
+    const { ...props, collectionId, removeCollection, closeCollection } = this.props
 
     return (
       <ListItem
+        {...props}
         key={index}
+        resource={collection}
+        resourceName={'Collection'}
         Component={ListItem.Collection}
-        {...collection.toJS()}
-        {...rest}
-        url={'/collection/' + collection.id}
-        type={'collection'}
         active={collection.id === collectionId}
         close={closeCollection}
         remove={removeCollection}
-        resourceName={'Collection'}
-        resource={collection}
       />
     )
   }
 
   renderBundleListItem (bundle, index) {
-    const { ...rest, bundleId, removeBundle } = this.props
+    const { ...props, bundleId, removeBundle } = this.props
 
     return (
       <ListItem
+        {...props}
         key={index}
+        resource={bundle}
+        resourceName={'Bundle'}
         Component={ListItem.Bundle}
-        {...bundle.toJS()} {...rest}
-        url={'/bundle/' + bundle.id}
-        type={'bundle'}
         active={bundle.id === bundleId}
         remove={removeBundle}
-        resourceName={'Bundle'}
-        resource={bundle}
       />
     )
   }
