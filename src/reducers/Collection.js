@@ -43,6 +43,13 @@ export default function (state = defaultState, action) {
       return state.updateIn(['byId', action.resourceId, 'shares'], shares =>
         shares.delete(shares.indexOf(action.id)))
 
+    case 'REMOVE_BUNDLE':
+      return state.update('byId', collections =>
+        collections.map(collection =>
+          collection.update('bundles', bundles =>
+            bundles.filterNot(bundle =>
+              bundle.id === action.id))))
+
     default:
       return state
   }

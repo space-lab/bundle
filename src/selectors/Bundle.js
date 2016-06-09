@@ -3,14 +3,14 @@ import { NEW_BUNDLE_ID } from 'constants'
 import { currentCollection } from './Collection'
 import { unNormaliseResources } from 'helpers'
 
-let bundlesSelector = state => state.Bundle.get('byId')
-let usersSelector = state => state.User.get('byId')
-let sharesSelector = state => state.Share.get('byId')
+const bundlesSelector = state => state.Bundle.get('byId')
+const usersSelector = state => state.User.get('byId')
+const sharesSelector = state => state.Share.get('byId')
 
-let currentBundleIdSelector = state => state.Route.bundleId
-let currentUserIdSelector = state => state.User.get('current')
+const currentBundleIdSelector = state => state.Route.bundleId
+const currentUserIdSelector = state => state.User.get('current')
 
-let getFilter = (state, props) => props.ui.filter
+const getFilter = (state, props) => props.ui.filter
 
 export const currentBundle = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
@@ -18,9 +18,8 @@ export const currentBundle = createSelector(
     if (!bundles.get(id)) return null
 
     return bundles.get(id)
-      .update('shares', ids => ids.map(id => {
-        return shares.get(id).update('user', id => users.get(id))
-      }))
+      .update('shares', ids => ids.map(id =>
+        shares.get(id).update('user', id => users.get(id))))
   }
 )
 

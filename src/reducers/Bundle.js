@@ -13,7 +13,6 @@ export default function (state = defaultState, action) {
       return state
         .setIn(['byId', action.bundle.id], action.bundle)
 
-
     case 'ADD_SHARES_TO_BUNDLE':
       return state
         .updateIn(['byId', action.resourceId, 'shares'], shares =>
@@ -37,6 +36,9 @@ export default function (state = defaultState, action) {
 
       return state
 
+    case 'REMOVE_BUNDLE':
+      return state.deleteIn(['byId', action.id])
+
     case 'FAVORITE_BUNDLE':
       return state.updateIn(['byId', action.id], bundle =>
         bundle.set('favorited', true))
@@ -44,9 +46,6 @@ export default function (state = defaultState, action) {
     case 'UNFAVORITE_BUNDLE':
       return state.updateIn(['byId', action.id], bundle =>
         bundle.set('favorited', false))
-
-    case 'REMOVE_BUNDLE':
-      return state.deleteIn(['byId', action.id])
 
     case 'UPDATE_BUNDLE_INFO':
       return state.setIn(['byId', action.bundleId, action.field], action.value)
