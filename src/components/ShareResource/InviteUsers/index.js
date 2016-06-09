@@ -16,11 +16,10 @@ export default class InviteUsers extends React.Component {
   }
 
   inviteUsers () {
-    const { values, permission } = this.props.ui
-    const { inviteUsers, resetUI, resourceId, resourceName } = this.props
-    const data = values.map(value => {
-      return { id: value.id, permission_id: permission }
-    })
+
+    const { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
+    const data = ui.values.map(value =>
+      ({ id: value.id, permission_id: ui.permission }))
 
     inviteUsers(resourceName, resourceId, { data })
       .then(() => {
@@ -33,8 +32,8 @@ export default class InviteUsers extends React.Component {
     this.props.updateUI('values', values)
   }
 
-  permissionChanged (e) {
-    this.props.updateUI('permission', e.target.value)
+  handlePermissionChange ({ target }) {
+    this.props.updateUI('permission', target.value)
   }
 
   renderPermission () {
@@ -42,10 +41,10 @@ export default class InviteUsers extends React.Component {
     const options = SHARE_PERMISSIONS
 
     return (
-      <select value={selected} onChange={::this.permissionChanged}>
-        {options.map(item => {
-          return <option value={item.id} key={item.id}>{item.name}</option>
-        })}
+      <select value={selected} onChange={::this.handlePermissionChange}>
+        {options.map(item =>
+          <option value={item.id} key={item.id}>{item.name}</option>
+        )}
       </select>
     )
   }
@@ -68,11 +67,9 @@ export default class InviteUsers extends React.Component {
 
           {::this.renderPermission()}
 
-          <button
-            className='round-button'
-            onClick={::this.inviteUsers}>
+          <button className='round-button' onClick={::this.inviteUsers}>
             Invite
-         </button>
+          </button>
         </div>
       </div>
     )
