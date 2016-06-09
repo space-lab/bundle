@@ -82,6 +82,7 @@ export const reduceCollection = (data, dispatch, isArray) => {
 export const unNormaliseResources = (data, resources, shares, users) => {
   return data
     .map(id => resources.get(id))
+    .filter(Boolean)
     .sortBy(resource => resource.created_at)
     .reverse()
     .toList()

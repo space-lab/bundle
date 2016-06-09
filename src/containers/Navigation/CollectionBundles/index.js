@@ -33,16 +33,12 @@ export default class Container extends React.Component {
     collection: ImmutablePropTypes.record
   }
 
-  constructor (props) {
-    super(props)
-    props.getCollection(props.collectionId)
+  componentDidMount () {
+    this.props.getCollection(this.props.collectionId)
   }
 
   removeBundle (...args) {
-    const { removeBundle, collectionId } = this.props
-
-    removeBundle(...args)
-    //browserHistory.goBack()
+    this.props.removeBundle(...args)
   }
 
   getBundleUrl (collection, bundle) {
@@ -64,7 +60,6 @@ export default class Container extends React.Component {
   }
 
   render () {
-    console.log('rerender?')
     const {
       collection,
       bundles,

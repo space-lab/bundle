@@ -49,7 +49,6 @@ export const filteredBundles = createSelector(
   }
 )
 
-
 export const currentBundles = createSelector(
   [filteredBundles, sharesSelector, usersSelector],
   (bundles, shares, users) =>
@@ -61,7 +60,6 @@ export const sortedCollectionBundles = createSelector(
   [currentCollection, bundlesSelector, sharesSelector, usersSelector],
   (collection, bundles, shares, users) => {
     if (!collection || !collection.bundles) return []
-
     return unNormaliseResources(collection.bundles, bundles, shares, users)
   }
 )
