@@ -16,12 +16,12 @@ export default class CollectionListItem extends React.Component {
   }
 
   render () {
-    const { resource, createCollection } = this.props
-    const url = props.url || `/collection/${resource.id}`
+    const { resource, createCollection, url } = this.props
+    const link = url || `/collection/${resource.id}`
 
     return (
       <div>
-        <ListToolbar {...props} />
+        <ListToolbar {...this.props} />
 
         <Link to={url} onClick={event => resource.editMode && event.preventDefault()}>
           <div>

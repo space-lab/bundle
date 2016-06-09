@@ -13,7 +13,7 @@ export default class BundleListItem extends React.Component {
 
     return (
       <div>
-        <ListToolbar {...props} />
+        <ListToolbar {...this.props} />
 
         <Link to={url}>
           <h1>
