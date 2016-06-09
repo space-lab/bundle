@@ -53,17 +53,15 @@ export const filteredBundles = createSelector(
 
 export const currentBundles = createSelector(
   [filteredBundles, sharesSelector, usersSelector],
-  (bundles, shares, users) => {
-    return bundles.map(bundle => bundle.update('shares', ids => ids.map(id => {
-      return shares.get(id).update('user', id => users.get(id))
-    })))
-  }
+  (bundles, shares, users) =>
+    bundles.map(bundle => bundle.update('shares', ids => ids.map(id =>
+      shares.get(id).update('user', id => users.get(id)))))
 )
 
 export const sortedCollectionBundles = createSelector(
   [currentCollection, bundlesSelector, sharesSelector, usersSelector],
   (collection, bundles, shares, users) => {
-    if (!collection) return []
+    if (!collection || !collection.bundles) return []
 
     return unNormaliseResources(collection.bundles, bundles, shares, users)
   }
