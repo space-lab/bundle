@@ -42,7 +42,7 @@ export default class Container extends React.Component {
     const { removeBundle, collectionId } = this.props
 
     removeBundle(...args)
-    browserHistory.goBack()
+      .then(() => browserHistory.goBack())
   }
 
   getBundleUrl (collection, bundle) {

@@ -23,7 +23,7 @@ export default class CollectionListItem extends React.Component {
       <div>
         <ListToolbar {...this.props} />
 
-        <Link to={url} onClick={event => resource.editMode && event.preventDefault()}>
+        <Link to={link} onClick={event => resource.editMode && event.preventDefault()}>
           <div>
             <h1>
               <Editable
