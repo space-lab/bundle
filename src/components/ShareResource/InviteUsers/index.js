@@ -16,16 +16,12 @@ export default class InviteUsers extends React.Component {
   }
 
   inviteUsers () {
-
     const { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
     const data = ui.values.map(value =>
       ({ id: value.id, permission_id: ui.permission }))
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => {
-        resetUI()
-        this.props.resetAutocompleteUsers()
-      })
+      .then(() => { resetUI() && this.props.resetAutocompleteUsers() })
   }
 
   handleValueChange (values) {
@@ -43,7 +39,7 @@ export default class InviteUsers extends React.Component {
     return (
       <select value={selected} onChange={::this.handlePermissionChange}>
         {options.map(item =>
-          <option value={item.id} key={item.id}>{item.name}</option>
+          <option key={item.id} value={item.id}>{item.name}</option>
         )}
       </select>
     )
@@ -58,8 +54,7 @@ export default class InviteUsers extends React.Component {
             resource={this.props.resource}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
-            handleChange={::this.handleValueChange}
-          />
+            handleChange={::this.handleValueChange}/>
         </div>
 
         <div className='full-row members'>
@@ -69,6 +64,12 @@ export default class InviteUsers extends React.Component {
 
           <button className='round-button' onClick={::this.inviteUsers}>
             Invite
+          </button>
+        </div>
+
+        <div className='full-row'>
+          <button className='round-button' onClick={::this.inviteUsers}>
+            <span>Get Sharable Link</span>
           </button>
         </div>
       </div>
