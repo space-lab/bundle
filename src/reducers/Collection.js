@@ -18,10 +18,12 @@ export default function (state = defaultState, action) {
       return state.setIn(['byId', action.collection.id], action.collection)
 
     case 'FAVORITE_COLLECTION':
-      return state.updateIn(['byId', action.id], (col) => col.set('favorited', true))
+      return state.updateIn(['byId', action.id], col =>
+        col.set('favorited', true))
 
     case 'UNFAVORITE_COLLECTION':
-      return state.updateIn(['byId', action.id], (col) => col.set('favorited', false))
+      return state.updateIn(['byId', action.id], col =>
+        col.set('favorited', false))
 
     case 'CLOSE_COLLECTION':
     case 'REMOVE_COLLECTION':
@@ -32,14 +34,14 @@ export default function (state = defaultState, action) {
 
     case 'ADD_SHARES_TO_COLLECTION':
       return state
-        .updateIn(['byId', action.resourceId, 'shares'], shares => shares.concat(action.shares))
+        .updateIn(['byId', action.resourceId, 'shares'], shares =>
+          shares.concat(action.shares))
 
     case 'REMOVE_SHARE':
       if (!state.getIn(['byId', action.resourceId])) return state
 
-      return state.updateIn(['byId', action.resourceId, 'shares'], shares => {
-        return shares.delete(shares.indexOf(action.id))
-      })
+      return state.updateIn(['byId', action.resourceId, 'shares'], shares =>
+        shares.delete(shares.indexOf(action.id)))
 
     default:
       return state

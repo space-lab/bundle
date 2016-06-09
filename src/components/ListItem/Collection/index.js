@@ -30,7 +30,7 @@ export default function CollectionListItem (props) {
             />
           </h1>
           <h2>
-            <span>{resource.bundles_count} Bundle</span>
+            <span>{resource.bundles_count} Bundle </span>
             <span>{sharedWithText(resource.shares_count)}</span>
           </h2>
         </div>
