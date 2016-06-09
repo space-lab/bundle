@@ -8,8 +8,11 @@ export default function (state = defaultState, action) {
   switch (action.type) {
     case 'RECEIVE_COLLECTIONS':
       action.collections.forEach(col => {
-        if (state.getIn(['byId', col.id, 'full_response'])) return
-        state = state.setIn(['byId', col.id], col)
+        if (state.getIn(['byId', col.id, 'full_response'])) {
+          state = state.mergeIn(['byId', col.id], col)
+        } else {
+          state = state.setIn(['byId', col.id], col)
+        }
       })
 
       return state
