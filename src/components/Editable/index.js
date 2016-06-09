@@ -3,7 +3,7 @@ import ui from 'redux-ui'
 @ui()
 class Editable extends React.Component {
   componentWillMount () {
-    let { onChange, value } = this.props
+    const { onChange, value } = this.props
 
     if (onChange && value) {
       onChange(value)
@@ -11,7 +11,7 @@ class Editable extends React.Component {
   }
 
   handleKeyUp({ key, target }) {
-    let { enterAction, onChange } = this.props
+    const { enterAction, onChange } = this.props
 
     if (onChange) {
       onChange(target.value)
@@ -21,21 +21,21 @@ class Editable extends React.Component {
   }
 
   render () {
-    let { value, placeholder, editMode, type, focus } = this.props
+    const { value, placeholder, editMode, type, autoFocus } = this.props
 
     if (editMode) {
       if (type == 'textarea') {
         return <textarea
           defaultValue={value || ''}
           placeholder={placeholder}
-          autoFocus={focus}
+          autoFocus={autoFocus}
           onKeyUp={this.handleKeyUp.bind(this)}
         />
       } else {
         return <input
           defaultValue={value || ''}
           placeholder={placeholder}
-          autoFocus={focus}
+          autoFocus={autoFocus}
           onKeyUp={this.handleKeyUp.bind(this)}
         />
       }
@@ -52,7 +52,7 @@ class Editable extends React.Component {
     editMode: React.PropTypes.bool.isRequired,
     enterAction: React.PropTypes.func,
     onChange: React.PropTypes.func,
-    focus: React.PropTypes.bool
+    autoFocus: React.PropTypes.bool
   }
 }
 

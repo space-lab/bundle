@@ -11,8 +11,8 @@ function sharedWithText (count) {
 }
 
 export default function CollectionListItem (props) {
-  let { resource, createCollection } = props
-  let url = props.url || `/collection/${resource.id}`
+  const { resource, createCollection } = props
+  const url = props.url || `/collection/${resource.id}`
 
   return (
     <div>
@@ -25,7 +25,7 @@ export default function CollectionListItem (props) {
               value={resource.name}
               placeholder='Name Collection...'
               editMode={resource.editMode}
-              focus={true}
+              autoFocus={true}
               enterAction={value => createCollection(resource.id, value)}
             />
           </h1>

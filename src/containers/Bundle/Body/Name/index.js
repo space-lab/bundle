@@ -9,7 +9,7 @@ export default class Name extends React.Component {
   }
 
   render () {
-    let {
+    const {
       value,
       editMode,
       updateUI
@@ -21,6 +21,7 @@ export default class Name extends React.Component {
           value={value}
           placeholder='name goes here'
           editMode={editMode}
+          autoFocus={true}
           onChange={value => updateUI('name', value) }
         />
       </div>
