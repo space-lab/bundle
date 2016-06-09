@@ -37,12 +37,17 @@ export default class Container extends React.Component {
     this.props.getCollection(this.props.collectionId)
   }
 
-  removeBundle (...args) {
-    this.props.removeBundle(...args)
-  }
-
   getBundleUrl (collection, bundle) {
     return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
+  }
+
+  getCollectionUrl () {
+    return '/collection/' + this.props.collectionId
+  }
+
+  removeBundle (...args) {
+    browserHistory.push(this.getCollectionUrl())
+    this.props.removeBundle(...args)
   }
 
   renderBundleList (bundles, collection, props) {
