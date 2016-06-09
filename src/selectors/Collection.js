@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { Collection } from 'records'
 import { NEW_BUNDLE_ID } from 'constants'
 
 let bundlesSelector = state => state.Bundle.get('byId')
@@ -12,7 +13,7 @@ let getFilter = (state, props) => props.ui.filter
 
 export const currentCollection = createSelector(
   [currentCollectionIdSelector, collectionsSelector],
-  (id, collections) => collections.get(id)
+  (id, collections) => collections.get(id) || new Collection()
 )
 
 export const collectionList = createSelector(
@@ -47,9 +48,7 @@ export const filteredCollections = createSelector(
 
 export const currentCollections = createSelector(
   [filteredCollections, sharesSelector, usersSelector],
-  (collections, shares, users) => {
-    return collections.map(col => col.update('shares', ids => ids.map(id => {
-      return shares.get(id).update('user', id => users.get(id))
-    })))
-  }
+  (collections, shares, users) =>
+    collections.map(col => col.update('shares', ids => ids.map(id =>
+      shares.get(id).update('user', id => users.get(id)))))
 )

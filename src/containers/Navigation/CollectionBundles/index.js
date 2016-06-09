@@ -39,7 +39,7 @@ export default class Container extends React.Component {
   }
 
   removeBundle (...args) {
-    let { removeBundle, collectionId } = this.props
+    const { removeBundle, collectionId } = this.props
 
     removeBundle(...args)
     browserHistory.goBack()
@@ -64,14 +64,12 @@ export default class Container extends React.Component {
   }
 
   render () {
-    let {
+    const {
       collection,
       bundles,
       children,
       ...listItemProps
     } = this.props
-
-    if (!collection || !collection.get('full_response')) return false
 
     return (
       <ResourceNavigation bundleView={children}>
