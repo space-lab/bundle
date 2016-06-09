@@ -2,26 +2,28 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
 import { Date, ListToolbar } from 'components'
 
-export default function BundleListItem (props) {
-  let bundle = props.resource
-  let url = props.url || `/bundle/${bundle.id}`
+export default class BundleListItem extends React.Component {
+  static propTypes = {
+    resource: ImmutablePropTypes.record.isRequired
+  }
 
-  return (
-    <div>
-      <ListToolbar {...props} />
+  render () {
+    const bundle = this.props.resource
+    const url = this.props.url || `/bundle/${bundle.id}`
 
-      <Link to={url}>
-        <h1>
-          {bundle.name}
-        </h1>
-        <h2>
-          Created <Date type='fromNow'>{bundle.created_at}</Date>
-        </h2>
-      </Link>
-    </div>
-  )
-}
+    return (
+      <div>
+        <ListToolbar {...props} />
 
-BundleListItem.propTypes = {
-  resource: ImmutablePropTypes.record.isRequired
+        <Link to={url}>
+          <h1>
+            {bundle.name}
+          </h1>
+          <h2>
+            Created <Date type='fromNow'>{bundle.created_at}</Date>
+          </h2>
+        </Link>
+      </div>
+    )
+  }
 }
