@@ -48,6 +48,7 @@ $blue: #1581E2;
     align-items: center;
 
     .close-icon {
+      margin-right: -6px;
       width: 27px;
       height: 27px;
       background: url(/assets/images/x.svg) center center no-repeat;
