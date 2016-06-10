@@ -27,43 +27,41 @@ export default class BundleViewHeader extends React.Component {
   }
 
   renderNewBundleHeader () {
-    let { ui, toggleEdit } = this.props
+    const { ui, toggleEdit } = this.props
 
     return (
       <div className='bundle-view-header-wrapper'>
         <div className='align-right'>
-          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit} />
+          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit}/>
         </div>
       </div>
     )
   }
 
   renderViewBundleHeader () {
-    let { ui, bundle, toggleEdit, collections } = this.props
+    const { ui, bundle, toggleEdit, collections } = this.props
 
     return (
       <div className='bundle-view-header-wrapper'>
         <ChangeCollection
           bundle={bundle}
           collections={collections}
-          updateBundle={this.props.updateBundle}
-        />
+          updateBundle={this.props.updateBundle}/>
 
         <div className='align-right'>
           <ShareBundle
             {...this.props}
             resourceName='Bundle'
-            resource={this.props.bundle}
-          />
+            resource={this.props.bundle}/>
 
-          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit} />
+          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit}l/>
         </div>
       </div>
     )
   }
 
   render () {
-    let { bundle } = this.props
+    const { bundle } = this.props
 
     return bundle.isNewBundle
       ? this.renderNewBundleHeader()

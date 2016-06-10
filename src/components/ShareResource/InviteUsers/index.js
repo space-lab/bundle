@@ -48,7 +48,7 @@ export default class InviteUsers extends React.Component {
   render () {
     return (
       <div className='invite-users-container'>
-        <div className='full-row'>
+        <div className='full-row invite'>
           <TagInput
             data={this.props.userAutocomplete}
             resource={this.props.resource}

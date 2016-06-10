@@ -6,7 +6,7 @@ import { ShareResource } from 'components'
 import './ShareBundle.css'
 
 @ui({
-  state: { q: '', isOpen: false }
+  state: { q: '', isOpen: true }
 })
 @listensToClickOutside()
 export default class ShareBundle extends React.Component {

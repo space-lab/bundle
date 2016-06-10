@@ -10,6 +10,10 @@ $blue: #1581E2;
     border-bottom: 1px solid #E3E3E3;
   }
 
+  .invite {
+    padding: 5px 15px;
+  }
+
   .members {
     padding: 10px 15px;
     background-color: rgba(244, 244, 244, 0.5);
