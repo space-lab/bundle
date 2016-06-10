@@ -34,9 +34,17 @@ $blue: #1581E2;
     font-size: 15px;
 
     .clickable {
+      width: 100%;
       display: inherit;
       align-items: inherit;
       cursor: pointer;
+      opacity: 1;
+      transition: all linear 200ms;
+
+      &:hover {
+        color: $blue;
+        opacity: 0.7;
+      }
 
       .url-icon {
         margin-right: 7px;
