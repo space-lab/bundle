@@ -13,7 +13,8 @@ export default class InviteUsers extends React.Component {
     inviteUsers: React.PropTypes.func,
     userAutocomplete: ImmutablePropTypes.list,
     getAutocompleteUsers: React.PropTypes.func,
-    resetAutocompleteUsers: React.PropTypes.func
+    resetAutocompleteUsers: React.PropTypes.func,
+    getShareUrl: React.PropTypes.func
   }
 
   inviteUsers () {

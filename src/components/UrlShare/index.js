@@ -7,6 +7,11 @@ import './index.css'
 export default class UrlShare extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
+    getShareUrl: React.PropTypes.func.isRequired
+  }
+
+  handleUrlGet () {
+    console.log('this')
   }
 
   handleUrlPermissionChange ({ target }) {
@@ -25,14 +30,30 @@ export default class UrlShare extends React.Component {
     )
   }
 
-  render () {
-    return (
-      <div className='shareable-url'>
-        <div className='clickable'>
+  renderButtonOrUrl () {
+    const { share_url } = this.props.resource
+
+    if (share_url) {
+      return (
+        <div className='url'>
+          <div className='url-icon'/>
+          <input>{share_url}</input>
+        </div>
+      )
+    } else {
+      return (
+        <div className='clickable' onClick={::this.handleUrlGet}>
           <div className='url-icon'/>
           <span>Get shareable url...</span>
         </div>
+      )
+    }
+  }
 
+  render () {
+    return (
+      <div className='shareable-url'>
+        {::this.renderButtonOrUrl()}
         {::this.renderUrlPermissions()}
       </div>
     )
