@@ -1,12 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { SHARE_PERMISSIONS } from 'constants'
-import { TagInput } from 'components'
+import { TagInput, UrlShare } from 'components'
 import './index.css'
 
 @ui({ state: { values: [], permission: 1 } })
 export default class InviteUsers extends React.Component {
   static propTypes = {
+    resource: ImmutablePropTypes.record.isRequired,
     resourceId: React.PropTypes.string,
     resourceName: React.PropTypes.string,
     inviteUsers: React.PropTypes.func,
@@ -32,30 +33,14 @@ export default class InviteUsers extends React.Component {
     this.props.updateUI('permission', target.value)
   }
 
-  handleUrlPermissionChange ({ target }) {
-    console.log(target.value)
-  }
-
   renderMemberPermissions () {
     const selected = this.props.ui.permission
     const options = SHARE_PERMISSIONS
 
     return (
       <select value={selected} onChange={::this.handleMemberPermissionChange}>
-        {options.map(item =>
-          <option key={item.id} value={item.id}>{item.name}</option>
-        )}
-      </select>
-    )
-  }
-
-  renderUrlPermissions () {
-    const options = SHARE_PERMISSIONS
-
-    return (
-      <select onChange={::this.handleUrlPermissionChange}>
-        {options.map(item =>
-          <option key={item.id} value={item.id}>{item.name}</option>
+        {options.map(option =>
+          <option key={option.id} value={option.id}>{option.name}</option>
         )}
       </select>
     )
@@ -83,13 +68,8 @@ export default class InviteUsers extends React.Component {
           </button>
         </div>
 
-        <div className='full-row shareable-url'>
-          <div className='clickable'>
-            <div className='url-icon'/>
-            <span>Get shareable url...</span>
-          </div>
-
-          {::this.renderUrlPermissions()}
+        <div className='full-row'>
+          <UrlShare resource={this.props.resource}/>
         </div>
       </div>
     )

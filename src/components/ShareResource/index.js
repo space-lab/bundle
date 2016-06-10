@@ -34,7 +34,6 @@ export default class ShareResource extends React.Component {
       <Modal style={this.props.position} className='share-resource-modal'>
         <InviteUsers
           {...this.props}
-          resourceName={this.props.resourceName}
           resourceId={this.props.resource.id}/>
 
         {::this.renderShares()}

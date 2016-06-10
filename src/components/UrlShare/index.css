@@ -1,0 +1,32 @@
+$icon-size: 28px;
+$blue: #1581E2;
+
+.shareable-url {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+
+  .clickable {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+    cursor: pointer;
+    opacity: 1;
+    transition: all linear 200ms;
+
+    &:hover {
+      color: $blue;
+      opacity: 0.7;
+    }
+
+    .url-icon {
+      margin-right: 7px;
+      width: $icon-size;
+      height: $icon-size;
+      background-size: $icon-size;
+      background-image: url('/assets/images/link.svg');
+    }
+  }
+}
