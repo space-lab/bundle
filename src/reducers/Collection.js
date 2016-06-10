@@ -1,6 +1,6 @@
 import { fromJS, Map, List } from 'immutable'
 
-let defaultState = Map({
+const defaultState = Map({
   byId: Map()
 })
 
