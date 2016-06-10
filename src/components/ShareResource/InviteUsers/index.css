@@ -1,4 +1,5 @@
 $icon-size: 18px;
+$blue: #1581E2;
 
 .invite-users-container {
   .full-row {
@@ -24,6 +25,18 @@ $icon-size: 18px;
   }
 
   .sharable-link {
+    cursor: pointer;
+    transition: all linear 200ms;
+    opacity: 1;
+
+    &:hover {
+      & > * {
+        color: $blue;
+        fill: $blue;
+        opacity: 0.8;
+      }
+    }
+
     .icon {
       width: $icon-size;
       height: $icon-size;
