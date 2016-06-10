@@ -49,6 +49,12 @@ export default function (state = defaultState, action) {
       return state.updateIn(['byId', action.resourceId],
         collection => collection.set('share_url_permission', action.permission))
 
+    case 'REMOVE_COLLECTION_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection
+          .delete('share_url')
+          .delete('share_url_permission'))
+
     default:
       return state
   }

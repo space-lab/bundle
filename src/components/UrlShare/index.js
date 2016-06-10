@@ -9,12 +9,18 @@ export default class UrlShare extends React.Component {
     resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
     getShareUrl: React.PropTypes.func.isRequired,
-    changeUrlPermission: React.PropTypes.func.isRequired
+    changeUrlPermission: React.PropTypes.func.isRequired,
+    removeUrlShare: React.PropTypes.func.isRequired
   }
 
   handleUrlGet () {
     const { getShareUrl, resourceName, resource } = this.props
     getShareUrl(resourceName, resource.id)
+  }
+
+  handleShareUrlRemove () {
+    const { removeUrlShare, resourceName, resource } = this.props
+    removeUrlShare(resourceName, resource.id)
   }
 
   handleUrlPermissionChange ({ target }) {
@@ -63,7 +69,7 @@ export default class UrlShare extends React.Component {
 
         <div
           className='icon close-icon'
-          onClick={() => removeUrlShare()}/>
+          onClick={::this.handleShareUrlRemove}/>
       </div>
     )
   }

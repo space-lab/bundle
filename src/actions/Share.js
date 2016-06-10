@@ -68,3 +68,12 @@ export const changeUrlPermission = (resourceName, resourceId, permission) => asy
 
   dispatch({ type: ACTION, resourceId, permission })
 }
+
+export const removeUrlShare = (resourceName, resourceId) => async dispatch => {
+  // TODO fakeout
+  const ACTION = resourceName === 'Bundle'
+    ? 'REMOVE_BUNDLE_SHARE_URL'
+    : 'REMOVE_COLLECTION_SHARE_URL'
+
+  dispatch({ type: ACTION, resourceId })
+}

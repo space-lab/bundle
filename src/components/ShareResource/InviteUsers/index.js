@@ -15,7 +15,8 @@ export default class InviteUsers extends React.Component {
     getAutocompleteUsers: React.PropTypes.func,
     resetAutocompleteUsers: React.PropTypes.func,
     getShareUrl: React.PropTypes.func.isRequired,
-    changeUrlPermission: React.PropTypes.func.isRequired
+    changeUrlPermission: React.PropTypes.func.isRequired,
+    removeUrlShare: React.PropTypes.func.isRequired
   }
 
   inviteUsers () {
@@ -74,6 +75,7 @@ export default class InviteUsers extends React.Component {
           <UrlShare
             getShareUrl={this.props.getShareUrl}
             changeUrlPermission={this.props.changeUrlPermission}
+            removeUrlShare={this.props.removeUrlShare}
             resourceName={this.props.resourceName}
             resource={this.props.resource}/>
         </div>

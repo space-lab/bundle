@@ -69,6 +69,12 @@ export default function (state = defaultState, action) {
       return state.updateIn(['byId', action.resourceId],
         bundle => bundle.set('share_url_permission', action.permission))
 
+    case 'REMOVE_BUNDLE_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle
+          .delete('share_url')
+          .delete('share_url_permission'))
+
     default:
       return state
   }
