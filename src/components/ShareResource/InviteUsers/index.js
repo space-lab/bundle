@@ -67,10 +67,11 @@ export default class InviteUsers extends React.Component {
           </button>
         </div>
 
-        <div className='full-row sharable-link'>
-          <div className='icon'></div>
-
-          <span>Get sharable link...</span>
+        <div className='full-row shareable-link'>
+          <div className='clickable'>
+            <div className='icon'/>
+            <span>Get shareable link...</span>
+          </div>
 
           {::this.renderPermission()}
         </div>

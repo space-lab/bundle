@@ -24,24 +24,21 @@ $blue: #1581E2;
     }
   }
 
-  .sharable-link {
-    cursor: pointer;
-    transition: all linear 200ms;
-    opacity: 1;
+  .shareable-link {
+    justify-content: space-between;
 
-    &:hover {
-      & > * {
-        color: $blue;
-        fill: $blue;
-        opacity: 0.8;
+    .clickable {
+      display: inherit;
+      align-items: inherit;
+      cursor: pointer;
+
+      .icon {
+        margin-right: 10px;
+        width: $icon-size;
+        height: $icon-size;
+        background-size: $icon-size;
+        background-image: url('/assets/images/link.svg');
       }
-    }
-
-    .icon {
-      width: $icon-size;
-      height: $icon-size;
-      background-size: $icon-size;
-      background-image: url('/assets/images/link.svg');
     }
   }
 }
