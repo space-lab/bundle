@@ -22,18 +22,6 @@ export default class UrlShare extends React.Component {
     changeUrlPermission(resourceName, resource.id, target.value)
   }
 
-  renderUrlPermissions () {
-    const options = SHARE_PERMISSIONS
-
-    return (
-      <select onChange={::this.handleUrlPermissionChange}>
-        {options.map(option =>
-          <option key={option.id} value={option.id}>{option.name}</option>
-        )}
-      </select>
-    )
-  }
-
   renderButtonOrUrl () {
     const { share_url } = this.props.resource
 
@@ -41,7 +29,12 @@ export default class UrlShare extends React.Component {
       return (
         <div className='url'>
           <div className='url-icon'/>
-          <input>{share_url}</input>
+
+          <input
+            defaultValue={share_url}
+            readOnly={true}
+            autoFocus={true}
+            onFocus={({ target }) => target.select()}/>
         </div>
       )
     } else {
@@ -54,11 +47,32 @@ export default class UrlShare extends React.Component {
     }
   }
 
+  renderUrlPermissionsAndDelete () {
+    const { share_url } = this.props.resource
+    const options = SHARE_PERMISSIONS
+
+    if (!share_url) return null
+
+    return (
+      <div className='permissions'>
+        <select onChange={::this.handleUrlPermissionChange}>
+          {options.map(option =>
+            <option key={option.id} value={option.id}>{option.name}</option>
+          )}
+        </select>
+
+        <div
+          className='icon close-icon'
+          onClick={() => removeUrlShare()}/>
+      </div>
+    )
+  }
+
   render () {
     return (
       <div className='shareable-url'>
         {::this.renderButtonOrUrl()}
-        {::this.renderUrlPermissions()}
+        {::this.renderUrlPermissionsAndDelete()}
       </div>
     )
   }
