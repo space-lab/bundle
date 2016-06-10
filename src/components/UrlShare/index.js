@@ -6,16 +6,19 @@ import './index.css'
 //@ui({ state: { tags: List() } })
 export default class UrlShare extends React.Component {
   static propTypes = {
+    resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
     getShareUrl: React.PropTypes.func.isRequired
   }
 
   handleUrlGet () {
-    console.log('this')
+    const { getShareUrl, resourceName, resource } = this.props
+    getShareUrl(resourceName, resource.id)
   }
 
   handleUrlPermissionChange ({ target }) {
-    console.log(target.value)
+    const { changeUrlPermission, resourceName, resource } = this.props
+    changeUrlPermission(resourceName, resource.id, target.value)
   }
 
   renderUrlPermissions () {

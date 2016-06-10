@@ -3,8 +3,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ToggleEditMode from './ToggleEditMode'
 import { ChangeCollection } from 'components'
 import ShareBundle from './ShareBundle'
-
+import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
+
 import './index.css'
 
 const connectState = (state) => ({
@@ -12,7 +13,8 @@ const connectState = (state) => ({
 })
 
 const connectProps = {
-  ...userAutocompleteActions
+  ...userAutocompleteActions,
+  ...shareActions
 }
 
 @connect(connectState, connectProps)
@@ -23,7 +25,8 @@ export default class BundleViewHeader extends React.Component {
     collections: ImmutablePropTypes.map,
     updateBundle: React.PropTypes.func,
     changeSharePermission: React.PropTypes.func,
-    inviteUsers: React.PropTypes.func
+    inviteUsers: React.PropTypes.func,
+    getShareUrl: React.PropTypes.func.isRequired
   }
 
   renderNewBundleHeader () {

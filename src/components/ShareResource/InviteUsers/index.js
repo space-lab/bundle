@@ -14,7 +14,8 @@ export default class InviteUsers extends React.Component {
     userAutocomplete: ImmutablePropTypes.list,
     getAutocompleteUsers: React.PropTypes.func,
     resetAutocompleteUsers: React.PropTypes.func,
-    getShareUrl: React.PropTypes.func
+    getShareUrl: React.PropTypes.func.isRequired,
+    changeUrlPermission: React.PropTypes.func.isRequired
   }
 
   inviteUsers () {
@@ -70,7 +71,11 @@ export default class InviteUsers extends React.Component {
         </div>
 
         <div className='full-row'>
-          <UrlShare resource={this.props.resource}/>
+          <UrlShare
+            getShareUrl={this.props.getShareUrl}
+            changeUrlPermission={this.props.changeUrlPermission}
+            resourceName={this.props.resourceName}
+            resource={this.props.resource}/>
         </div>
       </div>
     )
