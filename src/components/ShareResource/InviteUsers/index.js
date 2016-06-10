@@ -28,16 +28,32 @@ export default class InviteUsers extends React.Component {
     this.props.updateUI('values', values)
   }
 
-  handlePermissionChange ({ target }) {
+  handleMemberPermissionChange ({ target }) {
     this.props.updateUI('permission', target.value)
   }
 
-  renderPermission () {
+  handleUrlPermissionChange ({ target }) {
+    console.log(target.value)
+  }
+
+  renderMemberPermissions () {
     const selected = this.props.ui.permission
     const options = SHARE_PERMISSIONS
 
     return (
-      <select value={selected} onChange={::this.handlePermissionChange}>
+      <select value={selected} onChange={::this.handleMemberPermissionChange}>
+        {options.map(item =>
+          <option key={item.id} value={item.id}>{item.name}</option>
+        )}
+      </select>
+    )
+  }
+
+  renderUrlPermissions () {
+    const options = SHARE_PERMISSIONS
+
+    return (
+      <select onChange={::this.handleUrlPermissionChange}>
         {options.map(item =>
           <option key={item.id} value={item.id}>{item.name}</option>
         )}
@@ -60,20 +76,20 @@ export default class InviteUsers extends React.Component {
         <div className='full-row members'>
           <span>Members can</span>
 
-          {::this.renderPermission()}
+          {::this.renderMemberPermissions()}
 
           <button className='round-button' onClick={::this.inviteUsers}>
             Invite
           </button>
         </div>
 
-        <div className='full-row shareable-link'>
+        <div className='full-row shareable-url'>
           <div className='clickable'>
-            <div className='link-icon'/>
-            <span>Get shareable link...</span>
+            <div className='url-icon'/>
+            <span>Get shareable url...</span>
           </div>
 
-          {::this.renderPermission()}
+          {::this.renderUrlPermissions()}
         </div>
       </div>
     )

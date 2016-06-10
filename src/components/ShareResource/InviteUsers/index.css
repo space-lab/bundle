@@ -28,7 +28,7 @@ $blue: #1581E2;
     }
   }
 
-  .shareable-link {
+  .shareable-url {
     justify-content: space-between;
     padding: 10px 15px;
     font-size: 15px;
@@ -38,7 +38,7 @@ $blue: #1581E2;
       align-items: inherit;
       cursor: pointer;
 
-      .link-icon {
+      .url-icon {
         margin-right: 7px;
         width: $icon-size;
         height: $icon-size;
