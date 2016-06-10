@@ -54,14 +54,16 @@ export default class UrlShare extends React.Component {
   }
 
   renderUrlPermissionsAndDelete () {
-    const { share_url } = this.props.resource
+    const { resource } = this.props
     const options = SHARE_PERMISSIONS
 
-    if (!share_url) return null
+    if (!resource.share_url) return null
 
     return (
       <div className='permissions'>
-        <select onChange={::this.handleUrlPermissionChange}>
+        <select
+          value={resource.share_url_permission}
+          onChange={::this.handleUrlPermissionChange}>
           {options.map(option =>
             <option key={option.id} value={option.id}>{option.name}</option>
           )}
