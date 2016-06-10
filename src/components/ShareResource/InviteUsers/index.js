@@ -69,7 +69,7 @@ export default class InviteUsers extends React.Component {
 
         <div className='full-row shareable-link'>
           <div className='clickable'>
-            <div className='icon'/>
+            <div className='link-icon'/>
             <span>Get shareable link...</span>
           </div>
 

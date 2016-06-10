@@ -1,4 +1,4 @@
-$icon-size: 18px;
+$icon-size: 28px;
 $blue: #1581E2;
 
 .invite-users-container {
@@ -30,14 +30,16 @@ $blue: #1581E2;
 
   .shareable-link {
     justify-content: space-between;
+    padding: 10px 15px;
+    font-size: 15px;
 
     .clickable {
       display: inherit;
       align-items: inherit;
       cursor: pointer;
 
-      .icon {
-        margin-right: 10px;
+      .link-icon {
+        margin-right: 7px;
         width: $icon-size;
         height: $icon-size;
         background-size: $icon-size;
