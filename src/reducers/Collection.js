@@ -32,14 +32,22 @@ export default function (state = defaultState, action) {
 
     case 'ADD_SHARES_TO_COLLECTION':
       return state
-        .updateIn(['byId', action.resourceId, 'shares'], shares => shares.concat(action.shares))
+        .updateIn(['byId', action.resourceId, 'shares'], shares =>
+          shares.concat(action.shares))
 
     case 'REMOVE_SHARE':
       if (!state.getIn(['byId', action.resourceId])) return state
 
-      return state.updateIn(['byId', action.resourceId, 'shares'], shares => {
-        return shares.delete(shares.indexOf(action.id))
-      })
+      return state.updateIn(['byId', action.resourceId, 'shares'], shares =>
+        shares.delete(shares.indexOf(action.id)))
+
+    case 'RECEIVE_COLLECTION_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection.set('share_url', action.url))
+
+    case 'CHANGE_COLLECTION_SHARE_URL_PERMISSION':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection.set('share_url_permission', action.permission))
 
     default:
       return state

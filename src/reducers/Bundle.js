@@ -61,6 +61,14 @@ export default function (state = defaultState, action) {
       return state.update('byId', bundles =>
         bundles.filter(bundle => bundle.collection_id !== action.id))
 
+    case 'RECEIVE_BUNDLE_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle.set('share_url', action.url))
+
+    case 'CHANGE_BUNDLE_SHARE_URL_PERMISSION':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle.set('share_url_permission', action.permission))
+
     default:
       return state
   }
