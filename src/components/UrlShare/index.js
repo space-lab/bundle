@@ -8,7 +8,8 @@ export default class UrlShare extends React.Component {
   static propTypes = {
     resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
-    getShareUrl: React.PropTypes.func.isRequired
+    getShareUrl: React.PropTypes.func.isRequired,
+    changeUrlPermission: React.PropTypes.func.isRequired
   }
 
   handleUrlGet () {
