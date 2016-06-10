@@ -51,11 +51,20 @@ export const removeShare = (id, type, resourceId) => async dispatch => {
 }
 
 export const getShareUrl = (resourceName, resourceId) => async dispatch => {
-  console.log(resourceName)
+  // TODO fakeout
   const url = 'http://bundle.spacelab.team/something-url/join'
   const ACTION = resourceName === 'Bundle'
     ? 'RECEIVE_BUNDLE_SHARE_URL'
     : 'RECEIVE_COLLECTION_SHARE_URL'
 
   dispatch({ type: ACTION, resourceId, url })
+}
+
+export const changeUrlPermission = (resourceName, resourceId, permission) => async dispatch => {
+  // TODO fakeout
+  const ACTION = resourceName === 'Bundle'
+    ? 'CHANGE_BUNDLE_SHARE_URL_PERMISSION'
+    : 'CHANGE_COLLECTION_SHARE_URL_PERMISSION'
+
+  dispatch({ type: ACTION, resourceId, permission })
 }
