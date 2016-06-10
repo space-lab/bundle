@@ -33,20 +33,21 @@ export default class Container extends React.Component {
     collection: ImmutablePropTypes.record
   }
 
-  constructor (props) {
-    super(props)
-    props.getCollection(props.collectionId)
-  }
-
-  removeBundle (...args) {
-    const { removeBundle, collectionId } = this.props
-
-    removeBundle(...args)
-    browserHistory.goBack()
+  componentDidMount () {
+    this.props.getCollection(this.props.collectionId)
   }
 
   getBundleUrl (collection, bundle) {
     return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
+  }
+
+  getCollectionUrl () {
+    return '/collection/' + this.props.collectionId
+  }
+
+  removeBundle (...args) {
+    browserHistory.push(this.getCollectionUrl())
+    this.props.removeBundle(...args)
   }
 
   renderBundleList (bundles, collection, props) {
