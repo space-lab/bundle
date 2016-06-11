@@ -5,7 +5,8 @@ import {
   Navigation,
   SearchContainer,
   BundleNew,
-  Logout
+  Logout,
+  Settings
 } from './containers'
 
 export default (
@@ -26,7 +27,8 @@ export default (
     <Route path='/collections' view='collections' component={Navigation} />
     <Route path='/favorites' view='favorites' component={Navigation}/>
     <Route path='/notifications' view='notifications' component={Navigation} />
+    <Route path='/settings' component={Settings} />
 
-    <Route path='/logout' component={Logout} />
+    <Route path='/logout' component={Settings} />
   </Route>
 )
