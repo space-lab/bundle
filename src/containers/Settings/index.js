@@ -33,9 +33,9 @@ export default class Settings extends React.Component {
       email: ui.email
     }
 
-    updateUser({ id: user.id }, payload).then(() => {
+    updateUser({ id: user.id }, payload).then(() =>
       addAlert('success', 'yo, update was lit !!!')
-    })
+    )
   }
 
   render () {
@@ -44,21 +44,19 @@ export default class Settings extends React.Component {
     return <div className='settings'>
       <h2 className='title'>Settings</h2>
 
-      <h3 className='subtitle'>Full Name</h3>
+      <h3 className='label'>Full Name</h3>
       <Editable
         value={user.name}
         placeholder='Enter Name'
         editMode={true}
-        onChange={value => updateUI('name', value) }
-      />
+        onChange={value => updateUI('name', value)} />
 
-      <h3 className='subtitle'>Email</h3>
+      <h3 className='label'>Email</h3>
       <Editable
         value={user.email}
         placeholder='Enter Email'
         editMode={true}
-        onChange={value => updateUI('email', value) }
-      />
+        onChange={value => updateUI('email', value)} />
 
       <button className='round-button' onClick={::this.saveUser}>Save</button>
     </div>
