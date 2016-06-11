@@ -34,7 +34,7 @@ export default class Settings extends React.Component {
     }
 
     updateUser({ id: user.id }, payload).then(() => {
-      addAlert('success', 'yo, update was lit yoo !!!')
+      addAlert('success', 'yo, update was lit !!!')
     })
   }
 
@@ -42,14 +42,17 @@ export default class Settings extends React.Component {
     const { user, updateUI } = this.props
 
     return <div className='settings'>
-      <h2> Settings </h2>
+      <h2 className='title'>Settings</h2>
+
+      <h3 className='subtitle'>Full Name</h3>
       <Editable
         value={user.name}
         placeholder='Enter Name'
         editMode={true}
         onChange={value => updateUI('name', value) }
       />
-      <br/>
+
+      <h3 className='subtitle'>Email</h3>
       <Editable
         value={user.email}
         placeholder='Enter Email'
@@ -61,8 +64,3 @@ export default class Settings extends React.Component {
     </div>
   }
 }
-
-// name
-// email
-// username
-// about
