@@ -2,8 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from 'constants'
 import './index.css'
 
-//import ui from 'redux-ui'
-//@ui({ state: { tags: List() } })
 export default class UrlShare extends React.Component {
   static propTypes = {
     resourceName: React.PropTypes.string.isRequired,
