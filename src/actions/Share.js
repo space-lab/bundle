@@ -51,17 +51,20 @@ export const removeShare = (id, type, resourceId) => async dispatch => {
 }
 
 export const getShareUrl = (resourceName, resourceId) => async dispatch => {
-  // TODO fakeout
-  const url = 'http://bundle.spacelab.team/something-url/join'
+  const response = await request.post(api.urlShare(resourceName.toLowerCase(), resourceId))
+  const { share_url, share_url_permission } = response.data
   const ACTION = resourceName === 'Bundle'
     ? 'RECEIVE_BUNDLE_SHARE_URL'
     : 'RECEIVE_COLLECTION_SHARE_URL'
 
-  dispatch({ type: ACTION, resourceId, url })
+  dispatch({ type: ACTION, resourceId, share_url, share_url_permission })
 }
 
 export const changeUrlPermission = (resourceName, resourceId, permission) => async dispatch => {
-  // TODO fakeout
+  await request.put(api.urlShare(resourceName.toLowerCase(), resourceId), {
+    permission_id: permission
+  })
+
   const ACTION = resourceName === 'Bundle'
     ? 'CHANGE_BUNDLE_SHARE_URL_PERMISSION'
     : 'CHANGE_COLLECTION_SHARE_URL_PERMISSION'
@@ -70,7 +73,8 @@ export const changeUrlPermission = (resourceName, resourceId, permission) => asy
 }
 
 export const removeUrlShare = (resourceName, resourceId) => async dispatch => {
-  // TODO fakeout
+  await request.delete(api.urlShare(resourceName.toLowerCase(), resourceId))
+
   const ACTION = resourceName === 'Bundle'
     ? 'REMOVE_BUNDLE_SHARE_URL'
     : 'REMOVE_COLLECTION_SHARE_URL'

@@ -62,7 +62,9 @@ export default function (state = defaultState, action) {
 
     case 'RECEIVE_BUNDLE_SHARE_URL':
       return state.updateIn(['byId', action.resourceId],
-        bundle => bundle.set('share_url', action.url))
+        bundle => bundle
+          .set('share_url', action.share_url)
+          .set('share_url_permission', action.share_url_permission))
 
     case 'CHANGE_BUNDLE_SHARE_URL_PERMISSION':
       return state.updateIn(['byId', action.resourceId],

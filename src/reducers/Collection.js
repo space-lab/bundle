@@ -45,7 +45,9 @@ export default function (state = defaultState, action) {
 
     case 'RECEIVE_COLLECTION_SHARE_URL':
       return state.updateIn(['byId', action.resourceId],
-        collection => collection.set('share_url', action.url))
+        collection => collection
+          .set('share_url', action.share_url)
+          .set('share_url_permission', action.share_url_permission))
 
     case 'CHANGE_COLLECTION_SHARE_URL_PERMISSION':
       return state.updateIn(['byId', action.resourceId],

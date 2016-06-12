@@ -20,5 +20,8 @@ export default {
   favorite: (resource, id) => `${API_BASE}/${resource}/${id}/favorite`,
   favorites: () => `${API_BASE}/favorites`,
 
+  urlShare: (resource, id) => `${API_BASE}/${resource}/${id}/url-share`,
+  joinShareUrl: (resource, id) => `${API_BASE}/${resource}/${id}/join`,
+
   fetchLink: (url) => FETCHER_URL + url
 }
