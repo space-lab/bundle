@@ -1,4 +1,4 @@
-$size: 18px;
+$icon-size: 18px;
 
 .list-toolbar {
   height: $height;
@@ -8,9 +8,9 @@ $size: 18px;
 
   .icon {
     display: inline-block;
-    width: $size;
-    height: $size;
-    background-size: $size;
+    width: $icon-size;
+    height: $icon-size;
+    background-size: $icon-size;
     opacity: 0.5;
     transition: opacity linear 200ms;
     cursor: pointer;

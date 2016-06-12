@@ -15,15 +15,16 @@ export default class ShareResource extends React.Component {
   }
 
   renderShares () {
-    let { resource, removeShare, changeSharePermission } = this.props
+    const { resource, removeShare, changeSharePermission } = this.props
 
-    return resource.shares.map(share => {
-      return <ShareItem key={share.id} share={share}
+    return resource.shares.map(share =>
+      <ShareItem
+        key={share.id}
+        share={share}
         resourceId={resource.id}
         changeSharePermission={changeSharePermission}
-        removeShare={removeShare}
-      />
-    })
+        removeShare={removeShare}/>
+    )
   }
 
   render () {
@@ -34,8 +35,7 @@ export default class ShareResource extends React.Component {
         <InviteUsers
           {...this.props}
           resourceName={this.props.resourceName}
-          resourceId={this.props.resource.id}
-        />
+          resourceId={this.props.resource.id}/>
 
         {::this.renderShares()}
       </Modal>

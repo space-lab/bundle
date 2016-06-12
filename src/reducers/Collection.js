@@ -43,6 +43,22 @@ export default function (state = defaultState, action) {
       return state.updateIn(['byId', action.resourceId, 'shares'], shares =>
         shares.delete(shares.indexOf(action.id)))
 
+    case 'RECEIVE_COLLECTION_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection
+          .set('share_url', action.share_url)
+          .set('share_url_permission', action.share_url_permission))
+
+    case 'CHANGE_COLLECTION_SHARE_URL_PERMISSION':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection.set('share_url_permission', action.permission))
+
+    case 'REMOVE_COLLECTION_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        collection => collection
+          .delete('share_url')
+          .delete('share_url_permission'))
+
     case 'REMOVE_BUNDLE':
       return state.update('byId', collections =>
         collections.map(collection =>

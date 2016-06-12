@@ -1,51 +1,50 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { SHARE_PERMISSIONS } from 'constants'
-import { TagInput } from 'components'
+import { TagInput, UrlShare } from 'components'
 import './index.css'
 
 @ui({ state: { values: [], permission: 1 } })
 export default class InviteUsers extends React.Component {
   static propTypes = {
+    resource: ImmutablePropTypes.record.isRequired,
     resourceId: React.PropTypes.string,
     resourceName: React.PropTypes.string,
     inviteUsers: React.PropTypes.func,
     userAutocomplete: ImmutablePropTypes.list,
     getAutocompleteUsers: React.PropTypes.func,
-    resetAutocompleteUsers: React.PropTypes.func
+    resetAutocompleteUsers: React.PropTypes.func,
+    getShareUrl: React.PropTypes.func.isRequired,
+    changeUrlPermission: React.PropTypes.func.isRequired,
+    removeUrlShare: React.PropTypes.func.isRequired
   }
 
   inviteUsers () {
-    const { values, permission } = this.props.ui
-    const { inviteUsers, resetUI, resourceId, resourceName } = this.props
-    const data = values.map(value => {
-      return { id: value.id, permission_id: permission }
-    })
+    const { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
+    const data = ui.values.map(value =>
+      ({ id: value.id, permission_id: ui.permission }))
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => {
-        resetUI()
-        this.props.resetAutocompleteUsers()
-      })
+      .then(() => { resetUI() && this.props.resetAutocompleteUsers() })
   }
 
   handleValueChange (values) {
     this.props.updateUI('values', values)
   }
 
-  permissionChanged (e) {
-    this.props.updateUI('permission', e.target.value)
+  handleMemberPermissionChange ({ target }) {
+    this.props.updateUI('permission', target.value)
   }
 
-  renderPermission () {
+  renderMemberPermissions () {
     const selected = this.props.ui.permission
     const options = SHARE_PERMISSIONS
 
     return (
-      <select value={selected} onChange={::this.permissionChanged}>
-        {options.map(item => {
-          return <option value={item.id} key={item.id}>{item.name}</option>
-        })}
+      <select value={selected} onChange={::this.handleMemberPermissionChange}>
+        {options.map(option =>
+          <option key={option.id} value={option.id}>{option.name}</option>
+        )}
       </select>
     )
   }
@@ -53,26 +52,32 @@ export default class InviteUsers extends React.Component {
   render () {
     return (
       <div className='invite-users-container'>
-        <div className='full-row'>
+        <div className='full-row invite'>
           <TagInput
             data={this.props.userAutocomplete}
             resource={this.props.resource}
             getData={this.props.getAutocompleteUsers}
             resetData={this.props.resetAutocompleteUsers}
-            handleChange={::this.handleValueChange}
-          />
+            handleChange={::this.handleValueChange}/>
         </div>
 
         <div className='full-row members'>
           <span>Members can</span>
 
-          {::this.renderPermission()}
+          {::this.renderMemberPermissions()}
 
-          <button
-            className='round-button'
-            onClick={::this.inviteUsers}>
+          <button className='round-button' onClick={::this.inviteUsers}>
             Invite
-         </button>
+          </button>
+        </div>
+
+        <div className='full-row'>
+          <UrlShare
+            getShareUrl={this.props.getShareUrl}
+            changeUrlPermission={this.props.changeUrlPermission}
+            removeUrlShare={this.props.removeUrlShare}
+            resourceName={this.props.resourceName}
+            resource={this.props.resource}/>
         </div>
       </div>
     )

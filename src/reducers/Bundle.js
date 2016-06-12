@@ -60,6 +60,22 @@ export default function (state = defaultState, action) {
       return state.update('byId', bundles =>
         bundles.filter(bundle => bundle.collection_id !== action.id))
 
+    case 'RECEIVE_BUNDLE_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle
+          .set('share_url', action.share_url)
+          .set('share_url_permission', action.share_url_permission))
+
+    case 'CHANGE_BUNDLE_SHARE_URL_PERMISSION':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle.set('share_url_permission', action.permission))
+
+    case 'REMOVE_BUNDLE_SHARE_URL':
+      return state.updateIn(['byId', action.resourceId],
+        bundle => bundle
+          .delete('share_url')
+          .delete('share_url_permission'))
+
     default:
       return state
   }

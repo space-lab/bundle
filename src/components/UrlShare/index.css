@@ -1,0 +1,65 @@
+$icon-size: 28px;
+$blue: #1581E2;
+
+.shareable-url {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+
+  .url, .clickable {
+    width: 100%;
+    display: inherit;
+    align-items: inherit;
+
+    .url-icon {
+      margin-right: 7px;
+      width: $icon-size;
+      height: $icon-size;
+      background-size: $icon-size;
+      background-image: url('/assets/images/link.svg');
+    }
+  }
+
+  .url {
+    input {
+      border: none;
+      width: 80%;
+      font-size: 15px;
+      overflow: hidden;
+    }
+  }
+
+  .clickable {
+    cursor: pointer;
+    opacity: 1;
+    transition: all linear 200ms;
+    user-select: none;
+
+    &:hover {
+      color: $blue;
+      opacity: 0.7;
+    }
+  }
+
+  .permissions {
+    display: flex;
+    align-items: center;
+
+    .close-icon {
+      margin-right: -6px;
+      width: 27px;
+      height: 27px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+      cursor: pointer;
+      user-select: none;
+      opacity: 1;
+      transition: opacity linear 200ms;
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+  }
+}

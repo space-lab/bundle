@@ -15,8 +15,8 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   onItemClick (collection) {
-    let { bundle, updateBundle } = this.props
-    let payload = { collection_id: collection.id }
+    const { bundle, updateBundle } = this.props
+    const payload = { collection_id: collection.id }
 
     if (collection.id != bundle.collection_id) {
       updateBundle(bundle.id, payload)
@@ -31,23 +31,23 @@ export default class ChangeCollectionModal extends React.Component {
     return this.props.collections.get(this.props.bundle.collection_id)
   }
 
-
   currentCollectionId () {
     return this.props.collections.getIn([this.props.bundle.collection_id, 'id'])
   }
 
   filteredCollections () {
-    let collections = this.props.collections.valueSeq()
-    let q = this.props.ui.q.toLowerCase()
-    let currentId = this.currentCollectionId()
+    const collections = this.props.collections.valueSeq()
+    const q = this.props.ui.q.toLowerCase()
+    const currentId = this.currentCollectionId()
 
-    return collections.filter(item => {
-      return item.id != currentId && item.name.toLowerCase().includes(q)
-    })
+    return collections.filter(item =>
+      item.id != currentId && item.name.toLowerCase().includes(q))
   }
 
   renderItem (item, isCurrent) {
-    let checkIcon = isCurrent ? <div className='icon collection-check-icon' /> : null
+    const checkIcon = isCurrent
+      ? <div className='icon collection-check-icon'/>
+      : null
 
     if (!item) return false
 
@@ -81,11 +81,10 @@ export default class ChangeCollectionModal extends React.Component {
             className='search-input'
             placeholder='Search Collections...'
             value={this.props.ui.q}
-            onChange={::this.onQueryChange}
-          />
+            onChange={::this.onQueryChange}/>
+
           <span className='icon close-icon'
-            onClick={::this.onCloseClick}
-          />
+            onClick={::this.onCloseClick}/>
         </div>
 
         <div className='search-results'>

@@ -23,7 +23,9 @@ export const Bundle = Record({
   isNewBundle: null,
   editMode: false,
   created_at: null,
-  type: null
+  type: null,
+  share_url: null,
+  share_url_permission: null
 })
 
 export const Collection = Record({
@@ -39,7 +41,9 @@ export const Collection = Record({
   full_response: false,
   created_at: null,
   editMode: false,
-  type: null
+  type: null,
+  share_url: null,
+  share_url_permission: null
 })
 
 export const Link = Record({
