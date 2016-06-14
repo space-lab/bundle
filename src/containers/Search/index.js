@@ -1,9 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-
 import SearchHeader from './header'
 import SearchBody from './body'
-
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
@@ -11,7 +9,6 @@ import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 import Selectors from 'selectors'
-
 import './index.css'
 
 const connectState = (state) => ({
@@ -39,13 +36,13 @@ export default class SearchContainer extends React.Component {
   }
 
   componentWillMount () {
-    let query = this.props.routeParams.query
+    const { query } = this.props.routeParams
     if (query) this.props.getSearchResult(query)
   }
 
   componentWillReceiveProps (nextProps) {
-    let thisPropsQuery = this.props.routeParams.query
-    let nextPropsQuery = nextProps.routeParams.query
+    const thisPropsQuery = this.props.routeParams.query
+    const nextPropsQuery = nextProps.routeParams.query
 
     if (!nextPropsQuery) {
       nextProps.getSearchResult()
@@ -55,11 +52,11 @@ export default class SearchContainer extends React.Component {
   }
 
   render () {
-    let query = this.props.routeParams.query
+    const { query } = this.props.routeParams
 
     return (
       <div className='search-wrapper'>
-        <SearchHeader query={query} />
+        <SearchHeader query={query}/>
         <SearchBody {...this.props}/>
       </div>
     )

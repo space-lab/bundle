@@ -1,31 +1,30 @@
+import { shouldShow } from 'helpers'
 import './index.css'
 
-export default function Search ({
-  onClick,
-  onChange,
-  search
-}) {
-  return (
-    <div className='search-container-wrapper'>
-      <span
-        onClick={onClick}
-        className='icon search-icon'
-        style={{ 'display': search ? 'none' : 'block' }}
-      />
+export default class Search extends React.Component {
+  static propTypes = {
+    onClick: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+    search: React.PropTypes.bool.isRequired
+  }
 
-      <input
-        className='search-input'
-        type='text'
-        placeholder='Search...'
-        style={{ 'display': search ? 'block' : 'none' }}
-        onChange={(e) => { onChange(e.target.value) }}
-      />
-    </div>
-  )
-}
+  render () {
+    const { onClick, onChange, search } = this.props
 
-Search.propTypes = {
-  onClick: React.PropTypes.func,
-  onChange: React.PropTypes.func,
-  search: React.PropTypes.bool
+    return (
+      <div className='search-container-wrapper'>
+        <span
+          onClick={onClick}
+          className='icon search-icon'
+          style={shouldShow(search)}/>
+
+        <input
+          className='search-input'
+          type='text'
+          placeholder='Search...'
+          style={!shouldShow(search)}
+          onChange={(e) => {onChange(e.target.value)}} />
+      </div>
+    )
+  }
 }
