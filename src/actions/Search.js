@@ -1,10 +1,11 @@
 import { fromJS } from 'immutable'
 import request from 'axios'
 import api from 'api'
-import { reduceCollection, reduceBundle } from 'helpers'
+import { reduceBundles, reduceCollections } from 'helpers'
 
 export const getSearchResult = value => async dispatch => {
-  if (!value) return dispatch({ type: 'FETCH_SEARCH_RESULTS' })
+  console.log('does this happen?')
+  if (!value) return dispatch({ type: 'CLEAR_SEARCH_RESULTS' })
 
   const { data } = await request.get(api.searchResource(value))
   const result = {
@@ -12,8 +13,8 @@ export const getSearchResult = value => async dispatch => {
     collections: data.collections.map(collection => collection.id)
   }
 
-  reduceBundle(data.bundles, null, dispatch, true)
-  reduceCollection(data.collections, dispatch, true)
+  reduceBundles(data.bundles, dispatch)
+  reduceCollections(data.collections, dispatch)
 
-  dispatch({ type: 'SAVE_SEARCH_RESULT', result: fromJS(result) })
+  dispatch({ type: 'SAVE_SEARCH_RESULTS', result: fromJS(result) })
 }
