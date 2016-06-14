@@ -1,77 +1,72 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List, ListItem } from 'components'
+import { shouldShow } from 'helpers'
 import './index.css'
 
-function isAnyResult (search) {
-  return search.get('bundles').size || search.get('collections').size
-}
-
-function shouldShow (show) {
-  return { 'display': show ? 'block' : 'none' }
-}
-
-function renderList (searchResult, listType, component, props) {
-  let { removeBundle, favorite, unfavorite } = props
-
-  return searchResult.map((item, index) => {
-    let resourceName = (listType == 'bundles') ? 'Bundle' : 'Collection'
-
-    return <ListItem key={index}
-       {...props}
-       resource={item}
-       resourceName={resourceName}
-       Component={component}
-       remove={removeBundle}
-       favorite={favorite}
-       unfavorite={unfavorite}
-     />
-  })
-}
-
-function renderResults (props) {
-  let searchResult = props.searchResult
-  let bundles = searchResult.get('bundles')
-  let collections = searchResult.get('collections')
-
-  if (!isAnyResult(searchResult)) {
-    return <div className='search-note'>Search Bundles and Collections</div>
+export default class SearchBody extends React.Component {
+  static propTypes = {
+    searchResult: ImmutablePropTypes.map.isRequired,
+    favorite: React.PropTypes.func.isRequired,
+    removeBundle: React.PropTypes.func.isRequired,
+    removeCollection: React.PropTypes.func.isRequired,
   }
 
-  return (
-    <div className='search-results'>
-      <h3 className='title'>Search results</h3>
+  noResult (search) {
+    return !search.get('bundles').size && !search.get('collections').size
+  }
 
+  renderListItem (searchResult, resourceName, component) {
+    console.log(resourceName)
+
+    return searchResult.map((item, index) => (
+      <ListItem
+        key={index}
+        {...this.props}
+        resource={item}
+        resourceName={resourceName}
+        Component={component}
+        remove={this.props['remove' + resourceName]}
+        favorite={this.props.favorite}
+        unfavorite={this.props.unfavorite}/>
+    ))
+  }
+
+  renderList (searchResult, resourceName, component) {
+    return (
       <List>
-        <h4 className='name' style={shouldShow(collections.size > 0)}>
-          Collections
+        <h4 className='name' style={shouldShow(searchResult.size > 0)}>
+          {resourceName}s
         </h4>
 
-        {renderList(collections, 'collections', ListItem.Collection, props)}
+        {this.renderListItem(searchResult, resourceName, component)}
       </List>
+    )
+  }
 
-      <List>
-        <h4 style={shouldShow(bundles.size > 0)}
-          className='name'> Bundles
-        </h4>
+  renderResults () {
+    const { searchResult } = this.props
+    const bundles = searchResult.get('bundles')
+    const collections = searchResult.get('collections')
 
-        {renderList(bundles, 'bundles', ListItem.Bundle, props)}
-      </List>
+    if (this.noResult(searchResult)) {
+      return (<div className='search-note'>Search Bundles and Collections</div>)
+    }
 
-    </div>
-  )
-}
+    return (
+      <div className='search-results'>
+        <h3 className='title'>Search results</h3>
 
-export default function SearchBody (props) {
-  return (
-    <div className='search-results-wrapper'>
-      {renderResults(props)}
-    </div>
-  )
-}
+        {this.renderList(bundles, 'Bundle', ListItem.Bundle)}
+        {this.renderList(collections, 'Collection', ListItem.Collection)}
+      </div>
+    )
+  }
 
-SearchBody.propTypes = {
-  searchResult: ImmutablePropTypes.map,
-  removeBundle: React.PropTypes.func,
-  favorite: React.PropTypes.func,
-  unfavorite: React.PropTypes.func
+  render () {
+    return (
+      <div className='search-results-wrapper'>
+        {this.renderResults()}
+      </div>
+    )
+  }
 }
