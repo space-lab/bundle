@@ -47,7 +47,7 @@ export const reduceBundle = (data, oldId, dispatch) => {
 }
 
 export const reduceBundles = (data, dispatch) => {
-  const { entities } = normalize(data, arrayOf(schemas.bundles))
+  const { entities } = normalize(data, arrayOf(schemas.bundle))
   const bundles = entities.get('bundles').toList()
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
