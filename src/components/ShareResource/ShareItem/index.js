@@ -11,19 +11,19 @@ export default class ShareItem extends React.Component {
   }
 
   permissionChanged (e) {
-    let permissionId = e.target.value
-    let id = this.props.share.id
-    let type = this.props.share.type
+    const permissionId = e.target.value
+    const id = this.props.share.id
+    const type = this.props.share.type
 
     this.props.changeSharePermission(id, type, permissionId)
   }
 
   renderPermission () {
-    let selected = this.props.share.permission
-    let options = SHARE_PERMISSIONS
+    const permission = this.props.share.getIn(['permission', 'id'])
+    const options = SHARE_PERMISSIONS
 
     return (
-      <select value={selected.get('id')} onChange={::this.permissionChanged}>
+      <select value={permission} onChange={::this.permissionChanged}>
         {options.map(item => {
           return <option value={item.id} key={item.id}>{item.name}</option>
         })}
@@ -32,7 +32,7 @@ export default class ShareItem extends React.Component {
   }
 
   render () {
-    let { share, resourceId, removeShare } = this.props
+    const { share, resourceId, removeShare } = this.props
 
     return (
       <div className='share-list-item'>
