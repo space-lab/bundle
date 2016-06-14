@@ -39,9 +39,10 @@ export const getRecords = (Model, data) => {
 export const reduceBundle = (data, oldId, dispatch, isArray) => {
   const schema = isArray ? arrayOf(bundleSchema) : bundleSchema
   const result = fromJS(normalize(data, schema).entities)
+    .update('users', users => users || Map())
     .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
-    .update('users', users => users || Map())
+    .update('bundles', bundles => bundles || Map())
 
   const bundle = new Bundle(result.get('bundles').first())
   const users = result.get('users').valueSeq().map(item => new User(item))

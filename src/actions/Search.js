@@ -7,8 +7,8 @@ import { reduceCollection, reduceBundle } from 'helpers'
 export const getSearchResult = value => async dispatch => {
   if (!value) return dispatch({ type: 'FETCH_SEARCH_RESULTS' })
 
-  let { data } = await request.get(api.searchResource(value))
-  let result = {
+  const { data } = await request.get(api.searchResource(value))
+  const result = {
     bundles: data.bundles.map(bundle => bundle.id),
     collections: data.collections.map(collection => collection.id)
   }

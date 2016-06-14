@@ -16,8 +16,6 @@ export default class SearchBody extends React.Component {
   }
 
   renderListItem (searchResult, resourceName, component) {
-    console.log(resourceName)
-
     return searchResult.map((item, index) => (
       <ListItem
         key={index}
