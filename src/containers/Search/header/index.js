@@ -2,10 +2,12 @@ import { Link, browserHistory } from 'react-router'
 import './index.css'
 
 export default class SearchHeader extends React.Component {
-  onChange (e) {
-    let value = e.target.value
+  static propTypes = {
+    query: React.PropTypes.string
+  }
 
-    browserHistory.push(`/search/${value}`)
+  onChange ({ target }) {
+    browserHistory.push(`/search/${target.value}`)
   }
 
   render () {
@@ -13,15 +15,15 @@ export default class SearchHeader extends React.Component {
 
     return (
       <div className='search-header-wrapper'>
-        <input className='search-input' type='text'
-          placeholder='Search...' onChange={this.onChange}
+        <input
+          className='search-input'
+          type='text'
+          placeholder='Search...'
+          onChange={this.onChange}
           value={query || ''} />
-        <Link to='/bundles' className='icon close-icon' />
+
+        <Link to='/bundles' className='icon close-icon'/>
       </div>
     )
   }
-}
-
-SearchHeader.propTypes = {
-  query: React.PropTypes.string
 }
