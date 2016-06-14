@@ -1,7 +1,6 @@
 import { browserHistory } from 'react-router'
-import { fromJS, Map, List } from 'immutable'
+import { fromJS, Map } from 'immutable'
 import { normalize, arrayOf } from 'normalizr-immutable'
-import { Bundle, Collection, User, Link, Share } from 'records'
 import * as schemas from 'normalizers'
 
 export const urlDomain = str => {

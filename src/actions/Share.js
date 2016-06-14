@@ -1,5 +1,4 @@
 import request from 'axios'
-import { fromJS } from 'immutable'
 import { normalize, arrayOf } from 'normalizr-immutable'
 import { Share, User } from 'records'
 import * as schemas from 'normalizers'
@@ -10,36 +9,27 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
   const payload = { permission_id: permissionId }
 
   const response = await request.put(url, payload)
-  const result = fromJS(normalize(response.data, schemas.share).entities)
+  const result = normalize(response.data, schemas.share).entities
 
-  if (result.get('users')) {
-    const users = result.get('users').valueSeq().map(item => new User(item))
-    dispatch({ type: 'RECEIVE_USERS', users })
-  }
+  const users = result.get('users').toList()
+  const shares = result.get('shares').toList()
 
-  if (result.get('shares')) {
-    const shares = result.get('shares').valueSeq().map(item => new Share(item))
-    dispatch({ type: 'RECEIVE_SHARES', shares })
-  }
+  dispatch({ type: 'RECEIVE_USERS', users })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
 }
 
 export const inviteUsers = (resource, id, payload) => async dispatch => {
+  const type = resource == 'Bundle'? 'ADD_SHARES_TO_BUNDLE' :  'ADD_SHARES_TO_COLLECTION'
+
   const response = await request.post(api.invite(resource, id), payload)
-  const result = fromJS(normalize(response.data, arrayOf(schemas.share)).entities)
+  const result = normalize(response.data, arrayOf(schemas.share)).entities
 
-  if (result.get('users')) {
-    const users = result.get('users').valueSeq().map(item => new User(item))
-    dispatch({ type: 'RECEIVE_USERS', users })
-  }
+  const users = result.get('users').toList()
+  const shares = result.get('shares').toList()
 
-  if (result.get('shares')) {
-    const shares = result.get('shares').valueSeq().map(item => new Share(item))
-    const shareIds = shares.map(share => share.id)
-    const type = (resource == 'Bundle') ? 'ADD_SHARES_TO_BUNDLE' :  'ADD_SHARES_TO_COLLECTION'
-
-    dispatch({ type: 'RECEIVE_SHARES', shares })
-    dispatch({ type, shares: shareIds, resourceId: id })
-  }
+  dispatch({ type: 'RECEIVE_USERS', users })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
+  dispatch({ type, resourceId: id, shares: shares.map(share => share.id) })
 }
 
 export const removeShare = (id, type, resourceId) => async dispatch => {
