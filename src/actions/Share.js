@@ -1,9 +1,8 @@
 import request from 'axios'
-import { normalize, arrayOf } from 'normalizr'
 import { fromJS } from 'immutable'
-
+import { normalize, arrayOf } from 'normalizr-immutable'
 import { Share, User } from 'records'
-import { shareSchema } from 'normalizers'
+import * as schemas from 'normalizers'
 import api from 'api'
 
 export const changeSharePermission = (id, type, permissionId) => async dispatch => {
@@ -11,7 +10,7 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
   const payload = { permission_id: permissionId }
 
   const response = await request.put(url, payload)
-  const result = fromJS(normalize(response.data, shareSchema).entities)
+  const result = fromJS(normalize(response.data, schemas.share).entities)
 
   if (result.get('users')) {
     const users = result.get('users').valueSeq().map(item => new User(item))
@@ -26,7 +25,7 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
 
 export const inviteUsers = (resource, id, payload) => async dispatch => {
   const response = await request.post(api.invite(resource, id), payload)
-  const result = fromJS(normalize(response.data, arrayOf(shareSchema)).entities)
+  const result = fromJS(normalize(response.data, arrayOf(schemas.share)).entities)
 
   if (result.get('users')) {
     const users = result.get('users').valueSeq().map(item => new User(item))

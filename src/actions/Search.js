@@ -4,7 +4,6 @@ import api from 'api'
 import { reduceBundles, reduceCollections } from 'helpers'
 
 export const getSearchResult = value => async dispatch => {
-  console.log('does this happen?')
   if (!value) return dispatch({ type: 'CLEAR_SEARCH_RESULTS' })
 
   const { data } = await request.get(api.searchResource(value))
