@@ -1,11 +1,11 @@
 import { Schema, arrayOf } from 'normalizr-immutable'
 import * as records from 'records'
 
-export const bundle = new Schema('bundles', records.Bundle)
-export const collection = new Schema('collections', records.Collection)
-export const user = new Schema('users', records.User)
-export const link = new Schema('links', records.Link)
-export const share = new Schema('shares', records.Share)
+export const bundle = new Schema('bundles', records.Bundle, { idAttribute: 'id' })
+export const collection = new Schema('collections', records.Collection, { idAttribute: 'id' })
+export const user = new Schema('users', records.User, { idAttribute: 'id' })
+export const link = new Schema('links', records.Link, { idAttribute: 'id' })
+export const share = new Schema('shares', records.Share, { idAttribute: 'id' })
 
 collection.define({
   creator: user,

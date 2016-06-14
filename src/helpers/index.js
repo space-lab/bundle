@@ -1,9 +1,8 @@
 import { browserHistory } from 'react-router'
 import { fromJS, Map, List } from 'immutable'
-import { normalize, arrayOf } from 'normalizr'
-
+import { normalize, arrayOf } from 'normalizr-immutable'
 import { Bundle, Collection, User, Link, Share } from 'records'
-import { bundleSchema, collectionSchema } from 'normalizers'
+import * as schemas from 'normalizers'
 
 export const urlDomain = str => {
   const url = document.createElement('a')
@@ -16,14 +15,12 @@ export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })
 
-export const linksWithoutAuthors = links => {
-  return links.map(link => link.delete('creator'))
-}
+export const linksWithoutAuthors = links =>
+  links.map(link => link.delete('creator'))
 
-export const linksWithAuthorIds = links => {
-  return links.map(link =>
+export const linksWithAuthorIds = links =>
+  links.map(link =>
     link.toMap().set('creator_id', link.get('creator')).remove('creator'))
-}
 
 export const nextId = items => {
   const max = items.keySeq().filter(id => id < 0).max() || 0
@@ -32,26 +29,16 @@ export const nextId = items => {
 
 export const getRecord = (Model, data) => new Model(fromJS(data))
 
-export const getRecords = (Model, data) => {
-  return fromJS(data).map(item => new Model(item))
-}
+export const getRecords = (Model, data) =>
+  fromJS(data).map(item => new Model(item))
 
-export const reduceBundle = (data, oldId, dispatch, isArray) => {
-  const schema = isArray ? arrayOf(bundleSchema) : bundleSchema
-  const result = fromJS(normalize(data, schema).entities)
-    .update('users', users => users || Map())
-    .update('links', links => links || Map())
-    .update('shares', shares => shares || Map())
-    .update('bundles', bundles => bundles || Map())
+export const reduceBundle = (data, oldId, dispatch) => {
+  const { entities } = normalize(data, schemas.bundle)
+  const bundle = entities.get('bundles').first()
 
-  const bundle = new Bundle(result.get('bundles').first())
-  const users = result.get('users').valueSeq().map(item => new User(item))
-  const links = result.get('links').valueSeq().map(item => new Link(item))
-  const shares = result.get('shares').valueSeq().map(item => new Share(item))
-
-  dispatch({ type: 'RECEIVE_USERS', users })
-  dispatch({ type: 'RECEIVE_LINKS', links })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
+  dispatch({ type: 'RECEIVE_USERS',  users:  entities.get('users',  new Map()).toList() })
+  dispatch({ type: 'RECEIVE_LINKS',  links:  entities.get('links',  new Map()).toList() })
+  dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
 
   if (oldId && bundle.id !== oldId) {
@@ -60,22 +47,26 @@ export const reduceBundle = (data, oldId, dispatch, isArray) => {
   }
 }
 
-export const reduceCollection = (data, dispatch, isArray) => {
-  const schema = isArray ? arrayOf(collectionSchema) : collectionSchema
-  const result = fromJS(normalize(data, schema).entities)
-    .update('users', links => links || Map())
-    .update('shares', shares => shares || Map())
-    .update('bundles', shares => shares || Map())
-    .update('collections', colls => colls || Map())
+export const reduceBundles = (data, dispatch) => {
+  const { entities } = normalize(data, arrayOf(schemas.bundles))
+  const bundles = entities.get('bundles').toList()
 
-  const users = result.get('users').valueSeq().map(item => new User(item))
-  const shares = result.get('shares').valueSeq().map(item => new Share(item))
-  const bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
-  const collections = result.get('collections').valueSeq().map(item => new Collection(item))
-
-  dispatch({ type: 'RECEIVE_USERS', users })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
+}
+
+export const reduceCollection = (data, dispatch) => {
+  const { entities } = normalize(data, schemas.collection)
+  const collection = entities.get('collections').first()
+
+  dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles: entities.get('bundles', new Map()).toList() })
+  dispatch({ type: 'RECEIVE_COLLECTION', collection })
+}
+
+export const reduceCollections = (data, dispatch) => {
+  const { entities } = normalize(data, arrayOf(schemas.collection))
+  const collections = entities.get('collections').toList()
+
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
 }
