@@ -3,16 +3,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 15px;
-  height: 8.7vh;
+  height: 65px;
+  padding: 0 15px;
   border-bottom: 1px solid #ECECEC;
 
   .close-icon {
     position: absolute;
-    color: #B4B4B4;
     cursor: pointer;
     right: 20px;
-
     display: inline-block;
     width: 24px;
     height: 24px;
@@ -20,18 +18,16 @@
   }
 
   .search-input {
+    height: 28px;
+    border-radius: 14px;
     background: #FCFCFC;
     border: 1px solid #ECECEC;
-    border-radius: 13px;
     font-family: Avenir-Light;
     font-size: 14px;
-    color: #B4B4B4;
-    line-height: 21px;
     text-indent: 10px;
     color: #4E4E4E;
     padding: 2px;
-    margin: 3px 0;
     width: 100%;
-    outline: none;
+    /*outline: none;*/
   }
 }

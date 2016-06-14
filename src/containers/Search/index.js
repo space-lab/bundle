@@ -1,7 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
-import SearchHeader from './header'
-import SearchBody from './body'
+import { Search } from 'components'
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
@@ -56,8 +55,8 @@ export default class SearchContainer extends React.Component {
 
     return (
       <div className='search-wrapper'>
-        <SearchHeader query={query}/>
-        <SearchBody {...this.props}/>
+        <Search.Header query={query}/>
+        <Search.Body {...this.props}/>
       </div>
     )
   }
