@@ -9,9 +9,9 @@ export default class BundleListItem extends React.Component {
   }
 
   renderCollectionName (id) {
-    if (!id) return null
+    if (id && id.length > 25) id = id.slice(0, 25) + '...'
 
-    return (<span className='collection-name'>{id}</span>)
+    return id ? <span className='collection-name'>{id}</span> : null
   }
 
   render () {
