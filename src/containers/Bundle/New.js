@@ -2,11 +2,8 @@ import { connect } from 'react-redux'
 import ui from 'redux-ui'
 import { browserHistory } from 'react-router'
 import { NEW_BUNDLE_ID } from 'constants'
-
 import { linksWithoutAuthors } from 'helpers'
-
 import Bundle from './Bundle'
-
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
 

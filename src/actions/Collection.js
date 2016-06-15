@@ -3,20 +3,20 @@ import api from 'api'
 
 import { fromJS } from 'immutable'
 import { Collection } from 'records'
-import { reduceCollection } from 'helpers'
+import { reduceCollection, reduceCollections } from 'helpers'
 
 export const getCollection = id => async dispatch => {
-  let { data } = await request.get(api.collections(id))
+  const { data } = await request.get(api.collections(id))
   reduceCollection(data, dispatch)
 }
 
 export const getCollections = () => async dispatch => {
-  let { data } = await request.get(api.collections())
-  reduceCollection(data, dispatch, true)
+  const { data } = await request.get(api.collections())
+  reduceCollections(data, dispatch)
 }
 
 export const generateNewCollection = id => {
-  let collection = new Collection({
+  const collection = new Collection({
     id,
     name: '',
     editMode: true,
@@ -27,7 +27,7 @@ export const generateNewCollection = id => {
 }
 
 export const createCollection = (id, name) => async dispatch => {
-  let { data } = await request.post(api.collections(), { name })
+  const { data } = await request.post(api.collections(), { name })
 
   reduceCollection(data, dispatch)
   dispatch({ type: 'CLOSE_COLLECTION', id })

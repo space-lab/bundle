@@ -1,7 +1,7 @@
 import { User } from 'records'
 import { fromJS, Map } from 'immutable'
 
-let defaultState = fromJS({
+const defaultState = fromJS({
   byId: Map(),
   current: null
 })
@@ -9,9 +9,8 @@ let defaultState = fromJS({
 export default function (state = defaultState, action) {
   switch (action.type) {
     case 'RECEIVE_USERS':
-      action.users.forEach(user => {
-        state = state.setIn(['byId', user.id], user)
-      })
+      action.users.forEach(user =>
+        state = state.setIn(['byId', user.id], user))
 
       return state
 

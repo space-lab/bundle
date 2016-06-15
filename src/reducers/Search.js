@@ -10,6 +10,9 @@ export default function (state = defaultState, action) {
     case 'SAVE_SEARCH_RESULT':
       return action.result
 
+    case 'CLEAR_SEARCH_RESULT':
+      return defaultState
+
     default:
       return state
   }

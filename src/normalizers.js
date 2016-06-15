@@ -1,28 +1,28 @@
-import { Schema, arrayOf } from 'normalizr'
+import { Schema, arrayOf } from 'normalizr-immutable'
+import * as records from 'records'
 
-export const collectionSchema = new Schema('collections', { idAttribute: 'id' })
-export const bundleSchema = new Schema('bundles', { idAttribute: 'id' })
-export const userSchema = new Schema('users', { idAttribute: 'id' })
-export const linkSchema = new Schema('links', { idAttribute: 'id' })
-export const shareSchema = new Schema('shares', { idAttribute: 'id' })
+export const bundle = new Schema('bundles', records.Bundle, { idAttribute: 'id' })
+export const collection = new Schema('collections', records.Collection, { idAttribute: 'id' })
+export const user = new Schema('users', records.User, { idAttribute: 'id' })
+export const link = new Schema('links', records.Link, { idAttribute: 'id' })
+export const share = new Schema('shares', records.Share, { idAttribute: 'id' })
 
-
-collectionSchema.define({
-  creator: userSchema,
-  bundles: arrayOf(bundleSchema),
-  shares: arrayOf(shareSchema)
+collection.define({
+  creator: user,
+  bundles: arrayOf(bundle),
+  shares: arrayOf(share)
 })
 
-bundleSchema.define({
-  creator: userSchema,
-  links: arrayOf(linkSchema),
-  shares: arrayOf(shareSchema)
+bundle.define({
+  creator: user,
+  links: arrayOf(link),
+  shares: arrayOf(share)
 })
 
-linkSchema.define({
-  creator: userSchema
+link.define({
+  creator: user
 })
 
-shareSchema.define({
-  user: userSchema
+share.define({
+  user: user
 })
