@@ -7,10 +7,10 @@ const defaultState = Map({
 
 export default function (state = defaultState, action) {
   switch (action.type) {
-    case 'SAVE_SEARCH_RESULTS':
+    case 'SAVE_SEARCH_RESULT':
       return action.result
 
-    case 'CLEAR_SEARCH_RESULTS':
+    case 'CLEAR_SEARCH_RESULT':
       return defaultState
 
     default:

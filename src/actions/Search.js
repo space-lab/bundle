@@ -4,7 +4,7 @@ import api from 'api'
 import { reduceBundles, reduceCollections } from 'helpers'
 
 export const getSearchResult = value => async dispatch => {
-  if (!value) return dispatch({ type: 'CLEAR_SEARCH_RESULTS' })
+  if (!value) return dispatch({ type: 'CLEAR_SEARCH_RESULT' })
 
   const { data } = await request.get(api.searchResource(value))
   const result = {
@@ -15,5 +15,5 @@ export const getSearchResult = value => async dispatch => {
   reduceBundles(data.bundles, dispatch)
   reduceCollections(data.collections, dispatch)
 
-  dispatch({ type: 'SAVE_SEARCH_RESULTS', result: fromJS(result) })
+  dispatch({ type: 'SAVE_SEARCH_RESULT', result: fromJS(result) })
 }
