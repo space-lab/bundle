@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router'
 import { fromJS, Map } from 'immutable'
 import { normalize, arrayOf } from 'normalizr-immutable'
-import * as schemas from 'normalizers'
+import * as Schemas from 'normalizers'
 
 export const urlDomain = str => {
   const url = document.createElement('a')
@@ -32,7 +32,7 @@ export const getRecords = (Model, data) =>
   fromJS(data).map(item => new Model(item))
 
 export const reduceBundle = (data, oldId, dispatch) => {
-  const { entities } = normalize(data, schemas.bundle)
+  const { entities } = normalize(data, Schemas.bundle)
   const bundle = entities.get('bundles').first()
 
   dispatch({ type: 'RECEIVE_USERS',  users:  entities.get('users',  new Map()).toList() })
@@ -47,14 +47,14 @@ export const reduceBundle = (data, oldId, dispatch) => {
 }
 
 export const reduceBundles = (data, dispatch) => {
-  const { entities } = normalize(data, arrayOf(schemas.bundle))
+  const { entities } = normalize(data, arrayOf(Schemas.bundle))
   const bundles = entities.get('bundles').toList()
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
 }
 
 export const reduceCollection = (data, dispatch) => {
-  const { entities } = normalize(data, schemas.collection)
+  const { entities } = normalize(data, Schemas.collection)
   const collection = entities.get('collections').first()
 
   dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
@@ -63,7 +63,7 @@ export const reduceCollection = (data, dispatch) => {
 }
 
 export const reduceCollections = (data, dispatch) => {
-  const { entities } = normalize(data, arrayOf(schemas.collection))
+  const { entities } = normalize(data, arrayOf(Schemas.collection))
   const collections = entities.get('collections').toList()
 
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
