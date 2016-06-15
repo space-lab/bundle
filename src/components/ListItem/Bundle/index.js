@@ -19,13 +19,14 @@ export default class BundleListItem extends React.Component {
     const url = this.props.url || `/bundle/${bundle.id}`
 
     return (
-      <div>
+      <div className='list-item-collection'>
         <ListToolbar {...this.props} />
 
         <Link to={url}>
           <h1>
             {bundle.name}
           </h1>
+
           <h2>
             Created <Date type='fromNow'>{bundle.created_at}</Date>
             {this.renderCollectionName(bundle.collection_id)}
