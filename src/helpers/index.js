@@ -48,7 +48,7 @@ export const reduceBundle = (data, oldId, dispatch) => {
 
 export const reduceBundles = (data, dispatch) => {
   const { entities } = normalize(data, arrayOf(Schemas.bundle))
-  const bundles = entities.get('bundles').toList()
+  const bundles = entities.get('bundles', new Map()).toList()
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
 }
@@ -64,7 +64,7 @@ export const reduceCollection = (data, dispatch) => {
 
 export const reduceCollections = (data, dispatch) => {
   const { entities } = normalize(data, arrayOf(Schemas.collection))
-  const collections = entities.get('collections').toList()
+  const collections = entities.get('collections', new Map()).toList()
 
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
