@@ -16,7 +16,7 @@ export default class UserMenu extends React.Component {
   }
 
   render () {
-    let { children, isOpen, openUserMenu, userImage } = this.props
+    const { children, isOpen, openUserMenu, userImage } = this.props
 
     return (
       <div className='user-menu'>
@@ -28,6 +28,4 @@ export default class UserMenu extends React.Component {
       </div>
     )
   }
-
-
 }
