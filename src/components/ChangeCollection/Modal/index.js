@@ -5,9 +5,9 @@ import './index.css'
 
 export default class ChangeCollectionModal extends React.Component {
   static propTypes = {
-    bundle: ImmutablePropTypes.record,
-    collections: ImmutablePropTypes.map,
-    updateBundle: React.PropTypes.func,
+    bundle: ImmutablePropTypes.record.isRequired,
+    collections: ImmutablePropTypes.map.isRequired,
+    updateBundle: React.PropTypes.func.isRequired,
   }
 
   onQueryChange (e) {
@@ -16,11 +16,10 @@ export default class ChangeCollectionModal extends React.Component {
 
   onItemClick (collection) {
     const { bundle, updateBundle } = this.props
-    const payload = { collection_id: collection.id }
 
-    if (collection.id != bundle.collection_id) {
-      updateBundle(bundle.id, payload)
-    }
+    collection.id === bundle.collection_id
+      ? updateBundle(bundle.id, { collection_id: null })
+      : updateBundle(bundle.id, { collection_id: collection.id })
   }
 
   onCloseClick () {
@@ -36,9 +35,9 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   filteredCollections () {
-    const collections = this.props.collections.valueSeq()
-    const q = this.props.ui.q.toLowerCase()
+    const { collections, ui } = this.props
     const currentId = this.currentCollectionId()
+    const q = ui.q.toLowerCase()
 
     return collections.filter(item =>
       item.id != currentId && item.name.toLowerCase().includes(q))
@@ -48,8 +47,6 @@ export default class ChangeCollectionModal extends React.Component {
     const checkIcon = isCurrent
       ? <div className='icon collection-check-icon'/>
       : null
-
-    if (!item) return false
 
     return (
       <div key={item.id}
@@ -62,13 +59,27 @@ export default class ChangeCollectionModal extends React.Component {
     )
   }
 
-  renderSearchResult () {
+  renderItems (collections) {
+    const current = this.currentCollection()
+
     return (
-      <div>
-        {::this.renderItem(::this.currentCollection(), true)}
-        {this.filteredCollections().map(item => ::this.renderItem(item))}
+      <div className='search-results'>
+        {current && this.renderItem(current, true)}
+        {collections.map(item => this.renderItem(item))}
       </div>
     )
+  }
+
+  renderNoResult () {
+    return <div className='no-results'>No collections were found...</div>
+  }
+
+  renderSearchResults () {
+    const collections = this.filteredCollections()
+
+    return collections.size === 0
+      ? this.renderNoResult()
+      : this.renderItems(collections)
   }
 
   render () {
@@ -87,9 +98,7 @@ export default class ChangeCollectionModal extends React.Component {
             onClick={::this.onCloseClick}/>
         </div>
 
-        <div className='search-results'>
-          {this.renderSearchResult()}
-        </div>
+        {this.renderSearchResults()}
       </Modal>
     )
   }
