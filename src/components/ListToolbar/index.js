@@ -17,7 +17,7 @@ export default class ListToolbar extends React.Component {
   }
 
   renderRegularItems () {
-    let {
+    const {
       resource,
       resourceName,
       favorited,
@@ -26,8 +26,8 @@ export default class ListToolbar extends React.Component {
       remove
     } = this.props
 
-    let id = resource.id
-    let type = resourceName.toLowerCase()
+    const id = resource.id
+    const type = resourceName.toLowerCase()
 
     return (
       <div className='list-toolbar'>
@@ -47,7 +47,7 @@ export default class ListToolbar extends React.Component {
   }
 
   renderEditModeItems () {
-    let { resource, close } = this.props
+    const { resource, close } = this.props
 
     return (
       <div className='list-toolbar'>
