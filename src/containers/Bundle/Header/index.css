@@ -1,31 +1,21 @@
 .bundle-view-header-wrapper {
-  height: 65px;
-  border-bottom: 1px solid #ECECEC;
   display: flex;
   align-items: center;
+  height: 65px;
+  border-bottom: 1px solid #ECECEC;
 }
 
 .icon {
-  font-size: 24px;
-  cursor: pointer;
-  transition: all linear 100ms;
-
-  &:hover {
-    opacity: 0.6;
-  }
+  display: inline-block;
+  width: 24px;
+  height: 24px;
 }
 
 .collection-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  background: url(/assets/images/collections-gray.svg) no-repeat;
+  background: url(/assets/images/collections-gray.svg) no-repeat center center;
 }
 
 .down-arrow-icon {
-  display: inline-block;
-  width: 24px;
-  height: 24px;
   background: url(/assets/images/down-arrow.svg) no-repeat center center;
 }
 
@@ -33,5 +23,3 @@
   margin-left: auto;
   display: flex;
 }
-
-

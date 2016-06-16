@@ -2,10 +2,11 @@
   position: absolute;
   top: -10px;
   width: 250px;
-  max-height: 400px;
+  padding: 0;
 
   .search-container {
     position: relative;
+    margin: 10px;
 
     .search-input {
       background: #FCFCFC;
@@ -35,20 +36,22 @@
   }
 
   .search-results {
+    max-height: 300px;
     overflow-y: scroll;
-    margin-top: 10px;
-    height: 346px;
 
     .item {
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+
       font-family: Avenir-Book;
       font-size: 16px;
       color: #414141;
       position: relative;
       cursor: pointer;
       height: 40px;
-      line-height: 40px;
       border-bottom: 1px solid #F1F1F1;
-      transition: background-color linear 200ms;
+      transition: background linear 200ms;
 
       &:last-child {
         border-bottom: none;
@@ -64,23 +67,37 @@
 
       }
 
-      &:hover {
-        background-color: #ebf3fa
-      }
-
       &.current {
         font-family: Avenir-Medium;
         font-weight: bold;
       }
 
-      .collection-check-icon {
+      .icon {
         position: absolute;
-        right: 3px;
+        right: 13px;
         top: 8px;
         width: 24px;
         height: 24px;
+      }
+
+      .collection-check-icon {
         background: url(/assets/images/collection-check.svg) center center no-repeat;
       }
+
+      &:hover {
+        background-color: #ebf3fa;
+
+        .collection-check-icon {
+          background: url(/assets/images/collection-remove.svg) center center no-repeat;
+        }
+      }
     }
+  }
+
+  .no-results {
+    margin: 20px 0 15px 0;
+    font-size: 15px;
+    text-align: center;
+    color: #A0A0A0;
   }
 }
