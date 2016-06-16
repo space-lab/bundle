@@ -39,7 +39,7 @@ export default class ChangeCollectionModal extends React.Component {
     const currentId = this.currentCollectionId()
     const q = ui.q.toLowerCase()
 
-    return collections.filter(item =>
+    return collections.toList().filter(item =>
       item.id != currentId && item.name.toLowerCase().includes(q))
   }
 
@@ -59,9 +59,7 @@ export default class ChangeCollectionModal extends React.Component {
     )
   }
 
-  renderItems (collections) {
-    const current = this.currentCollection()
-
+  renderItems (current, collections) {
     return (
       <div className='search-results'>
         {current && this.renderItem(current, true)}
@@ -75,11 +73,12 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   renderSearchResults () {
-    const collections = this.filteredCollections()
+    const current = this.currentCollection()
+    const filteredCollections = this.filteredCollections()
 
-    return collections.size === 0
-      ? this.renderNoResult()
-      : this.renderItems(collections)
+    return current || filteredCollections.size > 0
+      ? this.renderItems(current, filteredCollections)
+      : this.renderNoResult()
   }
 
   render () {
