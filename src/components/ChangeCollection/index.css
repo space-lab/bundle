@@ -1,9 +1,14 @@
 .change-collection-wrapper {
   .change-collection-clicker {
     cursor: pointer;
+    transition: all linear 100ms;
 
     span {
       vertical-align: middle;
+    }
+
+    &:hover {
+      opacity: 0.6;
     }
   }
 
