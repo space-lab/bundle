@@ -51,7 +51,7 @@
       cursor: pointer;
       height: 40px;
       border-bottom: 1px solid #F1F1F1;
-      transition: background-color linear 200ms;
+      transition: background linear 200ms;
 
       &:last-child {
         border-bottom: none;
@@ -67,22 +67,29 @@
 
       }
 
-      &:hover {
-        background-color: #ebf3fa
-      }
-
       &.current {
         font-family: Avenir-Medium;
         font-weight: bold;
       }
 
-      .collection-check-icon {
+      .icon {
         position: absolute;
         right: 13px;
         top: 8px;
         width: 24px;
         height: 24px;
+      }
+
+      .collection-check-icon {
         background: url(/assets/images/collection-check.svg) center center no-repeat;
+      }
+
+      &:hover {
+        background-color: #ebf3fa;
+
+        .collection-check-icon {
+          background: url(/assets/images/collection-remove.svg) center center no-repeat;
+        }
       }
     }
   }
