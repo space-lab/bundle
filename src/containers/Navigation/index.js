@@ -32,15 +32,15 @@ export default class Navigation extends React.Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    let oldRoute = fromJS(this.props.Route)
-    let route = fromJS(nextProps.Route)
+    const oldRoute = fromJS(this.props.Route)
+    const route = fromJS(nextProps.Route)
 
     return !route.equals(oldRoute)
   }
 
   render () {
-    let NavigationComponent = this.getNavigationView()
-    let BundleViewComponent = this.getBundleView()
+    const NavigationComponent = this.getNavigationView()
+    const BundleViewComponent = this.getBundleView()
 
     return (
       <div className='navigation-wrapper'>
@@ -51,9 +51,9 @@ export default class Navigation extends React.Component {
   }
 
   parseRouteChange (props) {
-    let { view, newBundle } = props.route
-    let { bundleId, collectionId } = props.params
-    let Route = props.Route
+    const { view, newBundle } = props.route
+    const { bundleId, collectionId } = props.params
+    const Route = props.Route
 
     if (newBundle && this.isNewBundle(props) != newBundle) props.routeChangeNewBundle()
     if (bundleId && Route.bundleId != bundleId) props.routeChangeBundleId(bundleId)
@@ -65,7 +65,7 @@ export default class Navigation extends React.Component {
   }
 
   getNavigationView () {
-    let view = this.props.Route.navigationView || this.props.route.view
+    const view = this.props.Route.navigationView || this.props.route.view
 
     if (view === 'collections')  return CollectionNavigation
     if (view === 'collectionsBundles')  return CollectionBundlesNavigation
@@ -84,10 +84,10 @@ export default class Navigation extends React.Component {
   }
 
   shouldChangeNavigationView (props) {
-    let { view, newBundle } = props.route
-    let { bundleId } = props.params
-    let navigationView = props.Route.navigationView
-    let shouldChangeBundleView = !newBundle && (!bundleId  || bundleId && view == 'collectionsBundles')
+    const { view, newBundle } = props.route
+    const { bundleId } = props.params
+    const navigationView = props.Route.navigationView
+    const shouldChangeBundleView = !newBundle && (!bundleId  || bundleId && view == 'collectionsBundles')
 
     return view && navigationView != view && shouldChangeBundleView
   }

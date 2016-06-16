@@ -3,7 +3,7 @@ import './style.css'
 
 export default class App extends React.Component {
   render () {
-    let { children } = this.props
+    const { children } = this.props
 
     return (
       <Auth location={this.props.location}>
