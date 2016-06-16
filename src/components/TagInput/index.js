@@ -51,30 +51,31 @@ export default class TagInput extends React.Component {
     }
   }
 
-  renderTo () {
-    return this.props.ui.tags.size !== 0 ? <div className='to'>To:</div> : null
-  }
-
   renderTagList () {
-    const { ui } = this.props
+    const { tags } = this.props.ui
 
-    return ui.tags.map((tag, index) => {
-      return (
-        <div className='tag' key={index}>
-          {this.renderTagOrUser(tag)}
+    if (tags.size === 0) return null
 
-          <i className='close'
-            onClick={this.handleTagRemoval.bind(this, index)}
-          />
-        </div>
-      )
-    })
+    return (
+      <div className='userlist'>
+        <div className='to'>To:</div>
+
+        {tags.map((tag, index) =>
+          <div className='tag' key={index}>
+            {this.renderTagOrUser(tag)}
+
+            <i className='close'
+              onClick={this.handleTagRemoval.bind(this, index)}
+            />
+          </div>
+        )}
+      </div>
+    )
   }
 
   render () {
     return (
       <div className='taginput'>
-        {this.renderTo()}
         {this.renderTagList()}
 
         <Autocomplete
