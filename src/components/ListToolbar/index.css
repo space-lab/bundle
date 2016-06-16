@@ -6,6 +6,12 @@ $icon-size: 18px;
   top: 15px;
   right: @top;
 
+  > div {
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+
   .icon {
     display: inline-block;
     width: $icon-size;
@@ -14,10 +20,6 @@ $icon-size: 18px;
     opacity: 0.5;
     transition: opacity linear 200ms;
     cursor: pointer;
-
-    &:not(:last-child) {
-      margin-right: 5px;
-    }
 
     &:hover {
       opacity: 1;
