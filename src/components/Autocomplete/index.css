@@ -2,15 +2,16 @@
   input {
     width: 100%;
     border: none;
-    height: 40px;
-    line-height: 40px;
+    height: 50px;
     font-size: 16px;
+    padding: 15px;
   }
 
   .list {
     background: white;
 
     .item {
+      padding: 0 15px;
       height: 50px;
       cursor: pointer;
       border-bottom: 1px solid #ECECEC;
