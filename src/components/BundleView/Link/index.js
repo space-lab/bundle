@@ -28,7 +28,7 @@ export default class BundleLink extends React.Component {
       <div className='link-creator'>
         <img className='creator-image' src={creator.image}/>
         <span className='creator-name'>{creator.name}</span>
-        <span className='shared-this'>shared this</span>
+        <span className='shared-this'>shared this link</span>
       </div>
     )
   }
