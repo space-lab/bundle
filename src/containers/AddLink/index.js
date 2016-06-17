@@ -20,8 +20,14 @@ const connectProps = {
 export default class BundleAddLink extends React.Component {
   addLinkHandler (link) {
     const payloadLink = link.toJS()
-    const { currentUser, bundle, links, clearCurrentLink,
-      updateBundle, addCurrentLinkToBundle } = this.props
+    const {
+      currentUser,
+      bundle,
+      links,
+      clearCurrentLink,
+      updateBundle,
+      addCurrentLinkToBundle
+    } = this.props
 
     payloadLink.creator_id = currentUser.id
 
