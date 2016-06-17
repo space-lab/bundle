@@ -6,7 +6,7 @@ import * as linkActions from 'actions/Link'
 import EnterUrl from './EnterUrl'
 import LinkPreview from './LinkPreview'
 
-const connectState = (state) => ({
+const connectState = state => ({
   bundle: Selectors.currentBundle(state),
   currentUser: Selectors.currentUser(state)
 })
@@ -19,18 +19,18 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class BundleAddLink extends React.Component {
   addLinkHandler (link) {
-    let { currentUser, bundle, links, clearCurrentLink,
+    const payloadLink = link.toJS()
+    const { currentUser, bundle, links, clearCurrentLink,
       updateBundle, addCurrentLinkToBundle } = this.props
-    let payloadLink = link.toJS()
 
     payloadLink.creator_id = currentUser.id
 
-    let payload = {
+    const payload = {
       links_attributes: [payloadLink]
     }
 
     if (bundle.isNewBundle) {
-      let linkWithCreator = link
+      const linkWithCreator = link
         .set('creator', currentUser.id)
         .set('id', nextId(links))
 
@@ -45,18 +45,31 @@ export default class BundleAddLink extends React.Component {
     this.props.fetchLink(url, this.props.bundle.id)
   }
 
-  render () {
-    const { currentUser, currentLink, bundle, fetchLink } = this.props
+  renderLinkPreview () {
+    const { currentUser, currentLink } = this.props
 
-    if (currentLink) {
-      return <LinkPreview link={currentLink} currentUser={currentUser}
-               addLinkHandler={this.addLinkHandler.bind(this)}
-             />
-    } else {
-      return <EnterUrl image={currentUser.image}
-               bundleId={bundle.id}
-               handeUrlEnter={this.handeUrlEnter.bind(this)}
-             />
-    }
+    return (
+      <LinkPreview
+        link={currentLink}
+        currentUser={currentUser}
+        addLinkHandler={::this.addLinkHandler}/>
+    )
+  }
+
+  renderEnterUrl () {
+    const { currentUser, bundle } = this.props
+
+    return (
+      <EnterUrl
+        image={currentUser.image}
+        bundleId={bundle.id}
+        handeUrlEnter={::this.handeUrlEnter}/>
+    )
+  }
+
+  render () {
+    return this.props.currentLink
+      ? this.renderLinkPreview()
+      : this.renderEnterUrl()
   }
 }

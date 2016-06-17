@@ -1,8 +1,7 @@
-import { fromJS, Map, List } from 'immutable'
+import { List } from 'immutable'
 import { Bundle, User, Link, Share } from 'records'
 import { NEW_BUNDLE_ID } from 'constants'
 import { reduceBundle, getRecords } from 'helpers'
-
 import request from 'axios'
 import api from 'api'
 
@@ -50,7 +49,7 @@ export const updateBundle = (id, payload) => async (dispatch) => {
   reduceBundle(response.data, id, dispatch)
 }
 
-export const addCurrentLinkToBundle = (bundleId, link) => (dispatch) => {
+export const addCurrentLinkToBundle = (bundleId, link) => dispatch => {
   dispatch({ type: 'ADD_LINK_ID_TO_BUNDLE', linkId: link.get('id'), bundleId })
   dispatch({ type: 'RECEIVE_LINK', link })
   dispatch({ type: 'CLEAR_CURRENT_LINK', bundleId })
