@@ -21,11 +21,11 @@ export default class ToolbarShareItem extends React.Component {
   }
 
   openModal () {
-    let { resource, resourceName, getBundle, getCollection, updateUI } = this.props
-    let { top, left } = this.refs.toolbar.getBoundingClientRect()
+    const { resource, resourceName, getBundle, getCollection, updateUI } = this.props
+    const { top, left } = this.refs.toolbar.getBoundingClientRect()
 
     if (!resource.full_response) {
-      resourceName == 'Bundle' ? getBundle(resource.id) : getCollection(resource.id)
+      resourceName === 'Bundle' ? getBundle(resource.id) : getCollection(resource.id)
     }
 
     updateUI('position', { top, left: left - 5 })

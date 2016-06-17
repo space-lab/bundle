@@ -1,10 +1,8 @@
 import { connect } from 'react-redux'
 import Selectors from 'selectors'
-
 import ui from 'redux-ui'
 import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
-
 import './index.css'
 
 const connectState = (state) => ({
@@ -26,15 +24,17 @@ export default class SideNavigation extends React.Component {
   }
 
   render () {
-    let { ui, currentUser } = this.props
+    const { ui, currentUser } = this.props
 
     return (
       <div className='side-navigation'>
         <SideNavigationTop/>
-        <SideNavigationBottom isOpen={ui.isOpen} currentUser={currentUser}
-          closeUserMenu={this.closeUserMenu.bind(this)}
-          openUserMenu={this.openUserMenu.bind(this)}
-        />
+
+        <SideNavigationBottom
+          isOpen={this.props.ui.isOpen}
+          currentUser={this.props.currentUser}
+          closeUserMenu={::this.closeUserMenu}
+          openUserMenu={::this.openUserMenu}/>
       </div>
     )
   }
