@@ -1,5 +1,5 @@
 import { List } from 'immutable'
-import { Bundle, User, Link, Share } from 'records'
+import { Bundle } from 'records'
 import { NEW_BUNDLE_ID } from 'constants'
 import { reduceBundle, getRecords } from 'helpers'
 import request from 'axios'
