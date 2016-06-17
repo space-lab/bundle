@@ -20,9 +20,9 @@ export default class SideNavigationTop extends React.Component {
         </div>
 
         <div className='main-nav-list'>
-          {['bundles', 'collections', 'favorites'].map(type =>
-            <Link key={type} to={'/' + type} className={this.getClass(type)}/>
-          )}
+          <Link to='/bundles' className={this.getClass('bundles')}/>
+          <Link to='/collections' className={this.getClass('collections')}/>
+          <Link to='/favorites' className={this.getClass('favorites')}/>
         </div>
       </div>
     )
