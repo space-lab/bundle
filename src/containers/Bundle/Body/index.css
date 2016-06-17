@@ -1,50 +1,41 @@
 .bundle-view-body {
-  width: 80%;
+  .bundle-editable-wrapper {
+    margin: 15px 0;
 
-  .line {
-    height: 1px;
-    width: 100%;
-    background-color: #E8E8E9;
-    margin: 30px 0px;
-  }
-}
+    span, input, textarea {
+      display: inline-block;
+      width: 100%;
+      vertical-align: middle;
+      margin: 0;
+      padding: 0;
+    }
 
-.bundle-editable-wrapper {
-  margin: 15px 0;
-
-  span, input, textarea {
-    display: inline-block;
-    width: 100%;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0;
+    input, textarea {
+      border: none;
+    }
   }
 
-  input, textarea {
-    border: none;
-  }
-}
-
-.bundle-name {
-  span, input {
-    color: #333333;
-    font-size: 30px;
-    font-weight: normal;
-    line-height: 40px;
-    height: 40px;
-  }
-}
-
-.bundle-description {
-  span, textarea {
-    color: #353535;
-    font-size: 16px;
-    font-weight: lighter;
-    line-height: 16px;
-    height: 100px;
+  .bundle-name {
+    span, input {
+      color: #333333;
+      font-size: 30px;
+      font-weight: normal;
+      line-height: 40px;
+      height: 40px;
+    }
   }
 
-  .textarea {
-    resize: none;
+  .bundle-description {
+    span, textarea {
+      color: #353535;
+      font-size: 16px;
+      font-weight: lighter;
+      line-height: 16px;
+      height: 100px;
+    }
+
+    .textarea {
+      resize: none;
+    }
   }
 }

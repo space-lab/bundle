@@ -37,8 +37,6 @@ export default class BundleViewBody extends React.Component {
 
         <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
 
-        <div className='line'/>
-
         {bundle.get('links').map((id, index) =>
           <BundleView.Link
             key={index}

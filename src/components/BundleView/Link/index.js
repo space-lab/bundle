@@ -18,17 +18,36 @@ export default class BundleLink extends React.Component {
     handleLinkEdit(link.id, field, target.value)
   }
 
-  handleRemoveClick (event) {
+  handleRemoveClick () {
     const { handleLinkRemove, index } = this.props
     handleLinkRemove(index)
   }
 
-  renderLinkCreator (creator) {
+  renderCreator (creator) {
     return (
       <div className='link-creator'>
         <img className='creator-image' src={creator.image}/>
         <span className='creator-name'>{creator.name}</span>
         <span className='shared-this'>shared this</span>
+      </div>
+    )
+  }
+
+  renderDescription (link) {
+    const { editMode } = this.props
+
+    return (
+      <div className='link-description'>
+        <div style={shouldShow(!editMode)}>
+          {link.description}
+        </div>
+
+        <input
+          className='link-description-input'
+          style={shouldShow(editMode)}
+          type='text'
+          value={link.description}
+          onChange={this.handleEdit.bind(this, link, 'description')}/>
       </div>
     )
   }
@@ -44,20 +63,9 @@ export default class BundleLink extends React.Component {
           remove
         </button>
 
-        {this.renderLinkCreator(creator)}
+        {this.renderCreator(creator)}
 
-        <div className='link-description'>
-          <div style={shouldShow(!editMode)}>
-            {link.description}
-          </div>
-
-          <input
-            className='link-description-input'
-            style={shouldShow(editMode)}
-            type='text'
-            value={link.description}
-            onChange={::this.handleEdit(link, 'description')}/>
-        </div>
+        {this.renderDescription(link)}
 
         <div className='link-body'>
           <div className='link-image-wrapper'>
@@ -79,7 +87,7 @@ export default class BundleLink extends React.Component {
                 type='text'
                 value={link.title}
                 className='link-title-input'
-                onChange={::this.handleEdit(link, 'title')}/>
+                onChange={this.handleEdit.bind(this, link, 'title')}/>
             </div>
 
             <div className='link-details-sub-wrapper'>
