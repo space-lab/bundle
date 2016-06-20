@@ -26,15 +26,16 @@
   }
 
   .bundle-description {
+    margin-bottom: 50px;
+
     span, textarea {
       color: #353535;
       font-size: 16px;
       font-weight: lighter;
-      line-height: 16px;
-      height: 100px;
     }
 
-    .textarea {
+    textarea {
+      height: 100px;
       resize: none;
     }
   }
