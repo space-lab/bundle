@@ -5,12 +5,12 @@ import './index.css'
 
 export default class BundleLink extends React.Component {
   static propTypes = {
-    index: React.PropTypes.number.isRequired,
-    editMode: React.PropTypes.bool.isRequired,
+    index: React.PropTypes.number,
+    editMode: React.PropTypes.bool,
     link: ImmutablePropTypes.record.isRequired,
     creator: ImmutablePropTypes.record.isRequired,
-    handleLinkEdit: React.PropTypes.func.isRequired,
-    handleLinkRemove: React.PropTypes.func.isRequired
+    handleLinkEdit: React.PropTypes.func,
+    handleLinkRemove: React.PropTypes.func
   }
 
   handleEdit (link, field, { target }) {

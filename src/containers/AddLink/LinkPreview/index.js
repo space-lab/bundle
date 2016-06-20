@@ -23,7 +23,7 @@ export default class LinkPreview extends React.Component {
 
         <button
           className='add-link-button'
-          onClick={::this.addLinkHandler(link)}>
+          onClick={::addLinkHandler.bind(this, link)}>
           Add Link
         </button>
       </div>

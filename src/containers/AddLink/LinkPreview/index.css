@@ -1,4 +1,6 @@
 .add-link-preview {
+  margin-bottom: 50px;
+
   .add-link-button {
     width: 95px;
     height: 30px;
@@ -22,6 +24,6 @@
   }
 
   .bundle-view-link {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
   }
 }
