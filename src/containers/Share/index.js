@@ -1,3 +1,4 @@
+import ui from 'redux-ui'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 
@@ -6,8 +7,13 @@ import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import * as shareActions from 'actions/Share'
 
-const connectState = state => ({
-  user: Selectors.currentUser(state)
+import ShareBundle from './Bundle'
+
+const connectState = (state, props) => ({
+  user: Selectors.currentUser(state),
+  bundle: Selectors.currentShareBundle(state, props),
+  users: state.User.get('byId'),
+  links: state.Link.get('byId')
 })
 
 const connectProps = {
@@ -15,6 +21,14 @@ const connectProps = {
   ...userActions
 }
 
+@ui({
+  key: 'bundle',
+  state: {
+    editMode: false,
+    name: '',
+    description: ''
+  }
+})
 @connect(connectState, connectProps)
 export default class ShareContainer extends React.Component {
   componentWillMount () {
@@ -35,10 +49,8 @@ export default class ShareContainer extends React.Component {
   }
 
   render () {
-    let { user, params, location } = this.props
+    if (!this.props.bundle) return false
 
-    return (
-      <div>viri</div>
-    )
+    return (<ShareBundle {...this.props}/>)
   }
 }
