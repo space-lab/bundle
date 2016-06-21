@@ -32,7 +32,7 @@ export default (
       <Route path='/search(/:query)' component={SearchContainer}/>
 
       <Route path='/settings' component={Settings}/>
-      <Route path='/logout' component={Settings}/>
+      <Route path='/logout' component={Logout}/>
     </Route>
 
     <Route path='/share/:resource/:id/:token' component={Share}/>

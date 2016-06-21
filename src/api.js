@@ -22,6 +22,7 @@ export default {
 
   urlShare: (resource, id) => `${API_BASE}/${resource}/${id}/url-share`,
   joinShareUrl: (resource, id) => `${API_BASE}/${resource}/${id}/join`,
+  urlShareResource: (resource, id, token) => `${API_BASE}/url-shares/${resource}/${id}/${token}`,
 
   fetchLink: (url) => FETCHER_URL + url
 }
