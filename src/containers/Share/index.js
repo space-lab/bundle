@@ -49,8 +49,8 @@ export default class ShareContainer extends React.Component {
   }
 
   render () {
-    if (!this.props.bundle) return false
+    if (!this.props.bundle || this.props.user) return false
 
-    return (<ShareBundle {...this.props}/>)
+    return <ShareBundle {...this.props}/>
   }
 }
