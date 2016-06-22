@@ -10,9 +10,9 @@ import Modal from './Modal'
 @listensToClickOutside()
 export default class ChangeCollection extends React.Component {
   static propTypes = {
-    bundle: ImmutablePropTypes.record,
-    collections: ImmutablePropTypes.map,
-    updateBundle: React.PropTypes.func,
+    bundle: ImmutablePropTypes.record.isRequired,
+    collections: ImmutablePropTypes.map.isRequired,
+    updateBundle: React.PropTypes.func.isRequired
   }
 
   handleClickOutside (e) {

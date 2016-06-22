@@ -1,7 +1,17 @@
 import ui from 'redux-ui'
 
 @ui()
-class Editable extends React.Component {
+export default class Editable extends React.Component {
+  static propTypes = {
+    value: React.PropTypes.string,
+    type: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
+    editMode: React.PropTypes.bool.isRequired,
+    enterAction: React.PropTypes.func,
+    onChange: React.PropTypes.func,
+    autoFocus: React.PropTypes.bool
+  }
+
   componentWillMount () {
     const { onChange, value } = this.props
 
@@ -10,7 +20,7 @@ class Editable extends React.Component {
     }
   }
 
-  handleKeyUp({ key, target }) {
+  handleKeyUp ({ key, target }) {
     const { enterAction, onChange } = this.props
 
     if (onChange) {
@@ -24,7 +34,7 @@ class Editable extends React.Component {
     const { value, placeholder, editMode, type, autoFocus } = this.props
 
     if (editMode) {
-      if (type == 'textarea') {
+      if (type === 'textarea') {
         return <textarea
           defaultValue={value || ''}
           placeholder={placeholder}
@@ -39,21 +49,8 @@ class Editable extends React.Component {
           onKeyUp={this.handleKeyUp.bind(this)}
         />
       }
-
     } else {
       return <span>{value}</span>
     }
   }
-
-  static propTypes = {
-    value: React.PropTypes.string,
-    type: React.PropTypes.string,
-    placeholder: React.PropTypes.string,
-    editMode: React.PropTypes.bool.isRequired,
-    enterAction: React.PropTypes.func,
-    onChange: React.PropTypes.func,
-    autoFocus: React.PropTypes.bool
-  }
 }
-
-export default Editable

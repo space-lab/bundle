@@ -13,7 +13,7 @@ export default class Autocomplete extends React.Component {
 
   getInput = () => this.refs.input
   getInputValue = () => this.getInput().value
-  setInputValue = (value) => this.getInput().value = value
+  setInputValue = (value) => { this.getInput().value = value }
   resetInput = () => this.setInputValue('')
 
   sendValue (entry) {

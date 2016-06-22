@@ -63,7 +63,6 @@ export default class BundleViewContainer extends React.Component {
     const {
       bundle,
       links,
-      toggleEditMode,
       updateBundle,
       updateUI,
       ui

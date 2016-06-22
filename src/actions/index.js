@@ -10,7 +10,7 @@ import * as Collection from './Collection'
 import * as UserAutocomplete from './UserAutocomplete'
 
 export const allActions = {
-  ...Link
+  ...Link,
   ...User,
   ...Route,
   ...Alert,
@@ -19,5 +19,5 @@ export const allActions = {
   ...Search,
   ...Favorite,
   ...Collection,
-  ...UserAutocomplete,
+  ...UserAutocomplete
 }

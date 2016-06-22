@@ -1,4 +1,4 @@
-import { Record, Map, List } from 'immutable'
+import { Record, List } from 'immutable'
 
 export const User = Record({
   id: null,

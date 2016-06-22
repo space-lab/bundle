@@ -8,7 +8,7 @@ export default class SearchBody extends React.Component {
     searchResult: ImmutablePropTypes.map.isRequired,
     favorite: React.PropTypes.func.isRequired,
     removeBundle: React.PropTypes.func.isRequired,
-    removeCollection: React.PropTypes.func.isRequired,
+    removeCollection: React.PropTypes.func.isRequired
   }
 
   noResult (search) {

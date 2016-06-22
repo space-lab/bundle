@@ -61,7 +61,7 @@ export default class Container extends React.Component {
   }
 
   render () {
-    let { collections, generateNewCollection, ...listItemProps } = this.props
+    let { collections, ...listItemProps } = this.props
 
     return (
       <ResourceNavigation>

@@ -1,4 +1,4 @@
-import { fromJS, Map, List } from 'immutable'
+import { Map } from 'immutable'
 
 const defaultState = Map({
   byId: Map()

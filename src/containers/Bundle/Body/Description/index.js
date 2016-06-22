@@ -18,11 +18,9 @@ export default class Description extends React.Component {
           placeholder='description goes here...'
           type='textarea'
           editMode={editMode}
-          onChange={value => updateUI('description', value) }
+          onChange={value => updateUI('description', value)}
         />
       </div>
     )
   }
 }
-
-

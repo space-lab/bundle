@@ -14,7 +14,7 @@ export default class Bundle extends React.Component {
   }
 
   render () {
-    let { updateBundleInfo, updateLink } = this.props
+    let { updateLink } = this.props
 
     return (
       <div className='bundle-view-wrapper'>
@@ -22,7 +22,6 @@ export default class Bundle extends React.Component {
 
         <Body
           {...this.props}
-          handleChange={updateBundleInfo}
           handleLinkEdit={updateLink}
           handleLinkRemove={::this.handleLinkRemove}
         />

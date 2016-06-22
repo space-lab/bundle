@@ -36,8 +36,8 @@ export default class UrlShare extends React.Component {
 
           <input
             defaultValue={share_url}
-            readOnly={true}
-            autoFocus={true}
+            readOnly
+            autoFocus
             onFocus={({ target }) => target.select()}/>
         </div>
       )

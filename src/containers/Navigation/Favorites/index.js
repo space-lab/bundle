@@ -85,13 +85,12 @@ export default class Container extends React.Component {
   }
 
   renderList () {
-    const { favorites, bundles, collections } = this.props
+    const { favorites } = this.props
 
     return favorites.map((item, index) => {
-      let id = item.get('id')
       let type = item.get('type')
 
-      if (type == 'Bundle') {
+      if (type === 'Bundle') {
         return this.renderBundleListItem(item, index)
       } else {
         return this.renderCollectionListItem(item, index)

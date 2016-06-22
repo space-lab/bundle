@@ -27,7 +27,7 @@ export default class SideNavigationBottom extends React.Component {
           userImage={currentUser.image}>
 
           <Modal style={{left: '70px', bottom: '40px'}}>
-            <Menu  headline={currentUser.name}>
+            <Menu headline={currentUser.name}>
               <Link to='/settings' onClick={closeUserMenu}>Settings</Link>
               <Link to='/logout'>Sign Out</Link>
             </Menu>

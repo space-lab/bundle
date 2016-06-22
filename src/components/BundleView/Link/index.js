@@ -100,7 +100,7 @@ export default class BundleLink extends React.Component {
   }
 
   render () {
-    const { link, creator, editMode } = this.props
+    const { link, creator } = this.props
 
     return (
       <div className='bundle-view-link'>

@@ -1,4 +1,3 @@
-import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import ui from 'redux-ui'
 
@@ -48,14 +47,14 @@ export default class Settings extends React.Component {
       <Editable
         value={user.name}
         placeholder='Enter Name'
-        editMode={true}
+        editMode
         onChange={value => updateUI('name', value)} />
 
       <h3 className='label'>Email</h3>
       <Editable
         value={user.email}
         placeholder='Enter Email'
-        editMode={true}
+        editMode
         onChange={value => updateUI('email', value)} />
 
       <button className='round-button' onClick={::this.saveUser}>Save</button>
