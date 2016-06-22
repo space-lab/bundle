@@ -1,7 +1,6 @@
 import request from 'axios'
 import api from 'api'
 
-import { fromJS } from 'immutable'
 import { Collection } from 'records'
 import { reduceCollection, reduceCollections } from 'helpers'
 
