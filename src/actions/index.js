@@ -7,7 +7,7 @@ import * as Bundle from './Bundle'
 import * as Search from './Search'
 import * as Favorite from './Favorite'
 import * as Collection from './Collection'
-import * as UserAutocomplete './UserAutocomplete'
+import * as UserAutocomplete from './UserAutocomplete'
 
 export const allActions = {
   ...Link

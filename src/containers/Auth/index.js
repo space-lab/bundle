@@ -20,7 +20,7 @@ export default class Auth extends React.Component {
   componentWillMount () {
     const {currentUser, setCurrentUser, authenticateUser } = this.props
     const { query } = this.props.location
-    const auth_token = localStorage.getItem('auth_token')
+    const auth_token = window.localStorage.getItem('auth_token')
 
     if (query.authenticated === "true") {
       const user = JSON.parse(query.user)
@@ -33,7 +33,7 @@ export default class Auth extends React.Component {
   }
 
   getAuthToken () {
-    return localStorage.getItem('auth_token')
+    return window.localStorage.getItem('auth_token')
   }
 
   shouldNotRender () {
