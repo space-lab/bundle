@@ -1,27 +1,29 @@
 import './index.css'
 
-function handleKeyPress (bundleId, handeUrlEnter, event) {
-  const url = event.target.value
-  if (event.key === 'Enter') handeUrlEnter(url, bundleId)
-}
+export default class EnterUrl extends React.Component {
+  static propTypes = {
+    image: React.PropTypes.string.isRequired,
+    handeUrlEnter: React.PropTypes.func.isRequired,
+    bundleId: React.PropTypes.string.isRequired
+  }
 
-export default function EnterUrl ({
-  image,
-  handeUrlEnter,
-  bundleId
-}) {
-  return (
-    <div className='add-link-enter-url'>
-      <img className='creator-image' src={image} />
-      <input className='url-input' placeholder='Enter Url Here...'
-        onKeyPress={handleKeyPress.bind(this, bundleId, handeUrlEnter)}
-      />
-    </div>
-  )
-}
+  handleKeyPress (bundleId, handeUrlEnter, { target, key }) {
+    const url = target.value
+    if (key === 'Enter') handeUrlEnter(url, bundleId)
+  }
 
-EnterUrl.propTypes = {
-  image: React.PropTypes.string.isRequired,
-  handeUrlEnter: React.PropTypes.func.isRequired,
-  bundleId: React.PropTypes.string.isRequired
+  render () {
+    const { image, handeUrlEnter, bundleId } = this.props
+
+    return (
+      <div className='add-link-enter-url'>
+        <img className='creator-image' src={image}/>
+        <input
+          className='url-input'
+          placeholder='Enter URL here and press Enter...'
+          autoFocus={true}
+          onKeyPress={this.handleKeyPress.bind(this, bundleId, handeUrlEnter)}/>
+      </div>
+    )
+  }
 }

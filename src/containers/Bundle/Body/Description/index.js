@@ -9,11 +9,7 @@ export default class Description extends React.Component {
   }
 
   render () {
-    let {
-      value,
-      editMode,
-      updateUI
-    } = this.props
+    const { value, editMode, updateUI } = this.props
 
     return (
       <div className='bundle-editable-wrapper bundle-description'>
