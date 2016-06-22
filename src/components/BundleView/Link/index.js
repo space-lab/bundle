@@ -57,6 +57,14 @@ export default class BundleLink extends React.Component {
 
     return (
       <div className='link-body'>
+        <div className='link-remove'>
+          <button
+            onClick={::this.handleRemoveClick}
+            className='btn mod-remove-link-btn'>
+            remove
+          </button>
+        </div>
+
         <div className='link-image-wrapper'>
           <img className='link-image' src={link.image}/>
         </div>
@@ -96,12 +104,6 @@ export default class BundleLink extends React.Component {
 
     return (
       <div className='bundle-view-link'>
-        <button style={shouldShow(editMode)}
-          onClick={::this.handleRemoveClick}
-          className='btn mod-remove-link-btn'>
-          remove
-        </button>
-
         {this.renderCreator(creator)}
 
         {this.renderDescription(link)}

@@ -95,6 +95,12 @@
       box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.1);
     }
 
+    .link-remove {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+
     .link-image {
       height: 100px;
       width: 150px;
@@ -112,18 +118,18 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 15px;
-  }
 
-  .link-details-sub-wrapper {
-    opacity: 0.4;
-    font-family: Avenir-Book;
-    font-size: 14px;
-    color: #000000;
-    line-height: 16px;
-    margin-top: 5px;
+    .link-details-sub-wrapper {
+      opacity: 0.4;
+      font-family: Avenir-Book;
+      font-size: 14px;
+      color: #000000;
+      line-height: 16px;
+      margin-top: 5px;
 
-    > span {
-      margin-right: 10px;
+      > span {
+        margin-right: 10px;
+      }
     }
   }
 
