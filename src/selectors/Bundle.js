@@ -37,6 +37,8 @@ export const sortedBundles = createSelector(
 export const filteredBundles = createSelector(
   [sortedBundles, getFilter, currentUserIdSelector],
   (bundles, filter, currentUser) => {
+    bundles = bundles.filter(bundle => bundle.joined)
+
     switch (filter) {
       case 'recent':
         return bundles.slice(0, 15)
