@@ -2,11 +2,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-
 import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
-import { NEW_BUNDLE_ID } from 'constants'
 import Selectors from 'selectors'
-
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'

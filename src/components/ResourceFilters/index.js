@@ -9,7 +9,7 @@ export default class ResourceFilters extends React.Component {
   }
 
   filterClass (filter) {
-    return 'filter' + (filter == this.props.ui.filter ? ' active' : '')
+    return 'filter' + (filter === this.props.ui.filter ? ' active' : '')
   }
 
   render () {

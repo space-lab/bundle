@@ -1,11 +1,10 @@
 import request from 'axios'
 import { normalize, arrayOf } from 'normalizr-immutable'
-import { Share, User } from 'records'
 import * as Schemas from 'normalizers'
 import api from 'api'
 
 export const changeSharePermission = (id, type, permissionId) => async dispatch => {
-  const url = type == 'share' ? api.shares(id) : api.invites(id)
+  const url = type === 'share' ? api.shares(id) : api.invites(id)
   const payload = { permission_id: permissionId }
 
   const response = await request.put(url, payload)
@@ -19,7 +18,9 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
 }
 
 export const inviteUsers = (resource, id, payload) => async dispatch => {
-  const type = resource == 'Bundle'? 'ADD_SHARES_TO_BUNDLE' :  'ADD_SHARES_TO_COLLECTION'
+  const type = resource === 'Bundle'
+    ? 'ADD_SHARES_TO_BUNDLE'
+    : 'ADD_SHARES_TO_COLLECTION'
 
   const response = await request.post(api.invite(resource, id), payload)
   const result = normalize(response.data, arrayOf(Schemas.share)).entities
@@ -33,8 +34,8 @@ export const inviteUsers = (resource, id, payload) => async dispatch => {
 }
 
 export const removeShare = (id, type, resourceId) => async dispatch => {
-  const url = type == 'share' ? api.shares(id) : api.invites(id)
-  const response = await request.delete(url)
+  const url = type === 'share' ? api.shares(id) : api.invites(id)
+  await request.delete(url)
 
   dispatch({ type: 'REMOVE_SHARE', id, resourceId })
 }

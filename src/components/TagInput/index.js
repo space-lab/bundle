@@ -79,7 +79,7 @@ export default class TagInput extends React.Component {
         {this.renderTagList()}
 
         <Autocomplete
-          autoFocus={true}
+          autoFocus
           placeholder='Enter name, or email'
           data={this.props.data}
           getData={this.props.getData}

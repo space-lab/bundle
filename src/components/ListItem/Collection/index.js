@@ -30,7 +30,7 @@ export default class CollectionListItem extends React.Component {
                 value={resource.name}
                 placeholder='Name Collection...'
                 editMode={resource.editMode}
-                autoFocus={true}
+                autoFocus
                 enterAction={value => createCollection(resource.id, value)}/>
             </h1>
 

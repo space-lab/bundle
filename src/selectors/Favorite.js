@@ -17,7 +17,7 @@ export const sortedFavorites = createSelector(
       let id = item.get('id')
       let type = item.get('type')
 
-      if (type == 'Bundle') {
+      if (type === 'Bundle') {
         return bundles.get(id).set('type', type)
       } else {
         return collections.get(id).set('type', type)

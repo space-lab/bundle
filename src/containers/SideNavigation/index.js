@@ -31,8 +31,8 @@ export default class SideNavigation extends React.Component {
         <SideNavigationTop/>
 
         <SideNavigationBottom
-          isOpen={this.props.ui.isOpen}
-          currentUser={this.props.currentUser}
+          isOpen={ui.isOpen}
+          currentUser={currentUser}
           closeUserMenu={::this.closeUserMenu}
           openUserMenu={::this.openUserMenu}/>
       </div>

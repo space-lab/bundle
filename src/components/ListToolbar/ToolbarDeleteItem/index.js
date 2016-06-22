@@ -5,7 +5,7 @@ export default class ToolbarDeleteItem extends React.Component {
   }
 
   delete (id) {
-    if (confirm('are you sure?')) {
+    if (window.confirm('are you sure?')) {
       this.props.remove(id)
     }
   }

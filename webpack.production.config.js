@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
-//var ExtractTextPlugin = require('extract-text-webpack-plugin')
+// var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   context: __dirname,
@@ -15,7 +15,7 @@ module.exports = {
   },
   devtool: 'source-map',
   plugins: [
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/), 
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new CopyWebpackPlugin([
       { context: 'assets/', from: '**/*', to: 'assets' },
       { from: 'index.html' }
@@ -33,8 +33,8 @@ module.exports = {
       compress: {
         warnings: false
       }
-    }),
-    //new ExtractTextPlugin('bundle.css')
+    })
+    // new ExtractTextPlugin('bundle.css')
   ],
   module: {
     loaders: [
@@ -46,7 +46,7 @@ module.exports = {
       {
         test: /\.css$/,
         loaders: ['style-loader', 'css-loader', 'postcss-loader']
-        //loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'postcss-loader')
+        // loader: ExtractTextPlugin.extract('style-loader', 'css-loader', 'postcss-loader')
       }
     ]
   },

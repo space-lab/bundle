@@ -3,7 +3,6 @@ import ToolbarShareItem from './ToolbarShareItem'
 import ToolbarCloseItem from './ToolbarCloseItem'
 import ToolbarDeleteItem from './ToolbarDeleteItem'
 import ToolbarFavoriteItem from './ToolbarFavoriteItem'
-
 import './index.css'
 
 export default class ListToolbar extends React.Component {
@@ -20,7 +19,6 @@ export default class ListToolbar extends React.Component {
     const {
       resource,
       resourceName,
-      favorited,
       favorite,
       unfavorite,
       remove

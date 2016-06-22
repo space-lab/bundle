@@ -1,5 +1,3 @@
-import api from 'api'
-
 export default class Email extends React.Component {
   static propTypes = {
     user: React.PropTypes.object.isRequired,
@@ -31,7 +29,7 @@ export default class Email extends React.Component {
               className='input'
               type='email'
               placeholder='Type in email...'
-              autoFocus={true}
+              autoFocus
               onKeyUp={({ key }) => key === 'Enter' && this.updateUser()}/>
 
             <div

@@ -21,7 +21,7 @@ export default class EnterUrl extends React.Component {
         <input
           className='url-input'
           placeholder='Enter URL here and press Enter...'
-          autoFocus={true}
+          autoFocus
           onKeyPress={this.handleKeyPress.bind(this, bundleId, handeUrlEnter)}/>
       </div>
     )

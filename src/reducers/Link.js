@@ -1,4 +1,4 @@
-import { Map, List } from 'immutable'
+import { Map } from 'immutable'
 
 let defaultState = Map({
   byId: Map(),

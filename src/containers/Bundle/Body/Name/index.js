@@ -16,12 +16,10 @@ export default class Name extends React.Component {
         <Editable
           value={value}
           placeholder='name goes here'
-          autoFocus={true}
+          autoFocus
           editMode={editMode}
           onChange={value => updateUI('name', value)}/>
       </div>
     )
   }
 }
-
-

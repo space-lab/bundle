@@ -1,6 +1,6 @@
 import { NEW_BUNDLE_ID } from 'constants'
 
-export const routeChangeBundleId =  bundleId => ({
+export const routeChangeBundleId = bundleId => ({
   type: 'ROUTE_CHANGE_BUNDLE_ID', bundleId
 })
 

@@ -1,5 +1,4 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
 import { Modal } from 'components'
 import './index.css'
 
@@ -7,7 +6,7 @@ export default class ChangeCollectionModal extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
-    updateBundle: React.PropTypes.func.isRequired,
+    updateBundle: React.PropTypes.func.isRequired
   }
 
   onQueryChange (e) {
@@ -40,7 +39,7 @@ export default class ChangeCollectionModal extends React.Component {
     const q = ui.q.toLowerCase()
 
     return collections.toList().filter(item =>
-      item.id != currentId && item.name.toLowerCase().includes(q))
+      item.id !== currentId && item.name.toLowerCase().includes(q))
   }
 
   renderItem (item, isCurrent) {

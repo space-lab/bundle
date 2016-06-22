@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Name from './Name'
 import Description from './Description'
-import { BundleView, Editable } from 'components'
+import { BundleView } from 'components'
 import { AddLink } from 'containers'
 import './index.css'
 
@@ -13,8 +13,7 @@ export default class BundleViewBody extends React.Component {
     links: ImmutablePropTypes.map.isRequired,
     currentLink: ImmutablePropTypes.record,
     handleLinkEdit: React.PropTypes.func.isRequired,
-    handleLinkRemove: React.PropTypes.func.isRequired,
-    handleChange: React.PropTypes.func.isRequired
+    handleLinkRemove: React.PropTypes.func.isRequired
   }
 
   render () {
@@ -25,8 +24,7 @@ export default class BundleViewBody extends React.Component {
       links,
       currentLink,
       handleLinkEdit,
-      handleLinkRemove,
-      handleChange,
+      handleLinkRemove
     } = this.props
 
     return (
