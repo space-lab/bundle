@@ -75,7 +75,7 @@ export default class Container extends React.Component {
 
   render () {
     let { collections, ...listItemProps } = this.props
-    console.log(collections.size)
+
     return (
       <ResourceNavigation>
         <div className='bundles-navigation'>
