@@ -61,19 +61,17 @@ export default class SearchContainer extends React.Component {
 
   renderShareResource () {
     let { searchResult, ui } = this.props
-    let bundles = searchResult.get('bundles')
-    let collections = searchResult.get('collections')
     let resource = null
     let resourceName = null
 
-    bundles.forEach(item => {
+    searchResult.get('bundles').forEach(item => {
       if (item.id == ui.resourceId) {
         resource = item
         resourceName = 'Bundle'
       }
     })
 
-    collections.forEach(item => {
+    searchResult.get('collections').forEach(item => {
       if (item.id == ui.resourceId) {
         resource = item
         resourceName = 'Collection'

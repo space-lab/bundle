@@ -52,7 +52,7 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let { bundles, ui } = this.props
-    let resource = bundles.filter(bundle => bundle.id == ui.resourceId).first()
+    let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
     if (!resource || !resource.full_response) return false
 

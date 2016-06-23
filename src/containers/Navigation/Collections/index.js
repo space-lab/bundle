@@ -46,7 +46,7 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let { collections, ui } = this.props
-    let resource = collections.filter(col => col.id == ui.resourceId).first()
+    let resource = collections.find(col => col.id == ui.resourceId)
 
     if (!resource || !resource.full_response) return false
 

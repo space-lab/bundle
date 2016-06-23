@@ -58,7 +58,7 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let { favorites, bundles, collections, ui } = this.props
-    let favorite = favorites.filter(fav => fav.id == ui.resourceId).first()
+    let favorite = favorites.find(fav => fav.id == ui.resourceId)
 
     if (!favorite || !favorite.full_response) return false
 
