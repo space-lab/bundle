@@ -57,6 +57,7 @@ export const reduceCollection = (data, dispatch) => {
   const { entities } = normalize(data, Schemas.collection)
   const collection = entities.get('collections').first()
 
+  dispatch({ type: 'RECEIVE_USERS',  users:  entities.get('users',  new Map()).toList() })
   dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
   dispatch({ type: 'RECEIVE_BUNDLES', bundles: entities.get('bundles', new Map()).toList() })
   dispatch({ type: 'RECEIVE_COLLECTION', collection })

@@ -1,6 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
-import { Search } from 'components'
+import { Search, ShareResource } from 'components'
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
@@ -24,6 +25,10 @@ const connectProps = {
   ...userAutocompleteActions
 }
 
+@ui({
+  key: 'resource-navigation',
+  state: { isOpen: false, position: null, resourceId: null }
+})
 @connect(connectState, connectProps)
 export default class SearchContainer extends React.Component {
   static propTypes = {
@@ -50,11 +55,45 @@ export default class SearchContainer extends React.Component {
     }
   }
 
+  findShareResource () {
+
+  }
+
+  renderShareResource () {
+    let { searchResult, ui } = this.props
+    let resource = null
+    let resourceName = null
+
+    searchResult.get('bundles').forEach(item => {
+      if (item.id == ui.resourceId) {
+        resource = item
+        resourceName = 'Bundle'
+      }
+    })
+
+    searchResult.get('collections').forEach(item => {
+      if (item.id == ui.resourceId) {
+        resource = item
+        resourceName = 'Collection'
+      }
+    })
+
+    if (!resource || !resource.full_response) return false
+
+    return <ShareResource
+      {...this.props}
+      position={ui.position}
+      resource={resource}
+      resourceName={resourceName}/>
+  }
+
   render () {
     const { query } = this.props.routeParams
 
     return (
       <div className='search-wrapper'>
+        {this.renderShareResource()}
+
         <Search.Header query={query}/>
         <Search.Body {...this.props}/>
       </div>

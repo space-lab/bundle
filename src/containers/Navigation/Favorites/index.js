@@ -1,8 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 
-import { ResourceNavigation, List, ListItem } from 'components'
+import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
 import Selectors from 'selectors'
 
 import * as bundleActions from 'actions/Bundle'
@@ -28,6 +29,10 @@ const connectProps = {
   ...userAutocompleteActions
 }
 
+@ui({
+  key: 'resource-navigation',
+  state: { isOpen: false, position: null, resourceId: null }
+})
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
   static propTypes = {
@@ -49,6 +54,19 @@ export default class Container extends React.Component {
   removeBundle (...args) {
     this.props.removeBundle(...args)
     browserHistory.goBack()
+  }
+
+  renderShareResource () {
+    let { favorites, bundles, collections, ui } = this.props
+    let favorite = favorites.find(fav => fav.id == ui.resourceId)
+
+    if (!favorite || !favorite.full_response) return false
+
+    return <ShareResource
+      {...this.props}
+      position={this.props.ui.position}
+      resource={favorite}
+      resourceName={favorite.type}/>
   }
 
   renderCollectionListItem (collection, index) {
@@ -102,6 +120,8 @@ export default class Container extends React.Component {
     return (
       <ResourceNavigation>
         <div className='favorites-navigation'>
+          {this.renderShareResource()}
+
           <ResourceNavigation.Header>
             <div className='title-and-actions'>
               <div className='top-nav'>

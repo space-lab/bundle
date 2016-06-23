@@ -1,16 +1,24 @@
+import listensToClickOutside from 'react-click-outside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import InviteUsers from './InviteUsers'
 import ShareItem from './ShareItem'
 import { Modal } from 'components'
 import './index.css'
 
-export default class ShareResource extends React.Component {
+class ShareResource extends React.Component {
   static propTypes = {
-    resource: ImmutablePropTypes.record.isRequired,
+    resource: ImmutablePropTypes.record,
     resourceName: React.PropTypes.string.isRequired,
     changeSharePermission: React.PropTypes.func.isRequired,
     removeShare: React.PropTypes.func.isRequired,
     position: React.PropTypes.object
+  }
+
+  handleClickOutside (e) {
+    if (this.props.ui.isOpen) {
+      this.props.updateUI('isOpen', false)
+      this.props.updateUI('position', null)
+    }
   }
 
   renderShares () {
@@ -41,3 +49,5 @@ export default class ShareResource extends React.Component {
     )
   }
 }
+
+export default listensToClickOutside(ShareResource)
