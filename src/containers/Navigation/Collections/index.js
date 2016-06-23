@@ -51,10 +51,10 @@ export default class Container extends React.Component {
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-        {...this.props}
-        position={this.props.ui.position}
-        resource={resource}
-        resourceName='Collection'/>
+      {...this.props}
+      position={this.props.ui.position}
+      resource={resource}
+      resourceName='Collection'/>
   }
 
   renderCollectionList (collections, props) {

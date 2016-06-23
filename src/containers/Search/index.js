@@ -81,10 +81,10 @@ export default class SearchContainer extends React.Component {
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-        {...this.props}
-        position={ui.position}
-        resource={resource}
-        resourceName={resourceName}/>
+      {...this.props}
+      position={ui.position}
+      resource={resource}
+      resourceName={resourceName}/>
   }
 
   render () {

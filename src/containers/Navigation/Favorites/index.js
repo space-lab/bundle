@@ -63,10 +63,10 @@ export default class Container extends React.Component {
     if (!favorite || !favorite.full_response) return false
 
     return <ShareResource
-        {...this.props}
-        position={this.props.ui.position}
-        resource={favorite}
-        resourceName={favorite.type}/>
+      {...this.props}
+      position={this.props.ui.position}
+      resource={favorite}
+      resourceName={favorite.type}/>
   }
 
   renderCollectionListItem (collection, index) {
