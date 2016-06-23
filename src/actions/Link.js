@@ -1,4 +1,3 @@
-import { fromJS, Map, List } from 'immutable'
 import { Link } from '../records'
 import request from 'axios'
 import api from './../api'
@@ -13,11 +12,11 @@ export const fetchLink = (url, bundleId) => async dispatch => {
     image: data.image
   })
 
-  dispatch({ type: 'SET_CURRENT_LINK', link, bundleId})
+  dispatch({ type: 'SET_CURRENT_LINK', link, bundleId })
 }
 
 export const clearCurrentLink = bundleId => ({
-  type: 'CLEAR_CURRENT_LINK' , bundleId
+  type: 'CLEAR_CURRENT_LINK', bundleId
 })
 
 export const updateLink = (id, field, value) => ({

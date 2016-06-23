@@ -1,4 +1,3 @@
-import { User } from 'records'
 import { fromJS, Map } from 'immutable'
 
 const defaultState = fromJS({

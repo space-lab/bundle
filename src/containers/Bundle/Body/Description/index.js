@@ -9,11 +9,7 @@ export default class Description extends React.Component {
   }
 
   render () {
-    let {
-      value,
-      editMode,
-      updateUI
-    } = this.props
+    const { value, editMode, updateUI } = this.props
 
     return (
       <div className='bundle-editable-wrapper bundle-description'>
@@ -22,11 +18,9 @@ export default class Description extends React.Component {
           placeholder='description goes here...'
           type='textarea'
           editMode={editMode}
-          onChange={value => updateUI('description', value) }
+          onChange={value => updateUI('description', value)}
         />
       </div>
     )
   }
 }
-
-

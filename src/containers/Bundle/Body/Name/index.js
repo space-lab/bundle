@@ -9,24 +9,17 @@ export default class Name extends React.Component {
   }
 
   render () {
-    const {
-      value,
-      editMode,
-      updateUI
-    } = this.props
+    const { value, editMode, updateUI } = this.props
 
     return (
       <div className='bundle-editable-wrapper bundle-name'>
         <Editable
           value={value}
           placeholder='name goes here'
+          autoFocus
           editMode={editMode}
-          autoFocus={true}
-          onChange={value => updateUI('name', value) }
-        />
+          onChange={value => updateUI('name', value)}/>
       </div>
     )
   }
 }
-
-

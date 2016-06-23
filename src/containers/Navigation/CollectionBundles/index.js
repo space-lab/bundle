@@ -1,8 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
-import { ResourceNavigation, List, ListItem } from 'components'
+import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
 import Selectors from 'selectors'
 
 import * as collectionActions from 'actions/Collection'
@@ -27,6 +28,10 @@ const connectProps = {
   ...userAutocompleteActions
 }
 
+@ui({
+  key: 'resource-navigation',
+  state: { isOpen: false, position: null, resourceId: null }
+})
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
   static propTypes = {
@@ -48,6 +53,19 @@ export default class Container extends React.Component {
   removeBundle (...args) {
     browserHistory.push(this.getCollectionUrl())
     this.props.removeBundle(...args)
+  }
+
+  renderShareResource () {
+    let { bundles, ui } = this.props
+    let resource = bundles.find(bundle => bundle.id == ui.resourceId)
+
+    if (!resource || !resource.full_response) return false
+
+    return <ShareResource
+      {...this.props}
+      position={this.props.ui.position}
+      resource={resource}
+      resourceName='Bundle'/>
   }
 
   renderBundleList (bundles, collection, props) {
@@ -75,6 +93,8 @@ export default class Container extends React.Component {
     return (
       <ResourceNavigation bundleView={children}>
         <div className='bundles-navigation'>
+          {this.renderShareResource()}
+
           <ResourceNavigation.Header>
             <div className='title-and-actions'>
               <h2 className='title'>{collection.name}</h2>

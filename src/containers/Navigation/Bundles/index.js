@@ -2,11 +2,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-
-import { List, ListItem, ResourceNavigation, ResourceFilters } from 'components'
-import { NEW_BUNDLE_ID } from 'constants'
+import { List, ListItem, ResourceNavigation, ResourceFilters, ShareResource } from 'components'
 import Selectors from 'selectors'
-
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'
@@ -29,8 +26,8 @@ const connectProps = {
 }
 
 @ui({
-  key: 'bundle-navigation',
-  state: { filter: 'recent' }
+  key: 'resource-navigation',
+  state: { filter: 'recent', isOpen: false, position: null, resourceId: null }
 })
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
@@ -51,6 +48,19 @@ export default class Container extends React.Component {
 
   changeFilter (filter, e) {
     e.preventDefault()
+  }
+
+  renderShareResource () {
+    let { bundles, ui } = this.props
+    let resource = bundles.find(bundle => bundle.id == ui.resourceId)
+
+    if (!resource || !resource.full_response) return false
+
+    return <ShareResource
+      {...this.props}
+      position={this.props.ui.position}
+      resource={resource}
+      resourceName='Bundle'/>
   }
 
   renderBundleList (bundles, props) {
@@ -74,6 +84,8 @@ export default class Container extends React.Component {
     return (
       <ResourceNavigation>
         <div className='bundles-navigation'>
+          {this.renderShareResource()}
+
           <ResourceNavigation.Header>
             <div className='title-and-actions'>
               <h2 style={styles} className='title'>Bundles</h2>

@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect'
 import { Collection } from 'records'
-import { NEW_BUNDLE_ID } from 'constants'
 
-let bundlesSelector = state => state.Bundle.get('byId')
 let collectionsSelector = state => state.Collection.get('byId')
 let usersSelector = state => state.User.get('byId')
 let sharesSelector = state => state.Share.get('byId')
@@ -37,9 +35,9 @@ export const filteredCollections = createSelector(
       case 'recent':
         return collections.slice(0, 15)
       case 'mine':
-        return collections.filter(collection => collection.creator == currentUser)
+        return collections.filter(collection => collection.creator === currentUser)
       case 'shared':
-        return collections.filter(collection => collection.creator != currentUser)
+        return collections.filter(collection => collection.creator !== currentUser)
       default:
         return collections
     }

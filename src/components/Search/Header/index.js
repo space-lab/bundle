@@ -17,7 +17,7 @@ export default class SearchHeader extends React.Component {
       <div className='search-header-wrapper'>
         <input
           className='search-input'
-          autoFocus={true}
+          autoFocus
           type='text'
           placeholder='Search...'
           onChange={this.onChange}
