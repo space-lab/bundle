@@ -1,14 +1,16 @@
-import { BundleView, Editable } from 'components'
+import { Editable } from 'components'
+import Name from 'containers/Bundle/Body/Name'
+import Description from 'containers/Bundle/Body/Description'
 
 export default class ShareBundle extends React.Component {
   render () {
     let { user, bundle, users, links, params, location } = this.props
-
+    console.log(bundle.name)
     return (
       <div className='bundle-view-body'>
-        <BundleView.Name value={bundle.name} editMode={false} />
+        <Name value={bundle.name} editMode={false} />
 
-        <BundleView.Description value={bundle.description} editMode={false} />
+        <Description value={bundle.description} editMode={false} />
 
         <div className='line' />
 
