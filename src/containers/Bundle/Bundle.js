@@ -1,4 +1,4 @@
-import Header from './Header'
+import { Header } from 'containers'
 import Body from './Body'
 
 export default class Bundle extends React.Component {

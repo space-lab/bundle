@@ -1,22 +1,19 @@
 import Header from './header'
 import Body from './body'
-
 import './index.css'
 
-export default function ResourceNavigation ({
-  children,
-  bundleView
-}) {
-  return (
-    <div className='resource-navigation'>
-      {children}
-    </div>
-  )
-}
+export default class ResourceNavigation extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.element
+  }
 
-ResourceNavigation.propTypes = {
-  children: React.PropTypes.element,
-  bundleView: React.PropTypes.element
+  render () {
+    return (
+      <div className='resource-navigation'>
+        {this.props.children}
+      </div>
+    )
+  }
 }
 
 ResourceNavigation.Header = Header
