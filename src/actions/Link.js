@@ -1,6 +1,7 @@
-import { Link } from '../records'
+import { bestThumbnail } from 'helpers'
+import { Link } from 'records'
 import request from 'axios'
-import api from './../api'
+import api from 'api'
 
 export const fetchLink = (url, bundleId) => async dispatch => {
   let { data } = await request.get(api.fetchLink(url))
@@ -9,7 +10,7 @@ export const fetchLink = (url, bundleId) => async dispatch => {
     url: data.url,
     title: data.title,
     description: data.description,
-    image: data.image
+    image: bestThumbnail(data)
   })
 
   dispatch({ type: 'SET_CURRENT_LINK', link, bundleId })
