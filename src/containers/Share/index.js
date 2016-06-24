@@ -1,13 +1,12 @@
 import ui from 'redux-ui'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-
 import { Auth, App, Bundle } from 'containers'
 import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import * as shareActions from 'actions/Share'
-
 import ShareBundle from './Bundle'
+import './index.css'
 
 const connectState = (state, props) => ({
   user: Selectors.currentUser(state),
@@ -41,7 +40,7 @@ export default class ShareContainer extends React.Component {
   }
 
   componentWillReceiveProps (props) {
-    let { user, params, history } = props
+    let { user, params } = props
 
     if (user) {
       return browserHistory.push(`/${params.resource}/${params.id}`)
@@ -49,7 +48,8 @@ export default class ShareContainer extends React.Component {
   }
 
   render () {
-    if (!this.props.bundle || this.props.user) return false
+    let { user, bundle } = this.props
+    if (!bundle || user) return false
 
     return <ShareBundle {...this.props}/>
   }

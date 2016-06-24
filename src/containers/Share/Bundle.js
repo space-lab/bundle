@@ -7,7 +7,7 @@ export default class ShareBundle extends React.Component {
     let { user, bundle, users, links, params, location } = this.props
 
     return (
-      <div className='bundle-view-body'>
+      <div className='share-view-body'>
         <Name value={bundle.name} editMode={false} />
 
         <Description value={bundle.description} editMode={false} />
