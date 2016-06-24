@@ -82,3 +82,13 @@ export const unNormaliseResources = (data, resources, shares, users) => {
       return shares.get(id).update('user', id => users.get(id))
     })))
 }
+
+export const bestThumbnail = (data) => {
+  if (data.thumbnail && data.thumbnail.url) {
+    return data.thumbnail.url
+  } else if (data.image && data.image.url) {
+    return data.image.url
+  } else if (data.icon && data.icon.any) {
+    return data.icon.any
+  }
+}
