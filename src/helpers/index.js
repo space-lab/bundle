@@ -90,5 +90,9 @@ export const bestThumbnail = (data) => {
     return data.image.url
   } else if (data.icon && data.icon.any) {
     return data.icon.any
+  } else if (data.embed && data.embed.type === 'photo' && data.embed.url) {
+    return data.embed.url
+  } else {
+    return 'no image' // TODO default image url
   }
 }
