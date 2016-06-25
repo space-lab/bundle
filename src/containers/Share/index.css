@@ -1,4 +1,19 @@
-.share-view-body {
-  margin: 0 auto;
-  width: 700px;
+.share-view {
+  display: flex;
+  justify-content: center;
+
+  .logo {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+    font-family: Helvetica-Bold;
+    font-size: 50px;
+    color: #1581E2;
+  }
+
+  .share-view-body {
+    margin-top: 15px;
+    width: 700px;
+  }
 }
+

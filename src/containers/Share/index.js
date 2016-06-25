@@ -1,7 +1,6 @@
 import ui from 'redux-ui'
-import { browserHistory } from 'react-router'
+import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
-import { Auth, App, Bundle } from 'containers'
 import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import * as shareActions from 'actions/Share'
@@ -51,6 +50,12 @@ export default class ShareContainer extends React.Component {
     let { user, bundle } = this.props
     if (!bundle || user) return false
 
-    return <ShareBundle {...this.props}/>
+    return (
+      <div className='share-view'>
+        <Link to='/' className='logo'>B</Link>
+
+        <ShareBundle {...this.props}/>
+      </div>
+    )
   }
 }
