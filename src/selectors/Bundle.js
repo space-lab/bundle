@@ -11,6 +11,7 @@ const currentBundleIdSelector = state => state.Route.bundleId
 const currentUserIdSelector = state => state.User.get('current')
 
 const getFilter = (state, props) => props.ui.filter
+const getShareBundleId = (state, props) => props.params.id
 
 export const currentBundle = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
@@ -36,6 +37,8 @@ export const sortedBundles = createSelector(
 export const filteredBundles = createSelector(
   [sortedBundles, getFilter, currentUserIdSelector],
   (bundles, filter, currentUser) => {
+    bundles = bundles.filter(bundle => bundle.joined)
+
     switch (filter) {
       case 'recent':
         return bundles.slice(0, 15)
@@ -61,5 +64,16 @@ export const sortedCollectionBundles = createSelector(
   (collection, bundles, shares, users) => {
     if (!collection || !collection.bundles) return []
     return unNormaliseResources(collection.bundles, bundles, shares, users)
+  }
+)
+
+export const currentShareBundle = createSelector(
+  [getShareBundleId, bundlesSelector, sharesSelector, usersSelector],
+  (id, bundles, shares, users) => {
+    if (!bundles.get(id)) return null
+
+    return bundles.get(id)
+      .update('shares', ids => ids.map(id =>
+        shares.get(id).update('user', id => users.get(id))))
   }
 )

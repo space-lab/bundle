@@ -3,6 +3,8 @@ import { normalize, arrayOf } from 'normalizr-immutable'
 import * as Schemas from 'normalizers'
 import api from 'api'
 
+import { reduceBundle } from 'helpers'
+
 export const changeSharePermission = (id, type, permissionId) => async dispatch => {
   const url = type === 'share' ? api.shares(id) : api.invites(id)
   const payload = { permission_id: permissionId }
@@ -70,4 +72,16 @@ export const removeUrlShare = (resourceName, resourceId) => async dispatch => {
     : 'REMOVE_COLLECTION_SHARE_URL'
 
   dispatch({ type: ACTION, resourceId })
+}
+
+export const joinUrlShare = (resource, id) => async dispatch => {
+  let { data } = await request.post(api.joinUrlShare(resource, id))
+
+  reduceBundle(data, id, dispatch)
+}
+
+export const getResource = (resource, id, token) => async dispatch => {
+  let { data } = await request.get(api.urlShareResource(resource, id, token))
+
+  reduceBundle(data, id, dispatch)
 }

@@ -25,7 +25,8 @@ export const Bundle = Record({
   created_at: null,
   type: null,
   share_url: null,
-  share_url_permission: null
+  share_url_permission: null,
+  joined: false
 })
 
 export const Collection = Record({
