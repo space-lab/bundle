@@ -16,16 +16,20 @@ export default class SearchBody extends React.Component {
   }
 
   renderListItem (searchResult, resourceName, component) {
+    let props = this.props
+
     return searchResult.map((item, index) => (
       <ListItem
         key={index}
-        {...this.props}
         resource={item}
         resourceName={resourceName}
         Component={component}
-        remove={this.props['remove' + resourceName]}
-        favorite={this.props.favorite}
-        unfavorite={this.props.unfavorite}/>
+        remove={props['remove' + resourceName]}
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        getBundle={props.getBundle}
+        getCollection={props.getCollection}
+        updateUI={props.updateUI}/>
     ))
   }
 

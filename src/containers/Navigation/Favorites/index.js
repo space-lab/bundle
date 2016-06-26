@@ -92,7 +92,6 @@ export default class Container extends React.Component {
         active={collection.id === collectionId}
         close={closeCollection}
         remove={removeCollection}
-        createCollection={props.createCollection}
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getCollection={props.getCollection}

@@ -6,7 +6,7 @@ export default class CollectionListItem extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
     url: React.PropTypes.string,
-    createCollection: React.PropTypes.func.isRequired
+    createCollection: React.PropTypes.func
   }
 
   sharedWithText (count) {
