@@ -4,7 +4,10 @@ import { ShareResource } from 'components'
 export default class ToolbarShareItem extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
-    resourceName: React.PropTypes.string.isRequired
+    resourceName: React.PropTypes.string.isRequired,
+    getBundle: React.PropTypes.func,
+    getCollection: React.PropTypes.func,
+    updateUI: React.PropTypes.func.isRequired
   }
 
   openModal () {

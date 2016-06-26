@@ -57,16 +57,27 @@ export default class Container extends React.Component {
   }
 
   renderShareResource () {
-    let { favorites, bundles, collections, ui } = this.props
+    let props = this.props
+    let { favorites, bundles, collections, ui } = props
     let favorite = favorites.find(fav => fav.id == ui.resourceId)
 
     if (!favorite || !favorite.full_response) return false
 
     return <ShareResource
-      {...this.props}
-      position={this.props.ui.position}
+      position={ui.position}
       resource={favorite}
-      resourceName={favorite.type}/>
+      resourceName={favorite.type}
+      userAutocomplete={props.userAutocomplete}
+      ui={ui}
+      updateUI={props.updateUI}
+      changeSharePermission={props.changeSharePermission}
+      removeShare={props.removeShare}
+      inviteUsers={props.inviteUsers}
+      getAutocompleteUsers={props.getAutocompleteUsers}
+      resetAutocompleteUsers={props.resetAutocompleteUsers}
+      getShareUrl={props.getShareUrl}
+      changeUrlPermission={props.changeUrlPermission}
+      removeUrlShare={props.removeUrlShare}/>
   }
 
   renderCollectionListItem (collection, index) {
@@ -74,7 +85,6 @@ export default class Container extends React.Component {
 
     return (
       <ListItem
-        {...props}
         key={index}
         resource={collection}
         resourceName={'Collection'}
@@ -82,7 +92,11 @@ export default class Container extends React.Component {
         active={collection.id === collectionId}
         close={closeCollection}
         remove={removeCollection}
-      />
+        createCollection={props.createCollection}
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        getCollection={props.getCollection}
+        updateUI={props.updateUI}/>
     )
   }
 
@@ -91,14 +105,16 @@ export default class Container extends React.Component {
 
     return (
       <ListItem
-        {...props}
         key={index}
         resource={bundle}
         resourceName={'Bundle'}
         Component={ListItem.Bundle}
         active={bundle.id === bundleId}
         remove={removeBundle}
-      />
+        getBundle={props.getBundle}
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        updateUI={props.updateUI}/>
     )
   }
 

@@ -56,29 +56,42 @@ export default class Container extends React.Component {
   }
 
   renderShareResource () {
-    let { bundles, ui } = this.props
+    let props = this.props
+    let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-      {...this.props}
-      position={this.props.ui.position}
+      position={ui.position}
       resource={resource}
-      resourceName='Bundle'/>
+      resourceName='Bundle'
+      userAutocomplete={props.userAutocomplete}
+      ui={ui}
+      updateUI={props.updateUI}
+      changeSharePermission={props.changeSharePermission}
+      removeShare={props.removeShare}
+      inviteUsers={props.inviteUsers}
+      getAutocompleteUsers={props.getAutocompleteUsers}
+      resetAutocompleteUsers={props.resetAutocompleteUsers}
+      getShareUrl={props.getShareUrl}
+      changeUrlPermission={props.changeUrlPermission}
+      removeUrlShare={props.removeUrlShare}/>
   }
 
   renderBundleList (bundles, collection, props) {
     return bundles.map((bundle, index) => {
       return <ListItem key={index}
-        {...props}
         resource={bundle}
         resourceName={'Bundle'}
+        active={bundle.id === this.props.bundleId}
         url={this.getBundleUrl(collection, bundle)}
         Component={ListItem.Bundle}
         remove={::this.removeBundle}
-        active={bundle.id === this.props.bundleId}
-      />
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        getBundle={props.getBundle}
+        updateUI={props.updateUI}/>
     })
   }
 
