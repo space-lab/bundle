@@ -14,6 +14,7 @@ body {
 *:before,
 *:after {
   box-sizing: border-box;
+  font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
   font-family: Avenir-Book;
 }

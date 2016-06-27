@@ -1,5 +1,6 @@
 export Date from './Date'
 export List from './List'
+export Link from './Link/Link'
 export Menu from './Menu'
 export Alert from './Alert'
 export Modal from './Modal'

@@ -1,0 +1,18 @@
+$height: 100px;
+
+.link-component {
+  display: flex;
+  height: $height;
+  background: #FEFEFE;
+  border: 1.5px solid #ECECEC;
+
+  .link-thumbnail {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+
+    width: 140px;
+    height: $height;
+    /*background: #C9C9C9;*/
+  }
+}
