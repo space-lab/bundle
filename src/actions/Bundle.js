@@ -29,7 +29,7 @@ export const getBundle = id => async dispatch => {
   reduceBundle(data, id, dispatch)
 }
 
-export const getBundles = (page) => async dispatch => {
+export const getBundles = page => async dispatch => {
   const { data } = await request.get(api.bundles(page))
   const bundles = getRecords(Bundle, data)
 
