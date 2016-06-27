@@ -45,16 +45,27 @@ export default class Container extends React.Component {
   }
 
   renderShareResource () {
-    let { collections, ui } = this.props
+    let props = this.props
+    let { collections, ui } = props
     let resource = collections.find(col => col.id == ui.resourceId)
 
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-      {...this.props}
       position={this.props.ui.position}
       resource={resource}
-      resourceName='Collection'/>
+      resourceName='Collection'
+      userAutocomplete={props.userAutocomplete}
+      ui={ui}
+      updateUI={props.updateUI}
+      changeSharePermission={props.changeSharePermission}
+      removeShare={props.removeShare}
+      inviteUsers={props.inviteUsers}
+      getAutocompleteUsers={props.getAutocompleteUsers}
+      resetAutocompleteUsers={props.resetAutocompleteUsers}
+      getShareUrl={props.getShareUrl}
+      changeUrlPermission={props.changeUrlPermission}
+      removeUrlShare={props.removeUrlShare}/>
   }
 
   renderCollectionList (collections, props) {
@@ -62,14 +73,16 @@ export default class Container extends React.Component {
 
     return collections.map((collection, index) => {
       return <ListItem key={index}
-        {...props}
         resource={collection}
         resourceName={'Collection'}
         Component={ListItem.Collection}
         remove={removeCollection}
         close={closeCollection}
         createCollection={createCollection}
-      />
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        getCollection={props.getCollection}
+        updateUI={props.updateUI}/>
     })
   }
 

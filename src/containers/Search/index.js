@@ -55,12 +55,9 @@ export default class SearchContainer extends React.Component {
     }
   }
 
-  findShareResource () {
-
-  }
-
   renderShareResource () {
-    let { searchResult, ui } = this.props
+    let props = this.props
+    let { searchResult, ui } = props
     let resource = null
     let resourceName = null
 
@@ -81,10 +78,20 @@ export default class SearchContainer extends React.Component {
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-      {...this.props}
       position={ui.position}
       resource={resource}
-      resourceName={resourceName}/>
+      resourceName={resourceName}
+      userAutocomplete={props.userAutocomplete}
+      ui={ui}
+      updateUI={props.updateUI}
+      changeSharePermission={props.changeSharePermission}
+      removeShare={props.removeShare}
+      inviteUsers={props.inviteUsers}
+      getAutocompleteUsers={props.getAutocompleteUsers}
+      resetAutocompleteUsers={props.resetAutocompleteUsers}
+      getShareUrl={props.getShareUrl}
+      changeUrlPermission={props.changeUrlPermission}
+      removeUrlShare={props.removeUrlShare}/>
   }
 
   render () {

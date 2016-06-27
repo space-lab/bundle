@@ -5,6 +5,7 @@ import { Link, browserHistory } from 'react-router'
 import { List, ListItem, ResourceNavigation, ResourceFilters, ShareResource } from 'components'
 import Selectors from 'selectors'
 import * as bundleActions from 'actions/Bundle'
+import * as collectionActions from 'actions/Collection'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
@@ -51,35 +52,47 @@ export default class Container extends React.Component {
   }
 
   renderShareResource () {
-    let { bundles, ui } = this.props
+    let props = this.props
+    let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
     if (!resource || !resource.full_response) return false
 
     return <ShareResource
-      {...this.props}
-      position={this.props.ui.position}
+      position={ui.position}
       resource={resource}
-      resourceName='Bundle'/>
+      resourceName='Bundle'
+      userAutocomplete={props.userAutocomplete}
+      ui={ui}
+      updateUI={props.updateUI}
+      changeSharePermission={props.changeSharePermission}
+      removeShare={props.removeShare}
+      inviteUsers={props.inviteUsers}
+      getAutocompleteUsers={props.getAutocompleteUsers}
+      resetAutocompleteUsers={props.resetAutocompleteUsers}
+      getShareUrl={props.getShareUrl}
+      changeUrlPermission={props.changeUrlPermission}
+      removeUrlShare={props.removeUrlShare}/>
   }
 
   renderBundleList (bundles, props) {
     return bundles.map((bundle, index) => {
       return <ListItem
-        {...props}
         key={index}
         resource={bundle}
         resourceName={'Bundle'}
         Component={ListItem.Bundle}
         active={bundle.id === this.props.bundleId}
         remove={::this.removeBundle}
-      />
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}
+        getBundle={props.getBundle}
+        updateUI={props.updateUI}/>
     })
   }
 
   render () {
     let { bundles, search, ...props } = this.props
-    let styles = { 'display': search.get('open') ? 'none' : 'block' }
 
     return (
       <ResourceNavigation>
@@ -88,7 +101,7 @@ export default class Container extends React.Component {
 
           <ResourceNavigation.Header>
             <div className='title-and-actions'>
-              <h2 style={styles} className='title'>Bundles</h2>
+              <h2 className='title'>Bundles</h2>
 
               <div className='nav'>
                 <Link to='/search' className='icon search-icon' />

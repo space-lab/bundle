@@ -12,34 +12,34 @@ export default class ListToolbar extends React.Component {
     favorite: React.PropTypes.func.isRequired,
     unfavorite: React.PropTypes.func.isRequired,
     remove: React.PropTypes.func.isRequired,
-    close: React.PropTypes.func
+    close: React.PropTypes.func,
+    getBundle: React.PropTypes.func,
+    getCollection: React.PropTypes.func,
+    updateUI: React.PropTypes.func.isRequired
   }
 
   renderRegularItems () {
-    const {
-      resource,
-      resourceName,
-      favorite,
-      unfavorite,
-      remove
-    } = this.props
-
-    const id = resource.id
-    const type = resourceName.toLowerCase()
+    let props = this.props
+    let id = props.resource.id
+    let type = props.resourceName.toLowerCase()
 
     return (
       <div className='list-toolbar'>
-        <ToolbarShareItem {...this.props}/>
+        <ToolbarShareItem
+          resource={props.resource}
+          resourceName={props.resourceName}
+          getBundle={props.getBundle}
+          getCollection={props.getCollection}
+          updateUI={props.updateUI}/>
 
-        <ToolbarDeleteItem id={id} remove={remove} />
+        <ToolbarDeleteItem id={id} remove={props.remove}/>
 
         <ToolbarFavoriteItem
           type={type}
           id={id}
-          favorited={resource.favorited}
-          favorite={favorite}
-          unfavorite={unfavorite}
-        />
+          favorited={props.resource.favorited}
+          favorite={props.favorite}
+          unfavorite={props.unfavorite}/>
       </div>
     )
   }
