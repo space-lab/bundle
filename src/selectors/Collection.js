@@ -33,7 +33,7 @@ export const filteredCollections = createSelector(
   (collections, filter, currentUser) => {
     switch (filter) {
       case 'recent':
-        return collections.slice(0, 15)
+        return collections
       case 'mine':
         return collections.filter(collection => collection.creator === currentUser)
       case 'shared':
