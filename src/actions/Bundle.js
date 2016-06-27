@@ -45,7 +45,7 @@ export const removeBundle = (id) => async dispatch => {
 }
 
 export const updateBundle = (id, payload) => async (dispatch) => {
-  const response = await request.put(api.bundles(id), { bundle: payload })
+  const response = await request.put(api.bundle(id), { bundle: payload })
   reduceBundle(response.data, id, dispatch)
 }
 
