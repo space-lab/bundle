@@ -41,7 +41,7 @@ export const filteredBundles = createSelector(
 
     switch (filter) {
       case 'recent':
-        return bundles.slice(0, 15)
+        return bundles
       case 'mine':
         return bundles.filter(bundle => bundle.creator == currentUser)
       case 'shared':

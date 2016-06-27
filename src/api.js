@@ -6,7 +6,8 @@ export default {
   me: () => `${API_BASE}/users/me`,
   user: (id) => `${API_BASE}/users/${id}`,
 
-  bundles: (id = '') => `${API_BASE}/bundles/${id}`,
+  bundle: (id = '') => `${API_BASE}/bundles/${id}`,
+  bundles: (page = 1) => `${API_BASE}/bundles?page=${page}`,
   collections: (id = '') => `${API_BASE}/collections/${id}`,
 
   shares: (id = '') => `${API_BASE}/shares/${id}`,

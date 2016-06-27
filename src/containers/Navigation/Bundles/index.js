@@ -2,7 +2,16 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import { List, ListItem, ResourceNavigation, ResourceFilters, ShareResource } from 'components'
+
+import {
+  List,
+  ListItem,
+  ResourceNavigation,
+  ResourceFilters,
+  ShareResource,
+  LoadMore
+} from 'components'
+
 import Selectors from 'selectors'
 import * as bundleActions from 'actions/Bundle'
 import * as searchActions from 'actions/Search'
@@ -27,7 +36,7 @@ const connectProps = {
 
 @ui({
   key: 'resource-navigation',
-  state: { filter: 'recent', isOpen: false, position: null, resourceId: null }
+  state: { filter: 'recent', isOpen: false, position: null, resourceId: null, page: 1 }
 })
 @connect(connectState, connectProps)
 export default class Container extends React.Component {
@@ -38,7 +47,7 @@ export default class Container extends React.Component {
 
   constructor (props) {
     super(props)
-    props.getBundles()
+    props.getBundles(props.ui.page)
   }
 
   removeBundle (...args) {
@@ -100,6 +109,11 @@ export default class Container extends React.Component {
           <ResourceNavigation.Body>
             <List>
               {this.renderBundleList(bundles, props)}
+
+              <LoadMore
+                page={props.ui.page}
+                getBundles={props.getBundles}
+                updateUI={props.updateUI}/>
             </List>
           </ResourceNavigation.Body>
         </div>
