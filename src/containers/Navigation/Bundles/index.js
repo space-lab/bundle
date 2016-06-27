@@ -111,6 +111,7 @@ export default class Container extends React.Component {
               {this.renderBundleList(bundles, props)}
 
               <LoadMore
+                show={bundles && bundles.size >= 15}
                 page={props.ui.page}
                 getBundles={props.getBundles}
                 updateUI={props.updateUI}/>
