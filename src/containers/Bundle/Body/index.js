@@ -35,13 +35,7 @@ export default class BundleViewBody extends React.Component {
 
         <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
 
-        {bundle.get('links').map((id, index) =>
-          <Link
-            key={index}
-            image={links.get(id).image}
-            url={links.get(id).url}
-          />
-
+        {bundle.get('links').map((id, index) => {
           //<BundleView.Link
             //key={index}
             //index={index}
@@ -50,8 +44,17 @@ export default class BundleViewBody extends React.Component {
             //editMode={ui.editMode}
             //handleLinkEdit={handleLinkEdit}
             //handleLinkRemove={handleLinkRemove}/>
-        )}
 
+          let link = links.get(id)
+
+          return <Link
+            key={index}
+            url={links.get(id).url}
+            image={link.image}
+            title={link.title}
+            description={link.description}
+          />
+        })}
       </div>
     )
   }
