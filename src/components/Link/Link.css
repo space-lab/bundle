@@ -35,10 +35,12 @@ $imageWidth: 115px;
 
     .link-title,
     .link-description {
+      width: 100%;
       display: block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      border: none;
     }
 
     .link-title {
@@ -46,10 +48,14 @@ $imageWidth: 115px;
       padding-right: 20px;
       font-family: Avenir-Medium;
       font-size: 16px;
+      height: 24px;
+      line-height: 24px;
     }
 
     .link-description {
       font-size: 14px;
+      height: 20px;
+      line-height: 20px;
     }
 
     .link-metadata {

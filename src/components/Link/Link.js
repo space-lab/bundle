@@ -1,9 +1,15 @@
 import ui from 'redux-ui'
-import { Date } from 'components'
+import { Editable, Date } from 'components'
 import { urlDomain, shouldAppear } from 'helpers'
 import './Link.css'
 
-@ui({ state: { active: false } })
+@ui({
+  state: {
+    active: false,
+    editTitle: false,
+    editDescription: false
+  }
+})
 export default class Link extends React.Component {
   static propTypes = {
     url: React.PropTypes.string.isRequired,
@@ -40,8 +46,27 @@ export default class Link extends React.Component {
           <div style={thumbStyles} className='link-thumbnail' />
 
           <div className='link-content'>
-            <span className='link-title' alt={title}>{title}</span>
-            <span className='link-description' alt={description}>{description}</span>
+            <Editable
+              className='link-title'
+              value={title}
+              placeholder='Enter title'
+              editMode={ui.editTitle}
+              autoFocus={true}
+              onClick={() => updateUI('editTitle', true)}
+              enterAction={() => 'enteraction'}
+              onBlur={() => updateUI('editTitle', false)}
+            />
+
+            <Editable
+              className='link-description'
+              value={description}
+              placeholder='Enter description'
+              editMode={ui.editDescription}
+              autoFocus={true}
+              onClick={() => updateUI('editDescription', true)}
+              enterAction={() => 'enteraction'}
+              onBlur={() => updateUI('editDescription', false)}
+            />
 
             <span className='link-metadata'>
               <span>On {urlDomain(url)}</span>
