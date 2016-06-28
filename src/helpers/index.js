@@ -3,6 +3,13 @@ import { fromJS, Map } from 'immutable'
 import { normalize, arrayOf } from 'normalizr-immutable'
 import * as Schemas from 'normalizers'
 
+export const urlDomain = str => {
+  const url = document.createElement('a')
+
+  url.href = str
+  return url.hostname
+}
+
 export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })

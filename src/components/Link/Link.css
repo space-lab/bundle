@@ -5,13 +5,16 @@ $imageWidth: 115px;
   position: relative;
   height: $height;
   background: hsla(208, 3%, 99%, 1);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04), inset 0 0 0 1px rgba(0, 0, 0, 0.09);
+  box-sizing: content-box;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.09);
   margin-bottom: 20px;
   transition: all 200ms linear;
 
   &:hover {
     background: hsla(208, 35%, 99%, 1);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), inset 0 0 0 1px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.18);
   }
 
   .link-thumbnail {
@@ -33,6 +36,9 @@ $imageWidth: 115px;
     .link-title,
     .link-description {
       display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .link-title {
@@ -44,16 +50,28 @@ $imageWidth: 115px;
 
     .link-description {
       font-size: 14px;
-      display: block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .link-metadata {
       position: absolute;
       bottom: 10px;
       font-size: 13px;
+    }
+
+    .link-creator {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      font-size: 13px;
+
+      img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

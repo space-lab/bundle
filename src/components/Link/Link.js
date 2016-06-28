@@ -29,7 +29,8 @@ export default class Link extends React.Component {
   }
 
   render () {
-    let { url, image, title, description, createdAt } = this.props
+    let { url, image, title, description,
+          createdAt, creatorName, creatorImage } = this.props
 
     return (
       <a href={url} target='_blank'>
@@ -39,11 +40,17 @@ export default class Link extends React.Component {
           <div className='link-content'>
             <span className='link-title'>{title}</span>
             <span className='link-description'>{description}</span>
+
             <span className='link-metadata'>
               <span>On {this.urlDomain(url)}</span>
               <span> ⋅ </span>
               <span>Added <Date type='fromNow'>{createdAt}</Date></span>
             </span>
+
+            <div className='link-creator'>
+              <img class='link-author-image' src={creatorImage} />
+              <span>{creatorName}</span>
+            </div>
           </div>
         </div>
       </a>
