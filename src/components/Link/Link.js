@@ -1,3 +1,4 @@
+import { Date } from 'components'
 import './Link.css'
 
 class Thumbnail extends React.Component {
@@ -20,8 +21,15 @@ export default class Link extends React.Component {
     description: React.PropTypes.string.isRequired
   }
 
+  urlDomain (str) {
+    let url = document.createElement('a')
+    url.href = str
+
+    return url.hostname
+  }
+
   render () {
-    let { url, image, title, description } = this.props
+    let { url, image, title, description, createdAt } = this.props
 
     return (
       <a href={url} target='_blank'>
@@ -31,6 +39,11 @@ export default class Link extends React.Component {
           <div className='link-content'>
             <span className='link-title'>{title}</span>
             <span className='link-description'>{description}</span>
+            <span className='link-metadata'>
+              <span>On {this.urlDomain(url)}</span>
+              <span> ⋅ </span>
+              <span>Added <Date type='fromNow'>{createdAt}</Date></span>
+            </span>
           </div>
         </div>
       </a>

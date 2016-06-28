@@ -53,6 +53,7 @@ export default class BundleViewBody extends React.Component {
             image={link.image}
             title={link.title}
             description={link.description}
+            createdAt={link.created_at}
           />
         })}
       </div>
