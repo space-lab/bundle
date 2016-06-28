@@ -2,12 +2,11 @@ import { Header } from 'containers'
 import Body from './Body'
 
 export default class Bundle extends React.Component {
-  handleLinkRemove (index) {
+  handleLinkRemove (id) {
     const { bundle, updateBundle } = this.props
-    const linkId = bundle.getIn(['links', index])
 
     const payload = {
-      links_attributes: [{id: linkId, _destroy: true }]
+      links_attributes: [{ id, _destroy: true }]
     }
 
     updateBundle(bundle.id, payload)

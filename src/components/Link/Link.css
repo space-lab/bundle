@@ -60,7 +60,7 @@ $imageWidth: 115px;
 
     .link-creator {
       position: absolute;
-      right: 10px;
+      right: 20px;
       bottom: 10px;
       font-size: 13px;
 
@@ -71,6 +71,22 @@ $imageWidth: 115px;
         border-radius: 50%;
         width: 20px;
         height: 20px;
+      }
+    }
+
+    .link-remove {
+      transition: all 200ms linear;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 27px;
+      height: 27px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        opacity: 0.5 !important;
       }
     }
   }

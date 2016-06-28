@@ -14,6 +14,10 @@ export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })
 
+export const shouldAppear = appear => ({
+  'opacity': appear ? 1 : 0
+})
+
 export const linksWithoutAuthors = links =>
   links.map(link => link.delete('creator'))
 

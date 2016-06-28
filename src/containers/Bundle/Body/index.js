@@ -47,7 +47,6 @@ export default class BundleViewBody extends React.Component {
 
           let link = links.get(id)
           let user = users.get(link.creator)
-          console.log(user)
 
           return <Link
             key={index}
@@ -58,6 +57,7 @@ export default class BundleViewBody extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
+            handleLinkRemove={handleLinkRemove.bind(this, link.id)}
           />
         })}
       </div>
