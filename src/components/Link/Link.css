@@ -40,7 +40,6 @@ $imageWidth: 115px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      border: none;
     }
 
     .link-title {

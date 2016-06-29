@@ -12,11 +12,12 @@ export default class Editable extends React.Component {
     onChange: React.PropTypes.func,
     onBlur: React.PropTypes.func,
     onClick: React.PropTypes.func,
-    autoFocus: React.PropTypes.bool
+    autoFocus: React.PropTypes.bool,
+    preventDefaultOnClick: React.PropTypes.bool
   }
 
   componentWillMount () {
-    const { onChange, value } = this.props
+    let { onChange, value } = this.props
 
     if (onChange && value) {
       onChange(value)
@@ -24,7 +25,7 @@ export default class Editable extends React.Component {
   }
 
   handleKeyUp ({ key, target }) {
-    const { enterAction, onChange } = this.props
+    let { enterAction, onChange } = this.props
 
     if (onChange) {
       onChange(target.value)
@@ -33,38 +34,34 @@ export default class Editable extends React.Component {
     }
   }
 
+  onClick (event) {
+    let { onClick, preventDefaultOnClick } = this.props
+
+    preventDefaultOnClick && event.preventDefault()
+    onClick && onClick(event)
+  }
+
   render () {
     let { className, value, placeholder, editMode, type,
-      autoFocus, onClick } = this.props
+      autoFocus } = this.props
+
+    let Input = type || 'input'
 
     if (editMode) {
-      if (type === 'textarea') {
-        return <textarea
-          className={className}
-          defaultValue={value || ''}
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          onBlur={this.props.onBlur}
-          onKeyUp={this.handleKeyUp.bind(this)}
-        />
-      } else {
-        return <input
-          className={className}
-          defaultValue={value || ''}
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          onBlur={this.props.onBlur}
-          onKeyUp={this.handleKeyUp.bind(this)}
-        />
-      }
+      return <Input
+        className={className}
+        defaultValue={value || ''}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        onBlur={this.props.onBlur}
+        onKeyUp={this.handleKeyUp.bind(this)}
+        onClick={::this.onClick} />
     } else {
-      return (
-        <span
-          className={className}
-          onClick={(e) => { e.preventDefault(); return onClick(e) }}>
-          {value}
-        </span>
-      )
+      return <span
+        className={className}
+        onClick={::this.onClick}>
+        {value}
+      </span>
     }
   }
 }
