@@ -35,6 +35,20 @@ export default class BundleViewHeader extends React.Component {
     getShareUrl: React.PropTypes.func.isRequired
   }
 
+  renderEditButton () {
+    let props = this.props
+    if (!props.bundle.canEdit(props.currentUser.id)) return false
+
+    return <ToggleEditMode editMode={props.ui.editMode} toggleEdit={props.toggleEdit}/>
+  }
+
+  renderShareButton () {
+    let props = this.props
+    if (!props.bundle.canShare(props.currentUser.id)) return false
+
+    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle}/>
+  }
+
   renderNewBundleHeader () {
     const { ui, toggleEdit } = this.props
 
@@ -55,6 +69,7 @@ export default class BundleViewHeader extends React.Component {
         <ChangeCollection
           bundle={bundle}
           collections={collections}
+          canChangeCollection={bundle.canChangeCollection(currentUser.id)}
           updateBundle={this.props.updateBundle}/>
 
         <div className='align-right'>
@@ -64,12 +79,9 @@ export default class BundleViewHeader extends React.Component {
             joinUrlShare={this.props.joinUrlShare}
             addAlert={this.props.addAlert}/>
 
-          <ShareBundle
-            {...this.props}
-            resourceName='Bundle'
-            resource={bundle}/>
 
-          <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit}l/>
+          {this.renderShareButton()}
+          {this.renderEditButton()}
         </div>
       </div>
     )

@@ -5,6 +5,7 @@ import './index.css'
 
 export default class SearchBody extends React.Component {
   static propTypes = {
+    currentUser: ImmutablePropTypes.record.isRequired,
     searchResult: ImmutablePropTypes.map.isRequired,
     favorite: React.PropTypes.func.isRequired,
     removeBundle: React.PropTypes.func.isRequired,
@@ -21,6 +22,7 @@ export default class SearchBody extends React.Component {
     return searchResult.map((item, index) => (
       <ListItem
         key={index}
+        currentUser={props.currentUser}
         resource={item}
         resourceName={resourceName}
         Component={component}

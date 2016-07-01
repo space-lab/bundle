@@ -9,6 +9,7 @@ export default class ListToolbar extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
     resourceName: React.PropTypes.string.isRequired,
+    currentUser: ImmutablePropTypes.record.isRequired,
     favorite: React.PropTypes.func.isRequired,
     unfavorite: React.PropTypes.func.isRequired,
     remove: React.PropTypes.func.isRequired,
@@ -18,6 +19,25 @@ export default class ListToolbar extends React.Component {
     updateUI: React.PropTypes.func.isRequired
   }
 
+  renderShareIcon () {
+    let props = this.props
+    if (!props.resource.canShare(props.currentUser.id)) return false
+
+    return <ToolbarShareItem
+      resource={props.resource}
+      resourceName={props.resourceName}
+      getBundle={props.getBundle}
+      getCollection={props.getCollection}
+      updateUI={props.updateUI}/>
+  }
+
+  renderRemoveIcon () {
+    let props = this.props
+    if (!props.resource.canRemove(props.currentUser.id)) return false
+
+    return <ToolbarDeleteItem id={props.resource.id} remove={props.remove}/>
+  }
+
   renderRegularItems () {
     let props = this.props
     let id = props.resource.id
@@ -25,14 +45,8 @@ export default class ListToolbar extends React.Component {
 
     return (
       <div className='list-toolbar'>
-        <ToolbarShareItem
-          resource={props.resource}
-          resourceName={props.resourceName}
-          getBundle={props.getBundle}
-          getCollection={props.getCollection}
-          updateUI={props.updateUI}/>
-
-        <ToolbarDeleteItem id={id} remove={props.remove}/>
+        {this.renderShareIcon()}
+        {this.renderRemoveIcon()}
 
         <ToolbarFavoriteItem
           type={type}
