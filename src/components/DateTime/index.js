@@ -2,7 +2,7 @@ import Moment from 'moment'
 
 export default class Date extends React.Component {
   static propTypes = {
-    children: React.PropTypes.string,
+    //children: React.PropTypes.string.isRequired, //TODO fix this
     type: React.PropTypes.string
   }
 

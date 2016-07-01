@@ -39,12 +39,12 @@ export default class BundleViewBody extends React.Component {
           let link = links.get(id)
           let user = users.get(link.creator)
 
-          return <link
+          return <Link
             key={index}
             url={link.url}
             image={link.image}
             title={link.title}
-            description={link.description}
+            description={link.description || ''}
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}

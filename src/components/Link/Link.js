@@ -17,7 +17,7 @@ export default class Link extends React.Component {
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
-    createdAt: React.PropTypes.string.isRequired,
+    //createdAt: React.PropTypes.string.isRequired, //TODO: fix
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
     handleLinkRemove: React.PropTypes.func
@@ -45,38 +45,35 @@ export default class Link extends React.Component {
 
     let thumbStyles = { backgroundImage: `url(${image})` }
 
-    return (
-      <a href={url}
-        target='_blank'
-        onMouseEnter={() => updateUI('active', true)}
-        onMouseLeave={() => updateUI('active', false)}>
-        <div className='link-component'>
-          <div style={thumbStyles} className='link-thumbnail' />
+    return <a href={url}
+      target='_blank'
+      onMouseEnter={() => updateUI('active', true)}
+      onMouseLeave={() => updateUI('active', false)}>
+      <div className='link-component'>
+        <div style={thumbStyles} className='link-thumbnail' />
 
-          <div className='link-content'>
-            <span className='link-title'>{title}</span>
-            <span className='link-description'>{description}</span>
+        <div className='link-content'>
+          <span className='link-title'>{title}</span>
+          <span className='link-description'>{description}</span>
 
-            <span className='link-metadata'>
-              <span>On {urlDomain(url)}</span>
-              <span> ⋅ </span>
-              <span>
-                Added
-                <DateTime type='fromNow'>{createdAt || new Date()}</DateTime>
-              </span>
+          <span className='link-metadata'>
+            <span>On {urlDomain(url)}</span>
+            <span> ⋅ </span>
+            <span>
+              Added <DateTime type='fromNow'>{createdAt}</DateTime>
             </span>
+          </span>
 
-            <div className='link-creator'>
-              <img class='link-author-image' src={creatorImage} />
-              <span>{creatorName}</span>
-            </div>
-
-            <div className='link-remove'
-              style={shouldAppear(ui.active)}
-              onClick={::this.handleLinkRemove} />
+          <div className='link-creator'>
+            <img class='link-author-image' src={creatorImage} />
+            <span>{creatorName}</span>
           </div>
+
+          <div className='link-remove'
+            style={shouldAppear(ui.active)}
+            onClick={::this.handleLinkRemove} />
         </div>
-      </a>
-    )
+      </div>
+    </a>
   }
 }

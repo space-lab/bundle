@@ -4,6 +4,7 @@ import { nextId } from 'helpers'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
 import { Link, EnterUrl } from 'components'
+import './index.css'
 
 const connectState = state => ({
   bundle: Selectors.currentBundle(state),
@@ -53,15 +54,23 @@ export default class BundleAddLink extends React.Component {
   renderLinkPreview () {
     const { currentUser: user, currentLink: link } = this.props
 
-    return <Link
-      url={link.url}
-      image={link.image}
-      title={link.title}
-      description={link.description}
-      createdAt={link.created_at}
-      creatorName={user.name}
-      creatorImage={user.image}
-    />
+    return <div className='link-preview-container'>
+      <Link
+        url={link.url}
+        image={link.image}
+        title={link.title}
+        description={link.description}
+        createdAt={new Date()}
+        creatorName={user.name}
+        creatorImage={user.image}
+      />
+
+      <button
+        onClick={this.addLinkHandler.bind(this, link)}
+        className='add-link-button'>
+          Add Link
+      </button>
+    </div>
   }
 
   renderEnterUrl () {
