@@ -1,4 +1,4 @@
-import Date from 'components/Date'
+import { DateTime } from 'components'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { urlDomain, shouldShow } from 'helpers'
 import './index.css'
@@ -91,7 +91,7 @@ export default class BundleLink extends React.Component {
             <span className='link-domain'>On {urlDomain(link.url)}</span>
             <span className='dot-symbol'>•</span>
             <span className='link-created'>
-              <Date type='fromNow'>{link.created_at}</Date>
+              <DateTime type='fromNow'>{link.created_at}</DateTime>
             </span>
           </div>
         </div>

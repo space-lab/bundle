@@ -17,7 +17,7 @@ export default class BundleViewBody extends React.Component {
   }
 
   render () {
-    const {
+    let {
       ui,
       bundle,
       users,
@@ -36,21 +36,12 @@ export default class BundleViewBody extends React.Component {
         <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
 
         {bundle.get('links').map((id, index) => {
-          //<BundleView.Link
-            //key={index}
-            //index={index}
-            //link={links.get(id)}
-            //creator={users.get(links.getIn([id, 'creator']))}
-            //editMode={ui.editMode}
-            //handleLinkEdit={handleLinkEdit}
-            //handleLinkRemove={handleLinkRemove}/>
-
           let link = links.get(id)
           let user = users.get(link.creator)
 
-          return <Link
+          return <link
             key={index}
-            url={links.get(id).url}
+            url={link.url}
             image={link.image}
             title={link.title}
             description={link.description}

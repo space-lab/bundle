@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
-import { Date, ListToolbar } from 'components'
+import { DateTime, ListToolbar } from 'components'
 import './index.css'
 
 export default class BundleListItem extends React.Component {
@@ -28,7 +28,7 @@ export default class BundleListItem extends React.Component {
           </h1>
 
           <h2>
-            Created <Date type='fromNow'>{bundle.created_at}</Date>
+            Created <DateTime type='fromNow'>{bundle.created_at}</DateTime>
             {this.renderCollectionName(bundle.collection_id)}
           </h2>
         </Link>
