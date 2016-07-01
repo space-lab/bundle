@@ -65,11 +65,11 @@ export default class BundleAddLink extends React.Component {
   }
 
   renderEnterUrl () {
-    const { currentUser, bundle } = this.props
+    const { currentUser: user, bundle } = this.props
 
     return (
       <EnterUrl
-        userImage={currentUser.image}
+        userImage={user.image}
         bundleId={bundle.id}
         handeUrlEnter={::this.handeUrlEnter}/>
     )
