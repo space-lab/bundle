@@ -1,4 +1,4 @@
-import { BundleView, Editable } from 'components'
+import { Link , Editable } from 'components'
 import Name from 'containers/Bundle/Body/Name'
 import Description from 'containers/Bundle/Body/Description'
 
@@ -12,17 +12,22 @@ export default class ShareBundle extends React.Component {
 
         <Description value={bundle.description} editMode={false} />
 
-        <div className='line' />
+        {bundle.get('links').map((id, index) => {
+          let link = links.get(id)
+          let user = users.get(link.creator)
 
-        {bundle.get('links').map((id, index) =>
-          <BundleView.Link
+          return <Link
             key={index}
-            index={index}
-            link={links.get(id)}
-            creator={users.get(links.getIn([id, 'creator']))}
-            editMode={false}
+            url={link.url}
+            image={link.image}
+            title={link.title}
+            description={link.description || ''}
+            createdAt={link.created_at}
+            creatorName={user.name}
+            creatorImage={user.image}
+            handleLinkRemove={handleLinkRemove.bind(this, link.id)}
           />
-        )}
+        })}
       </div>
     )
   }

@@ -13,7 +13,7 @@ import {
   NotificationNavigation
 } from 'containers'
 
-import { BundleView as BundleViewComponent } from 'components'
+import { NoBundle } from 'components'
 
 const connectState = (state) => ({
   Route: state.Route.toJS()
@@ -38,17 +38,7 @@ export default class Navigation extends React.Component {
     return !route.equals(oldRoute)
   }
 
-  render () {
-    const NavigationComponent = this.getNavigationView()
-    const BundleViewComponent = this.getBundleView()
 
-    return (
-      <div className='navigation-wrapper'>
-        <NavigationComponent />
-        <BundleViewComponent />
-      </div>
-    )
-  }
 
   parseRouteChange (props) {
     const { view, newBundle } = props.route
@@ -76,11 +66,11 @@ export default class Navigation extends React.Component {
   }
 
   getBundleView () {
-    if (!this.props.Route.bundleId) {
-      return BundleViewComponent.noBundleSelected
-    }
-
-    return this.isNewBundle(this.props) ? Bundle.New : Bundle.View
+    return !this.props.Route.bundleId
+      ? NoBundle
+      : this.isNewBundle(this.props)
+        ? Bundle.New
+        : Bundle.View
   }
 
   shouldChangeNavigationView (props) {
@@ -94,5 +84,17 @@ export default class Navigation extends React.Component {
 
   isNewBundle (props) {
     return props.Route.bundleId === NEW_BUNDLE_ID
+  }
+
+  render () {
+    const NavigationComponent = this.getNavigationView()
+    const BundleViewComponent = this.getBundleView()
+
+    return (
+      <div className='navigation-wrapper'>
+        <NavigationComponent />
+        <BundleViewComponent />
+      </div>
+    )
   }
 }
