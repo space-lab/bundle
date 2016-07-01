@@ -21,6 +21,7 @@ import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state, props) => ({
+  currentUser: Selectors.currentUser(state),
   bundles: Selectors.currentBundles(state, props),
   bundleId: state.Route.bundleId,
   search: state.Search,
@@ -88,6 +89,7 @@ export default class Container extends React.Component {
     return bundles.map((bundle, index) => {
       return <ListItem
         key={index}
+        currentUser={props.currentUser}
         resource={bundle}
         resourceName={'Bundle'}
         Component={ListItem.Bundle}

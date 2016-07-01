@@ -18,4 +18,18 @@ const CollectionRecord = Record({
   share_url_permission: null
 })
 
-export default CollectionRecord
+export default class Collection extends CollectionRecord {
+  canRemove (userId) {
+    return this.creator == userId
+  }
+
+  canShare (userId) {
+    return this.creator == userId
+  }
+
+  canEdit (userId) {
+    return this.creator == userId || this.shares.some(share => {
+      return share.user.id === userId && share.permission.name === 'Edit'
+    })
+  }
+}

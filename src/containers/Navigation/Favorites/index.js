@@ -13,6 +13,7 @@ import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state) => ({
+  currentUser: Selectors.currentUser(state),
   favorites: Selectors.sortedFavorites(state),
   bundles: state.Bundle.get('byId'),
   collections: state.Collection.get('byId'),
@@ -86,6 +87,7 @@ export default class Container extends React.Component {
     return (
       <ListItem
         key={index}
+        currentUser={props.currentUser}
         resource={collection}
         resourceName={'Collection'}
         Component={ListItem.Collection}
@@ -105,6 +107,7 @@ export default class Container extends React.Component {
     return (
       <ListItem
         key={index}
+        currentUser={props.currentUser}
         resource={bundle}
         resourceName={'Bundle'}
         Component={ListItem.Bundle}

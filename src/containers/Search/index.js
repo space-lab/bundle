@@ -12,6 +12,7 @@ import Selectors from 'selectors'
 import './index.css'
 
 const connectState = (state) => ({
+  currentUser: Selectors.currentUser(state),
   searchResult: Selectors.currentSearchResult(state),
   userAutocomplete: state.UserAutocomplete
 })
@@ -33,6 +34,7 @@ const connectProps = {
 export default class SearchContainer extends React.Component {
   static propTypes = {
     searchResult: ImmutablePropTypes.map,
+    currentUser: ImmutablePropTypes.record,
     query: React.PropTypes.string,
     removeBundle: React.PropTypes.func,
     favorite: React.PropTypes.func,

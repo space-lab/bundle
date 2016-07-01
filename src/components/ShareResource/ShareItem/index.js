@@ -19,7 +19,7 @@ export default class ShareItem extends React.Component {
   }
 
   renderPermission () {
-    const permission = this.props.share.getIn(['permission', 'id'])
+    const permission = this.props.share.permission.id
     const options = SHARE_PERMISSIONS
 
     return (

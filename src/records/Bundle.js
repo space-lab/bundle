@@ -25,4 +25,18 @@ export default class Bundle extends BundleRecord {
   canRemove (userId) {
     return this.creator == userId
   }
+
+  canShare (userId) {
+    return this.creator == userId
+  }
+
+  canEdit (userId) {
+    return this.creator == userId || this.shares.some(share => {
+      return share.user.id === userId && share.permission.name === 'Edit'
+    })
+  }
+
+  canChangeCollection (userId) {
+    return this.creator == userId
+  }
 }

@@ -13,6 +13,7 @@ import * as shareActions from 'actions/Share'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
 
 const connectState = (state, props) => ({
+  currentUser: Selectors.currentUser(state),
   collections: Selectors.currentCollections(state, props),
   userAutocomplete: state.UserAutocomplete
 })
@@ -72,7 +73,9 @@ export default class Container extends React.Component {
     let { removeCollection, closeCollection, createCollection } = this.props
 
     return collections.map((collection, index) => {
-      return <ListItem key={index}
+      return <ListItem
+        key={index}
+        currentUser={props.currentUser}
         resource={collection}
         resourceName={'Collection'}
         Component={ListItem.Collection}

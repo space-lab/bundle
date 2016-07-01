@@ -12,7 +12,8 @@ export default class ChangeCollection extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
-    updateBundle: React.PropTypes.func.isRequired
+    updateBundle: React.PropTypes.func.isRequired,
+    canChangeCollection: React.PropTypes.bool.isRequired
   }
 
   handleClickOutside (e) {
@@ -22,12 +23,20 @@ export default class ChangeCollection extends React.Component {
   }
 
   openModal () {
+    if (!this.props.canChangeCollection) return false
+
     this.props.updateUI('isOpen', true)
   }
 
   collectionName () {
-    let { collections, bundle } = this.props
-    return collections.getIn([bundle.collection_id, 'name']) || 'Add To Collection'
+    let { collections, bundle, canChangeCollection } = this.props
+    let collectionName = collections.getIn([bundle.collection_id, 'name'])
+
+    if (!collectionName) {
+      collectionName = canChangeCollection ? 'Add To Collection' : 'No Collection Selected'
+    }
+
+    return collectionName
   }
 
   render () {
