@@ -37,7 +37,6 @@ class ShareResource extends React.Component {
   render () {
     if (!this.props.ui.isOpen) return false
 
-    this.props.resource.canRemove(2)
     return (
       <Modal style={this.props.position} className='share-resource-modal'>
         <InviteUsers
