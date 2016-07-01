@@ -31,15 +31,9 @@ export default class Bundle extends BundleRecord {
   }
 
   canEdit (userId) {
-    let result = this.creator == userId
-
-    this.shares.forEach(share => {
-      if (share.user.id === userId && share.permission.name === 'Edit') {
-        result = true
-      }
-    })
-
-    return result
+    return this.shares.reduce((result, share) => {
+      return result || (share.user.id === userId && share.permission.name === 'Edit')
+    }, this.creator == userId)
   }
 
   canChangeCollection (userId) {

@@ -13,7 +13,7 @@ export default class ChangeCollection extends React.Component {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
     updateBundle: React.PropTypes.func.isRequired,
-    canChangeCollection: React.PropTypes.bool
+    canChangeCollection: React.PropTypes.bool.isRequired
   }
 
   handleClickOutside (e) {
