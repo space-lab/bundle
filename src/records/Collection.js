@@ -28,8 +28,8 @@ export default class Collection extends CollectionRecord {
   }
 
   canEdit (userId) {
-    return this.shares.reduce((result, share) => {
-      return result || (share.user.id === userId && share.permission.name === 'Edit')
-    }, this.creator == userId)
+    return this.creator == userId || this.shares.some(share => {
+      return share.user.id === userId && share.permission.name === 'Edit'
+    })
   }
 }
