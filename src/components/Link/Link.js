@@ -1,11 +1,12 @@
 import ui from 'redux-ui'
-import { Editable, Date } from 'components'
+import { Editable, DateTime } from 'components'
 import { urlDomain, shouldAppear } from 'helpers'
 import './Link.css'
 
 @ui({
   state: {
     active: false,
+    // TODO: last two might not be used in future...
     editTitle: false,
     editDescription: false
   }
@@ -18,7 +19,8 @@ export default class Link extends React.Component {
     description: React.PropTypes.string.isRequired,
     createdAt: React.PropTypes.string.isRequired,
     creatorImage: React.PropTypes.string.isRequired,
-    creatorName: React.PropTypes.string.isRequired
+    creatorName: React.PropTypes.string.isRequired,
+    handleLinkRemove: React.PropTypes.func
   }
 
   handleLinkRemove (event) {
@@ -30,9 +32,15 @@ export default class Link extends React.Component {
 
   render () {
     let {
-      url, image, title, description,
-      createdAt, creatorName, creatorImage,
-      ui, updateUI
+      url,
+      image,
+      title,
+      description,
+      createdAt,
+      creatorName,
+      creatorImage,
+      updateUI,
+      ui,
     } = this.props
 
     let thumbStyles = { backgroundImage: `url(${image})` }
@@ -52,7 +60,10 @@ export default class Link extends React.Component {
             <span className='link-metadata'>
               <span>On {urlDomain(url)}</span>
               <span> ⋅ </span>
-              <span>Added <Date type='fromNow'>{createdAt}</Date></span>
+              <span>
+                Added
+                <DateTime type='fromNow'>{createdAt || new Date()}</DateTime>
+              </span>
             </span>
 
             <div className='link-creator'>
