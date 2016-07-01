@@ -2,22 +2,23 @@ import './index.css'
 
 export default class EnterUrl extends React.Component {
   static propTypes = {
-    image: React.PropTypes.string.isRequired,
+    bundleId: React.PropTypes.string.isRequired,
     handeUrlEnter: React.PropTypes.func.isRequired,
-    bundleId: React.PropTypes.string.isRequired
+    userImage: React.PropTypes.string.isRequired
   }
 
   handleKeyPress (bundleId, handeUrlEnter, { target, key }) {
-    const url = target.value
+    let url = target.value
     if (key === 'Enter') handeUrlEnter(url, bundleId)
   }
 
   render () {
-    const { image, handeUrlEnter, bundleId } = this.props
+    let { userImage, handeUrlEnter, bundleId } = this.props
 
     return (
       <div className='add-link-enter-url'>
-        <img className='creator-image' src={image}/>
+        <img className='creator-image' src={userImage}/>
+
         <input
           className='url-input'
           placeholder='Enter URL here and press Enter...'

@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Name from './Name'
 import Description from './Description'
-import { BundleView } from 'components'
+import { Link, BundleView } from 'components'
 import { AddLink } from 'containers'
 import './index.css'
 
@@ -17,7 +17,7 @@ export default class BundleViewBody extends React.Component {
   }
 
   render () {
-    const {
+    let {
       ui,
       bundle,
       users,
@@ -35,16 +35,22 @@ export default class BundleViewBody extends React.Component {
 
         <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
 
-        {bundle.get('links').map((id, index) =>
-          <BundleView.Link
+        {bundle.get('links').map((id, index) => {
+          let link = links.get(id)
+          let user = users.get(link.creator)
+
+          return <Link
             key={index}
-            index={index}
-            link={links.get(id)}
-            creator={users.get(links.getIn([id, 'creator']))}
-            editMode={ui.editMode}
-            handleLinkEdit={handleLinkEdit}
-            handleLinkRemove={handleLinkRemove}/>
-        )}
+            url={link.url}
+            image={link.image}
+            title={link.title}
+            description={link.description || ''}
+            createdAt={link.created_at}
+            creatorName={user.name}
+            creatorImage={user.image}
+            handleLinkRemove={handleLinkRemove.bind(this, link.id)}
+          />
+        })}
       </div>
     )
   }

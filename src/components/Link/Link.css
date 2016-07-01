@@ -1,0 +1,98 @@
+$height: 90px;
+$imageWidth: 115px;
+
+.link-component {
+  position: relative;
+  height: $height;
+  background: hsla(208, 3%, 99%, 1);
+  box-sizing: content-box;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.09);
+  margin-bottom: 20px;
+  transition: all 200ms linear;
+
+  &:hover {
+    background: hsla(208, 35%, 99%, 1);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0, 0, 0, 0.18);
+  }
+
+  .link-thumbnail {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-size: cover, auto;
+    background-position: center center, center center;
+
+    width: $imageWidth;
+    height: $height;
+    background-color: #ECECEC;
+  }
+
+  .link-content {
+    margin-left: calc($imageWidth + 7px);
+    padding: 8px 10px;
+
+    .link-title,
+    .link-description {
+      width: 100%;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .link-title {
+      color: #333;
+      padding-right: 20px;
+      font-family: Avenir-Medium;
+      font-size: 16px;
+      height: 24px;
+      line-height: 24px;
+    }
+
+    .link-description {
+      font-size: 14px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .link-metadata {
+      position: absolute;
+      bottom: 10px;
+      font-size: 13px;
+    }
+
+    .link-creator {
+      position: absolute;
+      right: 20px;
+      bottom: 10px;
+      font-size: 13px;
+
+      img {
+        position: relative;
+        top: 5px;
+        margin-right: 5px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .link-remove {
+      transition: all 200ms linear;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      width: 27px;
+      height: 27px;
+      background: url(/assets/images/x.svg) center center no-repeat;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        opacity: 0.5 !important;
+      }
+    }
+  }
+}

@@ -3,8 +3,8 @@ import Selectors from 'selectors'
 import { nextId } from 'helpers'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
-import EnterUrl from './EnterUrl'
-import LinkPreview from './LinkPreview'
+import { Link, EnterUrl } from 'components'
+import './index.css'
 
 const connectState = state => ({
   bundle: Selectors.currentBundle(state),
@@ -52,22 +52,33 @@ export default class BundleAddLink extends React.Component {
   }
 
   renderLinkPreview () {
-    const { currentUser, currentLink } = this.props
+    const { currentUser: user, currentLink: link } = this.props
 
-    return (
-      <LinkPreview
-        link={currentLink}
-        currentUser={currentUser}
-        addLinkHandler={::this.addLinkHandler}/>
-    )
+    return <div className='link-preview-container'>
+      <Link
+        url={link.url}
+        image={link.image}
+        title={link.title}
+        description={link.description}
+        createdAt={new Date()}
+        creatorName={user.name}
+        creatorImage={user.image}
+      />
+
+      <button
+        onClick={this.addLinkHandler.bind(this, link)}
+        className='add-link-button'>
+          Add Link
+      </button>
+    </div>
   }
 
   renderEnterUrl () {
-    const { currentUser, bundle } = this.props
+    const { currentUser: user, bundle } = this.props
 
     return (
       <EnterUrl
-        image={currentUser.image}
+        userImage={user.image}
         bundleId={bundle.id}
         handeUrlEnter={::this.handeUrlEnter}/>
     )

@@ -3,17 +3,21 @@ import ui from 'redux-ui'
 @ui()
 export default class Editable extends React.Component {
   static propTypes = {
+    className: React.PropTypes.string,
     value: React.PropTypes.string,
     type: React.PropTypes.string,
     placeholder: React.PropTypes.string,
     editMode: React.PropTypes.bool.isRequired,
     enterAction: React.PropTypes.func,
     onChange: React.PropTypes.func,
-    autoFocus: React.PropTypes.bool
+    onBlur: React.PropTypes.func,
+    onClick: React.PropTypes.func,
+    autoFocus: React.PropTypes.bool,
+    preventDefaultOnClick: React.PropTypes.bool
   }
 
   componentWillMount () {
-    const { onChange, value } = this.props
+    let { onChange, value } = this.props
 
     if (onChange && value) {
       onChange(value)
@@ -21,7 +25,7 @@ export default class Editable extends React.Component {
   }
 
   handleKeyUp ({ key, target }) {
-    const { enterAction, onChange } = this.props
+    let { enterAction, onChange } = this.props
 
     if (onChange) {
       onChange(target.value)
@@ -30,27 +34,34 @@ export default class Editable extends React.Component {
     }
   }
 
+  onClick (event) {
+    let { onClick, preventDefaultOnClick } = this.props
+
+    preventDefaultOnClick && event.preventDefault()
+    onClick && onClick(event)
+  }
+
   render () {
-    const { value, placeholder, editMode, type, autoFocus } = this.props
+    let { className, value, placeholder, editMode, type,
+      autoFocus } = this.props
+
+    let Input = type || 'input'
 
     if (editMode) {
-      if (type === 'textarea') {
-        return <textarea
-          defaultValue={value || ''}
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          onKeyUp={this.handleKeyUp.bind(this)}
-        />
-      } else {
-        return <input
-          defaultValue={value || ''}
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          onKeyUp={this.handleKeyUp.bind(this)}
-        />
-      }
+      return <Input
+        className={className}
+        defaultValue={value || ''}
+        placeholder={placeholder}
+        autoFocus={autoFocus}
+        onBlur={this.props.onBlur}
+        onKeyUp={this.handleKeyUp.bind(this)}
+        onClick={::this.onClick} />
     } else {
-      return <span>{value}</span>
+      return <span
+        className={className}
+        onClick={::this.onClick}>
+        {value}
+      </span>
     }
   }
 }
