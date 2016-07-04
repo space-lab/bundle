@@ -1,4 +1,4 @@
-import './Content.css'
+import './Bundle.css'
 
 export default class Content extends React.Component {
   static propTypes = {
@@ -6,7 +6,7 @@ export default class Content extends React.Component {
   }
 
   render () {
-    return <div className='bundle-view-wrapper'>
+    return <div className='bundle-view-body'>
       {this.props.children}
     </div>
   }

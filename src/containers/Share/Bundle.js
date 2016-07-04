@@ -1,6 +1,4 @@
 import { Link , Editable } from 'components'
-import Name from 'containers/Bundle/Body/Name'
-import Description from 'containers/Bundle/Body/Description'
 
 export default class ShareBundle extends React.Component {
   render () {
@@ -8,9 +6,11 @@ export default class ShareBundle extends React.Component {
 
     return (
       <div className='share-view-body'>
-        <Name value={bundle.name} editMode={false} />
-
-        <Description value={bundle.description} editMode={false} />
+        {/*
+          TODO: refactor
+          <Name value={bundle.name} editMode={false} />
+          <Description value={bundle.description} editMode={false} />
+        */}
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)

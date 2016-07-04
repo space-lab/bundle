@@ -1,6 +1,8 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { linksWithAuthorIds } from 'helpers'
+import { Header, AddLink } from 'containers'
+import { Content, Bundle, Editable, Link } from 'components'
 import Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
@@ -56,6 +58,7 @@ export default class BundleViewContainer extends React.Component {
     }
   }
 
+  // TODO: remove toggle!
   toggleEdit (save) {
     const {
       bundle,
@@ -79,12 +82,71 @@ export default class BundleViewContainer extends React.Component {
     updateUI('editMode', !ui.editMode)
   }
 
+  handleLinkRemove (id) {
+    const { bundle, updateBundle } = this.props
+
+    const payload = {
+      links_attributes: [{ id, _destroy: true }]
+    }
+
+    updateBundle(bundle.id, payload)
+  }
+
   render () {
-    const { bundle } = this.props
+    const {
+      ui,
+      updateUI,
+      bundle,
+      users,
+      links,
+      currentLink,
+    } = this.props
+
     if (!bundle || !bundle.full_response) return false
 
-    return <div> here goes something we don't know yet </div>
+    return <Content>
+      <Header {...this.props} toggleEdit={::this.toggleEdit} />
 
-    //<Bundle {...this.props} toggleEdit={::this.toggleEdit} />
+      <Bundle>
+        <Editable
+          autoFocus
+          value={bundle.name}
+          placeholder='name goes here...'
+          editMode={ui.editMode}
+          onChange={value => updateUI('description', value)}
+        />
+
+        <Editable
+          type='textarea'
+          value={bundle.description}
+          placeholder='description goes here...'
+          editMode={ui.editMode}
+          onChange={value => updateUI('description', value)}
+        />
+
+        <AddLink
+          bundle={bundle}
+          currentLink={currentLink}
+          links={links}
+        />
+
+        {bundle.get('links').map((id, index) => {
+          let link = links.get(id)
+          let user = users.get(link.creator)
+
+          return <Link
+            key={index}
+            url={link.url}
+            image={link.image}
+            title={link.title}
+            description={link.description || ''}
+            createdAt={link.created_at}
+            creatorName={user.name}
+            creatorImage={user.image}
+            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)}
+          />
+        })}
+      </Bundle>
+    </Content>
   }
 }

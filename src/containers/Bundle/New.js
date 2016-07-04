@@ -2,7 +2,6 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { Content, Header } from 'components'
-import { Body } from './Body'
 import { NEW_BUNDLE_ID, NEW_LINK_ID } from 'constants'
 import { linksWithoutAuthors } from 'helpers'
 import * as bundleActions from 'actions/Bundle'
@@ -62,7 +61,6 @@ export default class BundleNewContainer extends React.Component {
 
     return <Content>
       <Header {...this.props}/>
-      <Body {...this.props} />
     </Content>
 
     //return <Bundle
