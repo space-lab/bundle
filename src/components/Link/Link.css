@@ -1,5 +1,5 @@
 $height: 90px;
-$imageWidth: 115px;
+$imageWidth: 130px;
 
 .link-component {
   position: relative;
@@ -8,6 +8,7 @@ $imageWidth: 115px;
   box-sizing: content-box;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(0, 0, 0, 0.09);
+  border-radius: 3px;
   margin-bottom: 20px;
   transition: all 200ms linear;
 
@@ -18,15 +19,16 @@ $imageWidth: 115px;
   }
 
   .link-thumbnail {
+    width: $imageWidth;
+    height: $height;
     position: absolute;
     left: 0;
     top: 0;
-    background-size: cover, auto;
     background-position: center center, center center;
-
-    width: $imageWidth;
-    height: $height;
+    background-size: cover, auto;
     background-color: #ECECEC;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
   }
 
   .link-content {
