@@ -111,14 +111,14 @@ export default class BundleViewContainer extends React.Component {
         <Editable
           autoFocus
           value={bundle.name}
-          placeholder='name goes here...'
+          placeholder='Name goes here...'
           editMode={ui.editMode}
           onChange={value => updateUI('name', value)} />
 
         <Editable
           type='textarea'
           value={bundle.description}
-          placeholder='description goes here...'
+          placeholder='Description goes here...'
           editMode={ui.editMode}
           onChange={value => updateUI('description', value)} />
 
