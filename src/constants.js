@@ -1,4 +1,5 @@
 export const NEW_BUNDLE_ID = '-1'
+export const NEW_LINK_ID = '-1'
 
 export const SHARE_PERMISSIONS = [
   { id: 1, name: 'View' },

@@ -57,12 +57,18 @@ export default class Navigation extends React.Component {
   getNavigationView () {
     const view = this.props.Route.navigationView || this.props.route.view
 
-    if (view === 'collections') return CollectionNavigation
-    if (view === 'collectionsBundles') return CollectionBundlesNavigation
-    if (view === 'favorites') return FavoriteNavigation
-    if (view === 'notifications') return NotificationNavigation
-
-    return BundleNavigation
+    switch (view) {
+      case 'collections':
+        return CollectionNavigation
+      case 'collectionsBundles':
+        return CollectionBundlesNavigation
+      case 'favorites':
+        return FavoriteNavigation
+      case 'notifications':
+        return NotificationNavigation
+      default:
+        return BundleNavigation
+    }
   }
 
   getBundleView () {

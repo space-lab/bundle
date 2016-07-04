@@ -1,10 +1,7 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
-
-import Selectors from 'selectors'
 import { linksWithAuthorIds } from 'helpers'
-import Bundle from './Bundle'
-
+import Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
 import * as searchActions from 'actions/Search'
@@ -84,11 +81,10 @@ export default class BundleViewContainer extends React.Component {
 
   render () {
     const { bundle } = this.props
+    if (!bundle || !bundle.full_response) return false
 
-    if (!bundle || !bundle.full_response) {
-      return false
-    }
+    return <div> here goes something we don't know yet </div>
 
-    return <Bundle {...this.props} toggleEdit={::this.toggleEdit} />
+    //<Bundle {...this.props} toggleEdit={::this.toggleEdit} />
   }
 }

@@ -1,6 +1,2 @@
-import New from './New'
-import View from './View'
-
-import './index.css'
-
-export default { New, View }
+export New from './New'
+export View from './View'

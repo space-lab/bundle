@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import Name from './Name'
 import Description from './Description'
-import { Link } from 'components'
+import { Link, Content } from 'components'
 import { AddLink } from 'containers'
 import './index.css'
 
@@ -34,31 +34,29 @@ export default class BundleViewBody extends React.Component {
       currentLink,
     } = this.props
 
-    return (
-      <div className='bundle-view-body'>
-        <Name value={bundle.name} editMode={ui.editMode}/>
+    return <Content>
+      <Name value={bundle.name} editMode={ui.editMode}/>
 
-        <Description value={bundle.description} editMode={ui.editMode}/>
+      <Description value={bundle.description} editMode={ui.editMode}/>
 
-        <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
+      <AddLink bundle={bundle} currentLink={currentLink} links={links}/>
 
-        {bundle.get('links').map((id, index) => {
-          let link = links.get(id)
-          let user = users.get(link.creator)
+      {bundle.get('links').map((id, index) => {
+        let link = links.get(id)
+        let user = users.get(link.creator)
 
-          return <Link
-            key={index}
-            url={link.url}
-            image={link.image}
-            title={link.title}
-            description={link.description || ''}
-            createdAt={link.created_at}
-            creatorName={user.name}
-            creatorImage={user.image}
-            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)}
-          />
-        })}
-      </div>
-    )
+        return <Link
+          key={index}
+          url={link.url}
+          image={link.image}
+          title={link.title}
+          description={link.description || ''}
+          createdAt={link.created_at}
+          creatorName={user.name}
+          creatorImage={user.image}
+          handleLinkRemove={this.handleLinkRemove.bind(this, link.id)}
+        />
+      })}
+    </Content>
   }
 }

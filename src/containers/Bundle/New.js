@@ -1,15 +1,16 @@
-import { connect } from 'react-redux'
 import ui from 'redux-ui'
+import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { NEW_BUNDLE_ID } from 'constants'
+import { Content, Header } from 'components'
+import { Body } from './Body'
+import { NEW_BUNDLE_ID, NEW_LINK_ID } from 'constants'
 import { linksWithoutAuthors } from 'helpers'
-import Bundle from './Bundle'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
 
 const connectState = (state) => ({
   currentBundle: state.Bundle.getIn(['byId', NEW_BUNDLE_ID]),
-  currentLink: state.Link.getIn(['current', NEW_BUNDLE_ID]),
+  currentLink: state.Link.getIn(['current', NEW_LINK_ID]),
   links: state.Link.get('byId'),
   users: state.User.get('byId')
 })
@@ -59,13 +60,18 @@ export default class BundleNewContainer extends React.Component {
 
     if (!currentBundle) return false
 
-    return <Bundle
-      {...this.props}
-      bundle={currentBundle}
-      handleChange={updateBundleInfo}
-      handleLinkEdit={updateLink}
-      handleLinkRemove={::this.removeLink}
-      toggleEdit={::this.saveBundle}
-    />
+    return <Content>
+      <Header {...this.props}/>
+      <Body {...this.props} />
+    </Content>
+
+    //return <Bundle
+      //{...this.props}
+      //bundle={currentBundle}
+      //handleChange={updateBundleInfo}
+      //handleLinkEdit={updateLink}
+      //handleLinkRemove={::this.removeLink}
+      //toggleEdit={::this.saveBundle}
+    ///>
   }
 }
