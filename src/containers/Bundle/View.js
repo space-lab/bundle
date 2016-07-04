@@ -10,7 +10,7 @@ import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 
-const connectState = (state) => ({
+let connectState = (state) => ({
   bundle: Selectors.currentBundle(state),
   users: state.User.get('byId'),
   links: state.Link.get('byId'),
@@ -20,7 +20,7 @@ const connectState = (state) => ({
   receivedAllCollections: state.Collection.get('receivedAll')
 })
 
-const connectProps = {
+let connectProps = {
   ...linkActions,
   ...shareActions,
   ...searchActions,
@@ -39,7 +39,7 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class BundleViewContainer extends React.Component {
   componentWillMount () {
-    const { getBundle, bundleId } = this.props
+    let { getBundle, bundleId } = this.props
 
     if (bundleId) getBundle(bundleId)
 
@@ -49,8 +49,8 @@ export default class BundleViewContainer extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const { getBundle, bundleId, resetUI } = this.props
-    const nextBundleId = nextProps.bundleId
+    let { getBundle, bundleId, resetUI } = this.props
+    let nextBundleId = nextProps.bundleId
 
     if (bundleId !== nextBundleId) {
       resetUI()
@@ -60,7 +60,7 @@ export default class BundleViewContainer extends React.Component {
 
   // TODO: remove toggle!
   toggleEdit (save) {
-    const {
+    let {
       bundle,
       links,
       updateBundle,
@@ -68,11 +68,11 @@ export default class BundleViewContainer extends React.Component {
       ui
     } = this.props
 
-    const bundleLinks = bundle.links.map(id => links.get(id))
+    let bundleLinks = bundle.links.map(id => links.get(id))
 
     if (!save) return updateUI('editMode', !ui.editMode)
 
-    const payload = {
+    let payload = {
       name: ui.name,
       description: ui.description,
       links_attributes: linksWithAuthorIds(bundleLinks)
@@ -83,9 +83,9 @@ export default class BundleViewContainer extends React.Component {
   }
 
   handleLinkRemove (id) {
-    const { bundle, updateBundle } = this.props
+    let { bundle, updateBundle } = this.props
 
-    const payload = {
+    let payload = {
       links_attributes: [{ id, _destroy: true }]
     }
 
@@ -93,7 +93,7 @@ export default class BundleViewContainer extends React.Component {
   }
 
   render () {
-    const {
+    let {
       ui,
       updateUI,
       bundle,
@@ -113,22 +113,19 @@ export default class BundleViewContainer extends React.Component {
           value={bundle.name}
           placeholder='name goes here...'
           editMode={ui.editMode}
-          onChange={value => updateUI('description', value)}
-        />
+          onChange={value => updateUI('name', value)} />
 
         <Editable
           type='textarea'
           value={bundle.description}
           placeholder='description goes here...'
           editMode={ui.editMode}
-          onChange={value => updateUI('description', value)}
-        />
+          onChange={value => updateUI('description', value)} />
 
         <AddLink
           bundle={bundle}
           currentLink={currentLink}
-          links={links}
-        />
+          links={links} />
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)
@@ -143,8 +140,7 @@ export default class BundleViewContainer extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
-            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)}
-          />
+            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)} />
         })}
       </Bundle>
     </Content>
