@@ -12,8 +12,17 @@ export default class BundleViewBody extends React.Component {
     users: ImmutablePropTypes.map.isRequired,
     links: ImmutablePropTypes.map.isRequired,
     currentLink: ImmutablePropTypes.record,
-    handleLinkEdit: React.PropTypes.func.isRequired,
-    handleLinkRemove: React.PropTypes.func.isRequired
+    updateBundle: React.PropTypes.func.isRequired
+  }
+
+  handleLinkRemove (id) {
+    const { bundle, updateBundle } = this.props
+
+    const payload = {
+      links_attributes: [{ id, _destroy: true }]
+    }
+
+    updateBundle(bundle.id, payload)
   }
 
   render () {
@@ -23,8 +32,6 @@ export default class BundleViewBody extends React.Component {
       users,
       links,
       currentLink,
-      handleLinkEdit,
-      handleLinkRemove
     } = this.props
 
     return (
@@ -48,7 +55,7 @@ export default class BundleViewBody extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
-            handleLinkRemove={handleLinkRemove.bind(this, link.id)}
+            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)}
           />
         })}
       </div>
