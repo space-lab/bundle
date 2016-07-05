@@ -1,14 +1,25 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { linksWithAuthorIds } from 'helpers'
-import { Header } from 'containers'
-import { Content, Bundle, Editable, AddLink, Link } from 'components'
 import Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
 import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
+import * as alertActions from 'actions/Alert'
+import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import {
+  Content,
+  Header,
+  Bundle,
+  Editable,
+  AddLink,
+  Link,
+  ChangeCollection,
+  JoinBundle,
+  ShareBundle
+} from 'components'
 
 let connectState = (state) => ({
   bundleId: state.Route.bundleId,
@@ -24,9 +35,11 @@ let connectState = (state) => ({
 let connectProps = {
   ...linkActions,
   ...shareActions,
+  ...alertActions,
   ...searchActions,
   ...bundleActions,
-  ...collectionActions
+  ...collectionActions,
+  ...userAutocompleteActions
 }
 
 @ui({
@@ -124,6 +137,14 @@ export default class BundleViewContainer extends React.Component {
     clearCurrentLink(bundle.id)
   }
 
+  //TODO refactor
+  renderShareButton () {
+    let props = this.props
+    if (!props.bundle.canShare(props.currentUser.id)) return false
+
+    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle}/>
+  }
+
   render () {
     let {
       ui,
@@ -134,12 +155,32 @@ export default class BundleViewContainer extends React.Component {
       fetchLink,
       currentUser,
       currentLink,
+      collections,
+      updateBundle,
+      joinUrlShare,
+      addAlert
     } = this.props
 
     if (!bundle || !bundle.full_response) return false
 
     return <Content>
-      <Header {...this.props} toggleEdit={::this.toggleEdit} />
+      <Header>
+        <ChangeCollection
+          bundle={bundle}
+          collections={collections}
+          canChangeCollection={bundle.canChangeCollection(currentUser.id)}
+          updateBundle={updateBundle} />
+
+        <div className='align-right'>
+          <JoinBundle
+            bundle={bundle}
+            currentUserId={currentUser.id}
+            joinUrlShare={joinUrlShare}
+            addAlert={addAlert} />
+
+          {this.renderShareButton()}
+        </div>
+      </Header>
 
       <Bundle>
         <Editable

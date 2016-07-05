@@ -3,13 +3,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import Selectors from 'selectors'
 import ToggleEditMode from './ToggleEditMode'
 import { ChangeCollection } from 'components'
-import ShareBundle from './ShareBundle'
-import JoinBundle from './JoinBundle'
 import * as shareActions from 'actions/Share'
 import * as alertActions from 'actions/Alert'
 import * as userAutocompleteActions from 'actions/UserAutocomplete'
-
-import './index.css'
 
 const connectState = (state) => ({
   currentUser: Selectors.currentUser(state),
@@ -43,13 +39,6 @@ export default class BundleViewHeader extends React.Component {
     //return <ToggleEditMode editMode={props.ui.editMode} toggleEdit={props.toggleEdit}/>
   //}
 
-  renderShareButton () {
-    let props = this.props
-    if (!props.bundle.canShare(props.currentUser.id)) return false
-
-    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle}/>
-  }
-
   renderNewBundleHeader () {
     const { ui, toggleEdit } = this.props
 
@@ -62,35 +51,8 @@ export default class BundleViewHeader extends React.Component {
     )
   }
 
-  renderViewBundleHeader () {
-    const { ui, bundle, currentUser, toggleEdit, collections } = this.props
-
-    return (
-      <div className='bundle-view-header-wrapper'>
-        <ChangeCollection
-          bundle={bundle}
-          collections={collections}
-          canChangeCollection={bundle.canChangeCollection(currentUser.id)}
-          updateBundle={this.props.updateBundle}/>
-
-        <div className='align-right'>
-          <JoinBundle
-            bundle={bundle}
-            currentUserId={currentUser.id}
-            joinUrlShare={this.props.joinUrlShare}
-            addAlert={this.props.addAlert}/>
-
-          {this.renderShareButton()}
-        </div>
-      </div>
-    )
-  }
-
   render () {
     const { bundle } = this.props
-
-    return bundle.isNewBundle
-      ? this.renderNewBundleHeader()
-      : this.renderViewBundleHeader()
+    return this.renderNewBundleHeader()
   }
 }

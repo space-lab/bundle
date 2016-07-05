@@ -1,12 +1,12 @@
-import './Bundle.css'
+import './Header.css'
 
-export default class Bundle extends React.Component {
+export default class Header extends React.Component {
   static propTypes = {
     children: React.PropTypes.node
   }
 
   render () {
-    return <div className='bundle-view-body'>
+    return <div className='header-container'>
       {this.props.children}
     </div>
   }
