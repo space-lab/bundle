@@ -83,8 +83,8 @@ export default class BundleNewContainer extends React.Component {
           onChange={value => updateUI('description', value)} />
 
         <AddLink
-          user={currentUser}
           bundle={bundle}
+          user={currentUser}
           link={currentLink}
           links={links} />
 

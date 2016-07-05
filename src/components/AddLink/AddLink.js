@@ -45,13 +45,12 @@ export default class AddLink extends React.Component {
         description={link.description}
         createdAt={new Date()}
         creatorName={user.name}
-        creatorImage={user.image}
-      />
+        creatorImage={user.image} />
 
       <button
         onClick={this.addLinkHandler.bind(this, link)}
         className='add-link-button'>
-          Add Link
+        Add Link
       </button>
     </div>
   }
@@ -63,7 +62,7 @@ export default class AddLink extends React.Component {
       <EnterUrl
         userImage={user.image}
         bundleId={bundle.id}
-        handeUrlEnter={::this.handeUrlEnter}/>
+        handeUrlEnter={::this.handeUrlEnter} />
     )
   }
 
