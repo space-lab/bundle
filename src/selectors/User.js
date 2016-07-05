@@ -7,3 +7,5 @@ export const currentUser = createSelector(
   [currentUserIdSelector, usersSelector],
   (id, users) => users.get(id)
 )
+
+export const users = createSelector(usersSelector, users => users)

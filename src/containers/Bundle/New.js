@@ -1,21 +1,24 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { Content, Bundle, Editable } from 'components'
-import { Header, AddLink } from 'containers'
+import { Content, Bundle, Editable, Link, AddLink } from 'components'
+import { Header } from 'containers'
+import Selectors from 'selectors'
+import { nextId } from 'helpers'
 import { NEW_BUNDLE_ID, NEW_LINK_ID } from 'constants'
 import { linksWithoutAuthors } from 'helpers'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
 
-const connectState = (state) => ({
-  bundle: state.Bundle.getIn(['byId', NEW_BUNDLE_ID]),
-  currentLink: state.Link.getIn(['current', NEW_LINK_ID]),
-  links: state.Link.get('byId'),
-  users: state.User.get('byId')
+let connectState = (state) => ({
+  bundle: Selectors.currentBundle(state),
+  links: Selectors.links(state),
+  users: Selectors.users(state),
+  currentUser: Selectors.currentUser(state),
+  currentLink: Selectors.currentLink(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...bundleActions,
   ...linkActions
 }
@@ -56,7 +59,7 @@ export default class BundleNewContainer extends React.Component {
   }
 
   render () {
-    let { bundle, currentLink, links, ui, updateUI } = this.props
+    let { bundle, links, users, currentUser, currentLink, ui, updateUI } = this.props
 
     if (!bundle) return false
 
@@ -80,8 +83,9 @@ export default class BundleNewContainer extends React.Component {
           onChange={value => updateUI('description', value)} />
 
         <AddLink
+          user={currentUser}
           bundle={bundle}
-          currentLink={currentLink}
+          link={currentLink}
           links={links} />
 
         {bundle.get('links').map((id, index) => {
@@ -101,14 +105,5 @@ export default class BundleNewContainer extends React.Component {
         })}
       </Bundle>
     </Content>
-
-    //return <Bundle
-      //{...this.props}
-      //bundle={currentBundle}
-      //handleChange={updateBundleInfo}
-      //handleLinkEdit={updateLink}
-      //handleLinkRemove={::this.removeLink}
-      //toggleEdit={::this.saveBundle}
-    ///>
   }
 }

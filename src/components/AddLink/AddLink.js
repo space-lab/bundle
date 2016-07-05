@@ -1,26 +1,9 @@
-import { connect } from 'react-redux'
-import Selectors from 'selectors'
-import { nextId } from 'helpers'
-import * as bundleActions from 'actions/Bundle'
-import * as linkActions from 'actions/Link'
-import { Link, EnterUrl } from 'components'
-import './index.css'
+import { EnterUrl, Link } from 'components'
 
-const connectState = state => ({
-  bundle: Selectors.currentBundle(state),
-  currentUser: Selectors.currentUser(state)
-})
-
-const connectProps = {
-  ...bundleActions,
-  ...linkActions
-}
-
-@connect(connectState, connectProps)
-export default class BundleAddLink extends React.Component {
+export default class AddLink extends React.Component {
   addLinkHandler (link) {
-    const payloadLink = link.toJS()
-    const {
+    let payloadLink = link.toJS()
+    let {
       currentUser,
       bundle,
       links,
@@ -31,12 +14,12 @@ export default class BundleAddLink extends React.Component {
 
     payloadLink.creator_id = currentUser.id
 
-    const payload = {
+    let payload = {
       links_attributes: [payloadLink]
     }
 
     if (bundle.isNewBundle) {
-      const linkWithCreator = link
+      let linkWithCreator = link
         .set('creator', currentUser.id)
         .set('id', nextId(links))
 
@@ -52,7 +35,7 @@ export default class BundleAddLink extends React.Component {
   }
 
   renderLinkPreview () {
-    const { currentUser: user, currentLink: link } = this.props
+    let { user, link } = this.props
 
     return <div className='link-preview-container'>
       <Link
@@ -74,7 +57,7 @@ export default class BundleAddLink extends React.Component {
   }
 
   renderEnterUrl () {
-    const { currentUser: user, bundle } = this.props
+    let { user, bundle } = this.props
 
     return (
       <EnterUrl
