@@ -37,6 +37,7 @@ export default class BundleNewContainer extends React.Component {
     this.props.generateNewBundle()
   }
 
+  // TODO, tie this up.
   saveBundle () {
     let { bundle, links, createBundle, ui } = this.props
     let bundleLinks = bundle.links.map(id => links.get(id).delete('id'))
@@ -53,13 +54,43 @@ export default class BundleNewContainer extends React.Component {
     })
   }
 
-  removeLink (index) {
+  handleLinkAdd (link) {
+    let payloadLink = link.toJS()
+    let {
+      currentUser,
+      bundle,
+      links,
+      clearCurrentLink,
+      updateBundle,
+      addCurrentLinkToBundle
+    } = this.props
+
+    payloadLink.creator_id = currentUser.id
+
+    let payload = {
+      links_attributes: [payloadLink]
+    }
+
+    if (bundle.isNewBundle) {
+      let linkWithCreator = link
+        .set('creator', currentUser.id)
+        .set('id', nextId(links))
+
+      return addCurrentLinkToBundle(bundle.id, linkWithCreator)
+    }
+
+    updateBundle(bundle.id, payload)
+    clearCurrentLink(bundle.id)
+  }
+
+  handleLinkRemove (index) {
     let { bundle, removeLinkFromBundle } = this.props
     removeLinkFromBundle(bundle.id, index)
   }
 
   render () {
-    let { bundle, links, users, currentUser, currentLink, ui, updateUI } = this.props
+    let { bundle, links, users, currentUser, currentLink,
+      fetchLink, ui, updateUI } = this.props
 
     if (!bundle) return false
 
@@ -86,7 +117,10 @@ export default class BundleNewContainer extends React.Component {
           bundle={bundle}
           user={currentUser}
           link={currentLink}
-          links={links} />
+          links={links}
+          handleUrlEnter={url => fetchLink(url, bundle.id)}
+          handleLinkAdd={link => this.handleLinkAdd(link)}
+        />
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)

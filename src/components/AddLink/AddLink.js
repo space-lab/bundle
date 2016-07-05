@@ -1,41 +1,17 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { EnterUrl, Link } from 'components'
 
 export default class AddLink extends React.Component {
-  addLinkHandler (link) {
-    let payloadLink = link.toJS()
-    let {
-      currentUser,
-      bundle,
-      links,
-      clearCurrentLink,
-      updateBundle,
-      addCurrentLinkToBundle
-    } = this.props
-
-    payloadLink.creator_id = currentUser.id
-
-    let payload = {
-      links_attributes: [payloadLink]
-    }
-
-    if (bundle.isNewBundle) {
-      let linkWithCreator = link
-        .set('creator', currentUser.id)
-        .set('id', nextId(links))
-
-      return addCurrentLinkToBundle(bundle.id, linkWithCreator)
-    }
-
-    updateBundle(bundle.id, payload)
-    clearCurrentLink(bundle.id)
-  }
-
-  handeUrlEnter (url) {
-    this.props.fetchLink(url, this.props.bundle.id)
+  static propTypes = {
+    bundle: ImmutablePropTypes.record.isRequired,
+    user: ImmutablePropTypes.record.isRequired,
+    link: ImmutablePropTypes.record,
+    handleLinkAdd: React.PropTypes.func.isRequired,
+    handleUrlEnter: React.PropTypes.func.isRequired
   }
 
   renderLinkPreview () {
-    let { user, link } = this.props
+    let { user, link, handleAddLink } = this.props
 
     return <div className='link-preview-container'>
       <Link
@@ -48,7 +24,7 @@ export default class AddLink extends React.Component {
         creatorImage={user.image} />
 
       <button
-        onClick={this.addLinkHandler.bind(this, link)}
+        onClick={handleAddLink.bind(this, link)}
         className='add-link-button'>
         Add Link
       </button>
@@ -56,14 +32,12 @@ export default class AddLink extends React.Component {
   }
 
   renderEnterUrl () {
-    let { user, bundle } = this.props
+    let { user, bundle, handleUrlEnter } = this.props
 
-    return (
-      <EnterUrl
-        userImage={user.image}
-        bundleId={bundle.id}
-        handeUrlEnter={::this.handeUrlEnter} />
-    )
+    return <EnterUrl
+      userImage={user.image}
+      bundleId={bundle.id}
+      handeUrlEnter={handleUrlEnter} />
   }
 
   render () {

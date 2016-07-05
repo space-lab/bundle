@@ -1,15 +1,13 @@
 import './body.css'
 
-export default function Body ({
-  children
-}) {
-  return (
-    <div className='resource-navigation-body'>
-      {children}
-    </div>
-  )
-}
+export default class Body extends React.Component {
+  static propTypes = {
+    children: React.PropTypes.node
+  }
 
-Body.propTypes = {
-  children: React.PropTypes.node
+  render () {
+    return <div className='resource-navigation-body'>
+      {this.props.children}
+    </div>
+  }
 }
