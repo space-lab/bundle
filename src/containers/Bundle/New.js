@@ -11,9 +11,9 @@ import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
 
 let connectState = (state) => ({
-  bundle: Selectors.currentBundle(state),
   links: Selectors.links(state),
   users: Selectors.users(state),
+  bundle: Selectors.currentBundle(state),
   currentUser: Selectors.currentUser(state),
   currentLink: Selectors.currentLink(state)
 })
@@ -54,6 +54,18 @@ export default class BundleNewContainer extends React.Component {
     })
   }
 
+  // TODO dup
+  handleLinkRemove (id) {
+    let { bundle, updateBundle } = this.props
+
+    let payload = {
+      links_attributes: [{ id, _destroy: true }]
+    }
+
+    updateBundle(bundle.id, payload)
+  }
+
+  // TODO dup
   handleLinkAdd (link) {
     let payloadLink = link.toJS()
     let {
@@ -119,8 +131,7 @@ export default class BundleNewContainer extends React.Component {
           link={currentLink}
           links={links}
           handleUrlEnter={url => fetchLink(url, bundle.id)}
-          handleLinkAdd={link => this.handleLinkAdd(link)}
-        />
+          handleLinkAdd={link => this.handleLinkAdd(link)} />
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)

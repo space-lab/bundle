@@ -1,8 +1,8 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { linksWithAuthorIds } from 'helpers'
-import { Header, AddLink } from 'containers'
-import { Content, Bundle, Editable, Link } from 'components'
+import { Header } from 'containers'
+import { Content, Bundle, Editable, AddLink, Link } from 'components'
 import Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
@@ -11,13 +11,13 @@ import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 
 let connectState = (state) => ({
-  bundle: Selectors.currentBundle(state),
-  users: state.User.get('byId'),
-  links: state.Link.get('byId'),
-  currentLink: Selectors.currentLink(state),
   bundleId: state.Route.bundleId,
-  collections: state.Collection.get('byId'),
-  receivedAllCollections: state.Collection.get('receivedAll')
+  users: Selectors.users(state),
+  links: Selectors.links(state),
+  bundle: Selectors.currentBundle(state),
+  currentLink: Selectors.currentLink(state),
+  currentUser: Selectors.currentUser(state),
+  receivedAllCollections: Selectors.receivedAllCollections(state)
 })
 
 let connectProps = {
@@ -82,6 +82,7 @@ export default class BundleViewContainer extends React.Component {
     updateUI('editMode', !ui.editMode)
   }
 
+  // TODO dup
   handleLinkRemove (id) {
     let { bundle, updateBundle } = this.props
 
@@ -92,13 +93,45 @@ export default class BundleViewContainer extends React.Component {
     updateBundle(bundle.id, payload)
   }
 
+  // TODO dup
+  handleLinkAdd (link) {
+    let payloadLink = link.toJS()
+    let {
+      currentUser,
+      bundle,
+      links,
+      clearCurrentLink,
+      updateBundle,
+      addCurrentLinkToBundle
+    } = this.props
+
+    payloadLink.creator_id = currentUser.id
+
+    let payload = {
+      links_attributes: [payloadLink]
+    }
+
+    if (bundle.isNewBundle) {
+      let linkWithCreator = link
+        .set('creator', currentUser.id)
+        .set('id', nextId(links))
+
+      return addCurrentLinkToBundle(bundle.id, linkWithCreator)
+    }
+
+    updateBundle(bundle.id, payload)
+    clearCurrentLink(bundle.id)
+  }
+
   render () {
     let {
       ui,
       updateUI,
-      bundle,
       users,
       links,
+      bundle,
+      fetchLink,
+      currentUser,
       currentLink,
     } = this.props
 
@@ -124,8 +157,11 @@ export default class BundleViewContainer extends React.Component {
 
         <AddLink
           bundle={bundle}
-          currentLink={currentLink}
-          links={links} />
+          user={currentUser}
+          link={currentLink}
+          links={links}
+          handleUrlEnter={url => fetchLink(url, bundle.id)}
+          handleLinkAdd={link => this.handleLinkAdd(link)} />
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)
