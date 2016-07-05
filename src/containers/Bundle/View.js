@@ -17,6 +17,7 @@ let connectState = (state) => ({
   bundle: Selectors.currentBundle(state),
   currentLink: Selectors.currentLink(state),
   currentUser: Selectors.currentUser(state),
+  collections: Selectors.collections(state),
   receivedAllCollections: Selectors.receivedAllCollections(state)
 })
 
