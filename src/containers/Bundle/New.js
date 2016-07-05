@@ -1,8 +1,7 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { Content, Bundle, Editable, Link, AddLink } from 'components'
-import { Header } from 'containers'
+import { Content, Header, Bundle, Editable, Link, AddLink } from 'components'
 import Selectors from 'selectors'
 import { nextId } from 'helpers'
 import { NEW_BUNDLE_ID, NEW_LINK_ID } from 'constants'
@@ -106,9 +105,13 @@ export default class BundleNewContainer extends React.Component {
 
     if (!bundle) return false
 
-    // TODO remove toggleedit
+    // TODO remove toggleedit and refactor
     return <Content>
-      <Header {...this.props} toggleEdit={() => 'noop'} />
+      <Header>
+        <div className='align-right'>
+          აქ უნდა იყოს სეივი როა ეს
+        </div>
+      </Header>
 
       <Bundle>
         <Editable
