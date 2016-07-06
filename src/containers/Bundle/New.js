@@ -49,7 +49,8 @@ export default class BundleNewContainer extends React.Component {
     let payload = {
       name: ui.name,
       description: ui.description,
-      links_attributes: linksWithoutAuthors(bundleLinks)
+      links_attributes: linksWithoutAuthors(bundleLinks),
+      collection_id: currentBundle.collection_id
     }
 
     createBundle(payload).then(bundle => {
