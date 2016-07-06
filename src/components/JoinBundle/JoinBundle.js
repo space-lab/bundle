@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 
-export default class ShareBundle extends React.Component {
+export default class JoinBundle extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     currentUserId: React.PropTypes.number.isRequired,
@@ -12,17 +12,14 @@ export default class ShareBundle extends React.Component {
     let { bundle, joinUrlShare, addAlert } = this.props
 
     joinUrlShare('bundle', bundle.id).then(() =>
-      addAlert('success', 'yo, you successfully joined !!!')
-    )
+      addAlert('success', 'Hurray!!!, You\'ve successfully joined bundle!'))
   }
 
   render () {
     if (this.props.bundle.joined) return false
 
-    return (
-      <button className='round-button' onClick={::this.join}>
-        Join
-      </button>
-    )
+    return <button className='round-button' onClick={::this.join}>
+      Join
+    </button>
   }
 }

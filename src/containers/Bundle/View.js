@@ -53,18 +53,14 @@ let connectProps = {
 @connect(connectState, connectProps)
 export default class BundleViewContainer extends React.Component {
   componentWillMount () {
-    let { getBundle, bundleId } = this.props
+    let { getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
     if (bundleId) getBundle(bundleId)
-
-    if (!this.props.receivedAllCollections) {
-      this.props.getCollections()
-    }
+    if (!receivedAllCollections) getCollections()
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps ({ bundleId: nextBundleId }) {
     let { getBundle, bundleId, resetUI } = this.props
-    let nextBundleId = nextProps.bundleId
 
     if (bundleId !== nextBundleId) {
       resetUI()
@@ -74,14 +70,7 @@ export default class BundleViewContainer extends React.Component {
 
   // TODO: remove toggle!
   toggleEdit (save) {
-    let {
-      bundle,
-      links,
-      updateBundle,
-      updateUI,
-      ui
-    } = this.props
-
+    let { bundle, links, updateBundle, updateUI, ui } = this.props
     let bundleLinks = bundle.links.map(id => links.get(id))
 
     if (!save) return updateUI('editMode', !ui.editMode)
@@ -142,7 +131,7 @@ export default class BundleViewContainer extends React.Component {
     let props = this.props
     if (!props.bundle.canShare(props.currentUser.id)) return false
 
-    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle}/>
+    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle} />
   }
 
   render () {
