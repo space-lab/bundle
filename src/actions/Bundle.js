@@ -5,13 +5,14 @@ import { reduceBundle, getRecords } from 'helpers'
 import request from 'axios'
 import api from 'api'
 
-export const generateNewBundle = () => {
+export const generateNewBundle = (collection_id) => {
   const bundle = new Bundle({
     id: NEW_BUNDLE_ID,
     name: '',
     description: '',
     isNewBundle: true,
     links: List(),
+    collection_id
   })
 
   return { type: 'SAVE_BUNDLE', bundle }

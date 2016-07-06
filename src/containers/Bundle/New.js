@@ -13,6 +13,7 @@ const connectState = (state) => ({
   currentLink: state.Link.getIn(['current', NEW_BUNDLE_ID]),
   links: state.Link.get('byId'),
   users: state.User.get('byId'),
+  routeCollectionId: state.Route.get('collectionId'),
   collections: state.Collection.get('byId'),
   receivedAllCollections: state.Collection.get('receivedAll')
 })
@@ -34,11 +35,11 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class BundleNewContainer extends React.Component {
   componentWillMount () {
-    this.props.generateNewBundle()
+    let props = this.props
 
-    if (!this.props.receivedAllCollections) {
-      this.props.getCollections()
-    }
+    props.generateNewBundle(props.routeCollectionId)
+
+    if (!props.receivedAllCollections) props.getCollections()
   }
 
   saveBundle () {
