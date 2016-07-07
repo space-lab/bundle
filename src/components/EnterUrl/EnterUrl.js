@@ -1,4 +1,4 @@
-import './index.css'
+import './EnterUrl.css'
 
 export default class EnterUrl extends React.Component {
   static propTypes = {

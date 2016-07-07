@@ -156,7 +156,6 @@ export default class BundleViewContainer extends React.Component {
 
       <Bundle>
         <Editable
-          autoFocus
           value={bundle.name}
           editMode
           placeholder='Name goes here...'
