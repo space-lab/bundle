@@ -45,7 +45,6 @@ let connectProps = {
 @ui({
   key: 'bundle',
   state: {
-    editMode: false,
     name: '',
     description: ''
   }
@@ -66,23 +65,6 @@ export default class BundleViewContainer extends React.Component {
       resetUI()
       getBundle(nextBundleId)
     }
-  }
-
-  // TODO: remove toggle!
-  toggleEdit (save) {
-    let { bundle, links, updateBundle, updateUI, ui } = this.props
-    let bundleLinks = bundle.links.map(id => links.get(id))
-
-    if (!save) return updateUI('editMode', !ui.editMode)
-
-    let payload = {
-      name: ui.name,
-      description: ui.description,
-      links_attributes: linksWithAuthorIds(bundleLinks)
-    }
-
-    updateBundle(bundle.id, payload)
-    updateUI('editMode', !ui.editMode)
   }
 
   // TODO dup
@@ -175,15 +157,15 @@ export default class BundleViewContainer extends React.Component {
         <Editable
           autoFocus
           value={bundle.name}
+          editMode
           placeholder='Name goes here...'
-          editMode={ui.editMode}
           onChange={value => updateUI('name', value)} />
 
         <Editable
           type='textarea'
           value={bundle.description}
+          editMode
           placeholder='Description goes here...'
-          editMode={ui.editMode}
           onChange={value => updateUI('description', value)} />
 
         <AddLink
