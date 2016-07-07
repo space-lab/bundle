@@ -86,7 +86,7 @@ export default class Container extends React.Component {
         currentUser={props.currentUser}
         resource={bundle}
         resourceName={'Bundle'}
-        active={bundle.id === this.props.bundleId}
+        active={bundle.id === props.bundleId}
         url={this.getBundleUrl(collection, bundle)}
         Component={ListItem.Bundle}
         remove={::this.removeBundle}
