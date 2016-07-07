@@ -6,17 +6,22 @@ import { linksWithoutAuthors } from 'helpers'
 import Bundle from './Bundle'
 import * as bundleActions from 'actions/Bundle'
 import * as linkActions from 'actions/Link'
+import * as collectionActions from 'actions/Collection'
 
 const connectState = (state) => ({
   currentBundle: state.Bundle.getIn(['byId', NEW_BUNDLE_ID]),
   currentLink: state.Link.getIn(['current', NEW_BUNDLE_ID]),
   links: state.Link.get('byId'),
-  users: state.User.get('byId')
+  users: state.User.get('byId'),
+  routeCollectionId: state.Route.get('collectionId'),
+  collections: state.Collection.get('byId'),
+  receivedAllCollections: state.Collection.get('receivedAll')
 })
 
 const connectProps = {
   ...bundleActions,
-  ...linkActions
+  ...linkActions,
+  ...collectionActions
 }
 
 @ui({
@@ -30,7 +35,11 @@ const connectProps = {
 @connect(connectState, connectProps)
 export default class BundleNewContainer extends React.Component {
   componentWillMount () {
-    this.props.generateNewBundle()
+    let props = this.props
+
+    props.generateNewBundle(props.routeCollectionId)
+
+    if (!props.receivedAllCollections) props.getCollections()
   }
 
   saveBundle () {
@@ -40,7 +49,8 @@ export default class BundleNewContainer extends React.Component {
     let payload = {
       name: ui.name,
       description: ui.description,
-      links_attributes: linksWithoutAuthors(bundleLinks)
+      links_attributes: linksWithoutAuthors(bundleLinks),
+      collection_id: currentBundle.collection_id
     }
 
     createBundle(payload).then(bundle => {

@@ -35,6 +35,10 @@ export default class BundleViewHeader extends React.Component {
     getShareUrl: React.PropTypes.func.isRequired
   }
 
+  updateNewBundle (id, data) {
+    this.props.updateBundleInfo(id, 'collection_id', data.collection_id)
+  }
+
   renderEditButton () {
     let props = this.props
     if (!props.bundle.canEdit(props.currentUser.id)) return false
@@ -50,10 +54,16 @@ export default class BundleViewHeader extends React.Component {
   }
 
   renderNewBundleHeader () {
-    const { ui, toggleEdit } = this.props
+    const { ui, toggleEdit, bundle, collections, currentUser } = this.props
 
     return (
       <div className='bundle-view-header-wrapper'>
+        <ChangeCollection
+          bundle={bundle}
+          collections={collections}
+          canChangeCollection={true}
+          updateBundle={::this.updateNewBundle}/>
+
         <div className='align-right'>
           <ToggleEditMode editMode={ui.editMode} toggleEdit={toggleEdit}/>
         </div>
