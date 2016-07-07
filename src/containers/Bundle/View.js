@@ -29,7 +29,8 @@ let connectState = (state) => ({
   currentLink: Selectors.currentLink(state),
   currentUser: Selectors.currentUser(state),
   collections: Selectors.collections(state),
-  receivedAllCollections: Selectors.receivedAllCollections(state)
+  receivedAllCollections: Selectors.receivedAllCollections(state),
+  userAutocomplete: state.UserAutocomplete
 })
 
 let connectProps = {
