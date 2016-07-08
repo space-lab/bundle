@@ -38,7 +38,7 @@ export const getRecords = (Model, data) =>
   fromJS(data).map(item => new Model(item))
 
 export const reduceBundle = (data, oldId, dispatch) => {
-  const result = fromJS(normalize(data, Schemas.bundle).entities)
+  let result = fromJS(normalize(data, Schemas.bundle).entities)
     .update('users', users => users || Map())
     .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
