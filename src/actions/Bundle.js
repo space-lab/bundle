@@ -49,16 +49,6 @@ export const updateBundle = (id, payload) => async (dispatch) => {
   reduceBundle(response.data, id, dispatch)
 }
 
-export const addCurrentLinkToBundle = (bundleId, link) => dispatch => {
-  dispatch({ type: 'ADD_LINK_ID_TO_BUNDLE', linkId: link.get('id'), bundleId })
-  dispatch({ type: 'RECEIVE_LINK', link })
-  dispatch({ type: 'CLEAR_CURRENT_LINK', bundleId })
-}
-
-export const removeLinkFromBundle = (bundleId, index) => ({
-  type: 'REMOVE_LINK_ID_FROM_BUNDLE', bundleId, index
-})
-
 export const updateBundleInfo = (bundleId, field, value) => ({
   type: 'UPDATE_BUNDLE_INFO', bundleId, field, value
 })

@@ -56,41 +56,12 @@ export default class BundleContainer extends React.Component {
     if (bundleId !== nextBundleId) getBundle(nextBundleId)
   }
 
-  // TODO refactor
-  handleLinkAdd (link) {
-    let payloadLink = link.toJS()
-    let {
-      currentUser,
-      bundle,
-      links,
-      clearCurrentLink,
-      updateBundle,
-      addCurrentLinkToBundle
-    } = this.props
-
-    payloadLink.creator_id = currentUser.id
-
-    let payload = {
-      links_attributes: [payloadLink]
-    }
-
-    if (bundle.isNewBundle) {
-      let linkWithCreator = link
-        .set('creator', currentUser.id)
-        .set('id', nextId(links))
-
-      return addCurrentLinkToBundle(bundle.id, linkWithCreator)
-    }
-
-    updateBundle(bundle.id, payload)
-    clearCurrentLink(bundle.id)
-  }
-
   render () {
     let {
       users,
       links,
       bundle,
+      addLink,
       fetchLink,
       removeLink,
       currentUser,
@@ -147,7 +118,7 @@ export default class BundleContainer extends React.Component {
           user={currentUser}
           link={currentLink}
           handleUrlEnter={url => fetchLink(url, bundle.id)}
-          handleLinkAdd={link => this.handleLinkAdd(link)} />
+          handleLinkAdd={link => addLink(link, bundle.id)} />
 
         {bundle.get('links').map((id, index) => {
           let link = links.get(id)

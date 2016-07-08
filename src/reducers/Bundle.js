@@ -18,16 +18,6 @@ export default function (state = defaultState, action) {
         .updateIn(['byId', action.resourceId, 'shares'], shares =>
           shares.concat(action.shares))
 
-    case 'ADD_LINK_ID_TO_BUNDLE':
-      return state
-        .updateIn(['byId', action.bundleId, 'links'], links =>
-          links.unshift(action.linkId))
-
-    case 'REMOVE_LINK_ID_FROM_BUNDLE':
-      return state
-        .updateIn(['byId', action.bundleId, 'links'], links =>
-          links.delete(action.index))
-
     case 'RECEIVE_BUNDLES':
       action.bundles.forEach(bundle => {
         if (state.getIn(['byId', bundle.id, 'full_response'])) return
@@ -49,6 +39,10 @@ export default function (state = defaultState, action) {
 
     case 'UPDATE_BUNDLE_INFO':
       return state.setIn(['byId', action.bundleId, action.field], action.value)
+
+    case 'RECEIVE_LINK':
+      return state.updateIn(['byId', action.bundleId, 'links'], links =>
+        links.unshift(action.link.id))
 
     case 'REMOVE_LINK':
       return state.updateIn(['byId', action.bundleId, 'links'], links =>

@@ -14,7 +14,7 @@ export default class Link extends React.Component {
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
     handleLinkRemove: React.PropTypes.func,
-    canRemove: React.PropTypes.bool.isRequired
+    canRemove: React.PropTypes.bool
   }
 
   handleLinkRemove (event) {
@@ -42,7 +42,6 @@ export default class Link extends React.Component {
       createdAt,
       creatorName,
       creatorImage,
-      canRemove,
       updateUI,
       ui,
     } = this.props
