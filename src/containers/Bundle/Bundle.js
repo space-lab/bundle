@@ -140,7 +140,7 @@ export default class BundleContainer extends React.Component {
         <Editable
           className='bundle-name'
           value={bundle.name}
-          editMode={!bundle.canEdit(currentUser.id)}
+          editMode={bundle.canEdit(currentUser.id)}
           placeholder='Name goes here...'
           onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
 
