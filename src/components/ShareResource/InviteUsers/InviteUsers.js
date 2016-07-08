@@ -20,8 +20,8 @@ export default class InviteUsers extends React.Component {
   }
 
   inviteUsers () {
-    const { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
-    const data = ui.values.map(value =>
+    let { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
+    let data = ui.values.map(value =>
       ({ id: value.id, permission_id: ui.permission }))
 
     inviteUsers(resourceName, resourceId, { data })
@@ -37,8 +37,8 @@ export default class InviteUsers extends React.Component {
   }
 
   renderMemberPermissions () {
-    const selected = this.props.ui.permission
-    const options = SHARE_PERMISSIONS
+    let selected = this.props.ui.permission
+    let options = SHARE_PERMISSIONS
 
     return (
       <select value={selected} onChange={::this.handleMemberPermissionChange}>
@@ -50,36 +50,34 @@ export default class InviteUsers extends React.Component {
   }
 
   render () {
-    return (
-      <div className='invite-users-container'>
-        <div className='full-row invite'>
-          <TagInput
-            data={this.props.userAutocomplete}
-            resource={this.props.resource}
-            getData={this.props.getAutocompleteUsers}
-            resetData={this.props.resetAutocompleteUsers}
-            handleChange={::this.handleValueChange}/>
-        </div>
-
-        <div className='full-row members'>
-          <span>Members can</span>
-
-          {::this.renderMemberPermissions()}
-
-          <button className='round-button' onClick={::this.inviteUsers}>
-            Invite
-          </button>
-        </div>
-
-        <div className='full-row'>
-          <UrlShare
-            getShareUrl={this.props.getShareUrl}
-            changeUrlPermission={this.props.changeUrlPermission}
-            removeUrlShare={this.props.removeUrlShare}
-            resourceName={this.props.resourceName}
-            resource={this.props.resource}/>
-        </div>
+    return <div className='invite-users-container'>
+      <div className='full-row invite'>
+        <TagInput
+          data={this.props.userAutocomplete}
+          resource={this.props.resource}
+          getData={this.props.getAutocompleteUsers}
+          resetData={this.props.resetAutocompleteUsers}
+          handleChange={::this.handleValueChange}/>
       </div>
-    )
+
+      <div className='full-row members'>
+        <span>Members can</span>
+
+        {::this.renderMemberPermissions()}
+
+        <button className='round-button' onClick={::this.inviteUsers}>
+          Invite
+        </button>
+      </div>
+
+      <div className='full-row'>
+        <UrlShare
+          getShareUrl={this.props.getShareUrl}
+          changeUrlPermission={this.props.changeUrlPermission}
+          removeUrlShare={this.props.removeUrlShare}
+          resourceName={this.props.resourceName}
+          resource={this.props.resource}/>
+      </div>
+    </div>
   }
 }
