@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import listensToClickOutside from 'react-onclickoutside/decorator'
 import ui from 'redux-ui'
-import './index.css'
+import './ChangeCollection.css'
 import Modal from './Modal'
 
 @ui({

@@ -10,9 +10,9 @@ export * as Search from './Search'
 export ResourceNavigation from './ResourceNavigation'
 
 // Wrapper Components
-export Header from './Header/Header'
-export JoinBundle from './JoinBundle/JoinBundle'
-export ChangeCollection from './ChangeCollection'
+export Header           from './Header/Header'
+export JoinBundle       from './Header/JoinBundle/JoinBundle'
+export ChangeCollection from './Header/ChangeCollection/ChangeCollection'
 
 export Content from './Content/Content'
 
@@ -29,6 +29,7 @@ export ListToolbar     from './List/ListToolbar'
 export ResourceFilters from './List/ResourceFilters'
 export LoadMore        from './List/LoadMore'
 
+// Share Components
 export ShareResource from './ShareResource/ShareResource'
 export Autocomplete  from './ShareResource/Autocomplete/Autocomplete'
 export InviteUsers   from './ShareResource/InviteUsers/InviteUsers'
