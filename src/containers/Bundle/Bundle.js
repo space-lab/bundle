@@ -57,17 +57,6 @@ export default class BundleContainer extends React.Component {
   }
 
   // TODO refactor
-  handleLinkRemove (id) {
-    let { bundle, updateBundle } = this.props
-
-    let payload = {
-      links_attributes: [{ id, _destroy: true }]
-    }
-
-    updateBundle(bundle.id, payload)
-  }
-
-  // TODO refactor
   handleLinkAdd (link) {
     let payloadLink = link.toJS()
     let {
@@ -103,6 +92,7 @@ export default class BundleContainer extends React.Component {
       links,
       bundle,
       fetchLink,
+      removeLink,
       currentUser,
       currentLink,
       collections,
@@ -173,7 +163,7 @@ export default class BundleContainer extends React.Component {
             creatorName={user.name}
             creatorImage={user.image}
             canRemove={bundle.canEdit(currentUser.id)}
-            handleLinkRemove={this.handleLinkRemove.bind(this, link.id)} />
+            handleLinkRemove={removeLink.bind(this, link.id, bundle.id)} />
         })}
       </Bundle>
     </Content>

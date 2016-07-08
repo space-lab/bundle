@@ -23,3 +23,9 @@ export const clearCurrentLink = bundleId => ({
 export const updateLink = (id, field, value) => ({
   type: 'UPDATE_LINK', id, field, value
 })
+
+export const removeLink = (id, bundleId) => async dispatch =>  {
+  let { data } = await request.delete(api.link(id))
+
+  dispatch({ type: 'REMOVE_LINK', id, bundleId })
+}

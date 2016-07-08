@@ -17,6 +17,9 @@ export default function (state = defaultState, action) {
 
       return state
 
+    case 'REMOVE_LINK':
+      return state.deleteIn(['byId', action.id])
+
     case 'SET_CURRENT_LINK':
       return state.setIn(['current', action.bundleId], action.link)
 
