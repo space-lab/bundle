@@ -172,6 +172,7 @@ export default class BundleContainer extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
+            canRemove={bundle.canEdit(currentUser.id)}
             handleLinkRemove={this.handleLinkRemove.bind(this, link.id)} />
         })}
       </Bundle>

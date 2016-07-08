@@ -13,7 +13,8 @@ export default class Link extends React.Component {
     //createdAt: React.PropTypes.string.isRequired, //TODO: fix
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
-    handleLinkRemove: React.PropTypes.func
+    handleLinkRemove: React.PropTypes.func,
+    canRemove: React.PropTypes.bool.isRequired
   }
 
   handleLinkRemove (event) {
@@ -21,6 +22,15 @@ export default class Link extends React.Component {
       this.props.handleLinkRemove()
 
     event.preventDefault()
+  }
+
+  renderLinkRemove () {
+    let { canRemove, ui } = this.props
+    if (!canRemove) return
+
+    return <div className='link-remove'
+      style={shouldAppear(ui.active)}
+      onClick={::this.handleLinkRemove} />
   }
 
   render () {
@@ -32,6 +42,7 @@ export default class Link extends React.Component {
       createdAt,
       creatorName,
       creatorImage,
+      canRemove,
       updateUI,
       ui,
     } = this.props
@@ -62,9 +73,7 @@ export default class Link extends React.Component {
             <span>{creatorName}</span>
           </div>
 
-          <div className='link-remove'
-            style={shouldAppear(ui.active)}
-            onClick={::this.handleLinkRemove} />
+          {this.renderLinkRemove()}
         </div>
       </div>
     </a>
