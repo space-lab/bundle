@@ -35,6 +35,15 @@ export default class Navigation extends React.Component {
     return !route.equals(oldRoute)
   }
 
+  shouldChangeNavigationView (props) {
+    let { view } = props.route
+    let { bundleId } = props.params
+    let { navigationView } = props.Route
+    let shouldChangeBundleView = !bundleId || view === 'collectionsBundles'
+
+    return view && navigationView !== view && shouldChangeBundleView
+  }
+
   parseRouteChange (props) {
     let { view } = props.route
     let { Route } = props
@@ -48,45 +57,33 @@ export default class Navigation extends React.Component {
     }
   }
 
-  getNavigationView () {
+  renderNavigation () {
     let view = this.props.Route.navigationView || this.props.route.view
 
     switch (view) {
       case 'collections':
-        return CollectionNavigation
+        return <CollectionNavigation />
       case 'collectionsBundles':
-        return CollectionBundlesNavigation
+        return <CollectionBundlesNavigation />
       case 'favorites':
-        return FavoriteNavigation
+        return <FavoriteNavigation />
       case 'notifications':
-        return NotificationNavigation
+        return <NotificationNavigation />
       default:
-        return BundleNavigation
+        return <BundleNavigation />
     }
   }
 
-  getBundleView () {
+  renderBundle () {
     return this.props.Route.bundleId
-      ? Bundle
-      : NoBundle
-  }
-
-  shouldChangeNavigationView (props) {
-    let { view } = props.route
-    let { bundleId } = props.params
-    let { navigationView } = props.Route
-    let shouldChangeBundleView = !bundleId || view === 'collectionsBundles'
-
-    return view && navigationView !== view && shouldChangeBundleView
+      ? <Bundle />
+      : <NoBundle />
   }
 
   render () {
-    let NavigationComponent = this.getNavigationView()
-    let BundleViewComponent = this.getBundleView()
-
     return <div className='navigation-wrapper'>
-      <NavigationComponent />
-      <BundleViewComponent />
+      {this.renderNavigation()}
+      {this.renderBundle()}
     </div>
   }
 }
