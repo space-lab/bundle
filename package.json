@@ -44,7 +44,7 @@
     "axios": "^0.12.0",
     "immutable": "^3.7.6",
     "moment": "^2.13.0",
-    "normalizr-immutable": "0.0.3",
+    "normalizr": "^2.0.1",
     "react": "^15.1.0",
     "react-click-outside": "^2.1.0",
     "react-dom": "^15.1.0",
