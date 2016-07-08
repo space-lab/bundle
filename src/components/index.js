@@ -2,7 +2,7 @@ export Menu from './Menu'
 export Alert from './Alert'
 export Modal from './Modal'
 export DateTime from './DateTime'
-export Editable from './Editable'
+export Editable from './Editable/Editable'
 
 export UserMenu from './UserMenu'
 export * as Search from './Search'

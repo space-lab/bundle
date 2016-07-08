@@ -1,6 +1,3 @@
-import ui from 'redux-ui'
-
-@ui()
 export default class Editable extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,

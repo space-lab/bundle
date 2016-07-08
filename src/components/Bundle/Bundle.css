@@ -1,2 +1,24 @@
 .bundle-view-body {
+  .bundle-name,
+  .bundle-description {
+    display: block;
+    width: 100%;
+    border: 0px;
+  }
+
+  .bundle-name {
+    color: #333;
+    font-size: 40px;
+    line-height: 50px;
+    height: 50px;
+    margin-top: 20px;
+  }
+
+  .bundle-description {
+    color: #353535;
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
 }

@@ -7,7 +7,8 @@ export default class AddLink extends React.Component {
     user: ImmutablePropTypes.record.isRequired,
     link: ImmutablePropTypes.record,
     handleLinkAdd: React.PropTypes.func.isRequired,
-    handleUrlEnter: React.PropTypes.func.isRequired
+    handleUrlEnter: React.PropTypes.func.isRequired,
+    autoFocus: React.PropTypes.bool
   }
 
   renderLinkPreview () {
@@ -32,11 +33,12 @@ export default class AddLink extends React.Component {
   }
 
   renderEnterUrl () {
-    let { user, bundle, handleUrlEnter } = this.props
+    let { user, bundle, handleUrlEnter, autoFocus } = this.props
 
     return <EnterUrl
       userImage={user.image}
       bundleId={bundle.id}
+      autoFocus={autoFocus}
       handeUrlEnter={handleUrlEnter} />
   }
 

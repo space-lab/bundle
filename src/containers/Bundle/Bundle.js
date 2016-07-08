@@ -138,12 +138,14 @@ export default class BundleContainer extends React.Component {
 
       <Bundle>
         <Editable
+          className='bundle-name'
           value={bundle.name}
           editMode
           placeholder='Name goes here...'
           onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
 
         <Editable
+          className='bundle-description'
           type='textarea'
           value={bundle.description}
           editMode

@@ -4,7 +4,8 @@ export default class EnterUrl extends React.Component {
   static propTypes = {
     bundleId: React.PropTypes.string.isRequired,
     handeUrlEnter: React.PropTypes.func.isRequired,
-    userImage: React.PropTypes.string.isRequired
+    userImage: React.PropTypes.string.isRequired,
+    autoFocus: React.PropTypes.bool
   }
 
   handleKeyPress (bundleId, handeUrlEnter, { target, key }) {
@@ -13,7 +14,7 @@ export default class EnterUrl extends React.Component {
   }
 
   render () {
-    let { userImage, handeUrlEnter, bundleId } = this.props
+    let { userImage, handeUrlEnter, bundleId, autoFocus } = this.props
 
     return (
       <div className='add-link-enter-url'>
@@ -22,7 +23,7 @@ export default class EnterUrl extends React.Component {
         <input
           className='url-input'
           placeholder='Enter URL here and press Enter...'
-          autoFocus
+          autoFocus={autoFocus}
           onKeyPress={this.handleKeyPress.bind(this, bundleId, handeUrlEnter)}/>
       </div>
     )
