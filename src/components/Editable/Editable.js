@@ -8,21 +8,26 @@ export default class Editable extends React.Component {
     enterAction: React.PropTypes.func,
     onChange: React.PropTypes.func,
     onBlur: React.PropTypes.func,
-    onClick: React.PropTypes.func,
     autoFocus: React.PropTypes.bool,
     preventDefaultOnClick: React.PropTypes.bool
   }
 
+  state = { value: '' }
+
   componentWillMount () {
     let { onChange, value } = this.props
+    this.setState({ value })
 
-    if (onChange && value) {
-      onChange(value)
-    }
+    if (onChange && value) onChange(value)
   }
 
-  handleKeyUp ({ key, target }) {
+  componentWillReceiveProps ({ value }) {
+    this.setState({ value })
+  }
+
+  handleChange ({ key, target }) {
     let { enterAction, onChange } = this.props
+    this.setState({ value: target.value })
 
     if (onChange) {
       onChange(target.value)
@@ -31,32 +36,21 @@ export default class Editable extends React.Component {
     }
   }
 
-  onClick (event) {
-    let { onClick, preventDefaultOnClick } = this.props
-
-    preventDefaultOnClick && event.preventDefault()
-    onClick && onClick(event)
-  }
-
   render () {
-    let { className, value, placeholder, editMode, type,
-      autoFocus } = this.props
+    let { className, placeholder, editMode, type, autoFocus } = this.props
 
     let Input = type || 'input'
 
     if (editMode) {
       return <Input
         className={className}
-        defaultValue={value || ''}
+        value={this.state.value}
         placeholder={placeholder}
         autoFocus={autoFocus}
-        onBlur={this.props.onBlur}
-        onKeyUp={this.handleKeyUp.bind(this)}
-        onClick={::this.onClick} />
+        onChange={::this.handleChange}
+        onBlur={this.props.onBlur} />
     } else {
-      return <span
-        className={className}
-        onClick={::this.onClick}>
+      return <span className={className}>
         {value}
       </span>
     }

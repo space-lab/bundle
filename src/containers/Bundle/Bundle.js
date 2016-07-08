@@ -145,8 +145,8 @@ export default class BundleContainer extends React.Component {
           onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
 
         <Editable
-          className='bundle-description'
           type='textarea'
+          className='bundle-description'
           value={bundle.description}
           editMode
           placeholder='Description goes here...'
