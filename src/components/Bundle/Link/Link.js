@@ -3,14 +3,7 @@ import { Editable, DateTime } from 'components'
 import { urlDomain, shouldAppear } from 'helpers'
 import './Link.css'
 
-@ui({
-  state: {
-    active: false,
-    // TODO: last two might not be used in future...
-    editTitle: false,
-    editDescription: false
-  }
-})
+@ui({ state: { active: false, } })
 export default class Link extends React.Component {
   static propTypes = {
     url: React.PropTypes.string.isRequired,

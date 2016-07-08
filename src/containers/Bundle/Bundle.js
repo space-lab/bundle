@@ -1,4 +1,3 @@
-import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { linksWithAuthorIds } from 'helpers'
 import Selectors from 'selectors'
@@ -43,13 +42,6 @@ let connectProps = {
   ...userAutocompleteActions
 }
 
-@ui({
-  key: 'bundle',
-  state: {
-    name: '',
-    description: ''
-  }
-})
 @connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {
@@ -60,12 +52,8 @@ export default class BundleContainer extends React.Component {
   }
 
   componentWillReceiveProps ({ bundleId: nextBundleId }) {
-    let { getBundle, bundleId, resetUI } = this.props
-
-    if (bundleId !== nextBundleId) {
-      resetUI()
-      getBundle(nextBundleId)
-    }
+    let { getBundle, bundleId } = this.props
+    if (bundleId !== nextBundleId) getBundle(nextBundleId)
   }
 
   // TODO refactor
@@ -111,8 +99,6 @@ export default class BundleContainer extends React.Component {
 
   render () {
     let {
-      ui,
-      updateUI,
       users,
       links,
       bundle,
@@ -155,14 +141,14 @@ export default class BundleContainer extends React.Component {
           value={bundle.name}
           editMode
           placeholder='Name goes here...'
-          onChange={value => updateUI('name', value)} />
+          onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
 
         <Editable
           type='textarea'
           value={bundle.description}
           editMode
           placeholder='Description goes here...'
-          onChange={value => updateUI('description', value)} />
+          onBlur={e => updateBundle(bundle.id, { description: e.target.value })} />
 
         <AddLink
           bundle={bundle}
