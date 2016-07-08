@@ -51,7 +51,7 @@ let connectProps = {
   }
 })
 @connect(connectState, connectProps)
-export default class BundleViewContainer extends React.Component {
+export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
@@ -68,7 +68,7 @@ export default class BundleViewContainer extends React.Component {
     }
   }
 
-  // TODO dup
+  // TODO refactor
   handleLinkRemove (id) {
     let { bundle, updateBundle } = this.props
 
@@ -79,7 +79,7 @@ export default class BundleViewContainer extends React.Component {
     updateBundle(bundle.id, payload)
   }
 
-  // TODO dup
+  // TODO refactor
   handleLinkAdd (link) {
     let payloadLink = link.toJS()
     let {
@@ -107,14 +107,6 @@ export default class BundleViewContainer extends React.Component {
 
     updateBundle(bundle.id, payload)
     clearCurrentLink(bundle.id)
-  }
-
-  //TODO refactor
-  renderShareButton () {
-    let props = this.props
-    if (!props.bundle.canShare(props.currentUser.id)) return false
-
-    return <ShareBundle {...props} resourceName='Bundle' resource={props.bundle} />
   }
 
   render () {
@@ -150,7 +142,11 @@ export default class BundleViewContainer extends React.Component {
             joinUrlShare={joinUrlShare}
             addAlert={addAlert} />
 
-          {this.renderShareButton()}
+          <ShareBundle
+            canShare={bundle.canShare(currentUser.id)}
+            {...this.props} // TODO big no no no
+            resourceName='Bundle'
+            resource={bundle} />
         </div>
       </Header>
 

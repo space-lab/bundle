@@ -6,6 +6,10 @@ import './ShareBundle.css'
 @ui({ state: { q: '', isOpen: false } })
 @listensToClickOutside()
 export default class ShareBundle extends React.Component {
+  static propTypes = {
+    canShare: React.PropTypes.bool.isRequired
+  }
+
   handleClickOutside () {
     if (this.props.ui.isOpen) {
       this.props.updateUI('isOpen', false)
@@ -17,6 +21,8 @@ export default class ShareBundle extends React.Component {
   }
 
   render () {
+    if (!this.props.canShare) return
+
     return <div className='share-bundle-wrapper'>
       <button className='round-button' onClick={::this.openModal}>
         Share
