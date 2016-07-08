@@ -156,7 +156,6 @@ export default class BundleContainer extends React.Component {
           bundle={bundle}
           user={currentUser}
           link={currentLink}
-          links={links}
           handleUrlEnter={url => fetchLink(url, bundle.id)}
           handleLinkAdd={link => this.handleLinkAdd(link)} />
 

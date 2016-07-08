@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { EnterUrl, Link } from 'components'
+import './AddLink.css'
 
 export default class AddLink extends React.Component {
   static propTypes = {
@@ -12,7 +13,7 @@ export default class AddLink extends React.Component {
   }
 
   renderLinkPreview () {
-    let { user, link, handleAddLink } = this.props
+    let { user, link, handleLinkAdd } = this.props
 
     return <div className='link-preview-container'>
       <Link
@@ -25,7 +26,7 @@ export default class AddLink extends React.Component {
         creatorImage={user.image} />
 
       <button
-        onClick={handleAddLink.bind(this, link)}
+        onClick={handleLinkAdd.bind(this, link)}
         className='add-link-button'>
         Add Link
       </button>
@@ -43,7 +44,7 @@ export default class AddLink extends React.Component {
   }
 
   render () {
-    return this.props.currentLink
+    return this.props.link
       ? this.renderLinkPreview()
       : this.renderEnterUrl()
   }
