@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from 'constants'
-import './index.css'
+import './UrlShare.css'
 
 export default class UrlShare extends React.Component {
   static propTypes = {

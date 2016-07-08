@@ -1,4 +1,3 @@
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import listensToClickOutside from 'react-onclickoutside/decorator'
 import ui from 'redux-ui'
 import { ShareResource } from 'components'

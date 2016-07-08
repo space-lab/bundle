@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import './index.css'
+import './Autocomplete.css'
 
 export default class Autocomplete extends React.Component {
   static propTypes = {

@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { SHARE_PERMISSIONS } from 'constants'
 import { TagInput, UrlShare } from 'components'
-import './index.css'
+import './InviteUsers.css'
 
 @ui({ state: { values: [], permission: 1 } })
 export default class InviteUsers extends React.Component {

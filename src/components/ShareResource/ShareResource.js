@@ -1,9 +1,7 @@
 import listensToClickOutside from 'react-click-outside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import InviteUsers from './InviteUsers'
-import ShareItem from './ShareItem'
-import { Modal } from 'components'
-import './index.css'
+import { InviteUsers, ShareItem, Modal } from 'components'
+import './ShareResource.css'
 
 class ShareResource extends React.Component {
   static propTypes = {

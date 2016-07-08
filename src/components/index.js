@@ -22,19 +22,17 @@ export AddLink  from './Bundle/AddLink/AddLink'
 export Link     from './Bundle/Link/Link'
 export NoBundle from './Bundle/NoBundle/NoBundle'
 
-// List Components
-export List        from './List/List'
-export ListItem    from './List/ListItem'
-export ListToolbar from './List/ListToolbar'
+// List Components, Filters and Loaders
+export List            from './List/List'
+export ListItem        from './List/ListItem'
+export ListToolbar     from './List/ListToolbar'
+export ResourceFilters from './List/ResourceFilters'
+export LoadMore        from './List/LoadMore'
 
-// List Filters and Loaders
-export ResourceFilters from './ResourceFilters'
-export LoadMore from './LoadMore'
-
-export ShareResource from './ShareResource'
-export ShareBundle from './ShareBundle/ShareBundle'
-export UrlShare from './UrlShare'
-
-export Autocomplete from './Autocomplete'
-export TagInput from './TagInput/TagInput'
-
+export ShareResource from './ShareResource/ShareResource'
+export Autocomplete  from './ShareResource/Autocomplete/Autocomplete'
+export InviteUsers   from './ShareResource/InviteUsers/InviteUsers'
+export ShareBundle   from './ShareResource/ShareBundle/ShareBundle'
+export ShareItem     from './ShareResource/ShareItem/ShareItem'
+export TagInput      from './ShareResource/TagInput/TagInput'
+export UrlShare      from './ShareResource/UrlShare/UrlShare'
