@@ -51,7 +51,7 @@ export default class Editable extends React.Component {
         onBlur={this.props.onBlur} />
     } else {
       return <span className={className}>
-        {value}
+        {this.state.value}
       </span>
     }
   }
