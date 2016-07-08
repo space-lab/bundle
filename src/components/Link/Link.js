@@ -65,7 +65,7 @@ export default class Link extends React.Component {
           </span>
 
           <div className='link-creator'>
-            <img class='link-author-image' src={creatorImage} />
+            <img className='link-author-image' src={creatorImage} />
             <span>{creatorName}</span>
           </div>
 

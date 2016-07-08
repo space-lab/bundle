@@ -1,6 +1,8 @@
 import request from 'axios'
-import { normalize, arrayOf } from 'normalizr-immutable'
+import { normalize, arrayOf } from 'normalizr'
+import { fromJS, Map } from 'immutable'
 import * as Schemas from 'normalizers'
+import { Share, User } from 'records'
 import api from 'api'
 
 import { reduceBundle } from 'helpers'
@@ -10,10 +12,12 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
   const payload = { permission_id: permissionId }
 
   const response = await request.put(url, payload)
-  const result = normalize(response.data, Schemas.share).entities
+  const result = fromJS(normalize(response.data, schemas.share).entities)
+    .update('users', users => users || Map())
+    .update('shares', shares => shares || Map())
 
-  const users = result.get('users').toList()
-  const shares = result.get('shares').toList()
+  const users = result.get('users').valueSeq().map(item => new User(item))
+  const shares = result.get('shares').valueSeq().map(item => new Share(item))
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
@@ -25,10 +29,13 @@ export const inviteUsers = (resource, id, payload) => async dispatch => {
     : 'ADD_SHARES_TO_COLLECTION'
 
   const response = await request.post(api.invite(resource, id), payload)
-  const result = normalize(response.data, arrayOf(Schemas.share)).entities
+  const result = fromJS(normalize(response.data, arrayOf(Schemas.share)).entities)
+    .update('users', users => users || Map())
+    .update('shares', shares => shares || Map())
 
-  const users = result.get('users').toList()
-  const shares = result.get('shares').toList()
+  const users = result.get('users').valueSeq().map(item => new User(item))
+  const shares = result.get('shares').valueSeq().map(item => new Share(item))
+
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
