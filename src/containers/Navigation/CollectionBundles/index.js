@@ -17,7 +17,8 @@ const connectState = (state) => ({
   bundles: Selectors.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,
-  userAutocomplete: state.UserAutocomplete
+  userAutocomplete: state.UserAutocomplete,
+  currentUser: Selectors.currentUser(state)
 })
 
 const connectProps = {
@@ -82,9 +83,10 @@ export default class Container extends React.Component {
   renderBundleList (bundles, collection, props) {
     return bundles.map((bundle, index) => {
       return <ListItem key={index}
+        currentUser={props.currentUser}
         resource={bundle}
         resourceName={'Bundle'}
-        active={bundle.id === this.props.bundleId}
+        active={bundle.id === props.bundleId}
         url={this.getBundleUrl(collection, bundle)}
         Component={ListItem.Bundle}
         remove={::this.removeBundle}

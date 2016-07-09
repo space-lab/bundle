@@ -8,11 +8,12 @@ export default class BundleListItem extends React.Component {
     resource: ImmutablePropTypes.record.isRequired
   }
 
-  renderCollectionName (id) {
+  renderCollectionName (name) {
     // TODO bad bad bad...
-    if (id && id.length > 25) id = id.slice(0, 25) + '...'
+    if (!name) return false
+    if (name && name.length > 25) name = name.slice(0, 25) + '...'
 
-    return id ? <span className='collection-name'>{id}</span> : null
+    return <span className='collection-name'>In {name}</span>
   }
 
   render () {
@@ -24,10 +25,9 @@ export default class BundleListItem extends React.Component {
 
       <Link to={url}>
         <h1>{bundle.name || 'No name entered...'}</h1>
-
         <h2>
           Created <DateTime type='fromNow'>{bundle.created_at}</DateTime>
-          {this.renderCollectionName(bundle.collection_id)}
+          {this.renderCollectionName(bundle.collection_name)}
         </h2>
       </Link>
     </div>

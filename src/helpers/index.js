@@ -1,7 +1,9 @@
 import { browserHistory } from 'react-router'
 import { fromJS, Map } from 'immutable'
-import { normalize, arrayOf } from 'normalizr-immutable'
+import { normalize, arrayOf } from 'normalizr'
 import * as Schemas from 'normalizers'
+import { Bundle, Collection, User, Link, Share } from 'records'
+
 
 export const urlDomain = str => {
   const url = document.createElement('a')
@@ -36,36 +38,66 @@ export const getRecords = (Model, data) =>
   fromJS(data).map(item => new Model(item))
 
 export const reduceBundle = (data, dispatch) => {
-  const { entities } = normalize(data, Schemas.bundle)
-  const bundle = entities.get('bundles').first()
+  let result = fromJS(normalize(data, Schemas.bundle).entities)
+    .update('users', users => users || Map())
+    .update('links', links => links || Map())
+    .update('shares', shares => shares || Map())
+    .update('bundles', bundles => bundles || Map())
 
-  dispatch({ type: 'RECEIVE_USERS',  users:  entities.get('users',  new Map()).toList() })
-  dispatch({ type: 'RECEIVE_LINKS',  links:  entities.get('links',  new Map()).toList() })
-  dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
+    const bundle = new Bundle(result.get('bundles').first())
+    const users = result.get('users').valueSeq().map(item => new User(item))
+    const links = result.get('links').valueSeq().map(item => new Link(item))
+    const shares = result.get('shares').valueSeq().map(item => new Share(item))
+
+  dispatch({ type: 'RECEIVE_USERS',  users })
+  dispatch({ type: 'RECEIVE_LINKS',  links })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
 }
 
 export const reduceBundles = (data, dispatch) => {
-  const { entities } = normalize(data, arrayOf(Schemas.bundle))
-  const bundles = entities.get('bundles', new Map()).toList()
+  let result = fromJS(normalize(data, arrayOf(Schemas.bundle)).entities)
+    .update('bundles', bundles => bundles || Map())
+  let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
 
   dispatch({ type: 'RECEIVE_BUNDLES', bundles })
 }
 
 export const reduceCollection = (data, dispatch) => {
-  const { entities } = normalize(data, Schemas.collection)
-  const collection = entities.get('collections').first()
+  let result = fromJS(normalize(data, Schemas.collection).entities)
+    .update('users', users => users || Map())
+    .update('shares', shares => shares || Map())
+    .update('bundles', bundles => bundles || Map())
+    .update('collections', collections => collections || Map())
 
-  dispatch({ type: 'RECEIVE_USERS',  users:  entities.get('users',  new Map()).toList() })
-  dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles: entities.get('bundles', new Map()).toList() })
+
+  let collection = new Bundle(result.get('collections').first())
+  let users = result.get('users').valueSeq().map(item => new User(item))
+  let shares = result.get('shares').valueSeq().map(item => new Share(item))
+  let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
+
+  dispatch({ type: 'RECEIVE_USERS',  users })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTION', collection })
 }
 
 export const reduceCollections = (data, dispatch) => {
-  const { entities } = normalize(data, arrayOf(Schemas.collection))
-  const collections = entities.get('collections', new Map()).toList()
+  let result = fromJS(normalize(data, arrayOf(Schemas.collection)).entities)
+    .update('users', users => users || Map())
+    .update('shares', shares => shares || Map())
+    .update('bundles', bundles => bundles || Map())
+    .update('collections', collections => collections || Map())
 
+
+  let users = result.get('users').valueSeq().map(item => new User(item))
+  let shares = result.get('shares').valueSeq().map(item => new Share(item))
+  let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
+  let collections = result.get('collections').valueSeq().map(item => new Collection(item))
+
+  dispatch({ type: 'RECEIVE_USERS',  users })
+  dispatch({ type: 'RECEIVE_SHARES', shares })
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
 }

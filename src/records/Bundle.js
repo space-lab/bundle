@@ -8,6 +8,7 @@ const BundleRecord = Record({
   description: null,
   creator: null,
   collection_id: null,
+  collection_name: null,
   links: List(),
   shares: List(),
   links_count: null,
