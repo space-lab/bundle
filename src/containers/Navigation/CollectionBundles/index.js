@@ -34,7 +34,7 @@ const connectProps = {
   state: { isOpen: false, position: null, resourceId: null }
 })
 @connect(connectState, connectProps)
-export default class Container extends React.Component {
+export default class CollectionBundlesNavigationContainer extends React.Component {
   static propTypes = {
     collection: ImmutablePropTypes.record
   }

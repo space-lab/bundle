@@ -41,7 +41,7 @@ export default class Navigation extends React.Component {
     let { navigationView } = props.Route
     let shouldChangeBundleView = !bundleId || view === 'collectionsBundles'
 
-    return view && navigationView !== view && shouldChangeBundleView
+    return view && (navigationView !== view) && shouldChangeBundleView
   }
 
   parseRouteChange (props) {
@@ -58,9 +58,11 @@ export default class Navigation extends React.Component {
   }
 
   renderNavigation () {
-    let view = this.props.Route.navigationView || this.props.route.view
+    let view = this.props.route.view || this.props.Route.navigationView
 
     switch (view) {
+      case 'bundles':
+        return <BundleNavigation />
       case 'collections':
         return <CollectionNavigation />
       case 'collectionsBundles':
@@ -70,7 +72,7 @@ export default class Navigation extends React.Component {
       case 'notifications':
         return <NotificationNavigation />
       default:
-        return <BundleNavigation />
+        return false
     }
   }
 

@@ -70,8 +70,7 @@ export const reduceCollection = (data, dispatch) => {
     .update('bundles', bundles => bundles || Map())
     .update('collections', collections => collections || Map())
 
-
-  let collection = new Bundle(result.get('collections').first())
+  let collection = new Collection(result.get('collections').first())
   let users = result.get('users').valueSeq().map(item => new User(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))

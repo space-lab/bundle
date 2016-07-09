@@ -41,15 +41,14 @@ const connectProps = {
   state: { filter: 'recent', isOpen: false, position: null, resourceId: null, page: 1 }
 })
 @connect(connectState, connectProps)
-export default class Container extends React.Component {
+export default class BundleNavigationContainer extends React.Component {
   static propTypes = {
     bundles: ImmutablePropTypes.list,
     search: ImmutablePropTypes.map
   }
 
-  constructor (props) {
-    super(props)
-    props.getBundles(props.ui.page)
+  componentWillMount () {
+    props.getBundles(this.props.ui.page)
   }
 
   removeBundle (...args) {
