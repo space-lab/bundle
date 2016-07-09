@@ -4,7 +4,7 @@ import { reduceBundle, getRecords } from 'helpers'
 import request from 'axios'
 import api from 'api'
 
-export const createBundle = payload => async dispatch => {
+export const createBundle = (payload = {}) => async dispatch => {
   const { data } = await request.post(api.bundle(), { bundle: payload })
 
   reduceBundle(data, dispatch)

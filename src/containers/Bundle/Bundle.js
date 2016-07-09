@@ -100,7 +100,7 @@ export default class BundleContainer extends React.Component {
       <Bundle>
         <Editable
           className='bundle-name'
-          value={bundle.name}
+          value={bundle.name || ''}
           editMode={bundle.canEdit(currentUser.id)}
           placeholder='Name goes here...'
           onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
@@ -108,7 +108,7 @@ export default class BundleContainer extends React.Component {
         <Editable
           type='textarea'
           className='bundle-description'
-          value={bundle.description}
+          value={bundle.description || ''}
           editMode={bundle.canEdit(currentUser.id)}
           placeholder='Description goes here...'
           onBlur={e => updateBundle(bundle.id, { description: e.target.value })} />

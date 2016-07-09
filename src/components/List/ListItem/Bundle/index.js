@@ -9,30 +9,27 @@ export default class BundleListItem extends React.Component {
   }
 
   renderCollectionName (id) {
+    // TODO bad bad bad...
     if (id && id.length > 25) id = id.slice(0, 25) + '...'
 
     return id ? <span className='collection-name'>{id}</span> : null
   }
 
   render () {
-    const bundle = this.props.resource
-    const url = this.props.url || `/bundle/${bundle.id}`
+    let bundle = this.props.resource
+    let url = this.props.url || `/bundle/${bundle.id}`
 
-    return (
-      <div className='list-item-collection'>
-        <ListToolbar {...this.props} />
+    return <div className='list-item-collection'>
+      <ListToolbar {...this.props} />
 
-        <Link to={url}>
-          <h1>
-            {bundle.name}
-          </h1>
+      <Link to={url}>
+        <h1>{bundle.name || 'No name entered...'}</h1>
 
-          <h2>
-            Created <DateTime type='fromNow'>{bundle.created_at}</DateTime>
-            {this.renderCollectionName(bundle.collection_id)}
-          </h2>
-        </Link>
-      </div>
-    )
+        <h2>
+          Created <DateTime type='fromNow'>{bundle.created_at}</DateTime>
+          {this.renderCollectionName(bundle.collection_id)}
+        </h2>
+      </Link>
+    </div>
   }
 }
