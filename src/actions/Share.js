@@ -11,7 +11,7 @@ export const changeSharePermission = (id, type, permissionId) => async dispatch 
   let payload = { permission_id: permissionId }
 
   const { data } = await request.put(url, payload)
-  const result = fromJS(normalize(data, schemas.share).entities)
+  const result = fromJS(normalize(data, Schemas.share).entities)
     .update('users', users => users || Map())
     .update('shares', shares => shares || Map())
 
