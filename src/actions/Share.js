@@ -76,10 +76,10 @@ export const removeUrlShare = (resourceName, resourceId) => async dispatch => {
 
 export const joinUrlShare = (resource, id) => async dispatch => {
   let { data } = await request.post(api.joinUrlShare(resource, id))
-  reduceBundle(data, id, dispatch)
+  reduceBundle(data, dispatch)
 }
 
 export const getResource = (resource, id, token) => async dispatch => {
   let { data } = await request.get(api.urlShareResource(resource, id, token))
-  reduceBundle(data, id, dispatch)
+  reduceBundle(data, dispatch)
 }

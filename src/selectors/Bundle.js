@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import { NEW_BUNDLE_ID } from 'constants'
 import { currentCollection } from './Collection'
 import { unNormaliseResources } from 'helpers'
 
@@ -28,7 +27,6 @@ export const sortedBundles = createSelector(
   bundlesSelector,
   bundles => bundles
     .valueSeq()
-    .filter(bundle => bundle.id != NEW_BUNDLE_ID)
     .sortBy(bundle => bundle.created_at)
     .reverse()
     .toList()

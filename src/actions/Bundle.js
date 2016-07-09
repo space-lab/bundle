@@ -1,32 +1,19 @@
 import { List } from 'immutable'
 import { Bundle } from 'records'
-import { NEW_BUNDLE_ID } from 'constants'
 import { reduceBundle, getRecords } from 'helpers'
 import request from 'axios'
 import api from 'api'
 
-export const generateNewBundle = () => {
-  const bundle = new Bundle({
-    id: NEW_BUNDLE_ID,
-    name: '',
-    description: '',
-    isNewBundle: true,
-    links: List(),
-  })
-
-  return { type: 'SAVE_BUNDLE', bundle }
-}
-
 export const createBundle = payload => async dispatch => {
   const { data } = await request.post(api.bundle(), { bundle: payload })
 
-  reduceBundle(data, NEW_BUNDLE_ID, dispatch)
+  reduceBundle(data, dispatch)
   return data
 }
 
 export const getBundle = id => async dispatch => {
   const { data } = await request.get(api.bundle(id))
-  reduceBundle(data, id, dispatch)
+  reduceBundle(data, dispatch)
 }
 
 export const getBundles = page => async dispatch => {
@@ -46,7 +33,7 @@ export const removeBundle = (id) => async dispatch => {
 
 export const updateBundle = (id, payload) => async (dispatch) => {
   const response = await request.put(api.bundle(id), { bundle: payload })
-  reduceBundle(response.data, id, dispatch)
+  reduceBundle(response.data, dispatch)
 }
 
 export const updateBundleInfo = (bundleId, field, value) => ({

@@ -35,7 +35,7 @@ export const getRecord = (Model, data) => new Model(fromJS(data))
 export const getRecords = (Model, data) =>
   fromJS(data).map(item => new Model(item))
 
-export const reduceBundle = (data, oldId, dispatch) => {
+export const reduceBundle = (data, dispatch) => {
   const { entities } = normalize(data, Schemas.bundle)
   const bundle = entities.get('bundles').first()
 
@@ -43,11 +43,6 @@ export const reduceBundle = (data, oldId, dispatch) => {
   dispatch({ type: 'RECEIVE_LINKS',  links:  entities.get('links',  new Map()).toList() })
   dispatch({ type: 'RECEIVE_SHARES', shares: entities.get('shares', new Map()).toList() })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
-
-  if (oldId && bundle.id !== oldId) {
-    dispatch({ type: 'REMOVE_BUNDLE', id: oldId })
-    browserHistory.push(`/bundle/${bundle.id}`)
-  }
 }
 
 export const reduceBundles = (data, dispatch) => {

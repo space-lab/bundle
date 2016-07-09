@@ -12,7 +12,6 @@ const BundleRecord = Record({
   favorited: null,
   favorites_count: null,
   full_response: false,
-  isNewBundle: null,
   editMode: false,
   created_at: null,
   type: null,
