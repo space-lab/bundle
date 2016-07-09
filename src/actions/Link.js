@@ -27,8 +27,6 @@ export const addLink = (linkdata, bundleId) => async dispatch =>  {
   let payload = linkdata.toMap().set('bundle_id', bundleId).toJS()
   let { data } = await request.post(api.link(), payload)
   let result = fromJS(normalize(data, Schemas.link).entities)
-    .update('links', links => links || Map())
-    .update('users', users => users || Map())
 
   let link = new Link(result.get('links').first())
   let user = new User(result.get('users').first())
