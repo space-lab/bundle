@@ -1,61 +1,57 @@
 import { connect } from 'react-redux'
-import ui from 'redux-ui'
-
+import { Editable } from 'components'
 import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import * as alertActions from 'actions/Alert'
-import { Editable } from 'components'
 import './index.css'
 
-const connectState = state => ({
+let connectState = state => ({
   user: Selectors.currentUser(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...userActions,
   ...alertActions
 }
 
-@ui({
-  key: 'user-settings',
-  state: {
-    name: '',
-    email: ''
-  }
-})
 @connect(connectState, connectProps)
 export default class Settings extends React.Component {
-  saveUser () {
-    const { user, ui, updateUser, addAlert } = this.props
-    const payload = {
-      name: ui.name,
-      email: ui.email
-    }
+  componentWillMount () {
+    this.setState({
+      name: this.props.name,
+      email: this.props.email
+    })
+  }
 
-    updateUser({ id: user.id }, payload).then(() =>
-      addAlert('success', 'yo, update was lit !!!')
-    )
+  // TODO ? fix?
+  shouldComponentUpdate () {
+    return false
+  }
+
+  saveUser () {
+    let { user, updateUser, addAlert } = this.props
+
+    updateUser({ id: user.id }, this.state).then(() =>
+      addAlert('success', 'yo, update was lit !!!'))
   }
 
   render () {
-    const { user, updateUI } = this.props
-
     return <div className='settings'>
       <h2 className='title'>Settings</h2>
 
       <h3 className='label'>Full Name</h3>
       <Editable
-        value={user.name}
+        value={this.props.user.name}
         placeholder='Enter Name'
         editMode
-        onChange={value => updateUI('name', value)} />
+        onChange={value => this.setState({ name: value })} />
 
       <h3 className='label'>Email</h3>
       <Editable
-        value={user.email}
+        value={this.props.user.email}
         placeholder='Enter Email'
         editMode
-        onChange={value => updateUI('email', value)} />
+        onChange={value => this.setState({ email: value })} />
 
       <button className='round-button' onClick={::this.saveUser}>Save</button>
     </div>
