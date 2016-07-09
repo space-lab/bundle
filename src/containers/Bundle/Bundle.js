@@ -104,7 +104,8 @@ export default class BundleContainer extends React.Component {
           user={props.currentUser}
           link={props.currentLink}
           handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
-          handleLinkAdd={link => props.addLink(link, props.bundle.id)} />
+          handleLinkAdd={link => props.addLink(link, props.bundle.id)}
+          handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
 
         {props.bundle.get('links').map((id, index) => {
           let link = props.links.get(id)

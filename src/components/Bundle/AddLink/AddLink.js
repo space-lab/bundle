@@ -8,12 +8,13 @@ export default class AddLink extends React.Component {
     user: ImmutablePropTypes.record.isRequired,
     link: ImmutablePropTypes.record,
     handleLinkAdd: React.PropTypes.func.isRequired,
+    handleLinkRemove: React.PropTypes.func.isRequired,
     handleUrlEnter: React.PropTypes.func.isRequired,
     autoFocus: React.PropTypes.bool
   }
 
   renderLinkPreview () {
-    let { user, link, handleLinkAdd } = this.props
+    let { user, link, handleLinkAdd, handleLinkRemove } = this.props
 
     return <div className='link-preview-container'>
       <Link
@@ -23,7 +24,9 @@ export default class AddLink extends React.Component {
         description={link.description || ''}
         createdAt={new Date()}
         creatorName={user.name}
-        creatorImage={user.image} />
+        creatorImage={user.image}
+        canRemove
+        handleLinkRemove={handleLinkRemove} />
 
       <button
         onClick={handleLinkAdd.bind(this, link)}
