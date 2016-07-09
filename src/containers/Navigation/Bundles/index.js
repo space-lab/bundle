@@ -48,7 +48,7 @@ export default class BundleNavigationContainer extends React.Component {
   }
 
   componentWillMount () {
-    props.getBundles(this.props.ui.page)
+    this.props.getBundles(this.props.ui.page)
   }
 
   removeBundle (...args) {
