@@ -57,72 +57,58 @@ export default class BundleContainer extends React.Component {
   }
 
   render () {
-    let {
-      users,
-      links,
-      bundle,
-      addLink,
-      fetchLink,
-      removeLink,
-      currentUser,
-      currentLink,
-      collections,
-      updateBundle,
-      joinUrlShare,
-      addAlert
-    } = this.props
-
-    if (!bundle || !bundle.full_response) return false
+    let props = this.props
+    if (!props.bundle || !props.bundle.full_response) return false
 
     return <Content>
       <Header>
         <ChangeCollection
-          bundle={bundle}
-          collections={collections}
-          canChangeCollection={bundle.canChangeCollection(currentUser.id)}
-          updateBundle={updateBundle} />
+          bundle={props.bundle}
+          collections={props.collections}
+          canChangeCollection={props.bundle.canChangeCollection(props.currentUser.id)}
+          updateBundle={props.updateBundle} />
 
         <div className='align-right'>
           <JoinBundle
-            bundle={bundle}
-            currentUserId={currentUser.id}
-            joinUrlShare={joinUrlShare}
-            addAlert={addAlert} />
+            bundle={props.bundle}
+            currentUserId={props.currentUser.id}
+            joinUrlShare={props.joinUrlShare}
+            addAlert={props.addAlert} />
 
           <ShareBundle
-            canShare={bundle.canShare(currentUser.id)}
+            canShare={props.bundle.canShare(props.currentUser.id)}
             {...this.props} // TODO big no no no
             resourceName='Bundle'
-            resource={bundle} />
+            resource={props.bundle} />
         </div>
       </Header>
 
       <Bundle>
         <Editable
           className='bundle-name'
-          value={bundle.name || ''}
-          editMode={bundle.canEdit(currentUser.id)}
+          value={props.bundle.name || ''}
+          editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Name goes here...'
-          onBlur={e => updateBundle(bundle.id, { name: e.target.value })} />
+          onBlur={e => props.updateBundle(props.bundle.id, { name: e.target.value })} />
 
         <Editable
           type='textarea'
           className='bundle-description'
-          value={bundle.description || ''}
-          editMode={bundle.canEdit(currentUser.id)}
+          value={props.bundle.description || ''}
+          editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Description goes here...'
-          onBlur={e => updateBundle(bundle.id, { description: e.target.value })} />
+          onBlur={e => props.updateBundle(props.bundle.id, { description: e.target.value })} />
 
         <AddLink
-          bundle={bundle}
-          user={currentUser}
-          link={currentLink}
-          handleUrlEnter={url => fetchLink(url, bundle.id)}
-          handleLinkAdd={link => addLink(link, bundle.id)} />
+          bundle={props.bundle}
+          user={props.currentUser}
+          link={props.currentLink}
+          handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
+          handleLinkAdd={link => props.addLink(link, props.bundle.id)} />
 
-        {bundle.get('links').map((id, index) => {
-          let link = links.get(id)
-          let user = users.get(link.creator)
+        {props.bundle.get('links').map((id, index) => {
+          let link = props.links.get(id)
+          let user = props.users.get(link.creator)
 
           return <Link
             key={index}
@@ -133,8 +119,8 @@ export default class BundleContainer extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
-            canRemove={bundle.canEdit(currentUser.id)}
-            handleLinkRemove={removeLink.bind(this, link.id, bundle.id)} />
+            canRemove={props.bundle.canEdit(props.currentUser.id)}
+            handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)} />
         })}
       </Bundle>
     </Content>
