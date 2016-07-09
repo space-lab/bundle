@@ -2,6 +2,8 @@ import { Record, List } from 'immutable'
 
 const BundleRecord = Record({
   id: null,
+  slug: null,
+  hashid: null,
   name: null,
   description: null,
   creator: null,
@@ -13,7 +15,6 @@ const BundleRecord = Record({
   favorited: null,
   favorites_count: null,
   full_response: false,
-  isNewBundle: null,
   editMode: false,
   created_at: null,
   type: null,

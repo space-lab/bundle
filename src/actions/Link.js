@@ -1,5 +1,8 @@
+import { normalize } from 'normalizr'
+import { fromJS, Map } from 'immutable'
 import { bestThumbnail } from 'helpers'
-import { Link } from 'records'
+import * as Schemas from 'normalizers'
+import { Link, User } from 'records'
 import request from 'axios'
 import api from 'api'
 
@@ -20,6 +23,20 @@ export const clearCurrentLink = bundleId => ({
   type: 'CLEAR_CURRENT_LINK', bundleId
 })
 
-export const updateLink = (id, field, value) => ({
-  type: 'UPDATE_LINK', id, field, value
-})
+export const addLink = (linkdata, bundleId) => async dispatch =>  {
+  let payload = linkdata.toMap().set('bundle_id', bundleId).toJS()
+  let { data } = await request.post(api.link(), payload)
+  let result = fromJS(normalize(data, Schemas.link).entities)
+
+  let link = new Link(result.get('links').first())
+  let user = new User(result.get('users').first())
+
+  dispatch({ type: 'RECEIVE_USER', user })
+  dispatch({ type: 'RECEIVE_LINK', link, bundleId })
+  dispatch(clearCurrentLink(bundleId))
+}
+
+export const removeLink = (id, bundleId) => async dispatch =>  {
+  let { data } = await request.delete(api.link(id))
+  dispatch({ type: 'REMOVE_LINK', id, bundleId })
+}

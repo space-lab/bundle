@@ -1,5 +1,4 @@
 import { Schema, arrayOf } from 'normalizr'
-import * as records from 'records'
 
 export const bundle = new Schema('bundles', { idAttribute: 'id' })
 export const collection = new Schema('collections', { idAttribute: 'id' })

@@ -11,11 +11,13 @@ export default function (state = defaultState, action) {
       return state.setIn(['byId', action.link.id], action.link)
 
     case 'RECEIVE_LINKS':
-      action.links.forEach(link => {
-        state = state.setIn(['byId', link.id], link)
-      })
+      action.links.forEach(link =>
+        state = state.setIn(['byId', link.id], link))
 
       return state
+
+    case 'REMOVE_LINK':
+      return state.deleteIn(['byId', action.id])
 
     case 'SET_CURRENT_LINK':
       return state.setIn(['current', action.bundleId], action.link)

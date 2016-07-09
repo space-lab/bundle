@@ -1,41 +1,37 @@
-import { connect } from 'react-redux'
-import Selectors from 'selectors'
 import ui from 'redux-ui'
+import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
+import { createBundle } from 'actions/Bundle'
+import Selectors from 'selectors'
 import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
 import './index.css'
 
-const connectState = (state) => ({
+let connectState = (state) => ({
   currentUser: Selectors.currentUser(state)
 })
 
-@ui({
-  key: 'userMenu',
-  state: { isOpen: false }
-})
-@connect(connectState)
-export default class SideNavigation extends React.Component {
-  openUserMenu () {
-    this.props.updateUI('isOpen', true)
-  }
+let connectProps = { createBundle }
 
-  closeUserMenu () {
-    this.props.updateUI('isOpen', false)
+@ui({ key: 'userMenu', state: { isOpen: false } })
+@connect(connectState, connectProps)
+export default class SideNavigation extends React.Component {
+  handleBundleCreate () {
+    this.props.createBundle().then(bundle =>
+      browserHistory.push('/bundle/' + bundle.id))
   }
 
   render () {
-    const { ui, currentUser } = this.props
+    let { ui, updateUI, currentUser } = this.props
 
-    return (
-      <div className='side-navigation'>
-        <SideNavigationTop/>
+    return <div className='side-navigation'>
+      <SideNavigationTop onNewClick={::this.handleBundleCreate} />
 
-        <SideNavigationBottom
-          isOpen={ui.isOpen}
-          currentUser={currentUser}
-          closeUserMenu={::this.closeUserMenu}
-          openUserMenu={::this.openUserMenu}/>
-      </div>
-    )
+      <SideNavigationBottom
+        isOpen={ui.isOpen}
+        currentUser={currentUser}
+        openUserMenu={() => updateUI('isOpen', true)}
+        closeUserMenu={() => updateUI('isOpen', false)} />
+    </div>
   }
 }

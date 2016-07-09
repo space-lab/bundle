@@ -9,15 +9,21 @@ let currentCollectionIdSelector = state => state.Route.collectionId
 let currentUserIdSelector = state => state.User.get('current')
 let getFilter = (state, props) => props.ui.filter
 
+let receivedAllCollectionsSelector = state => state.Collection.get('receivedAll')
+
+export const collections = createSelector(collectionsSelector,
+  collections => collections)
+
+export const receivedAllCollections = createSelector(receivedAllCollectionsSelector,
+  received => received)
+
 export const currentCollection = createSelector(
   [currentCollectionIdSelector, collectionsSelector],
-  (id, collections) => collections.get(id) || new Collection()
-)
+  (id, collections) => collections.get(id) || new Collection())
 
 export const collectionList = createSelector(
   [collectionsSelector],
-  (collections) => collections.valueSeq().toList()
-)
+  (collections) => collections.valueSeq().toList())
 
 export const sortedCollections = createSelector(
   collectionsSelector,
@@ -48,5 +54,4 @@ export const currentCollections = createSelector(
   [filteredCollections, sharesSelector, usersSelector],
   (collections, shares, users) =>
     collections.map(col => col.update('shares', ids => ids.map(id =>
-      shares.get(id).update('user', id => users.get(id)))))
-)
+      shares.get(id).update('user', id => users.get(id))))))

@@ -26,8 +26,6 @@ export default (
       <Route path='/collections' view='collections' component={Navigation}/>
       <Route path='/favorites' view='favorites' component={Navigation}/>
 
-      <Route path='/new' newBundle view='bundles' component={Navigation}/>
-
       <Route path='/search(/:query)' component={SearchContainer}/>
 
       <Route path='/settings' component={Settings}/>

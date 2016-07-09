@@ -37,7 +37,7 @@ export const getRecord = (Model, data) => new Model(fromJS(data))
 export const getRecords = (Model, data) =>
   fromJS(data).map(item => new Model(item))
 
-export const reduceBundle = (data, oldId, dispatch) => {
+export const reduceBundle = (data, dispatch) => {
   let result = fromJS(normalize(data, Schemas.bundle).entities)
     .update('users', users => users || Map())
     .update('links', links => links || Map())
@@ -53,11 +53,6 @@ export const reduceBundle = (data, oldId, dispatch) => {
   dispatch({ type: 'RECEIVE_LINKS',  links })
   dispatch({ type: 'RECEIVE_SHARES', shares })
   dispatch({ type: 'SAVE_BUNDLE', bundle })
-
-  if (oldId && bundle.id !== oldId) {
-    dispatch({ type: 'REMOVE_BUNDLE', id: oldId })
-    browserHistory.push(`/bundle/${bundle.id}`)
-  }
 }
 
 export const reduceBundles = (data, dispatch) => {
@@ -75,8 +70,7 @@ export const reduceCollection = (data, dispatch) => {
     .update('bundles', bundles => bundles || Map())
     .update('collections', collections => collections || Map())
 
-
-  let collection = new Bundle(result.get('collections').first())
+  let collection = new Collection(result.get('collections').first())
   let users = result.get('users').valueSeq().map(item => new User(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
@@ -93,7 +87,6 @@ export const reduceCollections = (data, dispatch) => {
     .update('shares', shares => shares || Map())
     .update('bundles', bundles => bundles || Map())
     .update('collections', collections => collections || Map())
-
 
   let users = result.get('users').valueSeq().map(item => new User(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))

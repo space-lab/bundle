@@ -1,13 +1,9 @@
 import { Route } from 'records'
-import { NEW_BUNDLE_ID } from 'constants'
 
 export default function (state = new Route(), action) {
   switch (action.type) {
     case 'ROUTE_CHANGE_BUNDLE_ID':
       return state.set('bundleId', action.bundleId)
-
-    case 'ROUTE_CHANGE_NEW_BUNDLE':
-      return state.set('bundleId', NEW_BUNDLE_ID)
 
     case 'ROUTE_CHANGE_NAVIGATION_VIEW':
       return state.set('navigationView', action.view)
