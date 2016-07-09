@@ -21,7 +21,7 @@ export default class ShareBundle extends React.Component {
   }
 
   render () {
-    if (!this.props.canShare) return
+    if (!this.props.canShare) return false
 
     return <div className='share-bundle-wrapper'>
       <button className='round-button' onClick={::this.openModal}>
