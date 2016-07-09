@@ -19,8 +19,8 @@ export default class AddLink extends React.Component {
       <Link
         url={link.url}
         image={link.image}
-        title={link.title}
-        description={link.description}
+        title={link.title || 'Link has no name'}
+        description={link.description || ''}
         createdAt={new Date()}
         creatorName={user.name}
         creatorImage={user.image} />

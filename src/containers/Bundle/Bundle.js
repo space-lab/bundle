@@ -128,7 +128,7 @@ export default class BundleContainer extends React.Component {
             key={index}
             url={link.url}
             image={link.image}
-            title={link.title}
+            title={link.title || 'Link has no name'}
             description={link.description || ''}
             createdAt={link.created_at}
             creatorName={user.name}

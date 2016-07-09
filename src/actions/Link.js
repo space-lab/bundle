@@ -1,7 +1,8 @@
-import { normalize } from 'normalizr-immutable'
+import { normalize } from 'normalizr'
+import { fromJS, Map } from 'immutable'
 import { bestThumbnail } from 'helpers'
 import * as Schemas from 'normalizers'
-import { Link } from 'records'
+import { Link, User } from 'records'
 import request from 'axios'
 import api from 'api'
 
@@ -22,13 +23,18 @@ export const clearCurrentLink = bundleId => ({
   type: 'CLEAR_CURRENT_LINK', bundleId
 })
 
-export const addLink = (link, bundleId) => async dispatch =>  {
-  let payload = link.toMap().set('bundle_id', bundleId).toJS()
+export const addLink = (linkdata, bundleId) => async dispatch =>  {
+  let payload = linkdata.toMap().set('bundle_id', bundleId).toJS()
   let { data } = await request.post(api.link(), payload)
-  let result = normalize(data, Schemas.link).entities
+  let result = fromJS(normalize(data, Schemas.link).entities)
+    .update('links', links => links || Map())
+    .update('users', users => users || Map())
 
-  dispatch({ type: 'RECEIVE_LINK', link: result.get('links').first(), bundleId })
-  dispatch({ type: 'RECEIVE_USER', user: result.get('users').first() })
+  let link = new Link(result.get('links').first())
+  let user = new User(result.get('users').first())
+
+  dispatch({ type: 'RECEIVE_LINK', link, bundleId })
+  dispatch({ type: 'RECEIVE_USER', user })
   dispatch(clearCurrentLink(bundleId))
 }
 
