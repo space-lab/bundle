@@ -48,6 +48,7 @@ export default class Editable extends React.Component {
         placeholder={placeholder}
         autoFocus={autoFocus}
         onChange={::this.handleChange}
+        onKeyPress={::this.handleChange}
         onBlur={this.props.onBlur} />
     } else {
       return <span className={className}>
