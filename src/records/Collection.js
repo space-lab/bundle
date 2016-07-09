@@ -2,6 +2,8 @@ import { Record, List } from 'immutable'
 
 const CollectionRecord = Record({
   id: null,
+  slug: null,
+  hashid: null,
   name: '',
   bundles_count: 0,
   shares_count: 0,

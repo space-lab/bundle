@@ -2,6 +2,8 @@ import { Record, List } from 'immutable'
 
 const BundleRecord = Record({
   id: null,
+  slug: null,
+  hashid: null,
   name: null,
   description: null,
   creator: null,
