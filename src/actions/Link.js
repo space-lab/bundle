@@ -31,8 +31,8 @@ export const addLink = (linkdata, bundleId) => async dispatch =>  {
   let link = new Link(result.get('links').first())
   let user = new User(result.get('users').first())
 
-  dispatch({ type: 'RECEIVE_LINK', link, bundleId })
   dispatch({ type: 'RECEIVE_USER', user })
+  dispatch({ type: 'RECEIVE_LINK', link, bundleId })
   dispatch(clearCurrentLink(bundleId))
 }
 
