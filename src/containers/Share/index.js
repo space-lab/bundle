@@ -1,6 +1,7 @@
 import ui from 'redux-ui'
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
+import { parseId } from 'helpers'
 import Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import * as shareActions from 'actions/Share'
@@ -35,7 +36,7 @@ export default class ShareContainer extends React.Component {
 
     if (!user && auth_token) authenticateUser(auth_token)
 
-    getResource(params.resource, params.id, params.token)
+    getResource(params.resource, parseId(params.id), params.token)
   }
 
   componentWillReceiveProps (props) {

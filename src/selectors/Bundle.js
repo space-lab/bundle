@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect'
 import { currentCollection } from './Collection'
-import { unNormaliseResources } from 'helpers'
+import { parseId, unNormaliseResources } from 'helpers'
 
 const bundlesSelector = state => state.Bundle.get('byId')
 const usersSelector = state => state.User.get('byId')
@@ -10,7 +10,7 @@ const currentBundleIdSelector = state => state.Route.bundleId
 const currentUserIdSelector = state => state.User.get('current')
 
 const getFilter = (state, props) => props.ui.filter
-const getShareBundleId = (state, props) => props.params.id
+const getShareBundleId = (state, props) => parseId(props.params.id)
 
 export const currentBundle = createSelector(
   [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
