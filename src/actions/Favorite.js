@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable'
+import { fromJS, List } from 'immutable'
 import { Bundle, Collection } from 'records'
 import { reduceBundles, reduceCollections } from 'helpers'
 import request from 'axios'
@@ -21,8 +21,8 @@ export const getFavorites = () => async dispatch => {
     .groupBy(item => item.get('favoritable_type'))
     .mapEntries(([k, v]) => [k, v.map(item => item.get('favoritable'))])
 
-  reduceBundles(groupedFavs.get('Bundle', []).toJS(), dispatch)
-  reduceCollections(groupedFavs.get('Collection', []).toJS(), dispatch)
+  reduceBundles(groupedFavs.get('Bundle', List()).toJS(), dispatch)
+  reduceCollections(groupedFavs.get('Collection', List()).toJS(), dispatch)
 
   dispatch({ type: 'RECEIVE_FAVORITES', list: favorites })
 }
