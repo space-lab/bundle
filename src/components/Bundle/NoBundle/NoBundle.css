@@ -1,13 +1,13 @@
-.no-bundle-wrapper {
+.no-bundle-component {
   width: 100%;
   height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.no-bundle-text {
-  font-size: 21px;
-  color: #c2c2c2;
+  .no-bundle-text {
+    font-size: 21px;
+    color: #c2c2c2;
+  }
 }
