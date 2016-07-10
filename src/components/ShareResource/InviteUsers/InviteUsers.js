@@ -49,6 +49,19 @@ export default class InviteUsers extends React.Component {
     )
   }
 
+  renderUrlShare () {
+    if (this.props.resourceName === 'Collection') return false
+
+    return <div className='full-row'>
+      <UrlShare
+        getShareUrl={this.props.getShareUrl}
+        changeUrlPermission={this.props.changeUrlPermission}
+        removeUrlShare={this.props.removeUrlShare}
+        resourceName={this.props.resourceName}
+        resource={this.props.resource}/>
+    </div>
+  }
+
   render () {
     return <div className='invite-users-container'>
       <div className='full-row invite'>
@@ -70,14 +83,7 @@ export default class InviteUsers extends React.Component {
         </button>
       </div>
 
-      <div className='full-row'>
-        <UrlShare
-          getShareUrl={this.props.getShareUrl}
-          changeUrlPermission={this.props.changeUrlPermission}
-          removeUrlShare={this.props.removeUrlShare}
-          resourceName={this.props.resourceName}
-          resource={this.props.resource}/>
-      </div>
+      {::this.renderUrlShare()}
     </div>
   }
 }
