@@ -40,7 +40,8 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   componentDidMount () {
-    this.props.getCollection(this.props.collectionId)
+    let { collection, Id, getCollection } = this.props
+    if (!collection) getCollection(collectionId)
   }
 
   getBundleUrl (collection, bundle) {
@@ -61,7 +62,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
-    if (!resource || !resource.full_response) return false
+    if (!resource) return false
 
     return <ShareResource
       position={ui.position}

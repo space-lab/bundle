@@ -50,7 +50,7 @@ export default class Container extends React.Component {
     let { collections, ui } = props
     let resource = collections.find(col => col.id == ui.resourceId)
 
-    if (!resource || !resource.full_response) return false
+    if (!resource) return false
 
     return <ShareResource
       position={this.props.ui.position}

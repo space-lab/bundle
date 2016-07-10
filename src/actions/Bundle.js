@@ -1,6 +1,6 @@
 import { List } from 'immutable'
 import { Bundle } from 'records'
-import { reduceBundle, getRecords } from 'helpers'
+import { reduceBundle, reduceBundles, getRecords } from 'helpers'
 import request from 'axios'
 import api from 'api'
 
@@ -18,9 +18,7 @@ export const getBundle = id => async dispatch => {
 
 export const getBundles = page => async dispatch => {
   const { data } = await request.get(api.bundles(page))
-  const bundles = getRecords(Bundle, data)
-
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
+  reduceBundles(data, dispatch)
 }
 
 export const removeBundle = (id) => async dispatch => {

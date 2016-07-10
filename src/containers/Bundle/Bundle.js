@@ -45,20 +45,20 @@ let connectProps = {
 @connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {
-    let { getBundle, bundleId, receivedAllCollections, getCollections } = this.props
+    let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
-    if (bundleId) getBundle(bundleId)
+    if (bundleId && !bundle) getBundle(bundleId)
     if (!receivedAllCollections) getCollections()
   }
 
-  componentWillReceiveProps ({ bundleId: nextBundleId }) {
+  componentWillReceiveProps ({ bundle: nextBundle, bundleId: nextBundleId }) {
     let { getBundle, bundleId } = this.props
-    if (bundleId !== nextBundleId) getBundle(nextBundleId)
+    if (bundleId !== nextBundleId && !nextBundle) getBundle(nextBundleId)
   }
 
   render () {
     let props = this.props
-    if (!props.bundle || !props.bundle.full_response) return false
+    if (!props.bundle) return false
 
     return <Content>
       <Header>
