@@ -15,7 +15,7 @@ export default class CollectionListItem extends React.Component {
 
   render () {
     let { resource, createCollection, url } = this.props
-    let link = url || `/collection/${resource.id}`
+    let link = url || `/collection/${resource.slug}-${resource.id}`
 
     return <div>
       <ListToolbar {...this.props} />

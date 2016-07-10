@@ -121,7 +121,7 @@ export const unNormaliseResources = (data, resources, shares, users) => {
       shares.get(id).update('user', id => users.get(id)))))
 }
 
-export const bestThumbnail = (data) => {
+export const bestThumbnail = data => {
   if (data.thumbnail && data.thumbnail.url) {
     return data.thumbnail.url
   } else if (data.image && data.image.url) {
@@ -133,4 +133,9 @@ export const bestThumbnail = (data) => {
   } else {
     return 'no image' // TODO default image url
   }
+}
+
+export const parseId = str => {
+  str = str.split('-')
+  return str[str.length - 1]
 }
