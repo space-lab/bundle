@@ -1,7 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Link } from 'react-router'
 import { DateTime, ListToolbar } from 'components'
-import './index.css'
 
 export default class BundleListItem extends React.Component {
   static propTypes = {
@@ -20,10 +19,10 @@ export default class BundleListItem extends React.Component {
     let bundle = this.props.resource
     let url = this.props.url || `/bundle/${bundle.id}`
 
-    return <div className='list-item-collection'>
+    return <div>
       <ListToolbar {...this.props} />
 
-      <Link to={url}>
+      <Link to={url} className='content'>
         <h1>{bundle.name || 'No name entered...'}</h1>
         <h2>
           Created <DateTime type='fromNow'>{bundle.created_at}</DateTime>
