@@ -18,10 +18,8 @@ export default function (state = defaultState, action) {
           shares.concat(action.shares))
 
     case 'RECEIVE_BUNDLES':
-      action.bundles.forEach(bundle => {
-        if (state.getIn(['byId', bundle.id, 'full_response'])) return
-        state = state.setIn(['byId', bundle.id], bundle)
-      })
+      action.bundles.forEach(bundle =>
+        state = state.setIn(['byId', bundle.id], bundle))
 
       return state
 

@@ -58,7 +58,7 @@ export default class BundleContainer extends React.Component {
 
   render () {
     let props = this.props
-    if (!props.bundle || !props.bundle.full_response) return false
+    if (!props.bundle) return false
 
     return <Content>
       <Header>

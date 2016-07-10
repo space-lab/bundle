@@ -65,7 +65,7 @@ export default class BundleNavigationContainer extends React.Component {
     let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
-    if (!resource || !resource.full_response) return false
+    if (!resource) return false
 
     return <ShareResource
       position={ui.position}

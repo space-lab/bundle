@@ -26,16 +26,14 @@ export default class ListToolbar extends React.Component {
     return <ToolbarShareItem
       resource={props.resource}
       resourceName={props.resourceName}
-      getBundle={props.getBundle}
-      getCollection={props.getCollection}
-      updateUI={props.updateUI}/>
+      updateUI={props.updateUI} />
   }
 
   renderRemoveIcon () {
     let props = this.props
     if (!props.resource.canRemove(props.currentUser.id)) return false
 
-    return <ToolbarDeleteItem id={props.resource.id} remove={props.remove}/>
+    return <ToolbarDeleteItem id={props.resource.id} remove={props.remove} />
   }
 
   renderRegularItems () {

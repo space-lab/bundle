@@ -12,7 +12,6 @@ const CollectionRecord = Record({
   favorited: false,
   bundles: List(),
   shares: List(),
-  full_response: false,
   created_at: null,
   editMode: false,
   type: null,
