@@ -24,7 +24,7 @@ export NoBundle from './Bundle/NoBundle/NoBundle'
 
 // List Components, Filters and Loaders
 export List            from './List/List'
-export ListItem        from './List/ListItem'
+export ListItem        from './List/ListItem/ListItem'
 export ListToolbar     from './List/ListToolbar'
 export ResourceFilters from './List/ResourceFilters'
 export LoadMore        from './List/LoadMore'

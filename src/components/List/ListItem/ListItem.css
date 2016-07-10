@@ -2,8 +2,12 @@
   position: relative;
   border-bottom: 1px solid #ECECEC;
   cursor: pointer;
-  padding: 15px 20px;
   transition: background 75ms linear;
+
+  .content {
+    display: block;
+    padding: 15px 20px;
+  }
 
   h1, h2, input {
     margin: 0;
@@ -35,6 +39,11 @@
     width: 240px;
     border: none;
     background: none;
+  }
+
+  .collection-name {
+    margin-left: 5px;
+    border-bottom: 1px solid #ececec;
   }
 }
 
