@@ -40,7 +40,8 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   componentDidMount () {
-    this.props.getCollection(this.props.collectionId)
+    let { collection, Id, getCollection } = this.props
+    if (!collection) getCollection(collectionId)
   }
 
   getBundleUrl (collection, bundle) {
