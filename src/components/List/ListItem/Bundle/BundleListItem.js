@@ -17,7 +17,7 @@ export default class BundleListItem extends React.Component {
 
   render () {
     let bundle = this.props.resource
-    let url = this.props.url || `/bundle/${bundle.id}`
+    let url = this.props.url || `/bundle/${bundle.slug}-${bundle.id}`
 
     return <div>
       <ListToolbar {...this.props} />

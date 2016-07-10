@@ -45,11 +45,11 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   getBundleUrl (collection, bundle) {
-    return `/collection/${collection.get('id')}/bundle/${bundle.get('id')}`
+    return `/collection/${collection.slug}-${collection.id}/bundle/${bundle.slug}-${bundle.id}`
   }
 
   getCollectionUrl () {
-    return '/collection/' + this.props.collectionId
+    return `/collection/${this.props.collection.slug}-${this.props.collection.id}`
   }
 
   removeBundle (...args) {
