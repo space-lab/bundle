@@ -113,15 +113,19 @@ export default class BundleContainer extends React.Component {
 
           return <Link
             key={index}
+            id={link.id}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
             description={link.description || ''}
+            completed={link.completed}
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
             canRemove={props.bundle.canEdit(props.currentUser.id)}
-            handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)} />
+            canComplete={true}
+            handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)}
+            linkToggleCompleted={props.linkToggleCompleted} />
         })}
       </Bundle>
     </Content>
