@@ -40,3 +40,12 @@ export const removeLink = (id, bundleId) => async dispatch =>  {
   let { data } = await request.delete(api.link(id))
   dispatch({ type: 'REMOVE_LINK', id, bundleId })
 }
+
+export const linkToggleCompleted = id => async dispatch =>  {
+  let { data } = await request.get(api.linkToggleCompleted(id))
+
+  let result = fromJS(normalize(data, Schemas.link).entities)
+  let link = new Link(result.get('links').first())
+
+  dispatch({ type: 'UPDATE_LINK', link })
+}
