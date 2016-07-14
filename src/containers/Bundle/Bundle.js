@@ -124,10 +124,7 @@ export default class BundleContainer extends React.Component {
             canRemove={props.bundle.canEdit(props.currentUser.id)}
             canComplete={true}
             handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)}
-            handleLinkComplete={e => {
-              e.preventDefault()
-              props.linkToggleCompleted(link.id)}
-            } />
+            handleLinkComplete={props.linkToggleCompleted.bind(this, link.id)} />
         })}
       </Bundle>
     </Content>
