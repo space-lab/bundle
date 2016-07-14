@@ -6,7 +6,6 @@ import './Link.css'
 @ui({ state: { active: false, } })
 export default class Link extends React.Component {
   static propTypes = {
-    id: React.PropTypes.number.isRequired,
     url: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
@@ -16,7 +15,7 @@ export default class Link extends React.Component {
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
     handleLinkRemove: React.PropTypes.func,
-    linkToggleCompleted: React.PropTypes.func,
+    handleLinkComplete: React.PropTypes.func,
     canRemove: React.PropTypes.bool,
     canComplete: React.PropTypes.bool,
   }
@@ -39,17 +38,14 @@ export default class Link extends React.Component {
   }
 
   renderCompleteLink () {
-    let { id, canComplete, completed, ui, linkToggleCompleted } = this.props
+    let { canComplete, completed, ui, handleLinkComplete } = this.props
     let className = 'link-complete' + (completed ? ' completed' : '')
 
     if (!canComplete) return
 
     return <div className={className}
       style={shouldAppear(ui.active)}
-      onClick={e => {
-        e.preventDefault()
-        linkToggleCompleted(id)}
-      }>
+      onClick={handleLinkComplete}>
         ✔
       </div>
   }
