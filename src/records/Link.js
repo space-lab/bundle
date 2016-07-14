@@ -7,6 +7,7 @@ const LinkRecord = Record({
   url: null,
   image: null,
   creator: null,
+  completed: null,
   created_at: null
 })
 

@@ -10,11 +10,14 @@ export default class Link extends React.Component {
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
+    completed: React.PropTypes.bool,
     //createdAt: React.PropTypes.string.isRequired, //TODO: fix
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
     handleLinkRemove: React.PropTypes.func,
-    canRemove: React.PropTypes.bool
+    handleLinkComplete: React.PropTypes.func,
+    canRemove: React.PropTypes.bool,
+    canComplete: React.PropTypes.bool,
   }
 
   handleLinkRemove (event) {
@@ -26,11 +29,27 @@ export default class Link extends React.Component {
 
   renderLinkRemove () {
     let { canRemove, ui } = this.props
+
     if (!canRemove) return
 
     return <div className='link-remove'
       style={shouldAppear(ui.active)}
       onClick={::this.handleLinkRemove} />
+  }
+
+  renderCompleteLink () {
+    let { canComplete, completed, ui, handleLinkComplete } = this.props
+    let className = 'link-complete' + (completed ? ' completed' : '')
+
+    if (!canComplete) return
+
+    return <div className={className}
+      style={shouldAppear(ui.active)}
+      onClick={e => {
+        e.preventDefault()
+        handleLinkComplete()}}>
+      ✔
+    </div>
   }
 
   render () {
@@ -39,6 +58,7 @@ export default class Link extends React.Component {
       image,
       title,
       description,
+      completed,
       createdAt,
       creatorName,
       creatorImage,
@@ -47,12 +67,13 @@ export default class Link extends React.Component {
     } = this.props
 
     let thumbStyles = { backgroundImage: `url(${image})` }
+    let linkClass = 'link-component' + (completed ? ' completed' : '')
 
     return <a href={url}
       target='_blank'
       onMouseEnter={() => updateUI('active', true)}
       onMouseLeave={() => updateUI('active', false)}>
-      <div className='link-component'>
+      <div className={linkClass}>
         <div style={thumbStyles} className='link-thumbnail' />
 
         <div className='link-content'>
@@ -72,6 +93,7 @@ export default class Link extends React.Component {
             <span>{creatorName}</span>
           </div>
 
+          {this.renderCompleteLink()}
           {this.renderLinkRemove()}
         </div>
       </div>
