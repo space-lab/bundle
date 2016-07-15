@@ -27,7 +27,7 @@ export const sortedBundles = createSelector(
   bundlesSelector,
   bundles => bundles
     .valueSeq()
-    .sortBy(bundle => bundle.created_at)
+    .sortBy(bundle => bundle.updated_at)
     .reverse()
     .toList()
 )
