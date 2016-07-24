@@ -1,22 +1,20 @@
 import { Map } from 'immutable'
 
-let defaultState = Map({ byId: Map() })
-
-export default function (state = defaultState, action) {
+export default function (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_FAVORITES':
       action.list.forEach(favorite => {
         let id = favorite.get('id') + '-' + favorite.get('type')
-        state = state.setIn(['byId', id], favorite)
+        state = state.set(id, favorite)
       })
 
       return state
 
     case 'UNFAVORITE':
-      return state.deleteIn(['byId', action.id + '-' + action.resourceType])
+      return state.delete(action.id + '-' + action.resourceType)
 
     case 'REMOVE_FAVORITE':
-      return state.deleteIn(['byId', action.id + '-' + action.resourceType])
+      return state.delete(action.id + '-' + action.resourceType)
 
     default:
       return state

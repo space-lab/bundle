@@ -11,7 +11,6 @@ import Bundle from './Bundle'
 import Search from './Search'
 import Favorite from './Favorite'
 import Collection from './Collection'
-import UserAutocomplete from './UserAutocomplete'
 
 const appReducer = combineReducers({
   ui,
@@ -24,8 +23,7 @@ const appReducer = combineReducers({
   Bundle,
   Search,
   Favorite,
-  Collection,
-  UserAutocomplete
+  Collection
 })
 
 const rootReducer = (state, action) => {

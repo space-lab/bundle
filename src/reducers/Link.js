@@ -1,35 +1,44 @@
+import { combineReducers } from 'redux'
 import { Map } from 'immutable'
 
-let defaultState = Map({
-  byId: Map(),
-  current: Map()
+export default combineReducers({
+  byId: linksReducer,
+  current: currentLinkReducer
 })
 
-export default function (state = defaultState, action) {
+function currentLinkReducer (state = Map(), action) {
+  switch (action.type) {
+    case 'SET_CURRENT_LINK':
+      return state.set(action.bundleId, action.link)
+
+    case 'CLEAR_CURRENT_LINK':
+      return state.delete(action.bundleId)
+
+    default:
+      return state
+  }
+}
+
+function linksReducer (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_LINK':
-      return state.setIn(['byId', action.link.id], action.link)
+      return state.set(action.link.id, action.link)
 
     case 'RECEIVE_LINKS':
       action.links.forEach(link =>
-        state = state.setIn(['byId', link.id], link))
+        state = state.set(link.id, link))
 
       return state
 
     case 'UPDATE_LINK':
-      return state.setIn(['byId', action.link.id], action.link)
+      return state.set(action.link.id, action.link)
 
     case 'REMOVE_LINK':
-      return state.deleteIn(['byId', action.id])
+      return state.delete(action.id)
 
-    case 'SET_CURRENT_LINK':
-      return state.setIn(['current', action.bundleId], action.link)
-
-    case 'CLEAR_CURRENT_LINK':
-      return state.deleteIn(['current', action.bundleId])
 
     case 'UPDATE_LINK':
-      return state.setIn(['byId', action.id, action.field], action.value)
+      return state.setIn([action.id, action.field], action.value)
 
     default:
       return state

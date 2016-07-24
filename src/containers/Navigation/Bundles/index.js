@@ -18,14 +18,14 @@ import * as collectionActions from 'actions/Collection'
 import * as searchActions from 'actions/Search'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import * as userActions from 'actions/User'
 
 const connectState = (state, props) => ({
   currentUser: Selectors.currentUser(state),
   bundles: Selectors.currentBundles(state, props),
   bundleId: state.Route.bundleId,
   search: state.Search,
-  userAutocomplete: state.UserAutocomplete
+  userAutocomplete: Selectors.autocompleteUsers(state)
 })
 
 const connectProps = {
@@ -33,7 +33,7 @@ const connectProps = {
   ...searchActions,
   ...favoriteActions,
   ...shareActions,
-  ...userAutocompleteActions
+  ...userActions
 }
 
 @ui({
