@@ -23,10 +23,7 @@ function usersReducer (state = Map(), action) {
       return state.set(action.user.id, action.user)
 
     case 'RECEIVE_USERS':
-      action.users.forEach(user =>
-        state = state.set(user.id, user))
-
-      return state
+      return state.merge(action.users.toMap().mapKeys((k, v) => v.id))
 
     default:
       return state

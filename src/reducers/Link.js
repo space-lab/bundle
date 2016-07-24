@@ -25,10 +25,7 @@ function linksReducer (state = Map(), action) {
       return state.set(action.link.id, action.link)
 
     case 'RECEIVE_LINKS':
-      action.links.forEach(link =>
-        state = state.set(link.id, link))
-
-      return state
+      return state.merge(action.links.toMap().mapKeys((k, v) => v.id))
 
     case 'UPDATE_LINK':
       return state.set(action.link.id, action.link)
