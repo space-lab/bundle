@@ -3,11 +3,11 @@ import { currentCollection } from './Collection'
 import { parseId, unNormaliseResources } from 'helpers'
 
 const bundlesSelector = state => state.Bundle
-const usersSelector = state => state.User.get('byId')
+const usersSelector = state => state.User.byId
 const sharesSelector = state => state.Share.get('byId')
 
 const currentBundleIdSelector = state => state.Route.bundleId
-const currentUserIdSelector = state => state.User.get('current')
+const currentUserIdSelector = state => state.User.current
 
 const getFilter = (state, props) => props.ui.filter
 const getShareBundleId = (state, props) => parseId(props.params.id)

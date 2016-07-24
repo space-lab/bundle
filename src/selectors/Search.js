@@ -3,7 +3,7 @@ import { unNormaliseResources } from 'helpers'
 
 let bundlesSelector = state => state.Bundle
 let collectionsSelector = state => state.Collection
-let usersSelector = state => state.User.get('byId')
+let usersSelector = state => state.User.byId
 let sharesSelector = state => state.Share.get('byId')
 let searchSelector = state => state.Search
 

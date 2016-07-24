@@ -1,24 +1,31 @@
-import { fromJS, Map } from 'immutable'
+import { combineReducers } from 'redux'
+import { Map } from 'immutable'
 
-const defaultState = fromJS({
-  byId: Map(),
-  current: null
+export default combineReducers({
+  current: currentUserReducer,
+  byId: usersReducer
 })
 
-export default function (state = defaultState, action) {
+function currentUserReducer (state = null, action) {
+  switch (action.type) {
+    case 'AUTHENTICATE_USER':
+      return state = action.id
+
+    default:
+      return state
+  }
+}
+
+function usersReducer (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_USER':
-      return state.setIn(['byId', action.user.id], action.user)
+      return state.set(action.user.id, action.user)
 
     case 'RECEIVE_USERS':
       action.users.forEach(user =>
-        state = state.setIn(['byId', user.id], user))
+        state = state.set(user.id, user))
 
       return state
-
-    case 'AUTHENTICATE_USER':
-      return state.set('current', action.user.id)
-        .setIn(['byId', action.user.id], action.user)
 
     default:
       return state
