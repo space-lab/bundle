@@ -19,10 +19,7 @@ function receivedAllCollectionReducer (state = false, action) {
 function collectionReducer (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_COLLECTIONS':
-      action.collections.forEach(col =>
-        state = state.set(col.id, col))
-
-      return state
+      return state.merge(action.collections.toMap().mapKeys((k, v) => v.id))
 
     case 'RECEIVE_COLLECTION':
       return state.set(action.collection.id, action.collection)

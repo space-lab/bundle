@@ -3,10 +3,7 @@ import { Map } from 'immutable'
 export default function (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_SHARES':
-      action.shares.forEach(share =>
-        state = state.set(share.id, share))
-
-      return state
+      return state.merge(action.shares.toMap().mapKeys((k, v) => v.id))
 
     case 'SAVE_SHARE':
       return state.set(action.share.id, action.share)

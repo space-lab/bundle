@@ -13,10 +13,7 @@ export default function (state = Map(), action) {
           shares.concat(action.shares))
 
     case 'RECEIVE_BUNDLES':
-      action.bundles.forEach(bundle =>
-        state = state.set(bundle.id, bundle))
-
-      return state
+      return state.merge(action.bundles.toMap().mapKeys((k, v) => v.id))
 
     case 'REMOVE_BUNDLE':
       return state.delete(action.id)
