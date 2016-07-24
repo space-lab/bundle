@@ -10,7 +10,7 @@ import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
   currentUser: Selectors.currentUser(state),
@@ -27,7 +27,7 @@ const connectProps = {
   ...collectionActions,
   ...favoriteActions,
   ...shareActions,
-  ...userAutocompleteActions
+  ...userActions,
 }
 
 @ui({

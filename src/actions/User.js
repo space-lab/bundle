@@ -1,5 +1,5 @@
 import { User } from 'records'
-
+import { fromJS } from 'immutable'
 import request from 'axios'
 import api from 'api'
 
@@ -17,7 +17,7 @@ export const authenticateUser = authToken => {
   request.defaults.headers.common['AUTH-TOKEN'] = authToken
 
   return async (dispatch) => {
-    const { data } = await request.get(api.me())
+    let { data } = await request.get(api.me())
 
     return data
       ? dispatch(setCurrentUser(data))
@@ -25,12 +25,23 @@ export const authenticateUser = authToken => {
   }
 }
 
-export const updateUser = (user, data) => async dispatch => {
-  const response = await request.put(api.user(user.id), { user: data })
-  return dispatch(setCurrentUser(response.data))
+export const updateUser = (user, payload) => async dispatch => {
+  let { data } = await request.put(api.user(user.id), { user: payload })
+  return dispatch(setCurrentUser(data))
 }
 
 export const logoutUser = () => {
   window.localStorage.removeItem('auth_token')
   return { type: 'RESET_STATE' }
 }
+
+export const getAutocompleteUsers = query => async dispatch => {
+  let { data } = await request.get(api.searchUsers(query))
+  let users = fromJS(data).map(user => new User(user))
+
+  dispatch({ type: 'RECEIVE_AUTOCOMPLETE_USERS', users })
+}
+
+export const resetAutocompleteUsers = () => ({
+  type: 'RESET_AUTOCOMPLETE_USERS'
+})

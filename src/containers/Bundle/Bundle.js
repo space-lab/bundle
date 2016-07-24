@@ -7,7 +7,7 @@ import * as searchActions from 'actions/Search'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as alertActions from 'actions/Alert'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import * as userActions from 'actions/User'
 import {
   Content,
   Header,
@@ -28,7 +28,7 @@ let connectState = (state) => ({
   currentLink: Selectors.currentLink(state),
   currentUser: Selectors.currentUser(state),
   collections: Selectors.collections(state),
-  userAutocomplete: state.UserAutocomplete
+  userAutocomplete: Selectors.autocompleteUsers(state)
 })
 
 let connectProps = {
@@ -38,7 +38,7 @@ let connectProps = {
   ...searchActions,
   ...bundleActions,
   ...collectionActions,
-  ...userAutocompleteActions
+  ...userActions
 }
 
 @connect(connectState, connectProps)

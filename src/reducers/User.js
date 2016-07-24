@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
-import { Map } from 'immutable'
+import { List, Map } from 'immutable'
 
 export default combineReducers({
+  byId: usersReducer,
   current: currentUserReducer,
-  byId: usersReducer
+  autocomplete: userAutocompleteReducer
 })
 
 function currentUserReducer (state = null, action) {
@@ -26,6 +27,19 @@ function usersReducer (state = Map(), action) {
         state = state.set(user.id, user))
 
       return state
+
+    default:
+      return state
+  }
+}
+
+function userAutocompleteReducer (state = List(), action) {
+  switch (action.type) {
+    case 'RECEIVE_AUTOCOMPLETE_USERS':
+      return action.users
+
+    case 'RESET_AUTOCOMPLETE_USERS':
+      return List()
 
     default:
       return state

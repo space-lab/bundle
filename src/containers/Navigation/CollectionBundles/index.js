@@ -10,14 +10,14 @@ import * as collectionActions from 'actions/Collection'
 import * as bundleActions from 'actions/Bundle'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
   collection: Selectors.currentCollection(state),
   bundles: Selectors.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,
-  userAutocomplete: state.UserAutocomplete,
+  userAutocomplete: Selectors.autocompleteUsers(state),
   currentUser: Selectors.currentUser(state)
 })
 
@@ -26,7 +26,7 @@ const connectProps = {
   ...bundleActions,
   ...favoriteActions,
   ...shareActions,
-  ...userAutocompleteActions
+  ...userActions
 }
 
 @ui({
@@ -40,7 +40,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   componentDidMount () {
-    let { collection, Id, getCollection } = this.props
+    let { collection, collectionId, getCollection } = this.props
     if (!collection) getCollection(collectionId)
   }
 

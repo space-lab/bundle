@@ -7,7 +7,7 @@ import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
-import * as userAutocompleteActions from 'actions/UserAutocomplete'
+import * as userActions from 'actions/User'
 import Selectors from 'selectors'
 import './index.css'
 
@@ -23,7 +23,7 @@ const connectProps = {
   ...searchActions,
   ...favoriteActions,
   ...shareActions,
-  ...userAutocompleteActions
+  ...userActions
 }
 
 @ui({
