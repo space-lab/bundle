@@ -15,8 +15,8 @@ import * as userAutocompleteActions from 'actions/UserAutocomplete'
 const connectState = (state) => ({
   currentUser: Selectors.currentUser(state),
   favorites: Selectors.sortedFavorites(state),
-  bundles: state.Bundle.get('byId'),
-  collections: state.Collection.get('byId'),
+  bundles: Selectors.bundles(state),
+  collections: Selectors.collections(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,
   userAutocomplete: state.UserAutocomplete

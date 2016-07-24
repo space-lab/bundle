@@ -4,7 +4,6 @@ import { normalize, arrayOf } from 'normalizr'
 import * as Schemas from 'normalizers'
 import { Bundle, Collection, User, Link, Share } from 'records'
 
-
 export const urlDomain = str => {
   const url = document.createElement('a')
 
@@ -87,7 +86,7 @@ export const reduceCollection = (data, dispatch) => {
 
   dispatch({ type: 'RECEIVE_USERS',  users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
+  reduceBundles(bundles, dispatch);
   dispatch({ type: 'RECEIVE_COLLECTION', collection })
 }
 
@@ -105,9 +104,8 @@ export const reduceCollections = (data, dispatch) => {
 
   dispatch({ type: 'RECEIVE_USERS', users })
   dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
+  reduceBundles(bundles, dispatch);
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
-  dispatch({ type: 'ALL_COLLECTIONS_RECEIVED' })
 }
 
 export const unNormaliseResources = (data, resources, shares, users) => {

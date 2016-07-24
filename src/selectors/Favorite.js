@@ -3,8 +3,8 @@ import { createSelector } from 'reselect'
 let favoritesSelector = state => state.Favorite.get('byId')
 let usersSelector = state => state.User.get('byId')
 let sharesSelector = state => state.Share.get('byId')
-let bundlesSelector = state => state.Bundle.get('byId')
-let collectionsSelector = state => state.Collection.get('byId')
+let bundlesSelector = state => state.Bundle
+let collectionsSelector = state => state.Collection
 
 export const sortedFavorites = createSelector(
   [favoritesSelector, sharesSelector, usersSelector, bundlesSelector, collectionsSelector],

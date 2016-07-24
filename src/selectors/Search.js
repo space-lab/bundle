@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect'
 import { unNormaliseResources } from 'helpers'
 
-let bundlesSelector = state => state.Bundle.get('byId')
-let collectionsSelector = state => state.Collection.get('byId')
+let bundlesSelector = state => state.Bundle
+let collectionsSelector = state => state.Collection
 let usersSelector = state => state.User.get('byId')
 let sharesSelector = state => state.Share.get('byId')
 let searchSelector = state => state.Search
