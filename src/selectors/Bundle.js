@@ -4,7 +4,7 @@ import { parseId, unNormaliseResources } from 'helpers'
 
 const bundlesSelector = state => state.Bundle
 const usersSelector = state => state.User.byId
-const sharesSelector = state => state.Share.get('byId')
+const sharesSelector = state => state.Share
 
 const currentBundleIdSelector = state => state.Route.bundleId
 const currentUserIdSelector = state => state.User.current

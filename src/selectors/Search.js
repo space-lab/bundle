@@ -4,7 +4,7 @@ import { unNormaliseResources } from 'helpers'
 let bundlesSelector = state => state.Bundle
 let collectionsSelector = state => state.Collection
 let usersSelector = state => state.User.byId
-let sharesSelector = state => state.Share.get('byId')
+let sharesSelector = state => state.Share
 let searchSelector = state => state.Search
 
 export const currentSearchResult = createSelector(

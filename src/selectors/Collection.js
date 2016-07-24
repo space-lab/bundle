@@ -3,7 +3,7 @@ import { Collection } from 'records'
 
 let collectionsSelector = state => state.Collection
 let usersSelector = state => state.User.byId
-let sharesSelector = state => state.Share.get('byId')
+let sharesSelector = state => state.Share
 
 let currentCollectionIdSelector = state => state.Route.collectionId
 let currentUserIdSelector = state => state.User.current
