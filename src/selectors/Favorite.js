@@ -4,7 +4,7 @@ let favoritesSelector = state => state.Favorite
 let usersSelector = state => state.User.byId
 let sharesSelector = state => state.Share
 let bundlesSelector = state => state.Bundle
-let collectionsSelector = state => state.Collection
+let collectionsSelector = state => state.Collection.byId
 
 export const sortedFavorites = createSelector(
   [favoritesSelector, sharesSelector, usersSelector, bundlesSelector, collectionsSelector],

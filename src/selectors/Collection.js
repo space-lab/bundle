@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect'
 import { Collection } from 'records'
 
-let collectionsSelector = state => state.Collection
+let collectionsSelector = state => state.Collection.byId
+let allCollections = state => state.Collection.receivedAll
 let usersSelector = state => state.User.byId
 let sharesSelector = state => state.Share
 
@@ -10,6 +11,9 @@ let currentUserIdSelector = state => state.User.current
 let getFilter = (state, props) => props.ui.filter
 
 export const collections = createSelector(collectionsSelector, collections =>
+  collections)
+
+export const receivedAllCollections = createSelector(allCollections, collections =>
   collections)
 
 export const currentCollection = createSelector(

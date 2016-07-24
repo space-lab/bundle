@@ -2,8 +2,8 @@ import { combineReducers } from 'redux'
 import { Map } from 'immutable'
 
 export default combineReducers({
-  current: currentLinkReducer,
-  byId: linksReducer
+  byId: linksReducer,
+  current: currentLinkReducer
 })
 
 function currentLinkReducer (state = Map(), action) {

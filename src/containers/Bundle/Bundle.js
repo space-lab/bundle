@@ -28,7 +28,8 @@ let connectState = (state) => ({
   currentLink: Selectors.currentLink(state),
   currentUser: Selectors.currentUser(state),
   collections: Selectors.collections(state),
-  userAutocomplete: Selectors.autocompleteUsers(state)
+  userAutocomplete: Selectors.autocompleteUsers(state),
+  receivedAllCollections: Selectors.receivedAllCollections(state)
 })
 
 let connectProps = {
@@ -44,10 +45,10 @@ let connectProps = {
 @connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {
-    let { bundle, getBundle, bundleId, getCollections } = this.props
+    let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
     if (bundleId && !bundle) getBundle(bundleId)
-    getCollections()
+    if (!receivedAllCollections) getCollections()
   }
 
   componentWillReceiveProps ({ bundle: nextBundle, bundleId: nextBundleId }) {

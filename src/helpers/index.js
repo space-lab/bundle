@@ -106,6 +106,7 @@ export const reduceCollections = (data, dispatch) => {
   dispatch({ type: 'RECEIVE_SHARES', shares })
   reduceBundles(bundles, dispatch);
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
+  dispatch({ type: 'RECEIVE_ALL_COLLECTIONS' })
 }
 
 export const unNormaliseResources = (data, resources, shares, users) => {

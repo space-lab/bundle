@@ -2,7 +2,7 @@ import { createSelector } from 'reselect'
 import { unNormaliseResources } from 'helpers'
 
 let bundlesSelector = state => state.Bundle
-let collectionsSelector = state => state.Collection
+let collectionsSelector = state => state.Collection.byId
 let usersSelector = state => state.User.byId
 let sharesSelector = state => state.Share
 let searchSelector = state => state.Search

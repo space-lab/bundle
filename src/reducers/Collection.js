@@ -1,6 +1,22 @@
+import { combineReducers } from 'redux'
 import { Map } from 'immutable'
 
-export default function collectionReducer (state = Map(), action) {
+export default combineReducers({
+  byId: collectionReducer,
+  receivedAll: receivedAllCollectionReducer
+})
+
+function receivedAllCollectionReducer (state = false, action) {
+  switch (action.type) {
+    case 'RECEIVE_ALL_COLLECTIONS':
+      return state = true
+
+    default:
+      return state
+  }
+}
+
+function collectionReducer (state = Map(), action) {
   switch (action.type) {
     case 'RECEIVE_COLLECTIONS':
       action.collections.forEach(col =>
