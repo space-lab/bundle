@@ -10,6 +10,7 @@ export default function (state = Map(), action) {
 
     case 'REMOVE_SHARE':
       return state.delete(action.id)
+
     default:
       return state
   }
