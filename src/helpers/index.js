@@ -75,36 +75,42 @@ export const reduceBundles = (data, dispatch) => {
 export const reduceCollection = (data, dispatch) => {
   let result = fromJS(normalize(data, Schemas.collection).entities)
     .update('users', users => users || Map())
+    .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
     .update('bundles', bundles => bundles || Map())
     .update('collections', collections => collections || Map())
 
   let collection = new Collection(result.get('collections').first())
   let users = result.get('users').valueSeq().map(item => new User(item))
+  let links = result.get('links').valueSeq().map(item => new Link(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
 
   dispatch({ type: 'RECEIVE_USERS',  users })
+  dispatch({ type: 'RECEIVE_LINKS', links })
   dispatch({ type: 'RECEIVE_SHARES', shares })
-  reduceBundles(bundles, dispatch);
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTION', collection })
 }
 
 export const reduceCollections = (data, dispatch) => {
   let result = fromJS(normalize(data, arrayOf(Schemas.collection)).entities)
     .update('users', users => users || Map())
+    .update('links', links => links || Map())
     .update('shares', shares => shares || Map())
     .update('bundles', bundles => bundles || Map())
     .update('collections', collections => collections || Map())
 
   let users = result.get('users').valueSeq().map(item => new User(item))
+  let links = result.get('links').valueSeq().map(item => new Link(item))
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
   let collections = result.get('collections').valueSeq().map(item => new Collection(item))
 
   dispatch({ type: 'RECEIVE_USERS', users })
+  dispatch({ type: 'RECEIVE_LINKS', links })
   dispatch({ type: 'RECEIVE_SHARES', shares })
-  reduceBundles(bundles, dispatch);
+  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
   dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
   dispatch({ type: 'RECEIVE_ALL_COLLECTIONS' })
 }
