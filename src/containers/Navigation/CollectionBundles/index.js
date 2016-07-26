@@ -13,12 +13,12 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
-  collection: Selectors.Collection.currentCollection(state),
+  collection: Selectors.Collection.current(state),
   bundles: Selectors.Bundle.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,
-  userAutocomplete: Selectors.User.autocompleteUsers(state),
-  currentUser: Selectors.User.currentUser(state)
+  userAutocomplete: Selectors.User.autocompletes(state),
+  currentUser: Selectors.User.current(state)
 })
 
 const connectProps = {

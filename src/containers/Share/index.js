@@ -9,9 +9,9 @@ import ShareBundle from './Bundle'
 import './index.css'
 
 const connectState = (state, props) => ({
-  user: Selectors.User.currentUser(state),
+  user: Selectors.User.current(state),
   bundle: Selectors.Bundle.currentShareBundle(state, props),
-  users: Selectors.User.users(state),
+  users: Selectors.User.all(state),
   links: Selectors.Link.links(state)
 })
 

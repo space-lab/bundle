@@ -7,7 +7,7 @@ import * as userActions from 'actions/User'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.User.currentUser(state),
+  currentUser: Selectors.User.current(state),
   routing: state.routing
 })
 

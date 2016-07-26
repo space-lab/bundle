@@ -6,7 +6,7 @@ import * as alertActions from 'actions/Alert'
 import './index.css'
 
 let connectState = state => ({
-  user: Selectors.User.currentUser(state)
+  user: Selectors.User.current(state)
 })
 
 let connectProps = {

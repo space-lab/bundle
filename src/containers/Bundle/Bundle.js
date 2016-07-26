@@ -22,14 +22,14 @@ import {
 
 let connectState = (state) => ({
   bundleId: state.Route.bundleId,
-  users: Selectors.User.users(state),
+  users: Selectors.User.all(state),
   links: Selectors.Link.links(state),
   bundle: Selectors.Bundle.currentBundle(state),
   currentLink: Selectors.Link.currentLink(state),
-  currentUser: Selectors.User.currentUser(state),
+  currentUser: Selectors.User.current(state),
   collections: Selectors.Collection.collections(state),
-  userAutocomplete: Selectors.User.autocompleteUsers(state),
-  receivedAllCollections: Selectors.Collection.receivedAllCollections(state)
+  userAutocomplete: Selectors.User.autocompletes(state),
+  receivedAllCollections: Selectors.Collection.receivedAll(state)
 })
 
 let connectProps = {

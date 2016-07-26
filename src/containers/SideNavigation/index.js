@@ -8,7 +8,7 @@ import SideNavigationBottom from './bottom'
 import './index.css'
 
 let connectState = (state) => ({
-  currentUser: Selectors.User.currentUser(state)
+  currentUser: Selectors.User.current(state)
 })
 
 let connectProps = { createBundle }

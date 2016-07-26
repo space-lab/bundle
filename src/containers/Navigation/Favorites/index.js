@@ -13,9 +13,9 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
-  currentUser: Selectors.User.currentUser(state),
+  currentUser: Selectors.User.current(state),
   favorites: Selectors.Favorite.sortedFavorites(state),
-  bundles: Selectors.Bundle.bundles(state),
+  bundles: Selectors.Bundle.all(state),
   collections: Selectors.Collection.collections(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,

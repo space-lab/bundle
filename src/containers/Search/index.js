@@ -12,9 +12,9 @@ import * as Selectors from 'selectors'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.User.currentUser(state),
+  currentUser: Selectors.User.current(state),
   searchResult: Selectors.Search.currentSearchResult(state),
-  userAutocomplete: Selectors.User.autocompleteUsers(state)
+  userAutocomplete: Selectors.User.autocompletes(state)
 })
 
 const connectProps = {

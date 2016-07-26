@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect'
-import { currentCollection } from './Collection'
+import { all as allUsers } from './User'
+import { all as allShares } from './Share'
+import { current as currentCollection } from './Collection'
 import { parseId, unNormaliseResources } from 'helpers'
 
-const bundlesSelector = state => state.Bundle
-const usersSelector = state => state.User.byId
-const sharesSelector = state => state.Share
+export const all = state => state.Bundle
 
 const currentBundleIdSelector = state => state.Route.bundleId
 const currentUserIdSelector = state => state.User.current
@@ -12,10 +12,9 @@ const currentUserIdSelector = state => state.User.current
 const getFilter = (state, props) => props.ui.filter
 const getShareBundleId = (state, props) => parseId(props.params.id)
 
-export const bundles = createSelector(bundlesSelector, bundles => bundles)
 
 export const currentBundle = createSelector(
-  [currentBundleIdSelector, bundlesSelector, sharesSelector, usersSelector],
+  [currentBundleIdSelector, all, allShares, allUsers],
   (id, bundles, shares, users) => {
     if (!bundles.get(id)) return null
 
@@ -25,9 +24,8 @@ export const currentBundle = createSelector(
   }
 )
 
-export const sortedBundles = createSelector(
-  bundlesSelector,
-  bundles => bundles
+export const sortedBundles = createSelector(all, bundles =>
+  bundles
     .valueSeq()
     .sortBy(bundle => bundle.updated_at)
     .reverse()
@@ -53,14 +51,14 @@ export const filteredBundles = createSelector(
 )
 
 export const currentBundles = createSelector(
-  [filteredBundles, sharesSelector, usersSelector],
+  [filteredBundles, allShares, allUsers],
   (bundles, shares, users) =>
     bundles.map(bundle => bundle.update('shares', ids => ids.map(id =>
       shares.get(id).update('user', id => users.get(id)))))
 )
 
 export const sortedCollectionBundles = createSelector(
-  [currentCollection, bundlesSelector, sharesSelector, usersSelector],
+  [currentCollection, all, allShares, allUsers],
   (collection, bundles, shares, users) => {
     if (!collection || !collection.bundles) return []
     return unNormaliseResources(collection.bundles, bundles, shares, users)
@@ -68,7 +66,7 @@ export const sortedCollectionBundles = createSelector(
 )
 
 export const currentShareBundle = createSelector(
-  [getShareBundleId, bundlesSelector, sharesSelector, usersSelector],
+  [getShareBundleId, all, allShares, allUsers],
   (id, bundles, shares, users) => {
     if (!bundles.get(id)) return null
 
