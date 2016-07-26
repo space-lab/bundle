@@ -4,8 +4,7 @@ import { all as allShares } from './Share'
 import { all as allBundles } from './Bundle'
 import { all as allCollections } from './Collection'
 
-let all = state => state.Favorite
-
+export const all = state => state.Favorite
 export const sorted = createSelector(
   [all, allShares, allUsers, allBundles, allCollections],
   (favorites, shares, users, bundles, collections) => favorites

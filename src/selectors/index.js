@@ -1,6 +1,7 @@
-export * as User from './User'
 export * as Bundle from './Bundle'
 export * as Collection from './Collection'
 export * as Favorite from './Favorite'
 export * as Link from './Link'
 export * as Search from './Search'
+export * as Share from './Share'
+export * as User from './User'
