@@ -8,13 +8,13 @@ import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
 import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
-import Selectors from 'selectors'
+import * as Selectors from 'selectors'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.currentUser(state),
-  searchResult: Selectors.currentSearchResult(state),
-  userAutocomplete: state.UserAutocomplete
+  currentUser: Selectors.User.currentUser(state),
+  searchResult: Selectors.Search.currentSearchResult(state),
+  userAutocomplete: Selectors.User.autocompleteUsers(state)
 })
 
 const connectProps = {

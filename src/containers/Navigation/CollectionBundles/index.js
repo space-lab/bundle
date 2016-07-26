@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 
 import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
-import Selectors from 'selectors'
 
+import * as Selectors from 'selectors'
 import * as collectionActions from 'actions/Collection'
 import * as bundleActions from 'actions/Bundle'
 import * as favoriteActions from 'actions/Favorite'
@@ -13,12 +13,12 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
-  collection: Selectors.currentCollection(state),
-  bundles: Selectors.sortedCollectionBundles(state),
+  collection: Selectors.Collection.currentCollection(state),
+  bundles: Selectors.Bundle.sortedCollectionBundles(state),
   bundleId: state.Route.bundleId,
   collectionId: state.Route.collectionId,
-  userAutocomplete: Selectors.autocompleteUsers(state),
-  currentUser: Selectors.currentUser(state)
+  userAutocomplete: Selectors.User.autocompleteUsers(state),
+  currentUser: Selectors.User.currentUser(state)
 })
 
 const connectProps = {

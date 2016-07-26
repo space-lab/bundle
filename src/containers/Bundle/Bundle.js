@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { linksWithAuthorIds } from 'helpers'
-import Selectors from 'selectors'
+import * as Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
 import * as searchActions from 'actions/Search'
@@ -22,14 +22,14 @@ import {
 
 let connectState = (state) => ({
   bundleId: state.Route.bundleId,
-  users: Selectors.users(state),
-  links: Selectors.links(state),
-  bundle: Selectors.currentBundle(state),
-  currentLink: Selectors.currentLink(state),
-  currentUser: Selectors.currentUser(state),
-  collections: Selectors.collections(state),
-  userAutocomplete: Selectors.autocompleteUsers(state),
-  receivedAllCollections: Selectors.receivedAllCollections(state)
+  users: Selectors.User.users(state),
+  links: Selectors.Link.links(state),
+  bundle: Selectors.Bundle.currentBundle(state),
+  currentLink: Selectors.Link.currentLink(state),
+  currentUser: Selectors.User.currentUser(state),
+  collections: Selectors.Collection.collections(state),
+  userAutocomplete: Selectors.User.autocompleteUsers(state),
+  receivedAllCollections: Selectors.Collection.receivedAllCollections(state)
 })
 
 let connectProps = {
