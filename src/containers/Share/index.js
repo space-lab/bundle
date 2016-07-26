@@ -10,9 +10,9 @@ import './index.css'
 
 const connectState = (state, props) => ({
   user: Selectors.User.current(state),
-  bundle: Selectors.Bundle.currentShareBundle(state, props),
   users: Selectors.User.all(state),
-  links: Selectors.Link.all(state)
+  links: Selectors.Link.all(state),
+  bundle: Selectors.Bundle.currentShareBundle(state, props)
 })
 
 const connectProps = {

@@ -11,8 +11,8 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state, props) => ({
-  currentUser: Selectors.User.current(state),
   collections: Selectors.Collection.currents(state, props),
+  currentUser: Selectors.User.current(state),
   userAutocomplete: Selectors.User.autocompletes(state)
 })
 

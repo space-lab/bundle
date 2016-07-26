@@ -21,9 +21,9 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state, props) => ({
-  currentUser: Selectors.User.current(state),
   bundles: Selectors.Bundle.currents(state, props),
   bundleId: Selectors.Bundle.currentId(state),
+  currentUser: Selectors.User.current(state),
   userAutocomplete: Selectors.User.autocompletes(state),
   search: Selectors.Search.result(state)
 })
