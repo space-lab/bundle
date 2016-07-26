@@ -5,16 +5,16 @@ import { Collection } from 'records'
 
 let getFilter = (state, props) => props.ui.filter
 
+export const all = state => state.Collection.byId
 export const currentId = state => state.Route.collectionId
-export const collections = state => state.Collection.byId
 export const receivedAll = state => state.Collection.receivedAll
 
 export const current = createSelector(
-  [currentId, collections],
+  [currentId, all],
   (id, collections) => collections.get(id) || new Collection())
 
 export const sorted = createSelector(
-  collections,
+  all,
   collections => collections
     .valueSeq()
     .sortBy(col => col.created_at)

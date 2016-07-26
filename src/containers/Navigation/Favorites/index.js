@@ -14,12 +14,12 @@ import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
   currentUser: Selectors.User.current(state),
-  favorites: Selectors.Favorite.sortedFavorites(state),
+  favorites: Selectors.Favorite.sorted(state),
   bundles: Selectors.Bundle.all(state),
-  collections: Selectors.Collection.collections(state),
-  bundleId: state.Route.bundleId,
-  collectionId: state.Route.collectionId,
-  userAutocomplete: state.User.UserAutocomplete
+  collections: Selectors.Collection.all(state),
+  bundleId: Selectors.Bundle.currentId(state),
+  collectionId: Selectors.Collection.currentId(state),
+  userAutocomplete: Selectors.User.autocompletes(state)
 })
 
 const connectProps = {

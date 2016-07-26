@@ -12,7 +12,7 @@ const connectState = (state, props) => ({
   user: Selectors.User.current(state),
   bundle: Selectors.Bundle.currentShareBundle(state, props),
   users: Selectors.User.all(state),
-  links: Selectors.Link.links(state)
+  links: Selectors.Link.all(state)
 })
 
 const connectProps = {

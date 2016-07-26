@@ -13,7 +13,7 @@ import './index.css'
 
 const connectState = (state) => ({
   currentUser: Selectors.User.current(state),
-  searchResult: Selectors.Search.currentSearchResult(state),
+  searchResult: Selectors.Search.currentResult(state),
   userAutocomplete: Selectors.User.autocompletes(state)
 })
 

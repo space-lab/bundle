@@ -1,13 +1,8 @@
 import { createSelector } from 'reselect'
+import { currentId as currentBundleId } from './Bundle'
 
-let linksSelector = state => state.Link.byId
-let currentLinksSelector = state => state.Link.current
-let currentBundleIdSelector = state => state.Route.bundleId
-
-export const links = createSelector(linksSelector, links => links)
-
-export const currentLink = createSelector(
-  [currentBundleIdSelector, currentLinksSelector],
-  (bundleId, currentLinks) => currentLinks.get(bundleId)
-)
-
+export const all = state => state.Link.byId
+export const currentId = state => state.Link.current
+export const current = createSelector(
+  [all, currentBundleId],
+  (links, bundleId) => links.get(bundleId))

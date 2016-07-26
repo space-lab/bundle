@@ -1,20 +1,16 @@
 import { createSelector } from 'reselect'
-import { all as allUsers } from './User'
+import { all as allUsers, currentId as currentUserId } from './User'
 import { all as allShares } from './Share'
 import { current as currentCollection } from './Collection'
 import { parseId, unNormaliseResources } from 'helpers'
 
+let getFilter = (state, props) => props.ui.filter
+let getShareBundleId = (state, props) => parseId(props.params.id)
+
 export const all = state => state.Bundle
-
-const currentBundleIdSelector = state => state.Route.bundleId
-const currentUserIdSelector = state => state.User.current
-
-const getFilter = (state, props) => props.ui.filter
-const getShareBundleId = (state, props) => parseId(props.params.id)
-
-
-export const currentBundle = createSelector(
-  [currentBundleIdSelector, all, allShares, allUsers],
+export const currentId = state => state.Route.bundleId
+export const current = createSelector(
+  [currentId, all, allShares, allUsers],
   (id, bundles, shares, users) => {
     if (!bundles.get(id)) return null
 
@@ -24,16 +20,15 @@ export const currentBundle = createSelector(
   }
 )
 
-export const sortedBundles = createSelector(all, bundles =>
+export const sorted = createSelector(all, bundles =>
   bundles
     .valueSeq()
     .sortBy(bundle => bundle.updated_at)
     .reverse()
-    .toList()
-)
+    .toList())
 
-export const filteredBundles = createSelector(
-  [sortedBundles, getFilter, currentUserIdSelector],
+export const filtered = createSelector(
+  [sorted, getFilter, currentUserId],
   (bundles, filter, currentUser) => {
     bundles = bundles.filter(bundle => bundle.joined)
 
@@ -50,8 +45,8 @@ export const filteredBundles = createSelector(
   }
 )
 
-export const currentBundles = createSelector(
-  [filteredBundles, allShares, allUsers],
+export const currents = createSelector(
+  [filtered, allShares, allUsers],
   (bundles, shares, users) =>
     bundles.map(bundle => bundle.update('shares', ids => ids.map(id =>
       shares.get(id).update('user', id => users.get(id)))))

@@ -21,13 +21,13 @@ import {
 } from 'components'
 
 let connectState = (state) => ({
-  bundleId: state.Route.bundleId,
+  bundleId: Selectors.Bundle.currentId(state),
   users: Selectors.User.all(state),
-  links: Selectors.Link.links(state),
-  bundle: Selectors.Bundle.currentBundle(state),
-  currentLink: Selectors.Link.currentLink(state),
+  links: Selectors.Link.all(state),
+  bundle: Selectors.Bundle.current(state),
+  currentLink: Selectors.Link.current(state),
   currentUser: Selectors.User.current(state),
-  collections: Selectors.Collection.collections(state),
+  collections: Selectors.Collection.all(state),
   userAutocomplete: Selectors.User.autocompletes(state),
   receivedAllCollections: Selectors.Collection.receivedAll(state)
 })

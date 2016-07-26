@@ -22,10 +22,10 @@ import * as userActions from 'actions/User'
 
 const connectState = (state, props) => ({
   currentUser: Selectors.User.current(state),
-  bundles: Selectors.Bundle.currentBundles(state, props),
-  bundleId: state.Route.bundleId,
-  search: state.Search,
-  userAutocomplete: Selectors.User.autocompletes(state)
+  bundles: Selectors.Bundle.currents(state, props),
+  bundleId: Selectors.Bundle.currentId(state),
+  userAutocomplete: Selectors.User.autocompletes(state),
+  search: Selectors.Search.result(state)
 })
 
 const connectProps = {
