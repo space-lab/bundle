@@ -107,12 +107,12 @@ export default class BundleContainer extends React.Component {
           handleLinkAdd={link => props.addLink(link, props.bundle.id)}
           handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
 
-        {props.bundle.get('links').map((id, index) => {
+        {props.bundle.get('links').map((id) => {
           let link = props.links.get(id)
           let user = props.users.get(link.creator)
 
           return <Link
-            key={index}
+            key={link.id}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
