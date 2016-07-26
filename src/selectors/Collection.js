@@ -1,40 +1,28 @@
 import { createSelector } from 'reselect'
+import { all as allUsers, currentId as currentUserId } from './User'
+import { all as allShares } from './Share'
 import { Collection } from 'records'
 
-let collectionsSelector = state => state.Collection.byId
-let allCollections = state => state.Collection.receivedAll
-let usersSelector = state => state.User.byId
-let sharesSelector = state => state.Share
-
-let currentCollectionIdSelector = state => state.Route.collectionId
-let currentUserIdSelector = state => state.User.current
 let getFilter = (state, props) => props.ui.filter
 
-export const collections = createSelector(collectionsSelector, collections =>
-  collections)
+export const all = state => state.Collection.byId
+export const currentId = state => state.Route.collectionId
+export const receivedAll = state => state.Collection.receivedAll
 
-export const receivedAllCollections = createSelector(allCollections, collections =>
-  collections)
-
-export const currentCollection = createSelector(
-  [currentCollectionIdSelector, collectionsSelector],
+export const current = createSelector(
+  [currentId, all],
   (id, collections) => collections.get(id) || new Collection())
 
-export const collectionList = createSelector(
-  [collectionsSelector],
-  (collections) => collections.valueSeq().toList())
-
-export const sortedCollections = createSelector(
-  collectionsSelector,
+export const sorted = createSelector(
+  all,
   collections => collections
     .valueSeq()
     .sortBy(col => col.created_at)
     .reverse()
-    .toList()
-)
+    .toList())
 
-export const filteredCollections = createSelector(
-  [sortedCollections, getFilter, currentUserIdSelector],
+export const filtered = createSelector(
+  [sorted, getFilter, currentUserId],
   (collections, filter, currentUser) => {
     switch (filter) {
       case 'recent':
@@ -49,8 +37,8 @@ export const filteredCollections = createSelector(
   }
 )
 
-export const currentCollections = createSelector(
-  [filteredCollections, sharesSelector, usersSelector],
+export const currents = createSelector(
+  [filtered, allShares, allUsers],
   (collections, shares, users) =>
     collections.map(col => col.update('shares', ids => ids.map(id =>
       shares.get(id).update('user', id => users.get(id))))))

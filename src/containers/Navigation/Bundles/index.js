@@ -12,7 +12,7 @@ import {
   LoadMore
 } from 'components'
 
-import Selectors from 'selectors'
+import * as Selectors from 'selectors'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as searchActions from 'actions/Search'
@@ -21,11 +21,11 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state, props) => ({
-  currentUser: Selectors.currentUser(state),
-  bundles: Selectors.currentBundles(state, props),
-  bundleId: state.Route.bundleId,
-  search: state.Search,
-  userAutocomplete: Selectors.autocompleteUsers(state)
+  bundles: Selectors.Bundle.currents(state, props),
+  bundleId: Selectors.Bundle.currentId(state),
+  currentUser: Selectors.User.current(state),
+  userAutocomplete: Selectors.User.autocompletes(state),
+  search: Selectors.Search.result(state)
 })
 
 const connectProps = {

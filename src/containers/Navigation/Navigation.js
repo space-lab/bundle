@@ -3,7 +3,6 @@ import { fromJS } from 'immutable'
 import * as routeActions from 'actions/Route'
 import { NoBundle } from 'components'
 import { parseId } from 'helpers'
-
 import {
   Bundle,
   BundleNavigation,

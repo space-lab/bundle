@@ -6,11 +6,8 @@ export Logout from './Logout'
 export Alerts from './Alerts'
 export Settings from './Settings'
 export Bundle from './Bundle/Bundle'
-
 export SearchContainer from './Search'
-
 export SideNavigation from './SideNavigation'
-
 export Navigation                  from './Navigation/Navigation'
 export BundleNavigation            from './Navigation/Bundles'
 export FavoriteNavigation          from './Navigation/Favorites'

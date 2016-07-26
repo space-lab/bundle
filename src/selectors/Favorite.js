@@ -1,13 +1,12 @@
 import { createSelector } from 'reselect'
+import { all as allUsers } from './User'
+import { all as allShares } from './Share'
+import { all as allBundles } from './Bundle'
+import { all as allCollections } from './Collection'
 
-let favoritesSelector = state => state.Favorite
-let usersSelector = state => state.User.byId
-let sharesSelector = state => state.Share
-let bundlesSelector = state => state.Bundle
-let collectionsSelector = state => state.Collection.byId
-
-export const sortedFavorites = createSelector(
-  [favoritesSelector, sharesSelector, usersSelector, bundlesSelector, collectionsSelector],
+export const all = state => state.Favorite
+export const sorted = createSelector(
+  [all, allShares, allUsers, allBundles, allCollections],
   (favorites, shares, users, bundles, collections) => favorites
     .valueSeq()
     .sortBy(item => item.get('created_at'))
@@ -17,13 +16,9 @@ export const sortedFavorites = createSelector(
       let id = item.get('id')
       let type = item.get('type')
 
-      if (type === 'Bundle') {
-        return bundles.get(id).set('type', type)
-      } else {
-        return collections.get(id).set('type', type)
-      }
+      return type === 'Bundle'
+        ? bundles.get(id).set('type', type)
+        : collections.get(id).set('type', type)
     })
-    .map(res => res.update('shares', ids => ids.map(id => {
-      return shares.get(id).update('user', id => users.get(id))
-    })))
-)
+    .map(res => res.update('shares', ids => ids.map(id =>
+      shares.get(id).update('user', id => users.get(id))))))

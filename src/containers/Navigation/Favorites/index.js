@@ -2,10 +2,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-
 import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
-import Selectors from 'selectors'
-
+import * as Selectors from 'selectors'
 import * as bundleActions from 'actions/Bundle'
 import * as collectionActions from 'actions/Collection'
 import * as favoriteActions from 'actions/Favorite'
@@ -13,13 +11,13 @@ import * as shareActions from 'actions/Share'
 import * as userActions from 'actions/User'
 
 const connectState = (state) => ({
-  currentUser: Selectors.currentUser(state),
-  favorites: Selectors.sortedFavorites(state),
-  bundles: Selectors.bundles(state),
-  collections: Selectors.collections(state),
-  bundleId: state.Route.bundleId,
-  collectionId: state.Route.collectionId,
-  userAutocomplete: state.UserAutocomplete
+  bundles: Selectors.Bundle.all(state),
+  bundleId: Selectors.Bundle.currentId(state),
+  collections: Selectors.Collection.all(state),
+  collectionId: Selectors.Collection.currentId(state),
+  favorites: Selectors.Favorite.sorted(state),
+  currentUser: Selectors.User.current(state),
+  userAutocomplete: Selectors.User.autocompletes(state)
 })
 
 const connectProps = {
