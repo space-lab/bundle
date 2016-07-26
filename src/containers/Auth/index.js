@@ -2,12 +2,12 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import Login from './Login'
 import Email from './Email'
-import Selectors from 'selectors'
+import * as Selectors from 'selectors'
 import * as userActions from 'actions/User'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.currentUser(state),
+  currentUser: Selectors.User.current(state),
   routing: state.routing
 })
 

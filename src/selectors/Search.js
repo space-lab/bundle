@@ -1,17 +1,14 @@
 import { createSelector } from 'reselect'
 import { unNormaliseResources } from 'helpers'
+import { all as allBundles } from './Bundle'
+import { all as allCollections } from './Collection'
+import { all as allShares } from './Share'
+import { all as allUsers } from './User'
 
-let bundlesSelector = state => state.Bundle
-let collectionsSelector = state => state.Collection.byId
-let usersSelector = state => state.User.byId
-let sharesSelector = state => state.Share
-let searchSelector = state => state.Search
-
-export const currentSearchResult = createSelector(
-  [searchSelector, bundlesSelector, collectionsSelector, sharesSelector, usersSelector],
-  (search, bundles, collections, shares, users) => {
-    return search
+export const result = state => state.Search
+export const currentResult = createSelector(
+  [result, allBundles, allCollections, allShares, allUsers],
+  (search, bundles, collections, shares, users) =>
+    search
       .update('bundles', data => unNormaliseResources(data, bundles, shares, users))
-      .update('collections', data => unNormaliseResources(data, collections, shares, users))
-  }
-)
+      .update('collections', data => unNormaliseResources(data, collections, shares, users)))

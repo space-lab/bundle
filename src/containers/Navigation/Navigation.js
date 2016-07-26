@@ -3,7 +3,6 @@ import { fromJS } from 'immutable'
 import * as routeActions from 'actions/Route'
 import { NoBundle } from 'components'
 import { parseId } from 'helpers'
-
 import {
   Bundle,
   BundleNavigation,
@@ -51,11 +50,14 @@ export default class Navigation extends React.Component {
     let { Route } = props
     let { bundleId, collectionId } = props.params
 
-    if (bundleId && Route.bundleId !== bundleId) props.routeChangeBundleId(parseId(bundleId))
+    bundleId = parseId(bundleId)
+    collectionId = parseId(collectionId)
+
+    if (bundleId && Route.bundleId !== bundleId) props.routeChangeBundleId(bundleId)
     if (this.shouldChangeNavigationView(props)) props.routeChangeNavigationView(view)
 
     if (collectionId && Route.collectionId !== collectionId) {
-      props.routeChangeNavigationCollectionId(parseId(collectionId))
+      props.routeChangeNavigationCollectionId(collectionId)
     }
   }
 

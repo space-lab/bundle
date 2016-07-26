@@ -141,6 +141,8 @@ export const bestThumbnail = data => {
 }
 
 export const parseId = str => {
+  if (!str) return str
+
   str = str.split('-')
   return str[str.length - 1]
 }
