@@ -57,6 +57,16 @@ export default class BundleContainer extends React.Component {
     if (bundleId !== nextBundleId && !nextBundle) getBundle(nextBundleId)
   }
 
+  handleLinkRemove (link, event) {
+    if (confirm('are you sure?')) this.props.removeLink(link.id, this.props.bundle.id)
+    event.preventDefault()
+  }
+
+  handleLinkComplete (link, event) {
+    this.props.toggleCompleteLink(link.id)
+    event.preventDefault()
+  }
+
   render () {
     let props = this.props
     if (!props.bundle) return false
@@ -126,23 +136,13 @@ export default class BundleContainer extends React.Component {
             creatorImage={user.image}>
             <Toolbar>
               <Permission allow>
-                <div className={completedClass}
-                  //style={shouldAppear(ui.active)}
-                  onClick={event => {
-                    event.preventDefault()
-                    props.linkToggleCompleted(link.id)
-                  }}
-                />
+                <div className={completedClass} //style={shouldAppear(ui.active)}
+                  onClick={this.handleLinkComplete.bind(this, link)} />
               </Permission>
 
               <Permission allow={link.canRemove(props.currentUser.id)}>
-                <div className='link-remove'
-                  //style={shouldAppear(ui.active)}
-                  onClick={event => {
-                    if (confirm('are you sure?'))
-                      props.removeLink(link.id, props.bundle.id)
-                    event.preventDefault()
-                  }} />
+                <div className='link-remove' //style={shouldAppear(ui.active)}
+                  onClick={this.handleLinkRemove.bind(this, link)} />
               </Permission>
             </Toolbar>
           </Link>
