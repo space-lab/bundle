@@ -47,9 +47,8 @@ export default class Link extends React.Component {
       style={shouldAppear(ui.active)}
       onClick={e => {
         e.preventDefault()
-        handleLinkComplete()}}>
-      ✔
-    </div>
+        handleLinkComplete()}
+      }/>
   }
 
   render () {
