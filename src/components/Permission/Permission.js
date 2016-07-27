@@ -1,9 +1,9 @@
 export default class Permission extends React.Component {
   static propTypes = {
-    check: React.PropTypes.bool.isRequired
+    allow: React.PropTypes.bool.isRequired
   }
 
   render () {
-    return this.props.check ? this.props.children : false
+    return this.props.allow ? this.props.children : false
   }
 }

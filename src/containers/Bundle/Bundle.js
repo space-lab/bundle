@@ -99,7 +99,7 @@ export default class BundleContainer extends React.Component {
           placeholder='Description goes here...'
           onBlur={e => props.updateBundle(props.bundle.id, { description: e.target.value })} />
 
-        <Permission check={props.bundle.canEdit(props.currentUser.id)}>
+        <Permission allow={props.bundle.canEdit(props.currentUser.id)}>
           <AddLink
             bundle={props.bundle}
             user={props.currentUser}
