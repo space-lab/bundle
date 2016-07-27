@@ -2,26 +2,10 @@ import { shouldAppear } from 'helpers'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import * as Selectors from 'selectors'
-import * as linkActions from 'actions/Link'
-import * as shareActions from 'actions/Share'
-import * as searchActions from 'actions/Search'
-import * as bundleActions from 'actions/Bundle'
-import * as collectionActions from 'actions/Collection'
-import * as alertActions from 'actions/Alert'
-import * as userActions from 'actions/User'
-import {
-  Content,
-  Header,
-  Bundle,
-  Editable,
-  AddLink,
-  Link,
-  ChangeCollection,
-  JoinBundle,
-  ShareBundle,
-  Permission,
-  Toolbar
-} from 'components'
+import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
+  ShareActions, SearchActions } from 'actions'
+import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
+  ChangeCollection, JoinBundle, ShareBundle } from 'components'
 
 let connectState = (state) => ({
   bundleId: Selectors.Bundle.currentId(state),
@@ -36,13 +20,13 @@ let connectState = (state) => ({
 })
 
 let connectProps = {
-  ...linkActions,
-  ...shareActions,
-  ...alertActions,
-  ...searchActions,
-  ...bundleActions,
-  ...collectionActions,
-  ...userActions
+  ...AlertActions,
+  ...BundleActions,
+  ...CollectionActions,
+  ...LinkActions,
+  ...UserActions,
+  ...ShareActions,
+  ...SearchActions
 }
 
 @connect(connectState, connectProps)

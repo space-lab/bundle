@@ -3,8 +3,7 @@ import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { parseId } from 'helpers'
 import * as Selectors from 'selectors'
-import * as userActions from 'actions/User'
-import * as shareActions from 'actions/Share'
+import { ShareActions, UserActions } from 'actions'
 import ShareBundle from './Bundle'
 import './index.css'
 
@@ -16,8 +15,8 @@ const connectState = (state, props) => ({
 })
 
 const connectProps = {
-  ...shareActions,
-  ...userActions
+  ...ShareActions,
+  ...UserActions
 }
 
 @ui({

@@ -1,7 +1,7 @@
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { createBundle } from 'actions/Bundle'
+import { BundleActions } from 'actions'
 import * as Selectors from 'selectors'
 import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
@@ -11,7 +11,7 @@ let connectState = (state) => ({
   currentUser: Selectors.User.current(state)
 })
 
-let connectProps = { createBundle }
+let connectProps = { createBundle: BundleActions.createBundle }
 
 @ui({ key: 'userMenu', state: { isOpen: false } })
 @connect(connectState, connectProps)

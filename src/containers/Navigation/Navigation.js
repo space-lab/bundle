@@ -1,23 +1,17 @@
 import { connect } from 'react-redux'
 import { fromJS } from 'immutable'
-import * as routeActions from 'actions/Route'
-import { NoBundle } from 'components'
 import { parseId } from 'helpers'
-import {
-  Bundle,
-  BundleNavigation,
-  CollectionNavigation,
-  CollectionBundlesNavigation,
-  FavoriteNavigation,
-  NotificationNavigation
-} from 'containers'
+import { RouteActions } from 'actions'
+import { NoBundle } from 'components'
+import { Bundle, BundleNavigation, CollectionNavigation, CollectionBundlesNavigation,
+  FavoriteNavigation, NotificationNavigation } from 'containers'
 import './Navigation.css'
 
 const connectState = (state) => ({
   Route: state.Route.toJS()
 })
 
-const connectProps = routeActions
+const connectProps = { ...RouteActions }
 
 @connect(connectState, connectProps)
 export default class Navigation extends React.Component {

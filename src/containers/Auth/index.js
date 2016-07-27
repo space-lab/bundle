@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Login from './Login'
 import Email from './Email'
 import * as Selectors from 'selectors'
-import * as userActions from 'actions/User'
+import { UserActions } from 'actions'
 import './index.css'
 
 const connectState = (state) => ({
@@ -11,9 +11,7 @@ const connectState = (state) => ({
   routing: state.routing
 })
 
-const connectProps = {
-  ...userActions
-}
+const connectProps = { ...UserActions }
 
 @connect(connectState, connectProps)
 export default class Auth extends React.Component {

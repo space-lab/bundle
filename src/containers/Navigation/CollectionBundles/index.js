@@ -2,13 +2,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
 import * as Selectors from 'selectors'
-import * as collectionActions from 'actions/Collection'
-import * as bundleActions from 'actions/Bundle'
-import * as favoriteActions from 'actions/Favorite'
-import * as shareActions from 'actions/Share'
-import * as userActions from 'actions/User'
+import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
+import { CollectionActions, BundleActions, FavoriteActions,
+  ShareActions, UserActions } from 'actions'
 
 const connectState = (state) => ({
   bundles: Selectors.Bundle.sortedCollectionBundles(state),
@@ -20,11 +17,11 @@ const connectState = (state) => ({
 })
 
 const connectProps = {
-  ...collectionActions,
-  ...bundleActions,
-  ...favoriteActions,
-  ...shareActions,
-  ...userActions
+  ...BundleActions,
+  ...CollectionActions,
+  ...FavoriteActions,
+  ...ShareActions,
+  ...UserActions
 }
 
 @ui({
