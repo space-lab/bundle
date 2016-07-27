@@ -2,8 +2,6 @@ import { Bundle } from 'records'
 import { Map } from 'immutable'
 
 export default function (state = Map(), action) {
-  console.log(state)
-
   switch (action.type) {
     case 'SAVE_BUNDLE':
       return state.set(action.bundle.id, action.bundle)
