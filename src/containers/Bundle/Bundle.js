@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { linksWithAuthorIds } from 'helpers'
 import * as Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
@@ -17,7 +16,8 @@ import {
   Link,
   ChangeCollection,
   JoinBundle,
-  ShareBundle
+  ShareBundle,
+  Permission
 } from 'components'
 
 let connectState = (state) => ({
@@ -99,13 +99,15 @@ export default class BundleContainer extends React.Component {
           placeholder='Description goes here...'
           onBlur={e => props.updateBundle(props.bundle.id, { description: e.target.value })} />
 
-        <AddLink
-          bundle={props.bundle}
-          user={props.currentUser}
-          link={props.currentLink}
-          handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
-          handleLinkAdd={link => props.addLink(link, props.bundle.id)}
-          handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
+        <Permission allow={props.bundle.canEdit(props.currentUser.id)}>
+          <AddLink
+            bundle={props.bundle}
+            user={props.currentUser}
+            link={props.currentLink}
+            handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
+            handleLinkAdd={link => props.addLink(link, props.bundle.id)}
+            handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
+        </Permission>
 
         {props.bundle.get('links').map((id) => {
           let link = props.links.get(id)
@@ -121,8 +123,8 @@ export default class BundleContainer extends React.Component {
             createdAt={link.created_at}
             creatorName={user.name}
             creatorImage={user.image}
-            canRemove={props.bundle.canEdit(props.currentUser.id)}
-            canComplete={true}
+            canRemove={link.canRemove(props.currentUser.id)}
+            canComplete
             handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)}
             handleLinkComplete={props.linkToggleCompleted.bind(this, link.id)} />
         })}

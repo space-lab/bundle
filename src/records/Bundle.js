@@ -3,7 +3,6 @@ import { Record, List } from 'immutable'
 const BundleRecord = Record({
   id: null,
   slug: null,
-  hashid: null,
   name: null,
   description: null,
   creator: null,
@@ -34,7 +33,7 @@ export default class Bundle extends BundleRecord {
 
   canEdit (userId) {
     return this.creator == userId || this.shares.some(share =>
-      share.user.id === userId && share.permission.name === 'Edit')
+      share.user.id === userId && share.permission.get('name') === 'Edit')
   }
 
   canChangeCollection (userId) {

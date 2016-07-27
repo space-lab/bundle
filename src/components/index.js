@@ -3,6 +3,7 @@ export Alert from './Alert'
 export Modal from './Modal'
 export DateTime from './DateTime'
 export Editable from './Editable/Editable'
+export Permission from './Permission/Permission'
 
 export UserMenu from './UserMenu'
 export * as Search from './Search'
