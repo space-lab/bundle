@@ -2,10 +2,14 @@ import { Bundle } from 'records'
 import { Map } from 'immutable'
 
 export default function (state = Map(), action) {
+  console.log(state)
+
   switch (action.type) {
     case 'SAVE_BUNDLE':
-      return state
-        .set(action.bundle.id, action.bundle)
+      return state.set(action.bundle.id, action.bundle)
+
+    case 'TOUCH_BUNDLE':
+      return state.updateIn([action.bundleId, 'updated_at'], bundle => (new Date()).toJSON())
 
     case 'ADD_SHARES_TO_BUNDLE':
       return state
