@@ -1,22 +1,22 @@
 import { shouldAppear } from 'helpers'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
-import * as Selectors from 'selectors'
+import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
 import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
   ChangeCollection, JoinBundle, ShareBundle } from 'components'
 
 let connectState = (state) => ({
-  bundleId: Selectors.Bundle.currentId(state),
-  users: Selectors.User.all(state),
-  links: Selectors.Link.all(state),
-  bundle: Selectors.Bundle.current(state),
-  currentLink: Selectors.Link.current(state),
-  currentUser: Selectors.User.current(state),
-  collections: Selectors.Collection.all(state),
-  userAutocomplete: Selectors.User.autocompletes(state),
-  receivedAllCollections: Selectors.Collection.receivedAll(state)
+  bundle: BundleSelectors.current(state),
+  bundleId: BundleSelectors.currentId(state),
+  links: LinkSelectors.all(state),
+  currentLink: LinkSelectors.current(state),
+  users: UserSelectors.all(state),
+  currentUser: UserSelectors.current(state),
+  userAutocomplete: UserSelectors.autocompletes(state),
+  collections: CollectionSelectors.all(state),
+  receivedAllCollections: CollectionSelectors.receivedAll(state)
 })
 
 let connectProps = {

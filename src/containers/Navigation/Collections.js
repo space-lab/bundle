@@ -3,14 +3,14 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { nextId } from 'helpers'
-import * as Selectors from 'selectors'
+import { CollectionSelectors, UserSelectors, SearchSelectors } from 'selectors'
 import { CollectionActions, FavoriteActions, ShareActions, UserActions} from 'actions'
 import { List, ListItem, ResourceNavigation, ResourceFilters, ShareResource } from 'components'
 
 const connectState = (state, props) => ({
-  collections: Selectors.Collection.currents(state, props),
-  currentUser: Selectors.User.current(state),
-  userAutocomplete: Selectors.User.autocompletes(state)
+  collections: CollectionSelectors.currents(state, props),
+  currentUser: UserSelectors.current(state),
+  userAutocomplete: UserSelectors.autocompletes(state)
 })
 
 const connectProps = {

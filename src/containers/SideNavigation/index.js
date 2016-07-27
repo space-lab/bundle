@@ -2,13 +2,13 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { BundleActions } from 'actions'
-import * as Selectors from 'selectors'
+import { UserSelectors } from 'selectors'
 import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
 import './index.css'
 
 let connectState = (state) => ({
-  currentUser: Selectors.User.current(state)
+  currentUser: UserSelectors.current(state)
 })
 
 let connectProps = { createBundle: BundleActions.createBundle }

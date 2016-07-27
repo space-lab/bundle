@@ -1,11 +1,11 @@
 import { connect } from 'react-redux'
 import { Editable } from 'components'
-import * as Selectors from 'selectors'
+import { UserSelectors } from 'selectors'
 import { AlertActions, UserActions } from 'actions'
 import './index.css'
 
 let connectState = state => ({
-  user: Selectors.User.current(state)
+  user: UserSelectors.current(state)
 })
 
 let connectProps = {

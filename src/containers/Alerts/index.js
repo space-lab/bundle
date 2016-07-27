@@ -2,10 +2,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { Alert } from 'components'
 import { AlertActions } from 'actions'
-import * as Selector from 'selectors'
+import { AlertSelectors } from 'selectors'
 
 const connectProps = state => ({
-  alert: Selector.Alert.first(state)
+  alert: AlertSelectors.first(state)
 })
 
 const connectActions = { ...AlertActions }
