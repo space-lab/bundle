@@ -33,6 +33,7 @@ export const addLink = (linkdata, bundleId) => async dispatch =>  {
 
   dispatch({ type: 'RECEIVE_USER', user })
   dispatch({ type: 'RECEIVE_LINK', link, bundleId })
+  dispatch({ type: 'TOUCH_BUNDLE', bundleId })
   dispatch(clearCurrentLink(bundleId))
 }
 
