@@ -17,7 +17,8 @@ import {
   Link,
   ChangeCollection,
   JoinBundle,
-  ShareBundle
+  ShareBundle,
+  Permission
 } from 'components'
 
 let connectState = (state) => ({
@@ -99,13 +100,15 @@ export default class BundleContainer extends React.Component {
           placeholder='Description goes here...'
           onBlur={e => props.updateBundle(props.bundle.id, { description: e.target.value })} />
 
-        <AddLink
-          bundle={props.bundle}
-          user={props.currentUser}
-          link={props.currentLink}
-          handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
-          handleLinkAdd={link => props.addLink(link, props.bundle.id)}
-          handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
+        <Permission check={props.bundle.canEdit(props.currentUser.id)}>
+          <AddLink
+            bundle={props.bundle}
+            user={props.currentUser}
+            link={props.currentLink}
+            handleUrlEnter={url => props.fetchLink(url, props.bundle.id)}
+            handleLinkAdd={link => props.addLink(link, props.bundle.id)}
+            handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
+        </Permission>
 
         {props.bundle.get('links').map((id) => {
           let link = props.links.get(id)
