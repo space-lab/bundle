@@ -1,3 +1,5 @@
+import { shouldAppear } from 'helpers'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import * as Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
@@ -17,7 +19,8 @@ import {
   ChangeCollection,
   JoinBundle,
   ShareBundle,
-  Permission
+  Permission,
+  Toolbar
 } from 'components'
 
 let connectState = (state) => ({
@@ -43,6 +46,7 @@ let connectProps = {
 }
 
 @connect(connectState, connectProps)
+@ui({ state: { activeLink: false } })
 export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
@@ -54,6 +58,16 @@ export default class BundleContainer extends React.Component {
   componentWillReceiveProps ({ bundle: nextBundle, bundleId: nextBundleId }) {
     let { getBundle, bundleId } = this.props
     if (bundleId !== nextBundleId && !nextBundle) getBundle(nextBundleId)
+  }
+
+  handleLinkRemove (link, event) {
+    if (confirm('are you sure?')) this.props.removeLink(link.id, this.props.bundle.id)
+    event.preventDefault()
+  }
+
+  handleLinkComplete (link, event) {
+    this.props.toggleCompleteLink(link.id)
+    event.preventDefault()
   }
 
   render () {
@@ -109,24 +123,34 @@ export default class BundleContainer extends React.Component {
             handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
         </Permission>
 
-        {props.bundle.get('links').map((id) => {
+        {props.bundle.get('links').map(id => {
           let link = props.links.get(id)
           let user = props.users.get(link.creator)
+          let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
-          return <Link
-            key={link.id}
+          return <Link key={link.id}
+            onMouseEnter={() => props.updateUI('activeLink', link.id)}
+            onMouseLeave={() => props.updateUI('activeLink', null)}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
             description={link.description || ''}
-            completed={link.completed}
             createdAt={link.created_at}
+            completed={link.completed}
             creatorName={user.name}
-            creatorImage={user.image}
-            canRemove={link.canRemove(props.currentUser.id)}
-            canComplete
-            handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)}
-            handleLinkComplete={props.linkToggleCompleted.bind(this, link.id)} />
+            creatorImage={user.image}>
+            <Toolbar>
+              <Permission allow>
+                <div className={completedClass} style={shouldAppear(link.id === props.ui.activeLink)}
+                  onClick={this.handleLinkComplete.bind(this, link)} />
+              </Permission>
+
+              <Permission allow={link.canRemove(props.currentUser.id)}>
+                <div className='link-remove' style={shouldAppear(link.id === props.ui.activeLink)}
+                  onClick={this.handleLinkRemove.bind(this, link)} />
+              </Permission>
+            </Toolbar>
+          </Link>
         })}
       </Bundle>
     </Content>

@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.7 (28169) - http://www.bohemiancoding.com/sketch -->
+    <!-- Generator: Sketch 39 (31667) - http://www.bohemiancoding.com/sketch -->
     <title>toolbar-close</title>
     <desc>Created with Sketch.</desc>
     <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="toolbar-close" fill="#4E4E4E">
-            <polygon id="ios-close-empty---Ionicons" points="12.734375 5 13.25 5.515625 9.640625 9.125 13.25 12.734375 12.734375 13.25 9.125 9.640625 5.515625 13.25 5 12.734375 8.609375 9.125 5 5.515625 5.515625 5 9.125 8.609375"></polygon>
+        <g id="toolbar-close" fill="#010101">
+            <polygon id="Shape" points="14.2625 3 8.9875 8.26875 3.7375 3.025 3 3.7625 8.25 9 3 14.24375 3.7375 14.975 8.9875 9.7375 14.2625 15 15 14.26875 9.725 9 15 3.7375"></polygon>
         </g>
     </g>
 </svg>

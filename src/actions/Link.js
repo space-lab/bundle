@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr'
-import { fromJS, Map } from 'immutable'
+import { fromJS } from 'immutable'
 import { bestThumbnail } from 'helpers'
 import * as Schemas from 'normalizers'
 import { Link, User } from 'records'
@@ -42,8 +42,8 @@ export const removeLink = (id, bundleId) => async dispatch =>  {
   dispatch({ type: 'REMOVE_LINK', id, bundleId })
 }
 
-export const linkToggleCompleted = id => async dispatch =>  {
-  let { data } = await request.get(api.linkToggleCompleted(id))
+export const toggleCompleteLink = id => async dispatch =>  {
+  let { data } = await request.get(api.toggleCompleteLink(id))
 
   let result = fromJS(normalize(data, Schemas.link).entities)
   let link = new Link(result.get('links').first())

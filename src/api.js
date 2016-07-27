@@ -26,7 +26,7 @@ export default {
   urlShareResource: (resource, id, token) => `${API_BASE}/url-shares/${resource}/${id}/${token}`,
 
   link: (id = '') => `${API_BASE}/links/${id}`,
-  linkToggleCompleted: id => `${API_BASE}/links/${id}/toggle_completed`,
+  toggleCompleteLink: id => `${API_BASE}/links/${id}/toggle_completed`,
 
   fetchLink: (url) => FETCHER_URL + url
 }

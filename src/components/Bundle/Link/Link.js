@@ -1,9 +1,7 @@
-import ui from 'redux-ui'
-import { Editable, DateTime } from 'components'
-import { urlDomain, shouldAppear } from 'helpers'
+import { DateTime } from 'components'
+import { urlDomain } from 'helpers'
 import './Link.css'
 
-@ui({ state: { active: false, } })
 export default class Link extends React.Component {
   static propTypes = {
     url: React.PropTypes.string.isRequired,
@@ -11,68 +9,28 @@ export default class Link extends React.Component {
     title: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
     completed: React.PropTypes.bool,
-    //createdAt: React.PropTypes.string.isRequired, //TODO: fix
+    createdAt: React.PropTypes.string,
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
-    handleLinkRemove: React.PropTypes.func,
-    handleLinkComplete: React.PropTypes.func,
-    canRemove: React.PropTypes.bool,
-    canComplete: React.PropTypes.bool,
+    onMouseEnter: React.PropTypes.func,
+    onMouseLeave: React.PropTypes.func,
+    children: React.PropTypes.element
   }
 
-  handleLinkRemove (event) {
-    if (confirm('are you sure?'))
-      this.props.handleLinkRemove()
-
-    event.preventDefault()
-  }
-
-  renderLinkRemove () {
-    let { canRemove, ui } = this.props
-
-    if (!canRemove) return
-
-    return <div className='link-remove'
-      style={shouldAppear(ui.active)}
-      onClick={::this.handleLinkRemove} />
-  }
-
-  renderCompleteLink () {
-    let { canComplete, completed, ui, handleLinkComplete } = this.props
-    let className = 'link-complete' + (completed ? ' completed' : '')
-
-    if (!canComplete) return
-
-    return <div className={className}
-      style={shouldAppear(ui.active)}
-      onClick={e => {
-        e.preventDefault()
-        handleLinkComplete()}}>
-      ✔
-    </div>
+  renderDate () {
+    return <span>
+      ⋅ Added <DateTime type='fromNow'>{this.props.createdAt}</DateTime>
+    </span>
   }
 
   render () {
-    let {
-      url,
-      image,
-      title,
-      description,
-      completed,
-      createdAt,
-      creatorName,
-      creatorImage,
-      updateUI,
-      ui,
-    } = this.props
+    let { url, image, title, description, completed, createdAt, creatorName, creatorImage,
+      onMouseEnter, onMouseLeave, children } = this.props
 
     let thumbStyles = { backgroundImage: `url(${image})` }
     let linkClass = 'link-component' + (completed ? ' completed' : '')
 
-    return <a href={url}
-      target='_blank'
-      onMouseEnter={() => updateUI('active', true)}
-      onMouseLeave={() => updateUI('active', false)}>
+    return <a href={url} target='_blank' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={linkClass}>
         <div style={thumbStyles} className='link-thumbnail' />
 
@@ -81,11 +39,8 @@ export default class Link extends React.Component {
           <span className='link-description'>{description}</span>
 
           <span className='link-metadata'>
-            <span>On {urlDomain(url)}</span>
-            <span> ⋅ </span>
-            <span>
-              Added <DateTime type='fromNow'>{createdAt}</DateTime>
-            </span>
+            <span>On {urlDomain(this.props.url)}</span>
+            {createdAt && this.renderDate()}
           </span>
 
           <div className='link-creator'>
@@ -93,8 +48,7 @@ export default class Link extends React.Component {
             <span>{creatorName}</span>
           </div>
 
-          {this.renderCompleteLink()}
-          {this.renderLinkRemove()}
+          {this.props.children}
         </div>
       </div>
     </a>
