@@ -46,7 +46,7 @@ let connectProps = {
 }
 
 @connect(connectState, connectProps)
-@ui({ state: { activeLink: false, } })
+@ui({ state: { activeLink: false } })
 export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
