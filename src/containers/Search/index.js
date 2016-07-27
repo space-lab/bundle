@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
-import { FavoriteSelectors, SearchSelectors } from 'selectors'
+import { UserSelectors, SearchSelectors } from 'selectors'
 import { Search, ShareResource } from 'components'
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
   ShareActions, UserActions } from 'actions'
