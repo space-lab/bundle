@@ -22,7 +22,6 @@ export default class AddLink extends React.Component {
         image={link.image}
         title={link.title || 'Link has no name'}
         description={link.description || ''}
-        createdAt={new Date()}
         creatorName={user.name}
         creatorImage={user.image}
         canRemove
