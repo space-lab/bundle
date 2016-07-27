@@ -17,7 +17,8 @@ import {
   ChangeCollection,
   JoinBundle,
   ShareBundle,
-  Permission
+  Permission,
+  Toolbar
 } from 'components'
 
 let connectState = (state) => ({
@@ -109,24 +110,42 @@ export default class BundleContainer extends React.Component {
             handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
         </Permission>
 
-        {props.bundle.get('links').map((id) => {
+        {props.bundle.get('links').map(id => {
           let link = props.links.get(id)
           let user = props.users.get(link.creator)
+          let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
-          return <Link
-            key={link.id}
+          return <Link key={link.id}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
             description={link.description || ''}
-            completed={link.completed}
             createdAt={link.created_at}
+            completed={link.completed}
             creatorName={user.name}
-            creatorImage={user.image}
-            canRemove={link.canRemove(props.currentUser.id)}
-            canComplete
-            handleLinkRemove={props.removeLink.bind(this, link.id, props.bundle.id)}
-            handleLinkComplete={props.linkToggleCompleted.bind(this, link.id)} />
+            creatorImage={user.image}>
+            <Toolbar>
+              <Permission allow>
+                <div className={completedClass}
+                  //style={shouldAppear(ui.active)}
+                  onClick={event => {
+                    event.preventDefault()
+                    props.linkToggleCompleted(link.id)
+                  }}
+                />
+              </Permission>
+
+              <Permission allow={link.canRemove(props.currentUser.id)}>
+                <div className='link-remove'
+                  //style={shouldAppear(ui.active)}
+                  onClick={event => {
+                    if (confirm('are you sure?'))
+                      props.removeLink(link.id, props.bundle.id)
+                    event.preventDefault()
+                  }} />
+              </Permission>
+            </Toolbar>
+          </Link>
         })}
       </Bundle>
     </Content>

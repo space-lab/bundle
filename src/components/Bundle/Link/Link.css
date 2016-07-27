@@ -85,37 +85,33 @@ $imageWidth: 130px;
       }
     }
 
-    .link-remove {
-      transition: all 200ms linear;
+    .toolbar {
       position: absolute;
-      right: 5px;
-      top: 5px;
-      width: 27px;
       height: 27px;
-      background: url(/assets/images/x.svg) center center no-repeat;
-      cursor: pointer;
+      top: 5px;
+      right: 5px;
       user-select: none;
 
-      &:hover {
-        opacity: 0.5 !important;
+      div {
+        display: inline-block;
+        transition: all 200ms linear;
+        width: 27px;
+        height: 27px;
+        cursor: pointer;
+
+        &:hover {
+          opacity: 0.5 !important;
+        }
       }
     }
 
-    .link-complete {
-      transition: all 200ms linear;
-      position: absolute;
-      right: 30px;
-      top: 5px;
-      width: 27px;
-      height: 27px;
-      background: url(/assets/images/checkmark.svg) center center no-repeat;
-      cursor: pointer;
-      user-select: none;
-      font-size: 12px;
+    .link-remove {
+      background: url(/assets/images/x.svg) center center no-repeat;
 
-      &:hover, &.completed  {
-        opacity: 0.5 !important;
-      }
+    }
+
+    .link-complete {
+      background: url(/assets/images/checkmark.svg) center center no-repeat;
     }
   }
 }
