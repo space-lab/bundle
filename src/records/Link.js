@@ -11,4 +11,8 @@ const LinkRecord = Record({
   created_at: null
 })
 
-export default LinkRecord
+export default class Link extends LinkRecord {
+  canRemove (userId) {
+    return this.creator == userId
+  }
+}
