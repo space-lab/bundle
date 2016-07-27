@@ -8,7 +8,7 @@ export default class Link extends React.Component {
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
     description: React.PropTypes.string.isRequired,
-    completed: React.PropTypes.bool.isRequired,
+    completed: React.PropTypes.bool,
     createdAt: React.PropTypes.string.isRequired,
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
