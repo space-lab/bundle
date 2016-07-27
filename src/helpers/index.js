@@ -19,22 +19,10 @@ export const shouldAppear = appear => ({
   'opacity': appear ? 1 : 0
 })
 
-export const linksWithoutAuthors = links =>
-  links.map(link => link.delete('creator'))
-
-export const linksWithAuthorIds = links =>
-  links.map(link =>
-    link.toMap().set('creator_id', link.get('creator')).remove('creator'))
-
 export const nextId = items => {
   const max = items.keySeq().filter(id => id < 0).max() || 0
   return (max - 1).toString()
 }
-
-export const getRecord = (Model, data) => new Model(fromJS(data))
-
-export const getRecords = (Model, data) =>
-  fromJS(data).map(item => new Model(item))
 
 export const reduceBundle = (data, dispatch) => {
   let result = fromJS(normalize(data, Schemas.bundle).entities)
@@ -122,8 +110,11 @@ export const unNormaliseResources = (data, resources, shares, users) => {
     .sortBy(resource => resource.created_at)
     .reverse()
     .toList()
-    .map(resource => resource.update('shares', ids => ids.map(id =>
-      shares.get(id).update('user', id => users.get(id)))))
+    .map(resource =>
+      resource.update('shares', ids =>
+        ids.map(id =>
+          shares.get(id).update('user', id =>
+            users.get(id)))))
 }
 
 export const bestThumbnail = data => {

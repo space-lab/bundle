@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import { linksWithAuthorIds } from 'helpers'
 import * as Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
 import * as shareActions from 'actions/Share'
