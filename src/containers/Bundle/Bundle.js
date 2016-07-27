@@ -1,3 +1,5 @@
+import { shouldAppear } from 'helpers'
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import * as Selectors from 'selectors'
 import * as linkActions from 'actions/Link'
@@ -44,6 +46,7 @@ let connectProps = {
 }
 
 @connect(connectState, connectProps)
+@ui({ state: { activeLink: false, } })
 export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
@@ -126,6 +129,8 @@ export default class BundleContainer extends React.Component {
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
           return <Link key={link.id}
+            onMouseEnter={() => props.updateUI('activeLink', link.id)}
+            onMouseLeave={() => props.updateUI('activeLink', null)}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
@@ -136,12 +141,12 @@ export default class BundleContainer extends React.Component {
             creatorImage={user.image}>
             <Toolbar>
               <Permission allow>
-                <div className={completedClass} //style={shouldAppear(ui.active)}
+                <div className={completedClass} style={shouldAppear(link.id === props.ui.activeLink)}
                   onClick={this.handleLinkComplete.bind(this, link)} />
               </Permission>
 
               <Permission allow={link.canRemove(props.currentUser.id)}>
-                <div className='link-remove' //style={shouldAppear(ui.active)}
+                <div className='link-remove' style={shouldAppear(link.id === props.ui.activeLink)}
                   onClick={this.handleLinkRemove.bind(this, link)} />
               </Permission>
             </Toolbar>

@@ -1,9 +1,7 @@
-import ui from 'redux-ui'
-import { Editable, DateTime } from 'components'
-import { urlDomain, shouldAppear } from 'helpers'
+import { DateTime } from 'components'
+import { urlDomain } from 'helpers'
 import './Link.css'
 
-@ui({ state: { active: false, } })
 export default class Link extends React.Component {
   static propTypes = {
     url: React.PropTypes.string.isRequired,
@@ -14,19 +12,19 @@ export default class Link extends React.Component {
     createdAt: React.PropTypes.string.isRequired,
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
+    onMouseEnter: React.PropTypes.func,
+    onMouseLeave: React.PropTypes.func,
     children: React.PropTypes.element
   }
 
   render () {
-    let { url, image, title, description, completed, createdAt, creatorName,
-      creatorImage, updateUI, ui, children } = this.props
+    let { url, image, title, description, completed, createdAt, creatorName, creatorImage,
+      updateUI, ui, onMouseEnter, onMouseLeave, children } = this.props
+
     let thumbStyles = { backgroundImage: `url(${image})` }
     let linkClass = 'link-component' + (completed ? ' completed' : '')
 
-    return <a href={url}
-      target='_blank'
-      onMouseEnter={() => updateUI('active', true)}
-      onMouseLeave={() => updateUI('active', false)}>
+    return <a href={url} target='_blank' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
       <div className={linkClass}>
         <div style={thumbStyles} className='link-thumbnail' />
 

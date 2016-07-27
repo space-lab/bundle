@@ -1,5 +1,5 @@
 import { normalize } from 'normalizr'
-import { fromJS, Map } from 'immutable'
+import { fromJS } from 'immutable'
 import { bestThumbnail } from 'helpers'
 import * as Schemas from 'normalizers'
 import { Link, User } from 'records'
