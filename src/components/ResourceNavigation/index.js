@@ -4,11 +4,11 @@ import './index.css'
 
 export default class ResourceNavigation extends React.Component {
   static propTypes = {
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.node.isRequired
   }
 
   render () {
-    return <div className='resource-navigation flex-none box'>
+    return <div className='resource-navigation flex-none vbox'>
       {this.props.children}
     </div>
   }

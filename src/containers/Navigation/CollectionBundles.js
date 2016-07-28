@@ -105,24 +105,22 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
 
     return (
       <ResourceNavigation bundleView={children}>
-        <div className='bundles-navigation'>
-          {this.renderShareResource()}
+        {this.renderShareResource()}
 
-          <ResourceNavigation.Header>
-            <div className='title-and-actions'>
-              <h2 className='title'>{collection.name}</h2>
-              <div className='nav'>
-                <Link to='/search' className='icon search-icon' />
-              </div>
+        <ResourceNavigation.Header>
+          <div className='title-and-actions'>
+            <h2 className='title'>{collection.name}</h2>
+            <div className='nav'>
+              <Link to='/search' className='icon search-icon' />
             </div>
-          </ResourceNavigation.Header>
+          </div>
+        </ResourceNavigation.Header>
 
-          <ResourceNavigation.Body>
-            <List>
-              {this.renderBundleList(bundles, collection, listItemProps)}
-            </List>
-          </ResourceNavigation.Body>
-        </div>
+        <ResourceNavigation.Body>
+          <List>
+            {this.renderBundleList(bundles, collection, listItemProps)}
+          </List>
+        </ResourceNavigation.Body>
       </ResourceNavigation>
     )
   }

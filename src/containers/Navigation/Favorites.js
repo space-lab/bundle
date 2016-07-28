@@ -131,22 +131,20 @@ export default class Container extends React.Component {
   render () {
     return (
       <ResourceNavigation>
-        <div className='favorites-navigation'>
-          {this.renderShareResource()}
+        {this.renderShareResource()}
 
-          <ResourceNavigation.Header>
-            <div className='title-and-actions'>
-              <div className='top-nav'>
-                <h2 className='title'>Favorites</h2>
-              </div>
+        <ResourceNavigation.Header>
+          <div className='title-and-actions'>
+            <div className='top-nav'>
+              <h2 className='title'>Favorites</h2>
             </div>
-          </ResourceNavigation.Header>
-          <ResourceNavigation.Body>
-            <List>
-              {this.renderList()}
-            </List>
-          </ResourceNavigation.Body>
-        </div>
+          </div>
+        </ResourceNavigation.Header>
+        <ResourceNavigation.Body>
+          <List>
+            {this.renderList()}
+          </List>
+        </ResourceNavigation.Body>
       </ResourceNavigation>
     )
   }

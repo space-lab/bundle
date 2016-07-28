@@ -94,32 +94,30 @@ export default class BundleNavigationContainer extends React.Component {
 
     return (
       <ResourceNavigation>
-        <div className='bundles-navigation'>
-          {this.renderShareResource()}
+        {this.renderShareResource()}
 
-          <ResourceNavigation.Header>
-            <div className='title-and-actions'>
-              <h2 className='title'>Bundles</h2>
+        <ResourceNavigation.Header>
+          <div className='title-and-actions'>
+            <h2 className='title'>Bundles</h2>
 
-              <div className='nav'>
-                <Link to='/search' className='icon search-icon' />
-              </div>
+            <div className='nav'>
+              <Link to='/search' className='icon search-icon' />
             </div>
-            <ResourceFilters />
-          </ResourceNavigation.Header>
+          </div>
+          <ResourceFilters />
+        </ResourceNavigation.Header>
 
-          <ResourceNavigation.Body>
-            <List>
-              {this.renderBundleList(bundles, props)}
+        <ResourceNavigation.Body>
+          <List>
+            {this.renderBundleList(bundles, props)}
 
-              <LoadMore
-                show={bundles && bundles.size >= 15}
-                page={props.ui.page}
-                getBundles={props.getBundles}
-                updateUI={props.updateUI}/>
-            </List>
-          </ResourceNavigation.Body>
-        </div>
+            <LoadMore
+              show={bundles && bundles.size >= 15}
+              page={props.ui.page}
+              getBundles={props.getBundles}
+              updateUI={props.updateUI}/>
+          </List>
+        </ResourceNavigation.Body>
       </ResourceNavigation>
     )
   }
