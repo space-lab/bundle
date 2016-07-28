@@ -8,7 +8,7 @@ export default class ResourceNavigation extends React.Component {
   }
 
   render () {
-    return <div className='resource-navigation flex-none'>
+    return <div className='resource-navigation flex-none box'>
       {this.props.children}
     </div>
   }

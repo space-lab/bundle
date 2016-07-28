@@ -1,15 +1,11 @@
 import './header.css'
 
-export default function Header ({
-  children
-}) {
-  return (
-    <div className='header'>
-      {children}
-    </div>
-  )
+export default function Header ({ children }) {
+  return <div className='resource-navigation-header flex-none'>
+    {children}
+  </div>
 }
 
 Header.propTypes = {
-  children: React.PropTypes.node
+  children: React.PropTypes.node.isRequired
 }

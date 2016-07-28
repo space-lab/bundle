@@ -81,8 +81,7 @@ export default class Navigation extends React.Component {
   }
 
   render () {
-
-    return <div className='hbox flex-1'>
+    return <div className='navigation hbox flex-1'>
       {this.renderNavigation()}
       {this.renderBundle()}
     </div>
