@@ -39,4 +39,8 @@ export default class Bundle extends BundleRecord {
   canChangeCollection (userId) {
     return this.creator == userId
   }
+
+  canLeave (userId) {
+    return this.joined && this.creator !== userId
+  }
 }

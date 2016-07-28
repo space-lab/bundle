@@ -75,7 +75,7 @@ export default class BundleContainer extends React.Component {
               addAlert={props.addAlert} />
           </Permission>
 
-          <Permission allow={props.bundle.joined && props.bundle.creator !== props.currentUser.id}>
+          <Permission allow={props.bundle.canLeave(props.currentUser.id)}>
             <LeaveBundle
               bundle={props.bundle}
               currentUserId={props.currentUser.id}
