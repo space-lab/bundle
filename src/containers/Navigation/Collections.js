@@ -89,31 +89,29 @@ export default class Container extends React.Component {
 
     return (
       <ResourceNavigation>
-        <div className='bundles-navigation'>
-          {this.renderShareResource()}
+        {this.renderShareResource()}
 
-          <ResourceNavigation.Header>
-            <div className='title-and-actions'>
-              <h2 className='title'>Collections</h2>
-              <div className='nav'>
-                <span
-                  className='icon create-collection-icon'
-                  onClick={::this.generateNewCollection}
-                />
+        <ResourceNavigation.Header>
+          <div className='title-and-actions'>
+            <h2 className='title'>Collections</h2>
+            <div className='nav'>
+              <span
+                className='icon create-collection-icon'
+                onClick={::this.generateNewCollection}
+              />
 
-                <Link to='/search' className='icon search-icon' />
-              </div>
+              <Link to='/search' className='icon search-icon' />
             </div>
+          </div>
 
-            <ResourceFilters />
-          </ResourceNavigation.Header>
+          <ResourceFilters />
+        </ResourceNavigation.Header>
 
-          <ResourceNavigation.Body>
-            <List>
-              {this.renderCollectionList(collections, listItemProps)}
-            </List>
-          </ResourceNavigation.Body>
-        </div>
+        <ResourceNavigation.Body>
+          <List>
+            {this.renderCollectionList(collections, listItemProps)}
+          </List>
+        </ResourceNavigation.Body>
       </ResourceNavigation>
     )
   }

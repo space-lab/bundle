@@ -1,6 +1,4 @@
-.bundle-view-wrapper {
-  flex-grow: 1;
-  min-width: 570px;
+.bundle-view {
   padding: 0 40px 15px 40px;
   overflow-y: auto;
 }

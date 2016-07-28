@@ -1,6 +1,5 @@
 export App from './App'
 export Auth from './Auth'
-export Root from './Root'
 export Share from './Share'
 export Alerts from './Alerts'
 export Settings from './Settings'

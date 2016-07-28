@@ -1,4 +1,7 @@
 .resource-navigation-body {
   overflow-y: scroll;
-  height: 92vh;
+
+  & > div {
+    height: 100%;
+  }
 }

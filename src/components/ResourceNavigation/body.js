@@ -6,7 +6,7 @@ export default class Body extends React.Component {
   }
 
   render () {
-    return <div className='resource-navigation-body'>
+    return <div className='resource-navigation-body flex-1'>
       {this.props.children}
     </div>
   }

@@ -4,15 +4,13 @@ import './index.css'
 
 export default class ResourceNavigation extends React.Component {
   static propTypes = {
-    children: React.PropTypes.element
+    children: React.PropTypes.node.isRequired
   }
 
   render () {
-    return (
-      <div className='resource-navigation'>
-        {this.props.children}
-      </div>
-    )
+    return <div className='resource-navigation flex-none flex-col'>
+      {this.props.children}
+    </div>
   }
 }
 
