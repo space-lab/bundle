@@ -11,6 +11,7 @@ export * as Search from './Search'
 export ResourceNavigation from './ResourceNavigation'
 
 export JoinBundle from './Header/JoinBundle/JoinBundle'
+export LeaveBundle from './Header/LeaveBundle/LeaveBundle'
 export ChangeCollection from './Header/ChangeCollection/ChangeCollection'
 
 // Wrapper Components
