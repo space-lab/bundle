@@ -16,9 +16,7 @@ export default class JoinBundle extends React.Component {
   }
 
   render () {
-    if (this.props.bundle.joined) return false
-
-    return <button className='round-button' onClick={::this.join}>
+    return <button className='main-button' onClick={::this.join}>
       Join
     </button>
   }

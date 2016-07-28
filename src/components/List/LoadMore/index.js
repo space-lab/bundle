@@ -18,7 +18,7 @@ export default class LoadMore extends React.Component {
   render () {
     if (!this.props.show) return false
     return (
-      <button className='round-button load-more-btn' onClick={::this.onLoadMoreClicked}>
+      <button className='main-button load-more-btn' onClick={::this.onLoadMoreClicked}>
         Load More
       </button>
     )

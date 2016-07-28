@@ -52,7 +52,7 @@ export default class Settings extends React.Component {
         editMode
         onChange={value => this.setState({ email: value })} />
 
-      <button className='round-button' onClick={::this.saveUser}>Save</button>
+      <button className='main-button' onClick={::this.saveUser}>Save</button>
     </div>
   }
 }

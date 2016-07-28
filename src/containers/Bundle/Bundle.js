@@ -5,7 +5,7 @@ import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } fr
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
 import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
-  ChangeCollection, JoinBundle, ShareBundle } from 'components'
+  ChangeCollection, JoinBundle, LeaveBundle, ShareBundle } from 'components'
 
 let connectState = (state) => ({
   bundle: BundleSelectors.current(state),
@@ -67,17 +67,28 @@ export default class BundleContainer extends React.Component {
           updateBundle={props.updateBundle} />
 
         <div className='align-right'>
-          <JoinBundle
-            bundle={props.bundle}
-            currentUserId={props.currentUser.id}
-            joinUrlShare={props.joinUrlShare}
-            addAlert={props.addAlert} />
+          <Permission allow={!props.bundle.joined}>
+            <JoinBundle
+              bundle={props.bundle}
+              currentUserId={props.currentUser.id}
+              joinUrlShare={props.joinUrlShare}
+              addAlert={props.addAlert} />
+          </Permission>
 
-          <ShareBundle
-            canShare={props.bundle.canShare(props.currentUser.id)}
-            {...this.props} // TODO big no no no
-            resourceName='Bundle'
-            resource={props.bundle} />
+          <Permission allow={props.bundle.joined && props.bundle.creator !== props.currentUser.id}>
+            <LeaveBundle
+              bundle={props.bundle}
+              currentUserId={props.currentUser.id}
+              leaveShare={props.leaveShare}
+              addAlert={props.addAlert} />
+          </Permission>
+
+          <Permission allow={props.bundle.canShare(props.currentUser.id)}>
+            <ShareBundle
+              {...this.props} // TODO big no no no
+              resourceName='Bundle'
+              resource={props.bundle} />
+          </Permission>
         </div>
       </Header>
 

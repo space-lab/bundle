@@ -29,7 +29,7 @@ export default class AddLink extends React.Component {
 
       <button
         onClick={handleLinkAdd.bind(this, link)}
-        className='add-link-button'>
+        className='main-button'>
         Add Link
       </button>
     </div>
