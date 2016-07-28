@@ -24,20 +24,20 @@ const BundleRecord = Record({
 
 export default class Bundle extends BundleRecord {
   canRemove (userId) {
-    return this.creator == userId
+    return this.creator === userId
   }
 
   canShare (userId) {
-    return this.creator == userId
+    return this.creator === userId
   }
 
   canEdit (userId) {
-    return this.creator == userId || this.shares.some(share =>
+    return this.creator === userId || this.shares.some(share =>
       share.user.id === userId && share.permission.get('name') === 'Edit')
   }
 
   canChangeCollection (userId) {
-    return this.creator == userId
+    return this.creator === userId
   }
 
   canLeave (userId) {
