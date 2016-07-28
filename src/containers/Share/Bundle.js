@@ -12,16 +12,14 @@ export default class ShareBundle extends React.Component {
         let link = links.get(id)
         let user = users.get(link.creator)
 
-        return <Link
-          key={index}
+        return <Link key={link.id}
           url={link.url}
           image={link.image}
           title={link.title || 'Link has no name'}
           description={link.description || ''}
           createdAt={link.created_at}
           creatorName={user.name}
-          creatorImage={user.image}
-          canRemove={false} />
+          creatorImage={user.image} />
       })}
     </Bundle>
   }
