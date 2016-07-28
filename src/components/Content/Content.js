@@ -6,7 +6,7 @@ export default class Content extends React.Component {
   }
 
   render () {
-    return <div className='bundle-view-wrapper'>
+    return <div className='bundle-view flex-1'>
       {this.props.children}
     </div>
   }

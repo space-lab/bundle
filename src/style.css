@@ -3,11 +3,33 @@ html { overflow: hidden; }
 body { overflow: scroll; }
 
 html,
-body {
+body,
+.viewport
+{
   padding: 0;
   margin: 0;
+  width: 100%;
   height: 100%;
-  font-family: Avenir-Book;
+}
+
+.vbox,
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.hbox,
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-none {
+  flex: none;
+}
+
+.flex-1 {
+  flex: 1;
 }
 
 *,
@@ -26,10 +48,6 @@ body {
 a {
   text-decoration: none;
   cursor: pointer;
-}
-
-.root-container {
-  height: 100%;
 }
 
 ul {

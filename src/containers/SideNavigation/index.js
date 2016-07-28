@@ -24,7 +24,7 @@ export default class SideNavigation extends React.Component {
   render () {
     let { ui, updateUI, currentUser } = this.props
 
-    return <div className='side-navigation'>
+    return <div className='side-navigation flex-none'>
       <SideNavigationTop onNewClick={::this.handleBundleCreate} />
 
       <SideNavigationBottom

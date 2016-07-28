@@ -1,18 +1,13 @@
 import { SideNavigation, Alerts, Auth } from 'containers'
-import './style.css'
 
 export default class App extends React.Component {
   render () {
-    const { children } = this.props
-
-    return (
-      <Auth location={this.props.location}>
-        <div className='application-container'>
-          <Alerts />
-          <SideNavigation />
-          {children}
-        </div>
-      </Auth>
-    )
+    return <Auth location={this.props.location}>
+      <div className='application-container viewport hbox'>
+        <Alerts />
+        <SideNavigation />
+        {this.props.children}
+      </div>
+    </Auth>
   }
 }
