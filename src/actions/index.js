@@ -1,23 +1,9 @@
-import * as Link from './Link'
-import * as User from './User'
-import * as Route from './Route'
-import * as Alert from './Alert'
-import * as Share from './Share'
-import * as Bundle from './Bundle'
-import * as Search from './Search'
-import * as Favorite from './Favorite'
-import * as Collection from './Collection'
-import * as UserAutocomplete from './UserAutocomplete'
-
-export const allActions = {
-  ...Link,
-  ...User,
-  ...Route,
-  ...Alert,
-  ...Share,
-  ...Bundle,
-  ...Search,
-  ...Favorite,
-  ...Collection,
-  ...UserAutocomplete
-}
+export * as AlertActions from './Alert'
+export * as BundleActions from './Bundle'
+export * as CollectionActions from './Collection'
+export * as FavoriteActions from './Favorite'
+export * as LinkActions from './Link'
+export * as RouteActions from './Route'
+export * as SearchActions from './Search'
+export * as ShareActions from './Share'
+export * as UserActions from './User'

@@ -2,58 +2,50 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
-import * as Selectors from 'selectors'
-import * as collectionActions from 'actions/Collection'
-import * as bundleActions from 'actions/Bundle'
-import * as favoriteActions from 'actions/Favorite'
-import * as shareActions from 'actions/Share'
-import * as userActions from 'actions/User'
+import { BundleSelectors, UserSelectors, SearchSelectors } from 'selectors'
+import { BundleActions, FavoriteActions, SearchActions,
+  ShareActions, UserActions } from 'actions'
+import { List, ListItem, ResourceNavigation, ResourceFilters,
+  ShareResource, LoadMore } from 'components'
 
-const connectState = (state) => ({
-  bundles: Selectors.Bundle.sortedCollectionBundles(state),
-  bundleId: Selectors.Bundle.currentId(state),
-  collection: Selectors.Collection.current(state),
-  collectionId: Selectors.Collection.currentId(state),
-  currentUser: Selectors.User.current(state),
-  userAutocomplete: Selectors.User.autocompletes(state)
+const connectState = (state, props) => ({
+  bundles: BundleSelectors.currents(state, props),
+  bundleId: BundleSelectors.currentId(state),
+  currentUser: UserSelectors.current(state),
+  userAutocomplete: UserSelectors.autocompletes(state),
+  search: SearchSelectors.result(state)
 })
 
 const connectProps = {
-  ...collectionActions,
-  ...bundleActions,
-  ...favoriteActions,
-  ...shareActions,
-  ...userActions
+  ...BundleActions,
+  ...FavoriteActions,
+  ...SearchActions,
+  ...ShareActions,
+  ...UserActions
 }
 
 @ui({
   key: 'resource-navigation',
-  state: { isOpen: false, position: null, resourceId: null }
+  state: { filter: 'recent', isOpen: false, position: null, resourceId: null, page: 1 }
 })
 @connect(connectState, connectProps)
-export default class CollectionBundlesNavigationContainer extends React.Component {
+export default class BundleNavigationContainer extends React.Component {
   static propTypes = {
-    collection: ImmutablePropTypes.record
+    bundles: ImmutablePropTypes.list,
+    search: ImmutablePropTypes.map
   }
 
-  componentDidMount () {
-    let { collection, collectionId, getCollection } = this.props
-
-    if (!collection || !collection.id) getCollection(collectionId)
-  }
-
-  getBundleUrl (collection, bundle) {
-    return `/collection/${collection.slug}-${collection.id}/bundle/${bundle.slug}-${bundle.id}`
-  }
-
-  getCollectionUrl () {
-    return `/collection/${this.props.collection.slug}-${this.props.collection.id}`
+  componentWillMount () {
+    this.props.getBundles(this.props.ui.page)
   }
 
   removeBundle (...args) {
-    browserHistory.push(this.getCollectionUrl())
     this.props.removeBundle(...args)
+    browserHistory.push('/bundles')
+  }
+
+  changeFilter (filter, e) {
+    e.preventDefault()
   }
 
   renderShareResource () {
@@ -80,15 +72,15 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
       removeUrlShare={props.removeUrlShare}/>
   }
 
-  renderBundleList (bundles, collection, props) {
+  renderBundleList (bundles, props) {
     return bundles.map((bundle, index) => {
-      return <ListItem key={index}
+      return <ListItem
+        key={index}
         currentUser={props.currentUser}
         resource={bundle}
         resourceName={'Bundle'}
-        active={bundle.id === props.bundleId}
-        url={this.getBundleUrl(collection, bundle)}
         Component={ListItem.Bundle}
+        active={bundle.id === this.props.bundleId}
         remove={::this.removeBundle}
         favorite={props.favorite}
         unfavorite={props.unfavorite}
@@ -98,30 +90,33 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   render () {
-    const {
-      collection,
-      bundles,
-      children,
-      ...listItemProps
-    } = this.props
+    let { bundles, search, ...props } = this.props
 
     return (
-      <ResourceNavigation bundleView={children}>
+      <ResourceNavigation>
         <div className='bundles-navigation'>
           {this.renderShareResource()}
 
           <ResourceNavigation.Header>
             <div className='title-and-actions'>
-              <h2 className='title'>{collection.name}</h2>
+              <h2 className='title'>Bundles</h2>
+
               <div className='nav'>
                 <Link to='/search' className='icon search-icon' />
               </div>
             </div>
+            <ResourceFilters />
           </ResourceNavigation.Header>
 
           <ResourceNavigation.Body>
             <List>
-              {this.renderBundleList(bundles, collection, listItemProps)}
+              {this.renderBundleList(bundles, props)}
+
+              <LoadMore
+                show={bundles && bundles.size >= 15}
+                page={props.ui.page}
+                getBundles={props.getBundles}
+                updateUI={props.updateUI}/>
             </List>
           </ResourceNavigation.Body>
         </div>

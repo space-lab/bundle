@@ -1,14 +1,14 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { Alert } from 'components'
-import * as alertActions from 'actions/Alert'
-import * as Selectors from 'selectors'
+import { AlertActions } from 'actions'
+import { AlertSelectors } from 'selectors'
 
 const connectProps = state => ({
-  alert: Selectors.Alert.first(state)
+  alert: AlertSelectors.first(state)
 })
 
-const connectActions = { ...alertActions }
+const connectActions = { ...AlertActions }
 
 @connect(connectProps, connectActions)
 export default class Alerts extends React.Component {

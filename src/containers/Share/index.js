@@ -2,22 +2,21 @@ import ui from 'redux-ui'
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { parseId } from 'helpers'
-import * as Selectors from 'selectors'
-import * as userActions from 'actions/User'
-import * as shareActions from 'actions/Share'
+import { UserSelectors, LinkSelectors, BundleSelectors } from 'selectors'
+import { ShareActions, UserActions } from 'actions'
 import ShareBundle from './Bundle'
 import './index.css'
 
 const connectState = (state, props) => ({
-  user: Selectors.User.current(state),
-  users: Selectors.User.all(state),
-  links: Selectors.Link.all(state),
-  bundle: Selectors.Bundle.currentShareBundle(state, props)
+  user: UserSelectors.current(state),
+  users: UserSelectors.all(state),
+  links: LinkSelectors.all(state),
+  bundle: BundleSelectors.currentShareBundle(state, props)
 })
 
 const connectProps = {
-  ...shareActions,
-  ...userActions
+  ...ShareActions,
+  ...UserActions
 }
 
 @ui({

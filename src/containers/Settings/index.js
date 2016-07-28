@@ -1,17 +1,16 @@
 import { connect } from 'react-redux'
 import { Editable } from 'components'
-import * as Selectors from 'selectors'
-import * as userActions from 'actions/User'
-import * as alertActions from 'actions/Alert'
+import { UserSelectors } from 'selectors'
+import { AlertActions, UserActions } from 'actions'
 import './index.css'
 
 let connectState = state => ({
-  user: Selectors.User.current(state)
+  user: UserSelectors.current(state)
 })
 
 let connectProps = {
-  ...userActions,
-  ...alertActions
+  ...AlertActions,
+  ...UserActions
 }
 
 @connect(connectState, connectProps)

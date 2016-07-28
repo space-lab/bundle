@@ -2,18 +2,16 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import Login from './Login'
 import Email from './Email'
-import * as Selectors from 'selectors'
-import * as userActions from 'actions/User'
+import { UserSelectors } from 'selectors'
+import { UserActions } from 'actions'
 import './index.css'
 
 const connectState = (state) => ({
-  currentUser: Selectors.User.current(state),
+  currentUser: UserSelectors.current(state),
   routing: state.routing
 })
 
-const connectProps = {
-  ...userActions
-}
+const connectProps = { ...UserActions }
 
 @connect(connectState, connectProps)
 export default class Auth extends React.Component {

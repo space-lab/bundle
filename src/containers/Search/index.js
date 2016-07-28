@@ -1,29 +1,25 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
+import { UserSelectors, SearchSelectors } from 'selectors'
 import { Search, ShareResource } from 'components'
-import * as searchActions from 'actions/Search'
-import * as bundleActions from 'actions/Bundle'
-import * as collectionActions from 'actions/Collection'
-import * as favoriteActions from 'actions/Favorite'
-import * as shareActions from 'actions/Share'
-import * as userActions from 'actions/User'
-import * as Selectors from 'selectors'
+import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
+  ShareActions, UserActions } from 'actions'
 import './index.css'
 
-const connectState = (state) => ({
-  currentUser: Selectors.User.current(state),
-  searchResult: Selectors.Search.currentResult(state),
-  userAutocomplete: Selectors.User.autocompletes(state)
+let connectState = (state) => ({
+  currentUser: UserSelectors.current(state),
+  userAutocomplete: UserSelectors.autocompletes(state),
+  searchResult: SearchSelectors.currentResult(state)
 })
 
-const connectProps = {
-  ...bundleActions,
-  ...collectionActions,
-  ...searchActions,
-  ...favoriteActions,
-  ...shareActions,
-  ...userActions
+let connectProps = {
+  ...BundleActions,
+  ...CollectionActions,
+  ...FavoriteActions,
+  ...SearchActions,
+  ...ShareActions,
+  ...UserActions
 }
 
 @ui({
