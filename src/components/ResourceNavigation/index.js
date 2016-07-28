@@ -8,7 +8,7 @@ export default class ResourceNavigation extends React.Component {
   }
 
   render () {
-    return <div className='resource-navigation flex-none vbox'>
+    return <div className='resource-navigation flex-none flex-col'>
       {this.props.children}
     </div>
   }

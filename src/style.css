@@ -12,13 +12,11 @@ body,
   height: 100%;
 }
 
-.vbox,
 .flex-col {
   display: flex;
   flex-direction: column;
 }
 
-.hbox,
 .flex-row {
   display: flex;
   flex-direction: row;
