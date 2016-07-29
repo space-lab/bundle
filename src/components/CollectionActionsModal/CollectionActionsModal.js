@@ -18,7 +18,7 @@ class CollectionActionsModal extends React.Component {
 
     return (
       <div className='collection-actions'>
-        <Modal className='collection-actions-modal'>
+        <Modal style={{left: '0px', top: '-30px'}}>
           <Menu headline='Actions'>
             {this.props.children}
           </Menu>

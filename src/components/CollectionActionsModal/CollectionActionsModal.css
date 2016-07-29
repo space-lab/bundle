@@ -1,11 +1,5 @@
 .collection-actions {
   position: relative;
-}
-
-.collection-actions-modal {
-  position: absolute;
-  left: 0px;
-  top: -30px;
 
   .menu {
     width: 150px;

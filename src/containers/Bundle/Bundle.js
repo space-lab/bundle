@@ -85,7 +85,7 @@ export default class BundleContainer extends React.Component {
           <Permission allow={props.bundle.canLeave(currentUserId)}>
             <LeaveBundle
               bundleId={props.bundle.id}
-              shareId={this.currentShareId()}
+              shareId={props.bundle.shareIdFor(currentUserId)}
               leaveShare={props.leaveShare}
               addAlert={props.addAlert} />
           </Permission>

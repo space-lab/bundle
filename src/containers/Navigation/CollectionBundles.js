@@ -62,17 +62,11 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     return collection.canEdit(currentUser.id) || collection.canLeave(currentUser.id)
   }
 
-  currentShareId () {
-    let { collection, currentUser } = this.props
-    let share = collection.shares.find(share => share.user.id === currentUser.id)
-
-    return share ? share.id : null
-  }
-
   leaveCollection () {
-    let { collection, leaveShare, addAlert } = this.props
+    let { collection, currentUser, leaveShare, addAlert } = this.props
+    let shareId = collection.shareIdFor(currentUser.id)
 
-    leaveShare(this.currentShareId(), collection.id, 'Collection').then(() => {
+    leaveShare(shareId, collection.id, 'Collection').then(() => {
       browserHistory.push('/collections')
       addAlert('success', 'You\'ve just left Collection 😢')
     })
@@ -149,10 +143,10 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                 <CollectionActionsModal
                   isOpen={props.ui.actionsModalIsOpen || false}
                   closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
-
                   <Permission allow={props.collection.canEdit(props.currentUser.id)}>
                     <a>Edit</a>
                   </Permission>
+
                   <Permission allow={props.collection.canLeave(props.currentUser.id)}>
                     <a onClick={::this.leaveCollection}>Leave</a>
                   </Permission>
