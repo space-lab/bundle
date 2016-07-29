@@ -29,8 +29,8 @@ let connectProps = {
   ...SearchActions
 }
 
-@connect(connectState, connectProps)
 @ui({ state: { activeLink: false } })
+@connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props

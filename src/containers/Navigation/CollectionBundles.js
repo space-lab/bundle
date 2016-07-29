@@ -137,7 +137,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
               <Editable
                 value={collection.name}
                 placeholder='Name Collection...'
-                editMode={ui.editCollectionMode}
+                editMode={ui.editCollectionMode || false}
                 autoFocus
                 enterAction={name => props.updateCollection(collection.id, { name }).then(() => {
                   props.updateUI('editCollectionMode', false)
