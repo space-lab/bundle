@@ -32,6 +32,11 @@ export const createCollection = (id, name) => async dispatch => {
   dispatch({ type: 'CLOSE_COLLECTION', id })
 }
 
+export const updateCollection = (id, payload) => async (dispatch) => {
+  const { data } = await request.put(api.collections(id), payload)
+  reduceCollection(data, dispatch)
+}
+
 export const removeCollection = id => async dispatch => {
   await request.delete(api.collections(id))
 

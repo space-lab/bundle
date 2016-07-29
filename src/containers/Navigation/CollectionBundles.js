@@ -6,7 +6,7 @@ import { Link, browserHistory } from 'react-router'
 import { BundleSelectors, CollectionSelectors,
   UserSelectors, SearchSelectors } from 'selectors'
 import { ResourceNavigation, List, ListItem, ShareResource,
-  CollectionActionsModal, Permission } from 'components'
+  CollectionActionsModal, Permission, Editable } from 'components'
 import { CollectionActions, BundleActions, FavoriteActions,
   ShareActions, UserActions, AlertActions } from 'actions'
 
@@ -30,7 +30,13 @@ const connectProps = {
 
 @ui({
   key: 'resource-navigation',
-  state: { isOpen: false, actionsModalIsOpen: false, position: null, resourceId: null }
+  state: {
+    isOpen: false,
+    editCollectionMode: false,
+    actionsModalIsOpen: false,
+    position: null,
+    resourceId: null
+  }
 })
 @connect(connectState, connectProps)
 export default class CollectionBundlesNavigationContainer extends React.Component {
@@ -115,6 +121,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
       collection,
       bundles,
       currentUser,
+      ui,
       children,
     } = this.props
 
@@ -126,7 +133,16 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
 
         <ResourceNavigation.Header>
           <div className='title-and-actions'>
-            <h2 className='title'>{collection.name}</h2>
+            <h2 className='title'>
+              <Editable
+                value={collection.name}
+                placeholder='Name Collection...'
+                editMode={ui.editCollectionMode}
+                autoFocus
+                enterAction={name => props.updateCollection(collection.id, { name }).then(() => {
+                  props.updateUI('editCollectionMode', false)
+                })} />
+            </h2>
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
 
@@ -141,7 +157,10 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                   isOpen={props.ui.actionsModalIsOpen || false}
                   closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
                   <Permission allow={props.collection.canEdit(props.currentUser.id)}>
-                    <a>Edit</a>
+                    <a onClick={() => props.updateUI({
+                      editCollectionMode: true,
+                      actionsModalIsOpen: false
+                    })}>Edit</a>
                   </Permission>
 
                   <Permission allow={props.collection.canLeave(props.currentUser.id)}>
