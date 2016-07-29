@@ -139,11 +139,9 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                 placeholder='Name Collection...'
                 editMode={ui.editCollectionMode}
                 autoFocus
-                enterAction={name => {
-                  props.updateCollection(collection.id, { name }).then(()=> {
-                    props.updateUI('editCollectionMode', false)
-                  })
-                }} />
+                enterAction={name => props.updateCollection(collection.id, { name }).then(() => {
+                  props.updateUI('editCollectionMode', false)
+                })} />
             </h2>
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
@@ -159,7 +157,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                   isOpen={props.ui.actionsModalIsOpen || false}
                   closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
                   <Permission allow={props.collection.canEdit(props.currentUser.id)}>
-                    <a onClick={()=> props.updateUI({
+                    <a onClick={() => props.updateUI({
                       editCollectionMode: true,
                       actionsModalIsOpen: false
                     })}>Edit</a>

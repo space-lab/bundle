@@ -42,7 +42,7 @@
 
   .title {
     margin: 0;
-    font-size: 23.85px;
+    font-size: 24px;
     color: #C2C2C2;
     line-height: 26px;
     padding: 4px 0;
@@ -51,7 +51,7 @@
       width: 250px;
       border: none;
 
-      font-size: 23.85px;
+      font-size: 24px;
       line-height: 26px;
       font-weight: bold;
 
