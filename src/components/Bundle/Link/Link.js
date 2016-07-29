@@ -18,9 +18,7 @@ export default class Link extends React.Component {
   }
 
   renderDate () {
-    return <span>
-      ⋅ Added <DateTime type='fromNow'>{this.props.createdAt}</DateTime>
-    </span>
+    return <span> ⋅ Added <DateTime type='fromNow'>{this.props.createdAt}</DateTime></span>
   }
 
   render () {
