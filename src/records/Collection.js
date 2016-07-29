@@ -35,7 +35,7 @@ export default class Collection extends CollectionRecord {
   }
 
   canLeave (userId) {
-    return this.joined && this.creator !== userId
+    return this.shareIdFor(userId) && this.joined && this.creator !== userId
   }
 
   shareIdFor (userId) {
