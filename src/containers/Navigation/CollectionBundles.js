@@ -134,16 +134,16 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
         <ResourceNavigation.Header>
           <div className='title-and-actions'>
             <h2 className='title'>
-            <Editable
-              value={collection.name}
-              placeholder='Name Collection...'
-              editMode={ui.editCollectionMode}
-              autoFocus
-              enterAction={name => {
-                props.updateCollection(collection.id, { name }).then(()=> {
-                  props.updateUI('editCollectionMode', false)
-                })
-              }} />
+              <Editable
+                value={collection.name}
+                placeholder='Name Collection...'
+                editMode={ui.editCollectionMode}
+                autoFocus
+                enterAction={name => {
+                  props.updateCollection(collection.id, { name }).then(()=> {
+                    props.updateUI('editCollectionMode', false)
+                  })
+                }} />
             </h2>
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
