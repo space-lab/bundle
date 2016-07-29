@@ -57,11 +57,6 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     this.props.removeBundle(...args)
   }
 
-  showCollectionActions () {
-    let { collection, currentUser } = this.props
-    return collection.canEdit(currentUser.id) || collection.canLeave(currentUser.id)
-  }
-
   leaveCollection () {
     let { collection, currentUser, leaveShare, addAlert } = this.props
     let shareId = collection.shareIdFor(currentUser.id)
@@ -119,9 +114,11 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     const {
       collection,
       bundles,
+      currentUser,
       children,
-      ...listItemProps
     } = this.props
+
+    const showActions = collection.canEdit(currentUser.id) || collection.canLeave(currentUser.id)
 
     return (
       <ResourceNavigation bundleView={children}>
@@ -139,7 +136,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                   onClick={e => props.updateUI('actionsModalIsOpen', true)} />
               </Permission>
 
-              <Permission allow={this.showCollectionActions()}>
+              <Permission allow={showActions}>
                 <CollectionActionsModal
                   isOpen={props.ui.actionsModalIsOpen || false}
                   closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
@@ -158,7 +155,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
 
         <ResourceNavigation.Body>
           <List>
-            {this.renderBundleList(bundles, collection, listItemProps)}
+            {this.renderBundleList(bundles, collection, props)}
           </List>
         </ResourceNavigation.Body>
       </ResourceNavigation>
