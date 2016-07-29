@@ -54,11 +54,6 @@ export default class BundleContainer extends React.Component {
     event.preventDefault()
   }
 
-  currentShareId () {
-    let share = this.props.bundle.shares.find(share => share.user.id === this.props.currentUser.id)
-    return share ? share.id : null
-  }
-
   render () {
     let props = this.props
     let currentUserId = props.currentUser.id
