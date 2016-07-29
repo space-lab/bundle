@@ -54,8 +54,15 @@ export default class BundleContainer extends React.Component {
     event.preventDefault()
   }
 
+  currentShareId () {
+    let share = this.props.bundle.shares.find(share => share.user.id === this.props.currentUser.id)
+    return share ? share.id : null
+  }
+
   render () {
     let props = this.props
+    let currentUserId = props.currentUser.id
+
     if (!props.bundle) return false
 
     return <Content>
@@ -63,27 +70,27 @@ export default class BundleContainer extends React.Component {
         <ChangeCollection
           bundle={props.bundle}
           collections={props.collections}
-          canChangeCollection={props.bundle.canChangeCollection(props.currentUser.id)}
+          canChangeCollection={props.bundle.canChangeCollection(currentUserId)}
           updateBundle={props.updateBundle} />
 
         <div className='align-right'>
           <Permission allow={!props.bundle.joined}>
             <JoinBundle
               bundle={props.bundle}
-              currentUserId={props.currentUser.id}
+              currentUserId={currentUserId}
               joinUrlShare={props.joinUrlShare}
               addAlert={props.addAlert} />
           </Permission>
 
-          <Permission allow={props.bundle.canLeave(props.currentUser.id)}>
+          <Permission allow={props.bundle.canLeave(currentUserId)}>
             <LeaveBundle
-              bundle={props.bundle}
-              currentUserId={props.currentUser.id}
+              bundleId={props.bundle.id}
+              shareId={this.currentShareId()}
               leaveShare={props.leaveShare}
               addAlert={props.addAlert} />
           </Permission>
 
-          <Permission allow={props.bundle.canShare(props.currentUser.id)}>
+          <Permission allow={props.bundle.canShare(currentUserId)}>
             <ShareBundle
               {...this.props} // TODO big no no no
               resourceName='Bundle'
