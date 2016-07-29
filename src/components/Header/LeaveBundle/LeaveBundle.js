@@ -12,7 +12,7 @@ export default class LeaveBundle extends React.Component {
   leave () {
     let { bundleId, shareId, leaveShare, addAlert } = this.props
 
-    leaveShare(shareId, bundleId).then(() => {
+    leaveShare(shareId, bundleId, 'Bundle').then(() => {
       browserHistory.push('/')
       addAlert('success', 'You\'ve just left bundle 😢')
     })

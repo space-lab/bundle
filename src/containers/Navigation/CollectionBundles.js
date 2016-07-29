@@ -2,11 +2,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
+
 import { BundleSelectors, CollectionSelectors,
   UserSelectors, SearchSelectors } from 'selectors'
-import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
+import { ResourceNavigation, List, ListItem, ShareResource,
+  CollectionActionsModal, Permission } from 'components'
 import { CollectionActions, BundleActions, FavoriteActions,
-  ShareActions, UserActions } from 'actions'
+  ShareActions, UserActions, AlertActions } from 'actions'
 
 const connectState = (state) => ({
   bundles: BundleSelectors.sortedCollectionBundles(state),
@@ -22,12 +24,13 @@ const connectProps = {
   ...CollectionActions,
   ...FavoriteActions,
   ...ShareActions,
-  ...UserActions
+  ...UserActions,
+  ...AlertActions
 }
 
 @ui({
   key: 'resource-navigation',
-  state: { isOpen: false, position: null, resourceId: null }
+  state: { isOpen: false, actionsModalIsOpen: false, position: null, resourceId: null }
 })
 @connect(connectState, connectProps)
 export default class CollectionBundlesNavigationContainer extends React.Component {
@@ -53,6 +56,28 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     browserHistory.push(this.getCollectionUrl())
     this.props.removeBundle(...args)
   }
+
+  showCollectionActions () {
+    let { collection, currentUser } = this.props
+    return collection.canEdit(currentUser.id) || collection.canLeave(currentUser.id)
+  }
+
+  currentShareId () {
+    let { collection, currentUser } = this.props
+    let share = collection.shares.find(share => share.user.id === currentUser.id)
+
+    return share ? share.id : null
+  }
+
+  leaveCollection () {
+    let { collection, leaveShare, addAlert } = this.props
+
+    leaveShare(this.currentShareId(), collection.id, 'Collection').then(() => {
+      browserHistory.push('/collections')
+      addAlert('success', 'You\'ve just left Collection 😢')
+    })
+  }
+
 
   renderShareResource () {
     let props = this.props
@@ -96,6 +121,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
   }
 
   render () {
+    const props = this.props
     const {
       collection,
       bundles,
@@ -112,6 +138,26 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
             <h2 className='title'>{collection.name}</h2>
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
+
+              <Permission allow={this.showCollectionActions()}>
+                <span
+                  className='icon more-icon'
+                  onClick={e => props.updateUI('actionsModalIsOpen', true)} />
+              </Permission>
+
+              <Permission allow={this.showCollectionActions()}>
+                <CollectionActionsModal
+                  isOpen={props.ui.actionsModalIsOpen || false}
+                  closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
+
+                  <Permission allow={props.collection.canEdit(props.currentUser.id)}>
+                    <a>Edit</a>
+                  </Permission>
+                  <Permission allow={props.collection.canLeave(props.currentUser.id)}>
+                    <a onClick={::this.leaveCollection}>Leave</a>
+                  </Permission>
+                </CollectionActionsModal>
+              </Permission>
             </div>
           </div>
         </ResourceNavigation.Header>

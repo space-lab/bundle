@@ -10,8 +10,14 @@ export const currentId = state => state.Route.collectionId
 export const receivedAll = state => state.Collection.receivedAll
 
 export const current = createSelector(
-  [currentId, all],
-  (id, collections) => collections.get(id) || new Collection())
+  [currentId, all, allShares, allUsers],
+  (id, collections, shares, users) => {
+    let collection = collections.get(id) || new Collection()
+
+    return collection.update('shares', ids => ids.map(id =>
+      shares.get(id).update('user', id => users.get(id))))
+  }
+)
 
 export const sorted = createSelector(
   all,

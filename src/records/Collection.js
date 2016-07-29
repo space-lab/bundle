@@ -15,7 +15,8 @@ const CollectionRecord = Record({
   editMode: false,
   type: null,
   share_url: null,
-  share_url_permission: null
+  share_url_permission: null,
+  joined: false
 })
 
 export default class Collection extends CollectionRecord {
@@ -31,5 +32,9 @@ export default class Collection extends CollectionRecord {
     return this.creator == userId || this.shares.some(share =>
       share.user.id === userId && share.permission.name === 'Edit'
     )
+  }
+
+  canLeave (userId) {
+    return this.joined && this.creator !== userId
   }
 }
