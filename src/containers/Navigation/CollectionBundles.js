@@ -130,7 +130,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
 
-              <Permission allow={this.showCollectionActions()}>
+              <Permission allow={showActions}>
                 <span
                   className='icon more-icon'
                   onClick={e => props.updateUI('actionsModalIsOpen', true)} />
