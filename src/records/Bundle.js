@@ -41,6 +41,11 @@ export default class Bundle extends BundleRecord {
   }
 
   canLeave (userId) {
-    return this.joined && this.creator !== userId
+    return (this.shareIdFor(userId) && this.joined && this.creator !== userId) || false
+  }
+
+  shareIdFor (userId) {
+    let share = this.shares.find(share => share.user.id === userId)
+    return share ? share.id : null
   }
 }

@@ -1,0 +1,7 @@
+.collection-actions {
+  position: relative;
+
+  .menu {
+    width: 150px;
+  }
+}

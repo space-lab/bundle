@@ -9,6 +9,8 @@ export UserMenu from './UserMenu'
 export * as Search from './Search'
 
 export ResourceNavigation from './ResourceNavigation'
+export CollectionActionsModal from './CollectionActionsModal/CollectionActionsModal'
+
 
 export JoinBundle from './Header/JoinBundle/JoinBundle'
 export LeaveBundle from './Header/LeaveBundle/LeaveBundle'

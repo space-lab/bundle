@@ -3,23 +3,24 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 
 export default class LeaveBundle extends React.Component {
   static propTypes = {
-    bundle: ImmutablePropTypes.record.isRequired,
-    currentUserId: React.PropTypes.number.isRequired,
+    bundleId: React.PropTypes.string.isRequired,
+    shareId: React.PropTypes.number,
     leaveShare: React.PropTypes.func.isRequired,
     addAlert: React.PropTypes.func.isRequired
   }
 
   leave () {
-    let { bundle, currentUserId, leaveShare, addAlert } = this.props
-    let share = bundle.shares.find(share => share.user.id === currentUserId)
+    let { bundleId, shareId, leaveShare, addAlert } = this.props
 
-    leaveShare(share.id, bundle.id).then(() => {
+    leaveShare(shareId, bundleId, 'Bundle').then(() => {
       browserHistory.push('/')
       addAlert('success', 'You\'ve just left bundle 😢')
     })
   }
 
   render () {
+    if (!this.props.shareId) return false
+
     return <button className='main-button' onClick={::this.leave}>
       Leave
     </button>
