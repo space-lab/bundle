@@ -6,7 +6,7 @@ class CollectionActionsModal extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool.isRequired,
     closeModal: React.PropTypes.func.isRequired,
-    children: React.PropTypes.node
+    children: React.PropTypes.node.isRequired
   }
 
   handleClickOutside () {
