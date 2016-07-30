@@ -33,9 +33,6 @@ function linksReducer (state = Map(), action) {
     case 'REMOVE_LINK':
       return state.delete(action.id)
 
-    case 'UPDATE_LINK':
-      return state.setIn([action.id, action.field], action.value)
-
     default:
       return state
   }
