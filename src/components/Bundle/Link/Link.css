@@ -16,6 +16,10 @@ $imageWidth: 130px;
     background: hsla(208, 35%, 99%, 1);
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.18);
+
+    .toolbar {
+      opacity: 1;
+    }
   }
 
   &.completed {
@@ -86,15 +90,17 @@ $imageWidth: 130px;
     }
 
     .toolbar {
+      opacity: 0;
       position: absolute;
       height: 27px;
       top: 5px;
       right: 10px;
       user-select: none;
+      transition: all 200ms linear;
 
       div {
-        display: inline-block;
         transition: all 200ms linear;
+        display: inline-block;
         width: 27px;
         height: 27px;
         cursor: pointer;
@@ -107,7 +113,6 @@ $imageWidth: 130px;
 
     .link-remove {
       background: url(/assets/images/x.svg) center center no-repeat;
-
     }
 
     .link-complete {

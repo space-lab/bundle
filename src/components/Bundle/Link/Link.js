@@ -12,8 +12,6 @@ export default class Link extends React.Component {
     createdAt: React.PropTypes.string,
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
-    onMouseEnter: React.PropTypes.func,
-    onMouseLeave: React.PropTypes.func,
     children: React.PropTypes.element
   }
 
@@ -28,7 +26,7 @@ export default class Link extends React.Component {
     let thumbStyles = { backgroundImage: `url(${image})` }
     let linkClass = 'link-component' + (completed ? ' completed' : '')
 
-    return <a href={url} target='_blank' onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+    return <a href={url} target='_blank'>
       <div className={linkClass}>
         <div style={thumbStyles} className='link-thumbnail' />
 
