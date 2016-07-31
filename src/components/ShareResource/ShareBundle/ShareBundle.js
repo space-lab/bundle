@@ -1,14 +1,9 @@
-import listensToClickOutside from 'react-onclickoutside/decorator'
+import listensToClickOutside from 'react-onclickoutside'
 import ui from 'redux-ui'
 import { ShareResource } from 'components'
 import './ShareBundle.css'
 
-@ui({ state: { q: '', isOpen: false } })
-@listensToClickOutside()
-export default class ShareBundle extends React.Component {
-  static propTypes = {
-  }
-
+class ShareBundle extends React.Component {
   handleClickOutside () {
     if (this.props.ui.isOpen) {
       this.props.updateUI('isOpen', false)
@@ -29,3 +24,5 @@ export default class ShareBundle extends React.Component {
     </div>
   }
 }
+
+export default ui({ state: { q: '', isOpen: false } })(listensToClickOutside(ShareBundle))

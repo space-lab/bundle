@@ -1,4 +1,4 @@
-import listensToClickOutside from 'react-click-outside'
+import listensToClickOutside from 'react-onclickoutside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { InviteUsers, ShareItem, Modal } from 'components'
 import './ShareResource.css'
@@ -14,8 +14,7 @@ class ShareResource extends React.Component {
 
   handleClickOutside (e) {
     if (this.props.ui.isOpen) {
-      this.props.updateUI('isOpen', false)
-      this.props.updateUI('position', null)
+      this.props.updateUI({ isOpen: false, position: null })
     }
   }
 

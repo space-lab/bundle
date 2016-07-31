@@ -1,14 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import listensToClickOutside from 'react-onclickoutside/decorator'
+import listensToClickOutside from 'react-onclickoutside'
 import ui from 'redux-ui'
 import './ChangeCollection.css'
 import Modal from './Modal'
 
-@ui({
-  state: { q: '', isOpen: false }
-})
-@listensToClickOutside()
-export default class ChangeCollection extends React.Component {
+class ChangeCollection extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
@@ -53,3 +49,5 @@ export default class ChangeCollection extends React.Component {
     )
   }
 }
+
+export default ui({ state: { q: '', isOpen: false } })(listensToClickOutside(ChangeCollection))

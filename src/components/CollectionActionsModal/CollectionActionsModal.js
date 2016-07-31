@@ -1,4 +1,4 @@
-import listensToClickOutside from 'react-click-outside'
+import listensToClickOutside from 'react-onclickoutside'
 import { Modal, Menu } from 'components'
 import './CollectionActionsModal.css'
 

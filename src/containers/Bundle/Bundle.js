@@ -1,3 +1,4 @@
+import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
@@ -27,6 +28,7 @@ let connectProps = {
   ...SearchActions
 }
 
+@ui({ state: { isOpen: false, position: null } })
 @connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {
