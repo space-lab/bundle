@@ -56,7 +56,7 @@ export default class Navigation extends React.Component {
   }
 
   renderNavigation () {
-    let view = this.props.route.view || this.props.Route.navigationView
+    let view = this.props.Route.navigationView
 
     switch (view) {
       case 'bundles':
