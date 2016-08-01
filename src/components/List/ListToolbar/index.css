@@ -1,7 +1,6 @@
 $icon-size: 18px;
 
 .list-toolbar {
-  height: $height;
   position: absolute;
   top: 15px;
   right: @top;
@@ -17,12 +16,12 @@ $icon-size: 18px;
     width: $icon-size;
     height: $icon-size;
     background-size: $icon-size;
-    opacity: 0.5;
+    opacity: 0;
     transition: opacity linear 200ms;
     cursor: pointer;
 
     &:hover {
-      opacity: 1;
+      opacity: 1 !important;
     }
   }
 
@@ -30,6 +29,10 @@ $icon-size: 18px;
     .icon-toolbar-$(icon) {
       background-image: url('/assets/images/toolbar-$(icon).svg');
     }
+  }
+
+  .icon-toolbar-favorite-full {
+    opacity: 1;
   }
 
   .relative-toolbar {
