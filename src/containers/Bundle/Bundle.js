@@ -6,7 +6,7 @@ import { AlertActions, BundleActions, CollectionActions, LinkActions, UserAction
   ShareActions, SearchActions } from 'actions'
 import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar, ChangeCollection, JoinBundle, LeaveBundle, ShareBundle } from 'components'
 
-let connectState = (state) => ({
+let connectState = state => ({
   bundle: BundleSelectors.current(state),
   bundleId: BundleSelectors.currentId(state),
   links: LinkSelectors.all(state),

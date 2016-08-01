@@ -7,7 +7,7 @@ import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
 import './index.css'
 
-let connectState = (state) => ({
+let connectState = state => ({
   currentUser: UserSelectors.current(state)
 })
 

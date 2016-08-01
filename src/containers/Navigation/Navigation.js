@@ -3,12 +3,13 @@ import { fromJS } from 'immutable'
 import { parseId } from 'helpers'
 import { RouteActions } from 'actions'
 import { NoBundle } from 'components'
+import { RouteSelectors } from 'selectors'
 import { Bundle, BundleNavigation, CollectionNavigation, CollectionBundlesNavigation,
   FavoriteNavigation, NotificationNavigation, SearchNavigation } from 'containers'
 import './Navigation.css'
 
-const connectState = (state) => ({
-  Route: state.Route.toJS()
+const connectState = state => ({
+  Route: RouteSelectors.all(state)
 })
 
 const connectProps = { ...RouteActions }
@@ -24,8 +25,8 @@ export default class Navigation extends React.Component {
   }
 
   shouldComponentUpdate (nextProps) {
-    let oldRoute = fromJS(this.props.Route)
-    let route = fromJS(nextProps.Route)
+    let oldRoute = this.props.Route
+    let route = nextProps.Route
 
     return !route.equals(oldRoute)
   }
