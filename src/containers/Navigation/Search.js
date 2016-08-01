@@ -90,25 +90,6 @@ export default class Container extends React.Component {
     )
   }
 
-  renderResults () {
-    const { searchResult } = this.props
-    const bundles = searchResult.get('bundles')
-    const collections = searchResult.get('collections')
-
-    if (this.noResult(searchResult)) {
-      return (<div className='search-note'>Search Bundles and Collections</div>)
-    }
-
-    return (
-      <div className='search-results'>
-        <h3 className='title'>Search results</h3>
-
-        {this.renderList(bundles, 'Bundle', ListItem.Bundle)}
-        {this.renderList(collections, 'Collection', ListItem.Collection)}
-      </div>
-    )
-  }
-
   renderShareResource () {
     let props = this.props
     let { searchResult, ui } = props
@@ -150,6 +131,8 @@ export default class Container extends React.Component {
 
   render () {
     let props = this.props
+    let bundles = props.searchResult.get('bundles')
+    let collections = props.searchResult.get('collections')
 
     return (
       <ResourceNavigation>
@@ -169,9 +152,18 @@ export default class Container extends React.Component {
               <Link to='/bundles' className='icon close-icon'/>
             </SearchHeader>
           </ResourceNavigation.Header>
-
           <ResourceNavigation.Body>
-            <SearchBody>{this.renderResults()}</SearchBody>
+            <SearchBody>
+              {
+                this.noResult(props.searchResult)
+                ? <div className='search-note'>Search Bundles and Collections</div>
+                : <div className='search-results'>
+                    <h3 className='title'>Search results</h3>
+                    {this.renderList(bundles, 'Bundle', ListItem.Bundle)}
+                    {this.renderList(collections, 'Collection', ListItem.Collection)}
+                </div>
+              }
+            </SearchBody>
           </ResourceNavigation.Body>
         </Search>
       </ResourceNavigation>
