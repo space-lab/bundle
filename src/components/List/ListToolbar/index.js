@@ -3,6 +3,7 @@ import ToolbarShareItem from './ToolbarShareItem'
 import ToolbarCloseItem from './ToolbarCloseItem'
 import ToolbarDeleteItem from './ToolbarDeleteItem'
 import ToolbarFavoriteItem from './ToolbarFavoriteItem'
+import { Permission } from 'components'
 import './index.css'
 
 export default class ListToolbar extends React.Component {
@@ -19,51 +20,38 @@ export default class ListToolbar extends React.Component {
     updateUI: React.PropTypes.func.isRequired
   }
 
-  renderShareIcon () {
-    let props = this.props
-    if (!props.resource.canShare(props.currentUser.id)) return false
-
-    return <ToolbarShareItem
-      resource={props.resource}
-      resourceName={props.resourceName}
-      updateUI={props.updateUI} />
-  }
-
-  renderRemoveIcon () {
-    let props = this.props
-    if (!props.resource.canRemove(props.currentUser.id)) return false
-
-    return <ToolbarDeleteItem id={props.resource.id} remove={props.remove} />
-  }
-
   renderRegularItems () {
     let props = this.props
     let id = props.resource.id
     let type = props.resourceName.toLowerCase()
 
-    return (
-      <div className='list-toolbar'>
-        {this.renderShareIcon()}
-        {this.renderRemoveIcon()}
+    return <div className='list-toolbar'>
+      <Permission allow={props.resource.canShare(props.currentUser.id)}>
+        <ToolbarShareItem
+          resource={props.resource}
+          resourceName={props.resourceName}
+          updateUI={props.updateUI} />
+      </Permission>
 
-        <ToolbarFavoriteItem
-          type={type}
-          id={id}
-          favorited={props.resource.favorited}
-          favorite={props.favorite}
-          unfavorite={props.unfavorite}/>
-      </div>
-    )
+      <Permission allow={props.resource.canRemove(props.currentUser.id)}>
+        <ToolbarDeleteItem id={props.resource.id} remove={props.remove} />
+      </Permission>
+
+      <ToolbarFavoriteItem
+        type={type}
+        id={id}
+        favorited={props.resource.favorited}
+        favorite={props.favorite}
+        unfavorite={props.unfavorite}/>
+    </div>
   }
 
   renderEditModeItems () {
     const { resource, close } = this.props
 
-    return (
-      <div className='list-toolbar'>
-        <ToolbarCloseItem id={resource.id} close={close} />
-      </div>
-    )
+    return <div className='list-toolbar'>
+      <ToolbarCloseItem id={resource.id} close={close} />
+    </div>
   }
 
   render () {

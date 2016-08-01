@@ -1,8 +1,22 @@
+$activeColor: #EBF3FA;
+
 .list-item {
   position: relative;
   border-bottom: 1px solid #ECECEC;
   cursor: pointer;
   transition: background 75ms linear;
+
+  &:hover {
+    background: $activeColor;
+
+    .list-toolbar .icon {
+      opacity: 0.5;
+    }
+  }
+
+  &.list-item-active {
+    background: $activeColor;
+  }
 
   .content {
     display: block;
@@ -31,10 +45,6 @@
     line-height: 19px;
   }
 
-  &:hover {
-    background: #EBF3FA;
-  }
-
   input {
     width: 240px;
     border: none;
@@ -47,6 +57,4 @@
   }
 }
 
-.list-item-active {
-  background: #EBF3FA;
-}
+
