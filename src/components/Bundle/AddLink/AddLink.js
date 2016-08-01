@@ -13,41 +13,32 @@ export default class AddLink extends React.Component {
     autoFocus: React.PropTypes.bool
   }
 
-  renderLinkPreview () {
-    let { user, link, handleLinkAdd, handleLinkRemove } = this.props
-
-    return <div className='link-preview-container'>
-      <Link
-        url={link.url}
-        image={link.image}
-        title={link.title || 'Link has no name'}
-        description={link.description || ''}
-        creatorName={user.name}
-        creatorImage={user.image}
-        canRemove
-        handleLinkRemove={handleLinkRemove} />
-
-      <button
-        onClick={handleLinkAdd.bind(this, link)}
-        className='main-button'>
-        Add Link
-      </button>
-    </div>
-  }
-
-  renderEnterUrl () {
-    let { user, bundle, handleUrlEnter, autoFocus } = this.props
-
-    return <EnterUrl
-      userImage={user.image}
-      bundleId={bundle.id}
-      autoFocus={autoFocus}
-      handeUrlEnter={handleUrlEnter} />
-  }
-
   render () {
+    let { user, bundle, link, handleLinkAdd,
+      handleLinkRemove, handleUrlEnter, autoFocus } = this.props
+
     return this.props.link
-      ? this.renderLinkPreview()
-      : this.renderEnterUrl()
+      ? <div className='link-preview-container'>
+          <Link
+            url={link.url}
+            image={link.image}
+            title={link.title || 'Link has no name'}
+            description={link.description || ''}
+            creatorName={user.name}
+            creatorImage={user.image}
+            canRemove
+            handleLinkRemove={handleLinkRemove} />
+
+          <button
+            onClick={handleLinkAdd.bind(this, link)}
+            className='main-button'>
+            Add Link
+          </button>
+        </div>
+      : <EnterUrl
+          userImage={user.image}
+          bundleId={bundle.id}
+          autoFocus={autoFocus}
+          handeUrlEnter={handleUrlEnter} />
   }
 }

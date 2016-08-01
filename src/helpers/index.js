@@ -18,12 +18,6 @@ export const slimUrl = str => {
   return url.hostname + url.pathname
 }
 
-export const isUrl = str => {
-  var a  = document.createElement('a');
-  a.href = str;
-  return !!a.host
-}
-
 export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })
