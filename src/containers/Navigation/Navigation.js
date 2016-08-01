@@ -4,7 +4,7 @@ import { parseId } from 'helpers'
 import { RouteActions } from 'actions'
 import { NoBundle } from 'components'
 import { Bundle, BundleNavigation, CollectionNavigation, CollectionBundlesNavigation,
-  FavoriteNavigation, NotificationNavigation } from 'containers'
+  FavoriteNavigation, NotificationNavigation, SearchNavigation } from 'containers'
 import './Navigation.css'
 
 const connectState = (state) => ({
@@ -42,7 +42,7 @@ export default class Navigation extends React.Component {
   parseRouteChange (props) {
     let { view } = props.route
     let { Route } = props
-    let { bundleId, collectionId } = props.params
+    let { bundleId, collectionId, query } = props.params
 
     bundleId = parseId(bundleId)
     collectionId = parseId(collectionId)
@@ -53,10 +53,12 @@ export default class Navigation extends React.Component {
     if (collectionId && Route.collectionId !== collectionId) {
       props.routeChangeNavigationCollectionId(collectionId)
     }
+
+    if (view === 'search') props.routeChangeSearchQuery(query)
   }
 
   renderNavigation () {
-    let view = this.props.route.view || this.props.Route.navigationView
+    let view = this.props.Route.navigationView
 
     switch (view) {
       case 'bundles':
@@ -67,6 +69,8 @@ export default class Navigation extends React.Component {
         return <CollectionBundlesNavigation />
       case 'favorites':
         return <FavoriteNavigation />
+      case 'search':
+        return <SearchNavigation />
       case 'notifications':
         return <NotificationNavigation />
       default:
