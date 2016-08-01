@@ -11,6 +11,9 @@ export default function (state = new Route(), action) {
     case 'ROUTE_CHANGE_NAVIGATION_COLLECTION_ID':
       return state.set('collectionId', action.collectionId)
 
+    case 'ROUTE_CHANGE_SEARCH_QUERY':
+      return state.set('searchQuery', action.query)
+
     case 'ROUTE_RESET_BUNDLE_ID':
       return state.bundleId === action.id
         ? state.set('bundleId', null)

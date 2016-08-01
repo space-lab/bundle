@@ -2,15 +2,15 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { UserSelectors, SearchSelectors } from 'selectors'
-import { Search, ShareResource } from 'components'
+import { Search, ShareResource, ResourceNavigation } from 'components'
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
   ShareActions, UserActions } from 'actions'
-import './index.css'
 
 let connectState = (state) => ({
   currentUser: UserSelectors.current(state),
   userAutocomplete: UserSelectors.autocompletes(state),
-  searchResult: SearchSelectors.currentResult(state)
+  searchResult: SearchSelectors.currentResult(state),
+  query: state.Route.searchQuery
 })
 
 let connectProps = {
@@ -27,7 +27,7 @@ let connectProps = {
   state: { isOpen: false, position: null, resourceId: null }
 })
 @connect(connectState, connectProps)
-export default class SearchContainer extends React.Component {
+export default class Container extends React.Component {
   static propTypes = {
     searchResult: ImmutablePropTypes.map,
     currentUser: ImmutablePropTypes.record,
@@ -38,13 +38,12 @@ export default class SearchContainer extends React.Component {
   }
 
   componentWillMount () {
-    const { query } = this.props.routeParams
-    if (query) this.props.getSearchResult(query)
+    if (this.props.query) this.props.getSearchResult(this.props.query)
   }
 
   componentWillReceiveProps (nextProps) {
-    const thisPropsQuery = this.props.routeParams.query
-    const nextPropsQuery = nextProps.routeParams.query
+    const thisPropsQuery = this.props.query
+    const nextPropsQuery = nextProps.query
 
     if (!nextPropsQuery) {
       nextProps.getSearchResult()
@@ -93,15 +92,18 @@ export default class SearchContainer extends React.Component {
   }
 
   render () {
-    const { query } = this.props.routeParams
-
     return (
-      <div className='search-wrapper'>
+      <ResourceNavigation>
         {this.renderShareResource()}
 
-        <Search.Header query={query}/>
-        <Search.Body {...this.props}/>
-      </div>
+        <ResourceNavigation.Header>
+          <Search.Header query={this.props.query}/>
+        </ResourceNavigation.Header>
+
+        <ResourceNavigation.Body>
+          <Search.Body {...this.props}/>
+        </ResourceNavigation.Body>
+      </ResourceNavigation>
     )
   }
 }
