@@ -1,5 +1,5 @@
 import ui from 'redux-ui'
-import { ShareResource } from 'components'
+import { ShareResource, Permission } from 'components'
 import './ShareBundle.css'
 
 @ui({ key: 'share-bundle', state: { isOpen: false } })
@@ -14,7 +14,9 @@ export default class ShareBundle extends React.Component {
         Share
       </button>
 
-      <ShareResource {...this.props} />
+      <Permission allow={this.props.ui.isOpen}>
+        <ShareResource {...this.props} />
+      </Permission>
     </div>
   }
 }

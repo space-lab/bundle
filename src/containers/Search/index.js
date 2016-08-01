@@ -73,7 +73,7 @@ export default class SearchContainer extends React.Component {
       }
     })
 
-    if (!resource) return false
+    if (!resource || !ui.isOpen) return false
 
     return <ShareResource
       position={ui.position}

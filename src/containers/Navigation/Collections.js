@@ -45,7 +45,7 @@ export default class Container extends React.Component {
     let { collections, ui } = props
     let resource = collections.find(col => col.id == ui.resourceId)
 
-    if (!resource) return false
+    if (!resource || !ui.isOpen) return false
 
     return <ShareResource
       position={this.props.ui.position}
