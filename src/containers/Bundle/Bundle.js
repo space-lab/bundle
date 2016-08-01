@@ -1,10 +1,10 @@
+import debounce from 'lodash.debounce'
 import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
-  ChangeCollection, JoinBundle, LeaveBundle, ShareBundle } from 'components'
+import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar, ChangeCollection, JoinBundle, LeaveBundle, ShareBundle } from 'components'
 
 let connectState = (state) => ({
   bundle: BundleSelectors.current(state),
@@ -34,6 +34,8 @@ export default class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
+    this.handleUpdate = debounce(this.handleUpdate, 1000)
+
     if (bundleId && !bundle) getBundle(bundleId)
     if (!receivedAllCollections) getCollections()
   }
@@ -41,6 +43,10 @@ export default class BundleContainer extends React.Component {
   componentWillReceiveProps ({ bundle: nextBundle, bundleId: nextBundleId }) {
     let { getBundle, bundleId } = this.props
     if (bundleId !== nextBundleId && !nextBundle) getBundle(nextBundleId)
+  }
+
+  handleUpdate (payload) {
+    this.props.updateBundle(this.props.bundleId, payload)
   }
 
   handleLinkRemove (link, event) {
@@ -99,15 +105,15 @@ export default class BundleContainer extends React.Component {
           value={props.bundle.name || ''}
           editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Name goes here...'
-          onBlur={e => props.updateBundle(props.bundle.id, { name: e.target.value })} />
+          onChange={value => this.handleUpdate({ name: value })} />
 
         <Editable
-          type='textarea'
+          type='textarea-autosize'
           className='bundle-description'
           value={props.bundle.description || ''}
           editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Description goes here...'
-          onBlur={e => props.updateBundle(props.bundle.id, { description: e.target.value })} />
+          onChange={value => this.handleUpdate({ description: value })} />
 
         <Permission allow={props.bundle.canEdit(props.currentUser.id)}>
           <AddLink

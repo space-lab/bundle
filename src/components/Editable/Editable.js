@@ -1,3 +1,5 @@
+import TextareaAutosize from 'react-textarea-autosize';
+
 export default class Editable extends React.Component {
   static propTypes = {
     className: React.PropTypes.string,
@@ -38,22 +40,28 @@ export default class Editable extends React.Component {
 
   render () {
     let { className, placeholder, editMode, type, autoFocus } = this.props
+    let Input = getInputElement(type)
 
-    let Input = type || 'input'
+    return editMode
+      ? <Input
+          className={className}
+          value={this.state.value}
+          placeholder={placeholder}
+          autoFocus={autoFocus}
+          onChange={::this.handleChange}
+          onKeyPress={::this.handleChange}
+          onBlur={this.props.onBlur} />
+      : <span className={className}>
+          {this.state.value}
+        </span>
+  }
+}
 
-    if (editMode) {
-      return <Input
-        className={className}
-        value={this.state.value}
-        placeholder={placeholder}
-        autoFocus={autoFocus}
-        onChange={::this.handleChange}
-        onKeyPress={::this.handleChange}
-        onBlur={this.props.onBlur} />
-    } else {
-      return <span className={className}>
-        {this.state.value}
-      </span>
-    }
+function getInputElement (type) {
+  switch (type) {
+    case 'textarea-autosize': return TextareaAutosize
+    case 'textarea': return 'textarea'
+    case 'input':
+    default: return 'input'
   }
 }

@@ -29,11 +29,7 @@ export const removeBundle = (id) => async dispatch => {
   dispatch({ type: 'REMOVE_BUNDLE', id })
 }
 
-export const updateBundle = (id, payload) => async (dispatch) => {
+export const updateBundle = (id, payload) => async dispatch => {
   const { data } = await request.put(api.bundle(id), { bundle: payload })
   reduceBundle(data, dispatch)
 }
-
-export const updateBundleInfo = (bundleId, field, value) => ({
-  type: 'UPDATE_BUNDLE_INFO', bundleId, field, value
-})
