@@ -8,9 +8,13 @@ export default class EnterUrl extends React.Component {
     autoFocus: React.PropTypes.bool
   }
 
-  handleKeyPress (bundleId, handeUrlEnter, { target, key }) {
+  state = { disabled: false }
+
+  handleChange ({ target }) {
     let url = target.value
-    if (key === 'Enter') handeUrlEnter(url, bundleId)
+
+    this.setState({ disabled: true })
+    this.props.handeUrlEnter(url, this.props.bundleId)
   }
 
   render () {
@@ -24,7 +28,8 @@ export default class EnterUrl extends React.Component {
           className='url-input'
           placeholder='Enter URL here and press Enter...'
           autoFocus={autoFocus}
-          onKeyPress={this.handleKeyPress.bind(this, bundleId, handeUrlEnter)}/>
+          disabled={this.state.disabled}
+          onChange={::this.handleChange} />
       </div>
     )
   }

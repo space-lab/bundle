@@ -15,11 +15,9 @@ let connectProps = {
 
 @connect(connectState, connectProps)
 export default class Settings extends React.Component {
-  componentWillMount () {
-    this.setState({
-      name: this.props.name,
-      email: this.props.email
-    })
+  state = {
+    name: this.props.name,
+    email: this.props.email
   }
 
   // TODO ? fix?
