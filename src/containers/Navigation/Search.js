@@ -5,8 +5,8 @@ import { Link, browserHistory } from 'react-router'
 import { shouldShow } from 'helpers'
 import { UserSelectors, SearchSelectors,
   BundleSelectors, RouteSelectors } from 'selectors'
-import { List, ListItem, ShareResource, ResourceNavigation,
-  Search, SearchHeader, SearchBody } from 'components'
+import { List, ListItem, ShareResource,
+  ResourceNavigation, SearchHeader, SearchBody } from 'components'
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
   ShareActions, UserActions } from 'actions'
 
@@ -139,34 +139,33 @@ export default class Container extends React.Component {
       <ResourceNavigation>
         {this.renderShareResource()}
 
-        <Search>
-          <ResourceNavigation.Header>
-            <SearchHeader>
-              <input
-                className='search-input'
-                autoFocus
-                type='text'
-                placeholder='Search...'
-                value={props.query || ''}
-                onChange={e => browserHistory.push(`/search/${e.target.value}`)} />
+        <ResourceNavigation.Header>
+          <SearchHeader>
+            <input
+              className='search-input'
+              autoFocus
+              type='text'
+              placeholder='Search...'
+              value={props.query || ''}
+              onChange={e => browserHistory.push(`/search/${e.target.value}`)} />
 
-              <Link to='/bundles' className='icon close-icon'/>
-            </SearchHeader>
-          </ResourceNavigation.Header>
-          <ResourceNavigation.Body>
-            <SearchBody>
-              {
-                this.noResult(props.searchResult)
-                ? <div className='search-note'>Search Bundles and Collections</div>
-                : <div className='search-results'>
-                    <h3 className='title'>Search results</h3>
-                    {this.renderList(bundles, 'Bundle', ListItem.Bundle)}
-                    {this.renderList(collections, 'Collection', ListItem.Collection)}
-                </div>
-              }
-            </SearchBody>
-          </ResourceNavigation.Body>
-        </Search>
+            <Link to='/bundles' className='icon close-icon'/>
+          </SearchHeader>
+        </ResourceNavigation.Header>
+
+        <ResourceNavigation.Body>
+          <SearchBody>
+            {
+              this.noResult(props.searchResult)
+              ? <div className='search-note'>Search Bundles and Collections</div>
+              : <div className='search-results'>
+                  <h3 className='title'>Search results</h3>
+                  {this.renderList(bundles, 'Bundle', ListItem.Bundle)}
+                  {this.renderList(collections, 'Collection', ListItem.Collection)}
+              </div>
+            }
+          </SearchBody>
+        </ResourceNavigation.Body>
       </ResourceNavigation>
     )
   }

@@ -1,4 +1,4 @@
-import './index.css'
+import './SearchHeader.css'
 
 export default class SearchHeader extends React.Component {
   static propTypes = {
@@ -6,10 +6,6 @@ export default class SearchHeader extends React.Component {
   }
 
   render () {
-    return (
-      <div className='search-header-wrapper'>
-        {this.props.children}
-      </div>
-    )
+    return <div className='search-header'>{this.props.children}</div>
   }
 }
