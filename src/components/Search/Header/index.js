@@ -1,29 +1,14 @@
-import { Link, browserHistory } from 'react-router'
 import './index.css'
 
 export default class SearchHeader extends React.Component {
   static propTypes = {
-    query: React.PropTypes.string
-  }
-
-  onChange ({ target }) {
-    browserHistory.push(`/search/${target.value}`)
+    children: React.PropTypes.node.isRequired
   }
 
   render () {
-    const { query } = this.props
-
     return (
       <div className='search-header-wrapper'>
-        <input
-          className='search-input'
-          autoFocus
-          type='text'
-          placeholder='Search...'
-          onChange={this.onChange}
-          value={query || ''} />
-
-        <Link to='/bundles' className='icon close-icon'/>
+        {this.props.children}
       </div>
     )
   }

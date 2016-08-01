@@ -6,8 +6,6 @@ export Editable from './Editable/Editable'
 export Permission from './Permission/Permission'
 
 export UserMenu from './UserMenu'
-export * as Search from './Search'
-
 export ResourceNavigation from './ResourceNavigation'
 export CollectionActionsModal from './CollectionActionsModal/CollectionActionsModal'
 
@@ -43,3 +41,8 @@ export ShareBundle from './ShareResource/ShareBundle/ShareBundle'
 export ShareItem from './ShareResource/ShareItem/ShareItem'
 export TagInput from './ShareResource/TagInput/TagInput'
 export UrlShare from './ShareResource/UrlShare/UrlShare'
+
+// Search
+export Search from './Search'
+export SearchHeader from './Search/Header'
+export SearchBody from './Search/Body'
