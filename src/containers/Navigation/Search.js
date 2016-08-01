@@ -9,12 +9,12 @@ import { List, ListItem, ShareResource, ResourceNavigation,
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
   ShareActions, UserActions } from 'actions'
 
-let connectState = (state) => ({
+let connectState = state => ({
   currentUser: UserSelectors.current(state),
   userAutocomplete: UserSelectors.autocompletes(state),
   searchResult: SearchSelectors.currentResult(state),
   bundleId: BundleSelectors.currentId(state),
-  query: state.Route.searchQuery
+  query: RouteSelectors.searchQuery(state)
 })
 
 let connectProps = {

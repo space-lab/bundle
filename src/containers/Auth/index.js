@@ -6,7 +6,7 @@ import { UserSelectors } from 'selectors'
 import { UserActions } from 'actions'
 import './index.css'
 
-const connectState = (state) => ({
+const connectState = state => ({
   currentUser: UserSelectors.current(state),
   routing: state.routing
 })

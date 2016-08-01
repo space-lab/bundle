@@ -6,7 +6,7 @@ import { BundleSelectors, CollectionSelectors, FavoriteSelectors, UserSelectors 
 import { BundleActions, CollectionActions, FavoriteActions, ShareActions, UserActions } from 'actions'
 import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
 
-const connectState = (state) => ({
+const connectState = state => ({
   bundles: BundleSelectors.all(state),
   bundleId: BundleSelectors.currentId(state),
   collections: CollectionSelectors.all(state),

@@ -10,7 +10,7 @@ import { ResourceNavigation, List, ListItem, ShareResource,
 import { CollectionActions, BundleActions, FavoriteActions,
   ShareActions, UserActions, AlertActions } from 'actions'
 
-const connectState = (state) => ({
+const connectState = state => ({
   bundles: BundleSelectors.sortedCollectionBundles(state),
   bundleId: BundleSelectors.currentId(state),
   collection: CollectionSelectors.current(state),

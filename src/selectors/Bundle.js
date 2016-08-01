@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect'
 import { all as allUsers, currentId as currentUserId } from './User'
 import { all as allShares } from './Share'
+import { bundleId } from './Route'
 import { current as currentCollection } from './Collection'
 import { parseId, unNormaliseResources } from 'helpers'
 
@@ -8,7 +9,7 @@ let getFilter = (state, props) => props.ui.filter
 let getShareBundleId = (state, props) => parseId(props.params.id)
 
 export const all = state => state.Bundle
-export const currentId = state => state.Route.bundleId
+export const currentId = bundleId
 export const current = createSelector(
   [currentId, all, allShares, allUsers],
   (id, bundles, shares, users) => {
