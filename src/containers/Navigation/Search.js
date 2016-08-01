@@ -3,7 +3,7 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import { shouldShow } from 'helpers'
-import { UserSelectors, SearchSelectors } from 'selectors'
+import { UserSelectors, SearchSelectors, BundleSelectors } from 'selectors'
 import { List, ListItem, ShareResource, ResourceNavigation,
   Search, SearchHeader, SearchBody } from 'components'
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
@@ -13,6 +13,7 @@ let connectState = (state) => ({
   currentUser: UserSelectors.current(state),
   userAutocomplete: UserSelectors.autocompletes(state),
   searchResult: SearchSelectors.currentResult(state),
+  bundleId: BundleSelectors.currentId(state),
   query: state.Route.searchQuery
 })
 
@@ -59,33 +60,32 @@ export default class Container extends React.Component {
     return !search.get('bundles').size && !search.get('collections').size
   }
 
-  renderListItem (searchResult, resourceName, component) {
+  renderList (searchResult, resourceName, component) {
     let props = this.props
 
-    return searchResult.map((item, index) => (
-      <ListItem
-        key={index}
-        currentUser={props.currentUser}
-        resource={item}
-        resourceName={resourceName}
-        Component={component}
-        remove={props['remove' + resourceName]}
-        favorite={props.favorite}
-        unfavorite={props.unfavorite}
-        getBundle={props.getBundle}
-        getCollection={props.getCollection}
-        updateUI={props.updateUI}/>
-    ))
-  }
-
-  renderList (searchResult, resourceName, component) {
     return (
       <List>
         <h4 className='name' style={shouldShow(searchResult.size > 0)}>
           {resourceName}s
         </h4>
 
-        {this.renderListItem(searchResult, resourceName, component)}
+        {
+          searchResult.map((item, index) => (
+            <ListItem
+              key={index}
+              active={resourceName === 'Bundle' && item.id === props.bundleId}
+              currentUser={props.currentUser}
+              resource={item}
+              resourceName={resourceName}
+              Component={component}
+              remove={props['remove' + resourceName]}
+              favorite={props.favorite}
+              unfavorite={props.unfavorite}
+              getBundle={props.getBundle}
+              getCollection={props.getCollection}
+              updateUI={props.updateUI} />
+          ))
+        }
       </List>
     )
   }
