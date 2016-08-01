@@ -9,7 +9,6 @@ export UserMenu from './UserMenu'
 export ResourceNavigation from './ResourceNavigation'
 export CollectionActionsModal from './CollectionActionsModal/CollectionActionsModal'
 
-
 export JoinBundle from './Header/JoinBundle/JoinBundle'
 export LeaveBundle from './Header/LeaveBundle/LeaveBundle'
 export ChangeCollection from './Header/ChangeCollection/ChangeCollection'
@@ -43,6 +42,5 @@ export TagInput from './ShareResource/TagInput/TagInput'
 export UrlShare from './ShareResource/UrlShare/UrlShare'
 
 // Search
-export Search from './Search'
-export SearchHeader from './Search/Header'
-export SearchBody from './Search/Body'
+export SearchHeader from './Search/SearchHeader'
+export SearchBody from './Search/SearchBody'
