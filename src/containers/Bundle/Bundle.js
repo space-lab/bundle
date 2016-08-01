@@ -108,7 +108,7 @@ export default class BundleContainer extends React.Component {
           onChange={value => this.handleUpdate({ name: value })} />
 
         <Editable
-          type='textarea'
+          type='textarea-autosize'
           className='bundle-description'
           value={props.bundle.description || ''}
           editMode={props.bundle.canEdit(props.currentUser.id)}
