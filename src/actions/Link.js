@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr'
 import { fromJS } from 'immutable'
-import { bestThumbnail } from 'helpers'
+import { slimUrl, bestThumbnail } from 'helpers'
 import * as Schemas from 'normalizers'
 import { Link, User } from 'records'
 import request from 'axios'
@@ -11,7 +11,7 @@ export const fetchLink = (url, bundleId) => async dispatch => {
 
   let link = new Link({
     url: data.url,
-    title: data.title,
+    title: data.title || slimUrl(data.url),
     description: data.description,
     image: bestThumbnail(data)
   })

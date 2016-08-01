@@ -11,6 +11,13 @@ export const urlDomain = str => {
   return url.hostname
 }
 
+export const slimUrl = str => {
+  const url = document.createElement('a')
+
+  url.href = str
+  return url.hostname + url.pathname
+}
+
 export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })
