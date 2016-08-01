@@ -79,7 +79,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
-    if (!resource) return false
+    if (!resource || !ui.isOpen) return false
 
     return <ShareResource
       position={ui.position}
@@ -152,7 +152,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
                   onClick={e => props.updateUI('actionsModalIsOpen', true)} />
               </Permission>
 
-              <Permission allow={showActions}>
+              <Permission allow={showActions && (props.ui.actionsModalIsOpen || false)}>
                 <CollectionActionsModal
                   isOpen={props.ui.actionsModalIsOpen || false}
                   closeModal={() => props.updateUI('actionsModalIsOpen', false)}>

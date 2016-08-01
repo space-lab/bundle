@@ -36,17 +36,15 @@ class ChangeCollection extends React.Component {
   }
 
   render () {
-    return (
-      <div className='change-collection-wrapper'>
-        <div className='change-collection-clicker' onClick={::this.openModal}>
-          <span className='icon collection-icon'></span>
-          <span className='collection-name'>{::this.collectionName()}</span>
-          <span className='icon down-arrow-icon'></span>
-        </div>
-
-        <Modal {...this.props} />
+    return <div className='change-collection-wrapper'>
+      <div className='change-collection-clicker' onClick={::this.openModal}>
+        <span className='icon collection-icon'></span>
+        <span className='collection-name'>{::this.collectionName()}</span>
+        <span className='icon down-arrow-icon'></span>
       </div>
-    )
+
+      <Modal {...this.props} />
+    </div>
   }
 }
 

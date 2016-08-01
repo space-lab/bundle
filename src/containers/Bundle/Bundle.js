@@ -28,7 +28,7 @@ let connectProps = {
   ...SearchActions
 }
 
-@ui({ state: { isOpen: false, position: null } })
+@ui({ key: 'bundle-content', state: { isOpen: false, position: null } })
 @connect(connectState, connectProps)
 export default class BundleContainer extends React.Component {
   componentWillMount () {

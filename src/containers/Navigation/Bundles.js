@@ -53,7 +53,7 @@ export default class BundleNavigationContainer extends React.Component {
     let { bundles, ui } = props
     let resource = bundles.find(bundle => bundle.id == ui.resourceId)
 
-    if (!resource) return false
+    if (!resource || !ui.isOpen) return false
 
     return <ShareResource
       position={ui.position}
@@ -92,33 +92,31 @@ export default class BundleNavigationContainer extends React.Component {
   render () {
     let { bundles, search, ...props } = this.props
 
-    return (
-      <ResourceNavigation>
-        {this.renderShareResource()}
+    return <ResourceNavigation>
+      {this.renderShareResource()}
 
-        <ResourceNavigation.Header>
-          <div className='title-and-actions'>
-            <h2 className='title'>Bundles</h2>
+      <ResourceNavigation.Header>
+        <div className='title-and-actions'>
+          <h2 className='title'>Bundles</h2>
 
-            <div className='nav'>
-              <Link to='/search' className='icon search-icon' />
-            </div>
+          <div className='nav'>
+            <Link to='/search' className='icon search-icon' />
           </div>
-          <ResourceFilters />
-        </ResourceNavigation.Header>
+        </div>
+        <ResourceFilters />
+      </ResourceNavigation.Header>
 
-        <ResourceNavigation.Body>
-          <List>
-            {this.renderBundleList(bundles, props)}
+      <ResourceNavigation.Body>
+        <List>
+          {this.renderBundleList(bundles, props)}
 
-            <LoadMore
-              show={bundles && bundles.size >= 15}
-              page={props.ui.page}
-              getBundles={props.getBundles}
-              updateUI={props.updateUI}/>
-          </List>
-        </ResourceNavigation.Body>
-      </ResourceNavigation>
-    )
+          <LoadMore
+            show={bundles && bundles.size >= 15}
+            page={props.ui.page}
+            getBundles={props.getBundles}
+            updateUI={props.updateUI}/>
+        </List>
+      </ResourceNavigation.Body>
+    </ResourceNavigation>
   }
 }

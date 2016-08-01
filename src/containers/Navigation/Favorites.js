@@ -56,7 +56,7 @@ export default class Container extends React.Component {
     let { favorites, bundles, collections, ui } = props
     let favorite = favorites.find(fav => fav.id == ui.resourceId)
 
-    if (!favorite) return false
+    if (!favorite || !ui.isOpen) return false
 
     return <ShareResource
       position={ui.position}

@@ -14,12 +14,10 @@ class CollectionActionsModal extends React.Component {
   }
 
   render () {
-    if (!this.props.isOpen) return false
-
     return (
       <div className='collection-actions'>
         <Modal style={{left: '0px', top: '-30px'}}>
-          <Menu headline='Actions'>
+          <Menu>
             {this.props.children}
           </Menu>
         </Modal>

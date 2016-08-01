@@ -1,7 +1,7 @@
 import listensToClickOutside from 'react-onclickoutside'
 import './index.css'
 
-class UserMenu extends React.Component {
+export default class UserMenu extends React.Component {
   static propTypes = {
     userImage: React.PropTypes.string.isRequired,
     isOpen: React.PropTypes.bool.isRequired,
@@ -17,15 +17,13 @@ class UserMenu extends React.Component {
   render () {
     const { children, isOpen, openUserMenu, userImage } = this.props
 
-    return (
-      <div className='user-menu'>
-        {isOpen ? children : null}
+    return <div className='user-menu'>
+      {isOpen ? children : null}
 
-        <div className='avatar-holder' onClick={openUserMenu}>
-          <img src={userImage} />
-        </div>
+      <div className='avatar-holder' onClick={openUserMenu}>
+        <img src={userImage} />
       </div>
-    )
+    </div>
   }
 }
 
