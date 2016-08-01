@@ -1,17 +1,16 @@
-import { createStore, compose } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { browserHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
-
 import rootReducer from 'reducers'
-
+import thunk from 'redux-thunk'
 import errorHandler from './middlewares/errorHandler'
-import thunk from './middlewares/thunk'
+import logger from './middlewares/logger'
 
-const enhancers = compose(
-  errorHandler(),
-  thunk(),
-  window.devToolsExtension ? window.devToolsExtension() : f => f
-)
+const middlewares =  [thunk, errorHandler]
 
-export const store = createStore(rootReducer, {}, enhancers)
+if (process.env.NODE_ENV !== 'production' && localStorage.getItem('logger') === 'true') {
+  middlewares.push(logger)
+}
+
+export const store = createStore(rootReducer, {}, applyMiddleware(...middlewares))
 export const history = syncHistoryWithStore(browserHistory, store)

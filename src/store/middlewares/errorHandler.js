@@ -1,7 +1,7 @@
 import { applyMiddleware } from 'redux'
 import { addAlert } from 'actions/Alert'
 
-function errorHandler () {
+export default function errorHandler () {
   return (next) => (action) => {
     if (typeof action === 'function') {
       return next(async function (dispatch, getState) {
@@ -20,5 +20,3 @@ function errorHandler () {
     }
   }
 }
-
-export default () => applyMiddleware(errorHandler)
