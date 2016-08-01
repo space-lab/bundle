@@ -3,7 +3,8 @@ import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import { shouldShow } from 'helpers'
-import { UserSelectors, SearchSelectors, BundleSelectors } from 'selectors'
+import { UserSelectors, SearchSelectors,
+  BundleSelectors, RouteSelectors } from 'selectors'
 import { List, ListItem, ShareResource, ResourceNavigation,
   Search, SearchHeader, SearchBody } from 'components'
 import { BundleActions, CollectionActions, FavoriteActions, SearchActions,
