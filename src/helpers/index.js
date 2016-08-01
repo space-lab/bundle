@@ -18,8 +18,6 @@ export const slimUrl = str => {
   return url.hostname + url.pathname
 }
 
-
-
 export const shouldShow = show => ({
   'display': show ? 'block' : 'none'
 })
