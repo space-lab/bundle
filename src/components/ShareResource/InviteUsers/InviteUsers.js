@@ -1,11 +1,15 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
+import { compose, withState } from 'recompose'
 import { SHARE_PERMISSIONS } from 'constants'
 import { TagInput, UrlShare } from 'components'
 import './InviteUsers.css'
 
-@ui({ state: { values: [], permission: 1 } })
-export default class InviteUsers extends React.Component {
+let enhancer = compose(
+  withState('users', 'updateUsers', []),
+  withState('permission', 'updatePermission', 1)
+)
+
+class InviteUsers extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
     resourceId: React.PropTypes.string,
@@ -16,28 +20,32 @@ export default class InviteUsers extends React.Component {
     resetAutocompleteUsers: React.PropTypes.func,
     getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
-    removeUrlShare: React.PropTypes.func.isRequired
+    removeUrlShare: React.PropTypes.func.isRequired,
+    users: React.PropTypes.array.isRequired,
+    updateUsers: React.PropTypes.func.isRequired,
+    permission: React.PropTypes.number.isRequired,
+    updatePermission: React.PropTypes.func.isRequired
   }
 
   inviteUsers () {
-    let { ui, resetUI, inviteUsers, resourceId, resourceName } = this.props
-    let data = ui.values.map(value =>
-      ({ id: value.id, permission_id: ui.permission }))
+    let { permission, users, inviteUsers, resourceId, resourceName } = this.props
+    let data = users.map(user=>
+      ({ id: user.id, permission_id: permission }))
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => { resetUI() && this.props.resetAutocompleteUsers() })
+      .then(() => { this.props.resetAutocompleteUsers() })
   }
 
   handleValueChange (values) {
-    this.props.updateUI('values', values)
+    this.props.updateUsers(values)
   }
 
   handleMemberPermissionChange ({ target }) {
-    this.props.updateUI('permission', target.value)
+    this.props.updatePermission(target.value)
   }
 
   renderMemberPermissions () {
-    let selected = this.props.ui.permission
+    let selected = this.props.permission
     let options = SHARE_PERMISSIONS
 
     return (
@@ -87,3 +95,4 @@ export default class InviteUsers extends React.Component {
     </div>
   }
 }
+export default enhancer(InviteUsers)

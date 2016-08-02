@@ -1,5 +1,4 @@
 import debounce from 'lodash.debounce'
-import ui from 'redux-ui'
 import { connect } from 'react-redux'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
@@ -28,9 +27,9 @@ let connectProps = {
   ...SearchActions
 }
 
-@ui({ key: 'bundle-content', state: { isOpen: false, position: null } })
-@connect(connectState, connectProps)
-export default class BundleContainer extends React.Component {
+let enhancer = connect(connectState, connectProps)
+
+class BundleContainer extends React.Component {
   componentWillMount () {
     let { bundle, getBundle, bundleId, receivedAllCollections, getCollections } = this.props
 
@@ -93,6 +92,8 @@ export default class BundleContainer extends React.Component {
           <Permission allow={props.bundle.canShare(currentUserId)}>
             <ShareBundle
               {...this.props} // TODO big no no no
+              shareModal={props.shareModal}
+              updateShareModal={props.updateShareModal}
               resourceName='Bundle'
               resource={props.bundle} />
           </Permission>
@@ -154,3 +155,5 @@ export default class BundleContainer extends React.Component {
     </Content>
   }
 }
+
+export default enhancer(BundleContainer)
