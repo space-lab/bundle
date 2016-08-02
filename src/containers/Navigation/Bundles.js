@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
+import { compose, withState } from 'recompose'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import { BundleSelectors, UserSelectors, SearchSelectors } from 'selectors'
@@ -16,7 +16,7 @@ const connectState = (state, props) => ({
   search: SearchSelectors.result(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...BundleActions,
   ...FavoriteActions,
   ...SearchActions,
@@ -24,19 +24,33 @@ const connectProps = {
   ...UserActions
 }
 
-@ui({
-  key: 'resource-navigation',
-  state: { filter: 'recent', isOpen: false, position: null, resourceId: null, page: 1 }
-})
-@connect(connectState, connectProps)
-export default class BundleNavigationContainer extends React.Component {
+let modalState = {
+  isOpen: false,
+  position: null,
+  resourceId: null
+}
+
+let enhancer = compose(
+  withState('resourceFilter', 'updateResourceFilter', 'recent'),
+  withState('page', 'updatePage', 1),
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState)
+)
+
+class BundleNavigationContainer extends React.Component {
   static propTypes = {
     bundles: ImmutablePropTypes.list,
-    search: ImmutablePropTypes.map
+    search: ImmutablePropTypes.map,
+    resourceFilter: React.PropTypes.string.isRequired,
+    updateResourceFilter: React.PropTypes.func.isRequired,
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired,
+    page: React.PropTypes.number.isRequired,
+    updatePage: React.PropTypes.func.isRequired
   }
 
   componentWillMount () {
-    this.props.getBundles(this.props.ui.page)
+    this.props.getBundles(this.props.page)
   }
 
   removeBundle (...args) {
@@ -50,18 +64,17 @@ export default class BundleNavigationContainer extends React.Component {
 
   renderShareResource () {
     let props = this.props
-    let { bundles, ui } = props
-    let resource = bundles.find(bundle => bundle.id == ui.resourceId)
+    let resource = props.bundles.find(bundle =>
+      bundle.id === props.shareModal.resourceId)
 
-    if (!resource || !ui.isOpen) return false
+    if (!resource || !props.shareModal.isOpen) return false
 
     return <ShareResource
-      position={ui.position}
       resource={resource}
       resourceName='Bundle'
       userAutocomplete={props.userAutocomplete}
-      ui={ui}
-      updateUI={props.updateUI}
+      shareModal={props.shareModal}
+      updateShareModal={props.updateShareModal}
       changeSharePermission={props.changeSharePermission}
       removeShare={props.removeShare}
       inviteUsers={props.inviteUsers}
@@ -85,12 +98,12 @@ export default class BundleNavigationContainer extends React.Component {
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getBundle={props.getBundle}
-        updateUI={props.updateUI}/>
+        updateShareModal={props.updateShareModal} />
     })
   }
 
   render () {
-    let { bundles, search, ...props } = this.props
+    let { bundles, search, ...props, resourceFilter, updateResourceFilter } = this.props
 
     return <ResourceNavigation>
       {this.renderShareResource()}
@@ -103,7 +116,9 @@ export default class BundleNavigationContainer extends React.Component {
             <Link to='/search' className='icon search-icon' />
           </div>
         </div>
-        <ResourceFilters />
+        <ResourceFilters
+          resourceFilter={resourceFilter}
+          updateResourceFilter={updateResourceFilter} />
       </ResourceNavigation.Header>
 
       <ResourceNavigation.Body>
@@ -112,11 +127,13 @@ export default class BundleNavigationContainer extends React.Component {
 
           <LoadMore
             show={bundles && bundles.size >= 15}
-            page={props.ui.page}
-            getBundles={props.getBundles}
-            updateUI={props.updateUI}/>
+            page={props.page}
+            updatePage={props.updatePage}
+            getBundles={props.getBundles} />
         </List>
       </ResourceNavigation.Body>
     </ResourceNavigation>
   }
 }
+
+export default enhancer(BundleNavigationContainer)
