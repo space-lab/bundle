@@ -4,7 +4,7 @@ import { all as allShares } from './Share'
 import { collectionId } from './Route'
 import { Collection } from 'records'
 
-let getFilter = (state, props) => props.ui.filter
+let resourceFilter = (_, props) => props.resourceFilter
 
 export const all = state => state.Collection.byId
 export const currentId = collectionId
@@ -29,7 +29,7 @@ export const sorted = createSelector(
     .toList())
 
 export const filtered = createSelector(
-  [sorted, getFilter, currentUserId],
+  [sorted, resourceFilter, currentUserId],
   (collections, filter, currentUser) => {
     switch (filter) {
       case 'recent':

@@ -4,7 +4,7 @@ import ToolbarCloseItem from './ToolbarCloseItem'
 import ToolbarDeleteItem from './ToolbarDeleteItem'
 import ToolbarFavoriteItem from './ToolbarFavoriteItem'
 import { Permission } from 'components'
-import './index.css'
+import './ListToolbar.css'
 
 export default class ListToolbar extends React.Component {
   static propTypes = {
@@ -17,7 +17,7 @@ export default class ListToolbar extends React.Component {
     close: React.PropTypes.func,
     getBundle: React.PropTypes.func,
     getCollection: React.PropTypes.func,
-    updateUI: React.PropTypes.func.isRequired
+    updateShareModal: React.PropTypes.func.isRequired
   }
 
   renderRegularItems () {
@@ -30,7 +30,7 @@ export default class ListToolbar extends React.Component {
         <ToolbarShareItem
           resource={props.resource}
           resourceName={props.resourceName}
-          updateUI={props.updateUI} />
+          updateShareModal={props.updateShareModal} />
       </Permission>
 
       <Permission allow={props.resource.canRemove(props.currentUser.id)}>

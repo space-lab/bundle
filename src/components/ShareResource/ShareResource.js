@@ -9,12 +9,13 @@ class ShareResource extends React.Component {
     resourceName: React.PropTypes.string.isRequired,
     changeSharePermission: React.PropTypes.func.isRequired,
     removeShare: React.PropTypes.func.isRequired,
-    position: React.PropTypes.object
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired
   }
 
   handleClickOutside (e) {
-    if (this.props.ui.isOpen) {
-      this.props.updateUI({ isOpen: false, position: null })
+    if (this.props.shareModal.isOpen) {
+      this.props.updateShareModal({ isOpen: false, position: null })
     }
   }
 
@@ -33,7 +34,7 @@ class ShareResource extends React.Component {
 
   render () {
     return (
-      <Modal style={this.props.position} className='share-resource-modal'>
+      <Modal style={this.props.shareModal.position} className='share-resource-modal'>
         <InviteUsers
           {...this.props}
           resourceName={this.props.resourceName}
