@@ -20,7 +20,7 @@ let connectProps = {
   ...UserActions
 }
 
-const initialState = {
+let modalState = {
   isOpen: false,
   position: null,
   resourceId: null
@@ -28,8 +28,8 @@ const initialState = {
 
 let enhancer = compose(
   withState('resourceFilter', 'updateResourceFilter', 'recent'),
-  withState('shareModal', 'updateShareModal', initialState),
-  connect(connectState, connectProps)
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState)
 )
 
 class NavigationCollectionContainer extends React.Component {
