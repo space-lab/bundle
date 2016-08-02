@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux'
-import { reducer as ui } from 'redux-ui'
 import { routerReducer as routing } from 'react-router-redux'
 
 import User from './User'
@@ -13,7 +12,6 @@ import Favorite from './Favorite'
 import Collection from './Collection'
 
 const appReducer = combineReducers({
-  ui,
   routing,
   Route,
   User,

@@ -1,27 +1,35 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { compose, withState } from 'recompose'
 import listensToClickOutside from 'react-onclickoutside'
-import ui from 'redux-ui'
 import './ChangeCollection.css'
 import Modal from './Modal'
+
+let enhancer = compose(
+  withState('query', 'updateQuery', ''),
+  withState('isOpen', 'updateOpen', false),
+  listensToClickOutside,
+)
 
 class ChangeCollection extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
     updateBundle: React.PropTypes.func.isRequired,
-    canChangeCollection: React.PropTypes.bool.isRequired
+    canChangeCollection: React.PropTypes.bool.isRequired,
+    query: React.PropTypes.string.isRequired,
+    updateQuery: React.PropTypes.func.isRequired,
+    isOpen: React.PropTypes.bool.isRequired,
+    updateOpen: React.PropTypes.func.isRequired
   }
 
-  handleClickOutside (e) {
-    if (this.props.ui.isOpen) {
-      this.props.updateUI('isOpen', false)
-    }
+  handleClickOutside () {
+    if (this.props.isOpen) this.props.updateOpen(false)
   }
 
   openModal () {
     if (!this.props.canChangeCollection) return false
 
-    this.props.updateUI('isOpen', true)
+    this.props.updateOpen(true)
   }
 
   collectionName () {
@@ -48,4 +56,4 @@ class ChangeCollection extends React.Component {
   }
 }
 
-export default ui({ state: { q: '', isOpen: false } })(listensToClickOutside(ChangeCollection))
+export default enhancer(ChangeCollection)

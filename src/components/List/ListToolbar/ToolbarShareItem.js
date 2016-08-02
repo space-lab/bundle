@@ -5,16 +5,18 @@ export default class ToolbarShareItem extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record.isRequired,
     resourceName: React.PropTypes.string.isRequired,
-    updateUI: React.PropTypes.func.isRequired
+    updateShareModal: React.PropTypes.func.isRequired
   }
 
   openModal () {
-    let { resource, resourceName, updateUI } = this.props
+    let { resource, resourceName, updateShareModal } = this.props
     let { top, left } = this.refs.toolbar.getBoundingClientRect()
 
-    updateUI('position', { top, left: left - 5 })
-    updateUI('resourceId', resource.id)
-    updateUI('isOpen', true)
+    updateShareModal({
+      position: { top, left: left - 5 },
+      resourceId: resource.id,
+      isOpen: true
+    })
   }
 
   render () {

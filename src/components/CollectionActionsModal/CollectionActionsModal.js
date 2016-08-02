@@ -2,6 +2,8 @@ import listensToClickOutside from 'react-onclickoutside'
 import { Modal, Menu } from 'components'
 import './CollectionActionsModal.css'
 
+let enhancer = listensToClickOutside
+
 class CollectionActionsModal extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool.isRequired,
@@ -14,16 +16,14 @@ class CollectionActionsModal extends React.Component {
   }
 
   render () {
-    return (
-      <div className='collection-actions'>
-        <Modal style={{left: '0px', top: '-30px'}}>
-          <Menu>
-            {this.props.children}
-          </Menu>
-        </Modal>
-      </div>
-    )
+    return <div className='collection-actions'>
+      <Modal style={{left: '0px', top: '-30px'}}>
+        <Menu>
+          {this.props.children}
+        </Menu>
+      </Modal>
+    </div>
   }
 }
 
-export default listensToClickOutside(CollectionActionsModal)
+export default enhancer(CollectionActionsModal)

@@ -5,7 +5,7 @@ import { bundleId } from './Route'
 import { current as currentCollection } from './Collection'
 import { parseId, unNormaliseResources } from 'helpers'
 
-let getFilter = (state, props) => props.ui.filter
+let resourceFilter = (_, props) => props.resourceFilter
 let getShareBundleId = (state, props) => parseId(props.params.id)
 
 export const all = state => state.Bundle
@@ -29,7 +29,7 @@ export const sorted = createSelector(all, bundles =>
     .toList())
 
 export const filtered = createSelector(
-  [sorted, getFilter, currentUserId],
+  [sorted, resourceFilter, currentUserId],
   (bundles, filter, currentUser) => {
     bundles = bundles.filter(bundle => bundle.joined)
 

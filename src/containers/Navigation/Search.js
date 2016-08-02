@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
+import { compose, withState } from 'recompose'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
 import { shouldShow } from 'helpers'
@@ -27,19 +27,27 @@ let connectProps = {
   ...UserActions
 }
 
-@ui({
-  key: 'resource-navigation',
-  state: { isOpen: false, position: null, resourceId: null }
-})
-@connect(connectState, connectProps)
-export default class Container extends React.Component {
+let modalState = {
+  isOpen: false,
+  position: null,
+  resourceId: null
+}
+
+let enhancer = compose(
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState)
+)
+
+class SearchNavigationContainer extends React.Component {
   static propTypes = {
     searchResult: ImmutablePropTypes.map,
     currentUser: ImmutablePropTypes.record,
     query: React.PropTypes.string,
     removeBundle: React.PropTypes.func,
     favorite: React.PropTypes.func,
-    unfavorite: React.PropTypes.func
+    unfavorite: React.PropTypes.func,
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired
   }
 
   componentWillMount () {
@@ -84,7 +92,7 @@ export default class Container extends React.Component {
               unfavorite={props.unfavorite}
               getBundle={props.getBundle}
               getCollection={props.getCollection}
-              updateUI={props.updateUI} />
+              updateShareModal={props.updateShareModal} />
           ))
         }
       </List>
@@ -93,33 +101,32 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let props = this.props
-    let { searchResult, ui } = props
+
     let resource = null
     let resourceName = null
 
-    searchResult.get('bundles').forEach(item => {
-      if (item.id == ui.resourceId) {
+    props.searchResult.get('bundles').forEach(item => {
+      if (item.id === props.shareModal.resourceId) {
         resource = item
         resourceName = 'Bundle'
       }
     })
 
-    searchResult.get('collections').forEach(item => {
-      if (item.id == ui.resourceId) {
+    props.searchResult.get('collections').forEach(item => {
+      if (item.id === props.shareModal.resourceId) {
         resource = item
         resourceName = 'Collection'
       }
     })
 
-    if (!resource || !ui.isOpen) return false
+    if (!resource || !props.shareModal.isOpen) return false
 
     return <ShareResource
-      position={ui.position}
       resource={resource}
       resourceName={resourceName}
       userAutocomplete={props.userAutocomplete}
-      ui={ui}
-      updateUI={props.updateUI}
+      shareModal={props.shareModal}
+      updateShareModal={props.updateShareModal}
       changeSharePermission={props.changeSharePermission}
       removeShare={props.removeShare}
       inviteUsers={props.inviteUsers}
@@ -127,7 +134,7 @@ export default class Container extends React.Component {
       resetAutocompleteUsers={props.resetAutocompleteUsers}
       getShareUrl={props.getShareUrl}
       changeUrlPermission={props.changeUrlPermission}
-      removeUrlShare={props.removeUrlShare}/>
+      removeUrlShare={props.removeUrlShare} />
   }
 
   render () {
@@ -170,3 +177,5 @@ export default class Container extends React.Component {
     )
   }
 }
+
+export default enhancer(SearchNavigationContainer)

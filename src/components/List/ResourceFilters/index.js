@@ -1,38 +1,36 @@
-import ui from 'redux-ui'
 import './index.css'
 
-@ui()
 export default class ResourceFilters extends React.Component {
   static propTypes = {
-    ui: React.PropTypes.object.isRequired,
-    updateUI: React.PropTypes.func.isRequired
+    resourceFilter: React.PropTypes.string.isRequired,
+    updateResourceFilter: React.PropTypes.func.isRequired
   }
 
   filterClass (filter) {
-    return 'filter' + (filter === this.props.ui.filter ? ' active' : '')
+    return 'filter' + (filter === this.props.resourceFilter? ' active' : '')
   }
 
   render () {
-    return (
-      <div className='resource-filters'>
-        <span
-          className={::this.filterClass('recent')}
-          onClick={() => this.props.updateUI('filter', 'recent')}>
-          Recent
-        </span>
+    let { updateResourceFilter } = this.props
 
-        <span
-          className={::this.filterClass('mine')}
-          onClick={() => this.props.updateUI('filter', 'mine')}>
-          Mine
-        </span>
+    return <div className='resource-filters'>
+      <span
+        className={this.filterClass('recent')}
+        onClick={() => updateResourceFilter('recent')}>
+        Recent
+      </span>
 
-        <span
-          className={::this.filterClass('shared')}
-          onClick={() => this.props.updateUI('filter', 'shared')}>
-          Shared with me
-        </span>
-      </div>
-    )
+      <span
+        className={this.filterClass('mine')}
+        onClick={() => updateResourceFilter('mine')}>
+        Mine
+      </span>
+
+      <span
+        className={this.filterClass('shared')}
+        onClick={() => updateResourceFilter('shared')}>
+        Shared with me
+      </span>
+    </div>
   }
 }

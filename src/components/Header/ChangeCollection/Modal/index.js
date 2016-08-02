@@ -6,15 +6,15 @@ export default class ChangeCollectionModal extends React.Component {
   static propTypes = {
     bundle: ImmutablePropTypes.record.isRequired,
     collections: ImmutablePropTypes.map.isRequired,
-    updateBundle: React.PropTypes.func.isRequired
+    updateBundle: React.PropTypes.func.isRequired, query: React.PropTypes.string.isRequired, updateQuery: React.PropTypes.func.isRequired
   }
 
   onQueryChange (e) {
-    this.props.updateUI('q', e.target.value)
+    this.props.updateQuery(e.target.value)
   }
 
   onItemClick (collection) {
-    const { bundle, updateBundle } = this.props
+    let { bundle, updateBundle } = this.props
 
     collection.id === bundle.collection_id
       ? updateBundle(bundle.id, { collection_id: null })
@@ -22,7 +22,7 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   onCloseClick () {
-    this.props.updateUI('q', '')
+    this.props.updateQuery('')
   }
 
   currentCollection () {
@@ -34,11 +34,10 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   filteredCollections () {
-    const { collections, ui } = this.props
     const currentId = this.currentCollectionId()
-    const q = ui.q.toLowerCase()
+    const q = this.props.query.toLowerCase()
 
-    return collections.toList().filter(item =>
+    return this.props.collections.toList().filter(item =>
       item.id !== currentId && item.name.toLowerCase().includes(q))
   }
 
@@ -81,23 +80,21 @@ export default class ChangeCollectionModal extends React.Component {
   }
 
   render () {
-    if (!this.props.ui.isOpen) return false
+    if (!this.props.isOpen) return false
 
-    return (
-      <Modal className='change-collection-modal'>
-        <div className='search-container'>
-          <input type='text'
-            className='search-input'
-            placeholder='Search Collections...'
-            value={this.props.ui.q}
-            onChange={::this.onQueryChange}/>
+    return <Modal className='change-collection-modal'>
+      <div className='search-container'>
+        <input type='text'
+          className='search-input'
+          placeholder='Search Collections...'
+          value={this.props.query}
+          onChange={::this.onQueryChange}/>
 
-          <span className='icon close-icon'
-            onClick={::this.onCloseClick}/>
-        </div>
+        <span className='icon close-icon'
+          onClick={::this.onCloseClick}/>
+      </div>
 
-        {this.renderSearchResults()}
-      </Modal>
-    )
+      {this.renderSearchResults()}
+    </Modal>
   }
 }

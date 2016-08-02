@@ -1,5 +1,5 @@
-import ui from 'redux-ui'
 import { connect } from 'react-redux'
+import { compose, withState } from 'recompose'
 import { browserHistory } from 'react-router'
 import { BundleActions } from 'actions'
 import { UserSelectors } from 'selectors'
@@ -11,27 +11,34 @@ let connectState = state => ({
   currentUser: UserSelectors.current(state)
 })
 
-let connectProps = { createBundle: BundleActions.createBundle }
+let connectProps = {
+  createBundle: BundleActions.createBundle
+}
 
-@ui({ key: 'userMenu', state: { isOpen: false } })
-@connect(connectState, connectProps)
-export default class SideNavigation extends React.Component {
+let enhancer = compose(
+  connect(connectState, connectProps),
+  withState('userMenuIsOpen', 'showUserMenu', false)
+)
+
+class SideNavigation extends React.Component {
   handleBundleCreate () {
     this.props.createBundle().then(bundle =>
       browserHistory.push('/bundle/' + bundle.id))
   }
 
   render () {
-    let { ui, updateUI, currentUser } = this.props
+    let { userMenuIsOpen, showUserMenu, currentUser } = this.props
 
     return <div className='side-navigation flex-none'>
       <SideNavigationTop onNewClick={::this.handleBundleCreate} />
 
       <SideNavigationBottom
-        isOpen={ui.isOpen}
         currentUser={currentUser}
-        openUserMenu={() => updateUI('isOpen', true)}
-        closeUserMenu={() => updateUI('isOpen', false)} />
+        isOpen={userMenuIsOpen}
+        openUserMenu={_ => showUserMenu(true)}
+        closeUserMenu={_ => showUserMenu(false)} />
     </div>
   }
 }
+
+export default enhancer(SideNavigation)

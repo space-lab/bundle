@@ -13,8 +13,9 @@ let connectProps = {
   ...UserActions
 }
 
-@connect(connectState, connectProps)
-export default class Settings extends React.Component {
+let enhancer = connect(connectState, connectProps)
+
+class Settings extends React.Component {
   state = {
     name: this.props.name,
     email: this.props.email
@@ -54,3 +55,4 @@ export default class Settings extends React.Component {
     </div>
   }
 }
+export default enhancer(Settings)

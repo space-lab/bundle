@@ -1,17 +1,20 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { withState } from 'recompose'
 import { List, fromJS } from 'immutable'
-import ui from 'redux-ui'
 import { Autocomplete } from 'components'
 import './TagInput.css'
 
-@ui({ state: { tags: List() } })
-export default class TagInput extends React.Component {
+const enhancer = withState('tags', 'updateTags', List())
+
+class TagInput extends React.Component {
   static propTypes = {
     data: ImmutablePropTypes.list.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
     getData: React.PropTypes.func.isRequired,
     resetData: React.PropTypes.func.isRequired,
-    handleChange: React.PropTypes.func.isRequired
+    handleChange: React.PropTypes.func.isRequired,
+    tags: ImmutablePropTypes.list.isRequired,
+    updateTags: React.PropTypes.func.isRequired
   }
 
   componentWillUnmount () {
@@ -19,24 +22,24 @@ export default class TagInput extends React.Component {
   }
 
   addTag (tag) {
-    let { ui, updateUI, handleChange } = this.props
-    let tags = ui.tags.push(fromJS(tag))
+    let { tags, updateTags, handleChange } = this.props
+    let newTags = tags.push(fromJS(tag))
 
-    handleChange(tags.toJS())
-    updateUI('tags', tags)
+    handleChange(newTags.toJS())
+    updateTags(newTags)
   }
 
   handleTagRemoval (index) {
-    let { ui, updateUI, handleChange } = this.props
-    let tags = ui.tags.delete(index)
+    let { tags, updateTags, handleChange } = this.props
+    let newTags = tags.delete(index)
 
-    handleChange(tags.toJS())
-    updateUI('tags', tags)
+    handleChange(newTags.toJS())
+    updateTags(newTags)
   }
 
   getAddedIds () {
     let invitedIds = this.props.resource.shares.map(share => share.user.id)
-    let invitingIds = this.props.ui.tags
+    let invitingIds = this.props.tags
       .filter(value => typeof value !== 'string')
       .map(value => value.id)
 
@@ -50,19 +53,16 @@ export default class TagInput extends React.Component {
   }
 
   renderTagList () {
-    let { tags } = this.props.ui
-
-    if (tags.size === 0) return null
+    if (this.props.tags.size === 0) return null
 
     return <div className='userlist'>
       <div className='to'>To:</div>
 
-      {tags.map((tag, index) =>
+      {this.props.tags.map((tag, index) =>
         <div className='tag' key={index}>
           {this.renderTagOrUser(tag)}
 
-          <i className='close'
-            onClick={this.handleTagRemoval.bind(this, index)} />
+          <i className='close' onClick={this.handleTagRemoval.bind(this, index)} />
         </div>
       )}
     </div>
@@ -82,3 +82,5 @@ export default class TagInput extends React.Component {
     </div>
   }
 }
+
+export default enhancer(TagInput)

@@ -2,10 +2,11 @@ import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { UserActions } from 'actions'
 
-const connectProps = { ...UserActions }
+let connectProps = { ...UserActions }
 
-@connect(null, connectProps)
-export default class Logout extends React.Component {
+let enhancer = connect(null, connectProps)
+
+class Logout extends React.Component {
   componentWillMount () {
     this.props.logoutUser()
     browserHistory.push('/')
@@ -15,3 +16,5 @@ export default class Logout extends React.Component {
     return false
   }
 }
+
+export default enhancer(Logout)

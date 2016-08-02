@@ -1,38 +1,48 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
 import { connect } from 'react-redux'
+import { compose, withState } from 'recompose'
 import { Link } from 'react-router'
 import { nextId } from 'helpers'
 import { CollectionSelectors, UserSelectors, SearchSelectors } from 'selectors'
 import { CollectionActions, FavoriteActions, ShareActions, UserActions} from 'actions'
 import { List, ListItem, ResourceNavigation, ResourceFilters, ShareResource } from 'components'
 
-const connectState = (state, props) => ({
+let connectState = (state, props) => ({
   collections: CollectionSelectors.currents(state, props),
   currentUser: UserSelectors.current(state),
   userAutocomplete: UserSelectors.autocompletes(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...CollectionActions,
   ...FavoriteActions,
   ...ShareActions,
   ...UserActions
 }
 
-@ui({
-  key: 'resource-navigation',
-  state: { filter: 'recent', isOpen: false, position: null, resourceId: null }
-})
-@connect(connectState, connectProps)
-export default class Container extends React.Component {
+let modalState = {
+  isOpen: false,
+  position: null,
+  resourceId: null
+}
+
+let enhancer = compose(
+  withState('resourceFilter', 'updateResourceFilter', 'recent'),
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState)
+)
+
+class NavigationCollectionContainer extends React.Component {
   static propTypes = {
-    collections: ImmutablePropTypes.list
+    collections: ImmutablePropTypes.list,
+    resourceFilter: React.PropTypes.string.isRequired,
+    updateResourceFilter: React.PropTypes.func.isRequired,
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired
   }
 
-  constructor (props) {
-    super(props)
-    props.getCollections()
+  componentWillMount () {
+    this.props.getCollections()
   }
 
   generateNewCollection () {
@@ -42,18 +52,17 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let props = this.props
-    let { collections, ui } = props
-    let resource = collections.find(col => col.id == ui.resourceId)
+    let { collections, shareModal, updateShareModal } = props
+    let resource = collections.find(col => col.id === shareModal.resourceId)
 
-    if (!resource || !ui.isOpen) return false
+    if (!resource || !shareModal.isOpen) return false
 
     return <ShareResource
-      position={this.props.ui.position}
       resource={resource}
       resourceName='Collection'
       userAutocomplete={props.userAutocomplete}
-      ui={ui}
-      updateUI={props.updateUI}
+      shareModal={shareModal}
+      updateShareModal={updateShareModal}
       changeSharePermission={props.changeSharePermission}
       removeShare={props.removeShare}
       inviteUsers={props.inviteUsers}
@@ -65,7 +74,7 @@ export default class Container extends React.Component {
   }
 
   renderCollectionList (collections, props) {
-    let { removeCollection, closeCollection, createCollection } = this.props
+    let { removeCollection, closeCollection, createCollection, updateShareModal } = this.props
 
     return collections.map((collection, index) => {
       return <ListItem
@@ -80,13 +89,13 @@ export default class Container extends React.Component {
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getCollection={props.getCollection}
-        updateUI={props.updateUI}/>
+        updateShareModal={updateShareModal}
+      />
     })
   }
 
   render () {
-    let { collections, ...listItemProps } = this.props
-
+    let { collections, ...listItemProps, resourceFilter, updateResourceFilter } = this.props
     return (
       <ResourceNavigation>
         {this.renderShareResource()}
@@ -104,7 +113,9 @@ export default class Container extends React.Component {
             </div>
           </div>
 
-          <ResourceFilters />
+          <ResourceFilters
+            resourceFilter={resourceFilter}
+            updateResourceFilter={updateResourceFilter} />
         </ResourceNavigation.Header>
 
         <ResourceNavigation.Body>
@@ -116,3 +127,5 @@ export default class Container extends React.Component {
     )
   }
 }
+
+export default enhancer(NavigationCollectionContainer)
