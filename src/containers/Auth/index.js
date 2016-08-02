@@ -6,15 +6,18 @@ import { UserSelectors } from 'selectors'
 import { UserActions } from 'actions'
 import './index.css'
 
-const connectState = state => ({
+let connectState = state => ({
   currentUser: UserSelectors.current(state),
   routing: state.routing
 })
 
-const connectProps = { ...UserActions }
+let connectProps = {
+  ...UserActions
+}
 
-@connect(connectState, connectProps)
-export default class Auth extends React.Component {
+let enhancer = connect(connectState, connectProps)
+
+class Auth extends React.Component {
   componentWillMount () {
     const { currentUser, setCurrentUser, authenticateUser } = this.props
     const { query } = this.props.location
@@ -61,3 +64,4 @@ export default class Auth extends React.Component {
     }
   }
 }
+export default enhancer(Auth)

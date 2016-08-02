@@ -8,14 +8,17 @@ import { Bundle, BundleNavigation, CollectionNavigation, CollectionBundlesNaviga
   FavoriteNavigation, NotificationNavigation, SearchNavigation } from 'containers'
 import './Navigation.css'
 
-const connectState = state => ({
+let connectState = state => ({
   Route: RouteSelectors.all(state)
 })
 
-const connectProps = { ...RouteActions }
+let connectProps = {
+  ...RouteActions
+}
 
-@connect(connectState, connectProps)
-export default class Navigation extends React.Component {
+let enhancer = connect(connectState, connectProps)
+
+class Navigation extends React.Component {
   componentWillMount () {
     this.parseRouteChange(this.props)
   }
@@ -92,3 +95,4 @@ export default class Navigation extends React.Component {
     </div>
   }
 }
+export default enhancer(Navigation)

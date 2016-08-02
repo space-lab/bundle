@@ -1,7 +1,9 @@
 import listensToClickOutside from 'react-onclickoutside'
 import './index.css'
 
-export default class UserMenu extends React.Component {
+let enhancer = listensToClickOutside
+
+class UserMenu extends React.Component {
   static propTypes = {
     userImage: React.PropTypes.string.isRequired,
     isOpen: React.PropTypes.bool.isRequired,
@@ -27,4 +29,4 @@ export default class UserMenu extends React.Component {
   }
 }
 
-export default listensToClickOutside(UserMenu)
+export default enhancer(UserMenu)
