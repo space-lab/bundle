@@ -34,7 +34,6 @@ let modalState = {
 }
 
 let enhancer = compose(
-  withState('resourceFilter', 'updateResourceFilter', 'recent'),
   connect(connectState, connectProps),
   withState('shareModal', 'updateShareModal', modalState)
 )
@@ -47,8 +46,6 @@ class SearchNavigationContainer extends React.Component {
     removeBundle: React.PropTypes.func,
     favorite: React.PropTypes.func,
     unfavorite: React.PropTypes.func,
-    resourceFilter: React.PropTypes.string.isRequired,
-    updateResourceFilter: React.PropTypes.func.isRequired,
     shareModal: React.PropTypes.object.isRequired,
     updateShareModal: React.PropTypes.func.isRequired
   }

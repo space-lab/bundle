@@ -1,8 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
+import { compose, withState } from 'recompose'
 import { connect } from 'react-redux'
 import { Link, browserHistory } from 'react-router'
-
 import { BundleSelectors, CollectionSelectors,
   UserSelectors, SearchSelectors } from 'selectors'
 import { ResourceNavigation, List, ListItem, ShareResource,
@@ -10,7 +9,7 @@ import { ResourceNavigation, List, ListItem, ShareResource,
 import { CollectionActions, BundleActions, FavoriteActions,
   ShareActions, UserActions, AlertActions } from 'actions'
 
-const connectState = state => ({
+let connectState = state => ({
   bundles: BundleSelectors.sortedCollectionBundles(state),
   bundleId: BundleSelectors.currentId(state),
   collection: CollectionSelectors.current(state),
@@ -19,7 +18,7 @@ const connectState = state => ({
   userAutocomplete: UserSelectors.autocompletes(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...BundleActions,
   ...CollectionActions,
   ...FavoriteActions,
@@ -28,20 +27,28 @@ const connectProps = {
   ...AlertActions
 }
 
-@ui({
-  key: 'resource-navigation',
-  state: {
-    isOpen: false,
-    editCollectionMode: false,
-    actionsModalIsOpen: false,
-    position: null,
-    resourceId: null
-  }
-})
-@connect(connectState, connectProps)
-export default class CollectionBundlesNavigationContainer extends React.Component {
+let modalState = {
+  isOpen: false,
+  position: null,
+  resourceId: null
+}
+
+let enhancer = compose(
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState),
+  withState('actionsModalOpen', 'updateActionsModalOpen', false),
+  withState('editCollectionMode', 'updateEditCollectionMode', false)
+)
+
+class CollectionBundlesNavigationContainer extends React.Component {
   static propTypes = {
-    collection: ImmutablePropTypes.record
+    collection: ImmutablePropTypes.record,
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired,
+    actionsModalOpen: React.PropTypes.bool.isRequired,
+    updateActionsModalOpen: React.PropTypes.func.isRequired,
+    editCollectionMode: React.PropTypes.bool.isRequired,
+    updateEditCollectionMode: React.PropTypes.func.isRequired,
   }
 
   componentDidMount () {
@@ -76,18 +83,16 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
 
   renderShareResource () {
     let props = this.props
-    let { bundles, ui } = props
-    let resource = bundles.find(bundle => bundle.id == ui.resourceId)
+    let resource = props.bundles.find(bundle => bundle.id == props.shareModal.resourceId)
 
-    if (!resource || !ui.isOpen) return false
+    if (!resource || !props.shareModal.isOpen) return false
 
     return <ShareResource
-      position={ui.position}
       resource={resource}
       resourceName='Bundle'
       userAutocomplete={props.userAutocomplete}
-      ui={ui}
-      updateUI={props.updateUI}
+      shareModal={props.shareModal}
+      updateShareModal={props.updateShareModal}
       changeSharePermission={props.changeSharePermission}
       removeShare={props.removeShare}
       inviteUsers={props.inviteUsers}
@@ -95,7 +100,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
       resetAutocompleteUsers={props.resetAutocompleteUsers}
       getShareUrl={props.getShareUrl}
       changeUrlPermission={props.changeUrlPermission}
-      removeUrlShare={props.removeUrlShare}/>
+      removeUrlShare={props.removeUrlShare} />
   }
 
   renderBundleList (bundles, collection, props) {
@@ -111,7 +116,7 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getBundle={props.getBundle}
-        updateUI={props.updateUI}/>
+        updateShareModal={props.updateShareModal} />
     })
   }
 
@@ -137,11 +142,10 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
               <Editable
                 value={collection.name}
                 placeholder='Name Collection...'
-                editMode={ui.editCollectionMode || false}
+                editMode={props.editCollectionMode || false}
                 autoFocus
-                enterAction={name => props.updateCollection(collection.id, { name }).then(() => {
-                  props.updateUI('editCollectionMode', false)
-                })} />
+                enterAction={name => props.updateCollection(collection.id, { name })
+                  .then(_ => props.updateEditCollectionMode(false))} />
             </h2>
             <div className='nav'>
               <Link to='/search' className='icon search-icon' />
@@ -149,18 +153,18 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
               <Permission allow={showActions}>
                 <span
                   className='icon more-icon'
-                  onClick={e => props.updateUI('actionsModalIsOpen', true)} />
+                  onClick={_ => props.updateActionsModalOpen(true)} />
               </Permission>
 
-              <Permission allow={showActions && (props.ui.actionsModalIsOpen || false)}>
+              <Permission allow={showActions && (props.actionsModalOpen || false)}>
                 <CollectionActionsModal
-                  isOpen={props.ui.actionsModalIsOpen || false}
-                  closeModal={() => props.updateUI('actionsModalIsOpen', false)}>
+                  isOpen={props.actionsModalOpen || false}
+                  closeModal={_ => props.updateActionsModalOpen(false)}>
                   <Permission allow={props.collection.canEdit(props.currentUser.id)}>
-                    <a onClick={() => props.updateUI({
-                      editCollectionMode: true,
-                      actionsModalIsOpen: false
-                    })}>Edit</a>
+                    <a onClick={_ => {
+                      props.updateEditCollectionMode(true)
+                      props.updateActionsModalOpen(false)
+                    }}>Edit</a>
                   </Permission>
 
                   <Permission allow={props.collection.canLeave(props.currentUser.id)}>
@@ -181,3 +185,5 @@ export default class CollectionBundlesNavigationContainer extends React.Componen
     )
   }
 }
+
+export default enhancer(CollectionBundlesNavigationContainer)

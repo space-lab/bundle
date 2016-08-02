@@ -8,7 +8,7 @@ import { BundleActions, FavoriteActions, SearchActions,
 import { List, ListItem, ResourceNavigation, ResourceFilters,
   ShareResource, LoadMore } from 'components'
 
-const connectState = (state, props) => ({
+let connectState = (state, props) => ({
   bundles: BundleSelectors.currents(state, props),
   bundleId: BundleSelectors.currentId(state),
   currentUser: UserSelectors.current(state),
