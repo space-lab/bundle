@@ -1,5 +1,5 @@
-import { withState } from 'recompose'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { withState } from 'recompose'
 import { List, fromJS } from 'immutable'
 import { Autocomplete } from 'components'
 import './TagInput.css'
