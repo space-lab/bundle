@@ -1,12 +1,12 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ui from 'redux-ui'
 import { connect } from 'react-redux'
+import { compose, withState } from 'recompose'
 import { browserHistory } from 'react-router'
 import { BundleSelectors, CollectionSelectors, FavoriteSelectors, UserSelectors } from 'selectors'
 import { BundleActions, CollectionActions, FavoriteActions, ShareActions, UserActions } from 'actions'
 import { ResourceNavigation, List, ListItem, ShareResource } from 'components'
 
-const connectState = state => ({
+let connectState = state => ({
   bundles: BundleSelectors.all(state),
   bundleId: BundleSelectors.currentId(state),
   collections: CollectionSelectors.all(state),
@@ -16,7 +16,7 @@ const connectState = state => ({
   userAutocomplete: UserSelectors.autocompletes(state)
 })
 
-const connectProps = {
+let connectProps = {
   ...BundleActions,
   ...CollectionActions,
   ...FavoriteActions,
@@ -24,12 +24,18 @@ const connectProps = {
   ...UserActions
 }
 
-@ui({
-  key: 'resource-navigation',
-  state: { isOpen: false, position: null, resourceId: null }
-})
-@connect(connectState, connectProps)
-export default class Container extends React.Component {
+let modalState = {
+  isOpen: false,
+  position: null,
+  resourceId: null
+}
+
+let enhancer = compose(
+  connect(connectState, connectProps),
+  withState('shareModal', 'updateShareModal', modalState)
+)
+
+class FavoriteNavigationContainer extends React.Component {
   static propTypes = {
     favorites: ImmutablePropTypes.list.isRequired,
     bundles: ImmutablePropTypes.map.isRequired,
@@ -38,12 +44,13 @@ export default class Container extends React.Component {
     removeCollection: React.PropTypes.func.isRequired,
     createCollection: React.PropTypes.func.isRequired,
     collectionId: React.PropTypes.string,
-    bundleId: React.PropTypes.string
+    bundleId: React.PropTypes.string,
+    shareModal: React.PropTypes.object.isRequired,
+    updateShareModal: React.PropTypes.func.isRequired,
   }
 
-  constructor (props) {
-    super(props)
-    props.getFavorites()
+  componentWillMount () {
+    this.props.getFavorites()
   }
 
   removeBundle (...args) {
@@ -53,18 +60,16 @@ export default class Container extends React.Component {
 
   renderShareResource () {
     let props = this.props
-    let { favorites, bundles, collections, ui } = props
-    let favorite = favorites.find(fav => fav.id == ui.resourceId)
+    let favorite = props.favorites.find(fav => fav.id == props.shareModal.resourceId)
 
-    if (!favorite || !ui.isOpen) return false
+    if (!favorite || !props.shareModal.isOpen) return false
 
     return <ShareResource
-      position={ui.position}
       resource={favorite}
       resourceName={favorite.type}
       userAutocomplete={props.userAutocomplete}
-      ui={ui}
-      updateUI={props.updateUI}
+      shareModal={props.shareModal}
+      updateShareModal={props.updateShareModal}
       changeSharePermission={props.changeSharePermission}
       removeShare={props.removeShare}
       inviteUsers={props.inviteUsers}
@@ -91,7 +96,7 @@ export default class Container extends React.Component {
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getCollection={props.getCollection}
-        updateUI={props.updateUI}/>
+        updateShareModal={updateShareModal}/>
     )
   }
 
@@ -110,7 +115,7 @@ export default class Container extends React.Component {
         getBundle={props.getBundle}
         favorite={props.favorite}
         unfavorite={props.unfavorite}
-        updateUI={props.updateUI}/>
+        updateShareModal={props.updateShareModal} />
     )
   }
 
@@ -140,6 +145,7 @@ export default class Container extends React.Component {
             </div>
           </div>
         </ResourceNavigation.Header>
+
         <ResourceNavigation.Body>
           <List>
             {this.renderList()}
@@ -149,3 +155,5 @@ export default class Container extends React.Component {
     )
   }
 }
+
+export default enhancer(FavoriteNavigationContainer)

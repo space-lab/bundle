@@ -116,6 +116,7 @@ class BundleNavigationContainer extends React.Component {
             <Link to='/search' className='icon search-icon' />
           </div>
         </div>
+
         <ResourceFilters
           resourceFilter={resourceFilter}
           updateResourceFilter={updateResourceFilter} />
