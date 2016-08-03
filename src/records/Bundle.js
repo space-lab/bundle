@@ -48,4 +48,10 @@ export default class Bundle extends BundleRecord {
     let share = this.shares.find(share => share.user.id === userId)
     return share ? share.id : null
   }
+
+  shareTypeFor (userId) {
+    let share = this.shares.find(share => share.user.id === userId)
+    return share ? share.resource : null
+  }
+
 }
