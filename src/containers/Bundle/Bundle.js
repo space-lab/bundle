@@ -65,7 +65,7 @@ class BundleContainer extends React.Component {
 
     if (!props.bundle) return false
 
-    let shareType = props.bundle.shareTypeFor(currentUserId)
+    let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
     let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
 
     return <Content>
@@ -108,6 +108,7 @@ class BundleContainer extends React.Component {
       <Bundle>
         <Editable
           className='bundle-name'
+          autoFocus={!props.bundle.name}
           value={props.bundle.name || ''}
           editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Name goes here...'
