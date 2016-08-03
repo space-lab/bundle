@@ -50,10 +50,10 @@ export const removeShare = (id, type, resourceId) => async dispatch => {
 export const leaveShare = (id, resourceId, resourceType) => async dispatch => {
   await request.delete(api.shares(id))
 
-  dispatch({ type: 'REMOVE_SHARE', id, resourceId })
-
   if (resourceType == 'Bundle') dispatch({ type: 'REMOVE_BUNDLE', id: resourceId })
   if (resourceType == 'Collection') dispatch({ type: 'REMOVE_COLLECTION', id: resourceId })
+
+  dispatch({ type: 'REMOVE_SHARE', id, resourceId })
 }
 
 export const getShareUrl = (resourceName, resourceId) => async dispatch => {
