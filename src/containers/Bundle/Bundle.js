@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar, ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
+import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
+  ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
 
 let connectState = state => ({
   bundle: BundleSelectors.current(state),
