@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 export default class LeaveResource extends React.Component {
   static propTypes = {
     resourceId: React.PropTypes.string.isRequired,
-    bundleName: React.PropTypes.string,
+    resourceName: React.PropTypes.string.isRequired,
     shareId: React.PropTypes.number,
     leaveShare: React.PropTypes.func.isRequired,
     addAlert: React.PropTypes.func.isRequired
