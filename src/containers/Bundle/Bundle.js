@@ -1,5 +1,9 @@
 import debounce from 'lodash.debounce'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
@@ -28,7 +32,10 @@ let connectProps = {
   ...SearchActions
 }
 
-let enhancer = connect(connectState, connectProps)
+let enhancer = compose(
+  connect(connectState, connectProps),
+  DragDropContext(HTML5Backend)
+)
 
 class BundleContainer extends React.Component {
   componentWillMount () {
