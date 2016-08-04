@@ -11,6 +11,7 @@ export CollectionActionsModal from './CollectionActionsModal/CollectionActionsMo
 
 export JoinBundle from './Header/JoinBundle/JoinBundle'
 export LeaveBundle from './Header/LeaveBundle/LeaveBundle'
+export ShareBundle from './Header/ShareBundle/ShareBundle'
 export ChangeCollection from './Header/ChangeCollection/ChangeCollection'
 
 // Wrapper Components
@@ -35,8 +36,6 @@ export LoadMore from './List/LoadMore'
 // Share Components
 export ShareResource from './ShareResource/ShareResource'
 export Autocomplete from './ShareResource/Autocomplete/Autocomplete'
-export InviteUsers from './ShareResource/InviteUsers/InviteUsers'
-export ShareBundle from './ShareResource/ShareBundle/ShareBundle'
 export ShareItem from './ShareResource/ShareItem/ShareItem'
 export TagInput from './ShareResource/TagInput/TagInput'
 export UrlShare from './ShareResource/UrlShare/UrlShare'
