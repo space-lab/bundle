@@ -10,8 +10,8 @@ export ResourceNavigation from './ResourceNavigation'
 export CollectionActionsModal from './CollectionActionsModal/CollectionActionsModal'
 
 export JoinBundle from './Header/JoinBundle/JoinBundle'
-export LeaveBundle from './Header/LeaveBundle/LeaveBundle'
 export ShareBundle from './Header/ShareBundle/ShareBundle'
+export LeaveResource from './Header/LeaveResource/LeaveResource'
 export ChangeCollection from './Header/ChangeCollection/ChangeCollection'
 
 // Wrapper Components

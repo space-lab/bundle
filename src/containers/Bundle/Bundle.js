@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar, ChangeCollection, JoinBundle, LeaveBundle, ShareBundle } from 'components'
+import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
+  ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
 
 let connectState = state => ({
   bundle: BundleSelectors.current(state),
@@ -64,6 +65,9 @@ class BundleContainer extends React.Component {
 
     if (!props.bundle) return false
 
+    let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
+    let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
+
     return <Content>
       <Header>
         <ChangeCollection
@@ -82,8 +86,9 @@ class BundleContainer extends React.Component {
           </Permission>
 
           <Permission allow={props.bundle.canLeave(currentUserId)}>
-            <LeaveBundle
-              bundleId={props.bundle.id}
+            <LeaveResource
+              resourceName={shareType}
+              resourceId={shareResourceId}
               shareId={props.bundle.shareIdFor(currentUserId)}
               leaveShare={props.leaveShare}
               addAlert={props.addAlert} />
@@ -103,6 +108,7 @@ class BundleContainer extends React.Component {
       <Bundle>
         <Editable
           className='bundle-name'
+          autoFocus={!props.bundle.name}
           value={props.bundle.name || ''}
           editMode={props.bundle.canEdit(props.currentUser.id)}
           placeholder='Name goes here...'

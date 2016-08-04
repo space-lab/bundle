@@ -96,7 +96,7 @@ class FavoriteNavigationContainer extends React.Component {
         favorite={props.favorite}
         unfavorite={props.unfavorite}
         getCollection={props.getCollection}
-        updateShareModal={updateShareModal}/>
+        updateShareModal={props.updateShareModal}/>
     )
   }
 
