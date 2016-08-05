@@ -96,12 +96,24 @@ class BundleContainer extends React.Component {
 
           <Permission allow={props.bundle.canShare(currentUserId)}>
             <ShareBundle
-              {...this.props} // TODO big no no no
-              shareModal={props.shareModal}
-              updateShareModal={props.updateShareModal}
-              resourceName='Bundle'
+              resource={props.bundle}
               resourceId={shareResourceId}
-              resource={props.bundle} />
+              resourceName='Bundle'
+              inviteUsers={props.inviteUsers}
+              userAutocomplete={props.userAutocomplete}
+              getAutocompleteUsers={props.getAutocompleteUsers}
+              resetAutocompleteUsers={props.resetAutocompleteUsers}
+              changeSharePermission={props.changeSharePermission}
+              removeShare={props.removeShare}
+              getShareUrl={props.getShareUrl}
+              changeUrlPermission={props.changeUrlPermission}
+              removeUrlShare={props.removeUrlShare}
+              users={props.users}
+              updateUsers={props.updateUsers}
+              permission={props.permission}
+              updatePermission={props.updatePermission}
+              shareModal={props.shareModal}
+              updateShareModal={props.updateShareModal} />
           </Permission>
         </div>
       </Header>
