@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import errorHandler from './middlewares/errorHandler'
 import logger from './middlewares/logger'
 
-const middlewares =  [thunk, errorHandler]
+const middlewares =  [errorHandler, thunk]
 
 if (process.env.NODE_ENV !== 'production' && localStorage.getItem('logger') === 'true') {
   middlewares.push(logger)
