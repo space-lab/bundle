@@ -59,6 +59,7 @@ class NavigationCollectionContainer extends React.Component {
 
     return <ShareResource
       resource={resource}
+      resourceId={resource.id}
       resourceName='Collection'
       userAutocomplete={props.userAutocomplete}
       shareModal={shareModal}

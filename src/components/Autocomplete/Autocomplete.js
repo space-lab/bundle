@@ -28,7 +28,7 @@ export default class Autocomplete extends React.Component {
   }
 
   handleOnKeyUp (event) {
-    const { key, target: { value } } = event
+    let { key, target: { value } } = event
 
     switch (key) {
       case 'Enter':
@@ -39,51 +39,43 @@ export default class Autocomplete extends React.Component {
   }
 
   handleOnChange () {
-    const value = this.getInputValue()
+    let value = this.getInputValue()
     return this.props.getData(value)
   }
 
   renderAutocompleteList () {
-    return (
-      <div className='list'>
-        {this.props.data.map((entry) => {
-          const className = 'item' + (this.alreadyAdded(entry.id) ? ' active' : '')
+    return <div className='list'>
+      {this.props.data.map(entry => {
+        let className = 'item' + (this.alreadyAdded(entry.id) ? ' active' : '')
 
-          return (
-            <div
-              key={entry.id}
-              className={className}
-              onClick={this.sendValue.bind(this, entry)}>
-              <img src={entry.image}/>
+        return <div
+          key={entry.id}
+          className={className}
+          onClick={this.sendValue.bind(this, entry)}>
+          <img src={entry.image}/>
 
-              <span>{entry.name}</span>
+          <span>{entry.name}</span>
 
-              {this.alreadyAdded(entry.id)
-                ? <div className='check-icon' />
-                : null
-              }
-            </div>
-          )
-        })}
-      </div>
-    )
-
+          {this.alreadyAdded(entry.id)
+            ? <div className='check-icon' />
+            : null
+          }
+        </div>
+      })}
+    </div>
   }
 
   render () {
-    return (
-      <div className='autocomplete'>
-        <input
-          ref='input'
-          type='text'
-          placeholder={this.props.placeholder}
-          autoFocus={this.props.autoFocus}
-          onKeyUp={::this.handleOnKeyUp}
-          onChange={::this.handleOnChange}
-        />
+    return <div className='autocomplete'>
+      <input
+        ref='input'
+        type='text'
+        placeholder={this.props.placeholder}
+        autoFocus={this.props.autoFocus}
+        onKeyUp={::this.handleOnKeyUp}
+        onChange={::this.handleOnChange} />
 
-        {this.renderAutocompleteList()}
-      </div>
-    )
+      {this.renderAutocompleteList()}
+    </div>
   }
 }
