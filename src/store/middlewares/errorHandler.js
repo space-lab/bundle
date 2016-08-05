@@ -1,22 +1,20 @@
 import { applyMiddleware } from 'redux'
 import { addAlert } from 'actions/Alert'
 
-export default function errorHandler () {
-  return (next) => (action) => {
-    if (typeof action === 'function') {
-      return next(async function (dispatch, getState) {
+export default () => next => action => {
+  return typeof action === 'function'
+    ? next(async (dispatch, getState) => {
         try {
           return await action(dispatch, getState)
         } catch (error) {
-          if (error && error.data || error.statusText) {
-            return dispatch(addAlert('error', error.data.errors || error.statusText))
-          } else {
+          if (error && error.data || error.statusText)
+            return dispatch(addAlert('error',
+              error.data
+                ? error.data.errors
+                : error.statusText))
+          else
             throw error
-          }
         }
       })
-    } else {
-      return next(action)
-    }
-  }
+    : next(action)
 }
