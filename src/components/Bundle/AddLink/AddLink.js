@@ -14,8 +14,8 @@ export default class AddLink extends React.Component {
   }
 
   handleLinkRemove (link, event) {
-    this.props.handleLinkRemove(link.id, this.props.bundle.id)
     event.preventDefault()
+    this.props.handleLinkRemove(link.id, this.props.bundle.id)
   }
 
   render () {
