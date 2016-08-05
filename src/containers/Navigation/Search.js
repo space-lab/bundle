@@ -123,6 +123,7 @@ class SearchNavigationContainer extends React.Component {
 
     return <ShareResource
       resource={resource}
+      resourceId={resource.id}
       resourceName={resourceName}
       userAutocomplete={props.userAutocomplete}
       shareModal={props.shareModal}

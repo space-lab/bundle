@@ -66,6 +66,7 @@ class FavoriteNavigationContainer extends React.Component {
 
     return <ShareResource
       resource={favorite}
+      resourceId={favorite.id}
       resourceName={favorite.type}
       userAutocomplete={props.userAutocomplete}
       shareModal={props.shareModal}
