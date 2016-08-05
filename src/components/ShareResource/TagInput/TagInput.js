@@ -59,7 +59,7 @@ class TagInput extends React.Component {
       <div className='to'>To:</div>
 
       {this.props.tags.map((tag, index) =>
-        <div className='tag' key={index}>
+        <div className='tag' key={tag.id || tag}>
           {this.renderTagOrUser(tag)}
 
           <i className='close' onClick={this.handleTagRemoval.bind(this, index)} />

@@ -13,8 +13,8 @@ let enhancer = compose(
 
 class ShareResource extends React.Component {
   static propTypes = {
-    resource: ImmutablePropTypes.record, //TODO he?
-    rineresourceId: React.PropTypes.string, //TODO he?
+    resource: ImmutablePropTypes.record,
+    resourceId: React.PropTypes.string,
     resourceName: React.PropTypes.string.isRequired,
     inviteUsers: React.PropTypes.func,
     userAutocomplete: ImmutablePropTypes.list,
@@ -44,7 +44,10 @@ class ShareResource extends React.Component {
     let data = users.map(user => ({ id: user.id, permission_id: permission }))
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => this.props.resetAutocompleteUsers())
+      .then(() => {
+        this.props.resetAutocompleteUsers()
+        this.props.updateUsers([])
+      })
   }
 
   handleValueChange (values) {

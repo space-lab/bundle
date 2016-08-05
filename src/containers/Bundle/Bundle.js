@@ -96,6 +96,8 @@ class BundleContainer extends React.Component {
 
           <Permission allow={props.bundle.canShare(currentUserId)}>
             <ShareBundle
+
+
               resource={props.bundle}
               resourceId={shareResourceId}
               resourceName='Bundle'
