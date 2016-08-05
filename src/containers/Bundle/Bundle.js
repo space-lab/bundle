@@ -100,6 +100,7 @@ class BundleContainer extends React.Component {
               shareModal={props.shareModal}
               updateShareModal={props.updateShareModal}
               resourceName='Bundle'
+              resourceId={shareResourceId}
               resource={props.bundle} />
           </Permission>
         </div>

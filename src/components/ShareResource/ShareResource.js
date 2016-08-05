@@ -2,7 +2,7 @@ import listensToClickOutside from 'react-onclickoutside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { compose, withState } from 'recompose'
 import { SHARE_PERMISSIONS } from 'constants'
-import { ShareItem, Modal, TagInput, UrlShare } from 'components'
+import { ShareItem, Modal, TagInput, UrlShare, Permission } from 'components'
 import './ShareResource.css'
 
 let enhancer = compose(
@@ -14,7 +14,7 @@ let enhancer = compose(
 class ShareResource extends React.Component {
   static propTypes = {
     resource: ImmutablePropTypes.record, //TODO he?
-    resourceId: React.PropTypes.string, //TODO he?
+    rineresourceId: React.PropTypes.string, //TODO he?
     resourceName: React.PropTypes.string.isRequired,
     inviteUsers: React.PropTypes.func,
     userAutocomplete: ImmutablePropTypes.list,
@@ -39,14 +39,12 @@ class ShareResource extends React.Component {
     }
   }
 
-  // MOVED
   inviteUsers () {
     let { permission, users, inviteUsers, resourceId, resourceName } = this.props
-    let data = users.map(user=>
-      ({ id: user.id, permission_id: permission }))
+    let data = users.map(user => ({ id: user.id, permission_id: permission }))
 
     inviteUsers(resourceName, resourceId, { data })
-      .then(() => { this.props.resetAutocompleteUsers() })
+      .then(() => this.props.resetAutocompleteUsers())
   }
 
   handleValueChange (values) {
@@ -54,82 +52,59 @@ class ShareResource extends React.Component {
   }
 
   handleMemberPermissionChange ({ target }) {
-    this.props.updatePermission(target.value)
-  }
-
-  renderMemberPermissions () {
-    let selected = this.props.permission
-    let options = SHARE_PERMISSIONS
-
-    return (
-      <select value={selected} onChange={::this.handleMemberPermissionChange}>
-        {options.map(option =>
-          <option key={option.id} value={option.id}>{option.name}</option>
-        )}
-      </select>
-    )
-  }
-
-  renderUrlShare () {
-    if (this.props.resourceName === 'Collection') return false
-
-    return <div className='full-row'>
-      <UrlShare
-        getShareUrl={this.props.getShareUrl}
-        changeUrlPermission={this.props.changeUrlPermission}
-        removeUrlShare={this.props.removeUrlShare}
-        resourceName={this.props.resourceName}
-        resource={this.props.resource}/>
-    </div>
-  }
-
-  // MOVED
-
-  renderShares () {
-    const { resource, removeShare, changeSharePermission } = this.props
-
-    return resource.shares.map(share =>
-      <ShareItem
-        key={share.id}
-        share={share}
-        resourceId={resource.id}
-        changeSharePermission={changeSharePermission}
-        removeShare={removeShare}/>)
+    this.props.updatePermission(+target.value)
   }
 
   render () {
+    let props = this.props
+
     return <Modal
-      style={this.props.shareModal.position}
+      style={props.shareModal.position}
       className='share-resource-modal'>
-
-      { /* moved here */ }
-
       <div className='invite-users-container'>
         <div className='full-row invite'>
           <TagInput
-            data={this.props.userAutocomplete}
-            resource={this.props.resource}
-            getData={this.props.getAutocompleteUsers}
-            resetData={this.props.resetAutocompleteUsers}
+            data={props.userAutocomplete}
+            resource={props.resource}
+            getData={props.getAutocompleteUsers}
+            resetData={props.resetAutocompleteUsers}
             handleChange={::this.handleValueChange}/>
         </div>
 
         <div className='full-row members'>
           <span>Members can</span>
 
-          {::this.renderMemberPermissions()}
+          <select value={props.permission} onChange={::this.handleMemberPermissionChange}>
+            {SHARE_PERMISSIONS.map(permission=>
+              <option key={permission.id} value={permission.id}>{permission.name}</option>
+            )}
+          </select>
 
           <button className='main-button' onClick={::this.inviteUsers}>
             Invite
           </button>
         </div>
 
-        {::this.renderUrlShare()}
+        <Permission allow={props.resourceName === 'Collection'}>
+          <div className='full-row'>
+            <UrlShare
+              getShareUrl={props.getShareUrl}
+              changeUrlPermission={props.changeUrlPermission}
+              removeUrlShare={props.removeUrlShare}
+              resourceName={props.resourceName}
+              resource={props.resource}/>
+          </div>
+        </Permission>
       </div>
 
-      { /* moved here */ }
-
-      {::this.renderShares()}
+      { props.resource.shares.map(share =>
+          <ShareItem
+            key={share.id}
+            share={share}
+            resourceId={props.resource.id}
+            changeSharePermission={props.changeSharePermission}
+            removeShare={props.removeShare} />)
+      }
     </Modal>
   }
 }

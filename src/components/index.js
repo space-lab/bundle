@@ -35,7 +35,7 @@ export LoadMore from './List/LoadMore'
 
 // Share Components
 export ShareResource from './ShareResource/ShareResource'
-export Autocomplete from './ShareResource/Autocomplete/Autocomplete'
+export Autocomplete from './Autocomplete/Autocomplete'
 export ShareItem from './ShareResource/ShareItem/ShareItem'
 export TagInput from './ShareResource/TagInput/TagInput'
 export UrlShare from './ShareResource/UrlShare/UrlShare'
