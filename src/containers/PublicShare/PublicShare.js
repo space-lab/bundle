@@ -39,19 +39,19 @@ class PublicShare extends React.Component {
   }
 
   render () {
-    let { user, bundle, users, links, params, location } = this.props
-    if (!bundle || user) return false
+    let props = this.props
+    if (!props.bundle || props.user) return false
 
     return <div className='share-view'>
       <Link to='/' className='logo'>B</Link>
 
       <Bundle className='share-view-body'>
-        <span className='bundle-name'>{bundle.name}</span>
-        <span className='bundle-description'>{bundle.description}</span>
+        <span className='bundle-name'>{props.bundle.name}</span>
+        <span className='bundle-description'>{props.bundle.description}</span>
 
-        {bundle.get('links').map((id, index) => {
-          let link = links.get(id)
-          let user = users.get(link.creator)
+        {props.bundle.get('links').map((id, index) => {
+          let link = props.links.get(id)
+          let user = props.users.get(link.creator)
 
           return <BundleLink key={link.id}
             url={link.url}
@@ -66,3 +66,5 @@ class PublicShare extends React.Component {
     </div>
   }
 }
+
+export default enhancer(PublicShare)

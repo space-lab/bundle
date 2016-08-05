@@ -88,7 +88,7 @@ class ShareResource extends React.Component {
           </button>
         </div>
 
-        <Permission allow={props.resourceName === 'Collection'}>
+        <Permission allow={props.resourceName !== 'Collection'}>
           <div className='full-row'>
             <UrlShare
               getShareUrl={props.getShareUrl}
