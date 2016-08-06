@@ -74,7 +74,7 @@ class BundleContainer extends React.Component {
     let links = this.props.bundle.links.delete(oldIndex).insert(newIndex, id)
     let payload = links.map((id, pos) => ({ id, position: pos + 1})).toJS()
 
-    console.log(payload)
+    props.reorderLinks(props.bundle.id, payload)
   }
 
   render () {
@@ -85,7 +85,7 @@ class BundleContainer extends React.Component {
 
     let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
     let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
-    console.log(props.bundle.links.toJS())
+
     return <Content>
       <Header>
         <ChangeCollection
