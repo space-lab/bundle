@@ -34,7 +34,7 @@ class ShareBundle extends React.Component {
           </ul>
         </Permission>
 
-        <Permission allow={moreUsers > 1}>
+        <Permission allow={moreUsers > 0}>
           <span className='share-more-users'>and {moreUsers} more</span>
         </Permission>
 
