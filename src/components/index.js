@@ -24,6 +24,7 @@ export Bundle from './Bundle/Bundle'
 export EnterUrl from './Bundle/EnterUrl/EnterUrl'
 export AddLink from './Bundle/AddLink/AddLink'
 export Link from './Bundle/Link/Link'
+export DraggableLink from './Bundle/DraggableLink/DraggableLink'
 export NoBundle from './Bundle/NoBundle/NoBundle'
 
 // List Components, Filters and Loaders

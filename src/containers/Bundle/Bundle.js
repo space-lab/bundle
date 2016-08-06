@@ -7,7 +7,7 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
+import { Content, Header, Bundle, Editable, AddLink, DraggableLink, Permission, Toolbar,
   ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
 
 let connectState = state => ({
@@ -170,7 +170,7 @@ class BundleContainer extends React.Component {
           let user = props.users.get(link.creator)
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
-          return <Link key={link.id}
+          return <DraggableLink key={link.id}
             id={link.id}
             position={link.position}
             url={link.url}
@@ -191,7 +191,7 @@ class BundleContainer extends React.Component {
                 <div className='link-remove' onClick={this.handleLinkRemove.bind(this, link)} />
               </Permission>
             </Toolbar>
-          </Link>
+          </DraggableLink>
         })}
       </Bundle>
     </Content>
