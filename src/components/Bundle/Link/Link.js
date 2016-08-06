@@ -11,7 +11,7 @@ const cardSource = {
   beginDrag(props) {
     return {
       id: props.id,
-      index: props.index
+      position: props.position
     };
   }
 };
@@ -28,15 +28,12 @@ const handleStyle = {
 
 const cardTarget = {
   drop(props, monitor, component) {
-    const dragIndex = monitor.getItem().index;
-    const hoverIndex = props.index;
+    let id = monitor.getItem().id
+    let dragPosition = monitor.getItem().position
+    let hoverPosition = props.position
 
-    // Don't replace items with themselves
-    if (dragIndex === hoverIndex) {
-      return;
-    }
-
-    console.log(monitor.getItem())
+    if (dragPosition === hoverPosition) return
+    props.changeLinkPosition(id, hoverPosition)
   }
 }
 
@@ -55,6 +52,7 @@ let enhancer = compose(
 class Link extends React.Component {
   static propTypes = {
     id: React.PropTypes.number.isRequired,
+    position: React.PropTypes.number.isRequired,
     url: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,
@@ -63,7 +61,8 @@ class Link extends React.Component {
     createdAt: React.PropTypes.string,
     creatorImage: React.PropTypes.string.isRequired,
     creatorName: React.PropTypes.string.isRequired,
-    children: React.PropTypes.element
+    children: React.PropTypes.element,
+    changeLinkPosition: React.PropTypes.func
   }
 
   renderDate () {

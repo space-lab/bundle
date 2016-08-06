@@ -50,3 +50,7 @@ export const toggleCompleteLink = id => async dispatch =>  {
 
   dispatch({ type: 'UPDATE_LINK', link })
 }
+
+export const reorderLinks = (bundleId, links) => async dispatch =>  {
+  let { data } = await request.post(api.reorderLinks(bundleId), { links })
+}

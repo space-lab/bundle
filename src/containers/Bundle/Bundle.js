@@ -66,6 +66,17 @@ class BundleContainer extends React.Component {
     event.preventDefault()
   }
 
+  changeLinkPosition (id, position) {
+    let props = this.props
+    let oldIndex = props.bundle.links.indexOf(id)
+    let newIndex = position - 1
+
+    let links = this.props.bundle.links.delete(oldIndex).insert(newIndex, id)
+    let payload = links.map((id, pos) => ({ id, position: pos + 1})).toJS()
+
+    console.log(payload)
+  }
+
   render () {
     let props = this.props
     let currentUserId = props.currentUser.id
@@ -74,7 +85,7 @@ class BundleContainer extends React.Component {
 
     let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
     let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
-
+    console.log(props.bundle.links.toJS())
     return <Content>
       <Header>
         <ChangeCollection
@@ -145,8 +156,8 @@ class BundleContainer extends React.Component {
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
           return <Link key={link.id}
-            index={i}
             id={link.id}
+            position={link.position}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
@@ -154,6 +165,7 @@ class BundleContainer extends React.Component {
             createdAt={link.created_at}
             completed={link.completed}
             creatorName={user.name}
+            changeLinkPosition={::this.changeLinkPosition}
             creatorImage={user.image}>
             <Toolbar>
               <Permission allow>

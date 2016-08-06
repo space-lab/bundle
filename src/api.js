@@ -27,6 +27,7 @@ export default {
 
   link: (id = '') => `${API_BASE}/links/${id}`,
   toggleCompleteLink: id => `${API_BASE}/links/${id}/toggle_completed`,
+  reorderLinks: bundleId => `${API_BASE}/bundles/${bundleId}/reorder_links`,
 
   fetchLink: (url) => FETCHER_URL + url
 }
