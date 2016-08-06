@@ -72,9 +72,8 @@ a {
 $color: #6C90F3;
 
 .main-button {
-  box-sizing: content-box;
-  padding: 2px 10px;
-  height: 25px;
+  padding: 0 10px;
+  height: 26px;
   border: 1px solid $color;
   color: $color;
   background-color: transparent;
