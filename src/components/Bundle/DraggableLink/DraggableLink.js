@@ -47,7 +47,7 @@ class DraggableLink extends React.Component {
     let border = props.isOver ? '1px solid rgba(21, 129, 226, 0.33)' : '1px solid rgba(0, 0, 0, 0.09)'
 
     return props.connectDragPreview(props.connectDropTarget(
-      <div style={{paddingRight: '20px'}}>
+      <div>
         <Link {...props} draggable linkStyles={{opacity, border}}/>
       </div>
     ))
