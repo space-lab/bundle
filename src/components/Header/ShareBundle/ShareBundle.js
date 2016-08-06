@@ -3,6 +3,8 @@ import { withState } from 'recompose'
 import { ShareResource, Permission } from 'components'
 import './ShareBundle.css'
 
+const MAX_USER_BUBBLES = 5
+
 let modalState = { isOpen: false, position: null }
 
 let enhancer = withState('shareModal', 'updateShareModal', modalState)
@@ -19,10 +21,7 @@ class ShareBundle extends React.Component {
     let props = this.props
     let allUsers = props.resource.shares.map(share => share.user)
       .unshift(props.users.get(props.resource.creator))
-
     let users = allUsers.take(5).reverse()
-    let moreUsers = allUsers.size - 5
-    console.log(moreUsers)
 
     return <div className='share-bundle-wrapper'>
       <div className='share-clicker' onClick={_ => props.updateShareModal({ isOpen: true })}>
@@ -34,8 +33,8 @@ class ShareBundle extends React.Component {
           </ul>
         </Permission>
 
-        <Permission allow={moreUsers > 0}>
-          <span className='share-more-users'>and {moreUsers} more</span>
+        <Permission allow={allUsers.size > MAX_USER_BUBBLES}>
+          <span className='share-more-users'>and {allUsers.size - MAX_USER_BUBBLES} more</span>
         </Permission>
 
         <button className='main-button'>Share</button>
