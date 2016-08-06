@@ -139,12 +139,14 @@ class BundleContainer extends React.Component {
             handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
         </Permission>
 
-        {props.bundle.get('links').map(id => {
+        {props.bundle.get('links').map((id, i) => {
           let link = props.links.get(id)
           let user = props.users.get(link.creator)
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
           return <Link key={link.id}
+            index={i}
+            id={link.id}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
