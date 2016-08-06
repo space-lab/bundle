@@ -3,7 +3,7 @@ import { compose, withState } from 'recompose'
 import { DragSource, DropTarget } from 'react-dnd'
 
 let cardSource = {
-  beginDrag(props) {
+  beginDrag (props) {
     return {
       id: props.id,
       position: props.position
@@ -12,7 +12,7 @@ let cardSource = {
 }
 
 let cardTarget = {
-  drop(props, monitor, component) {
+  drop (props, monitor, component) {
     let id = monitor.getItem().id
     let dragPosition = monitor.getItem().position
     let hoverPosition = props.position
@@ -44,11 +44,11 @@ class DraggableLink extends React.Component {
   render () {
     let props = this.props
     let opacity = props.isDragging ? 0 : 1
-    let border = props.isOver ? '1px solid rgba(21, 129, 226, 0.33)' : '1px solid rgba(0, 0, 0, 0.09)'
+    let border = props.isOver ? '1px solid rgba(21, 129, 226, 0.33)' : null
 
     return props.connectDragPreview(props.connectDropTarget(
       <div>
-        <Link {...props} draggable linkStyles={{opacity, border}}/>
+        <Link {...props} draggable linkStyles={{opacity, border}} />
       </div>
     ))
   }

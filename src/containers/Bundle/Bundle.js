@@ -165,7 +165,7 @@ class BundleContainer extends React.Component {
             handleLinkRemove={() => props.clearCurrentLink(props.bundle.id)} />
         </Permission>
 
-        {props.bundle.get('links').map((id, i) => {
+        {props.bundle.get('links').map(id => {
           let link = props.links.get(id)
           let user = props.users.get(link.creator)
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
@@ -180,8 +180,8 @@ class BundleContainer extends React.Component {
             createdAt={link.created_at}
             completed={link.completed}
             creatorName={user.name}
-            changeLinkPosition={::this.changeLinkPosition}
-            creatorImage={user.image}>
+            creatorImage={user.image}
+            changeLinkPosition={::this.changeLinkPosition}>
             <Toolbar>
               <Permission allow>
                 <div className={completedClass} onClick={this.handleLinkComplete.bind(this, link)} />
