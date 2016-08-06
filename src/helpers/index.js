@@ -1,3 +1,4 @@
+import { batchActions } from 'redux-batched-actions'
 import { browserHistory } from 'react-router'
 import { fromJS, Map } from 'immutable'
 import { normalize, arrayOf } from 'normalizr'
@@ -43,10 +44,12 @@ export const reduceBundle = (data, dispatch) => {
     const links = result.get('links').valueSeq().map(item => new Link(item))
     const shares = result.get('shares').valueSeq().map(item => new Share(item))
 
-  dispatch({ type: 'RECEIVE_USERS',  users })
-  dispatch({ type: 'RECEIVE_LINKS',  links })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'SAVE_BUNDLE', bundle })
+  dispatch(batchActions([
+    { type: 'RECEIVE_USERS',  users },
+    { type: 'RECEIVE_LINKS',  links },
+    { type: 'RECEIVE_SHARES', shares },
+    { type: 'SAVE_BUNDLE', bundle }
+  ]))
 }
 
 export const reduceBundles = (data, dispatch) => {
@@ -61,10 +64,13 @@ export const reduceBundles = (data, dispatch) => {
   const shares = result.get('shares').valueSeq().map(item => new Share(item))
   const bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
 
-  dispatch({ type: 'RECEIVE_USERS',  users })
-  dispatch({ type: 'RECEIVE_LINKS',  links })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
+
+  dispatch(batchActions([
+    { type: 'RECEIVE_USERS',  users },
+    { type: 'RECEIVE_LINKS',  links },
+    { type: 'RECEIVE_SHARES', shares },
+    { type: 'RECEIVE_BUNDLES', bundles }
+  ]))
 }
 
 export const reduceCollection = (data, dispatch) => {
@@ -81,11 +87,13 @@ export const reduceCollection = (data, dispatch) => {
   let shares = result.get('shares').valueSeq().map(item => new Share(item))
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
 
-  dispatch({ type: 'RECEIVE_USERS',  users })
-  dispatch({ type: 'RECEIVE_LINKS', links })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
-  dispatch({ type: 'RECEIVE_COLLECTION', collection })
+  dispatch(batchActions([
+    { type: 'RECEIVE_USERS',  users },
+    { type: 'RECEIVE_LINKS',  links },
+    { type: 'RECEIVE_SHARES', shares },
+    { type: 'RECEIVE_BUNDLES', bundles },
+    { type: 'RECEIVE_COLLECTION', collection }
+  ]))
 }
 
 export const reduceCollections = (data, dispatch) => {
@@ -102,12 +110,14 @@ export const reduceCollections = (data, dispatch) => {
   let bundles = result.get('bundles').valueSeq().map(item => new Bundle(item))
   let collections = result.get('collections').valueSeq().map(item => new Collection(item))
 
-  dispatch({ type: 'RECEIVE_USERS', users })
-  dispatch({ type: 'RECEIVE_LINKS', links })
-  dispatch({ type: 'RECEIVE_SHARES', shares })
-  dispatch({ type: 'RECEIVE_BUNDLES', bundles })
-  dispatch({ type: 'RECEIVE_COLLECTIONS', collections })
-  dispatch({ type: 'RECEIVE_ALL_COLLECTIONS' })
+  dispatch(batchActions([
+    { type: 'RECEIVE_USERS',  users },
+    { type: 'RECEIVE_LINKS',  links },
+    { type: 'RECEIVE_SHARES', shares },
+    { type: 'RECEIVE_BUNDLES', bundles },
+    { type: 'RECEIVE_COLLECTIONS', collections },
+    { type: 'RECEIVE_ALL_COLLECTIONS' }
+  ]))
 }
 
 export const unNormaliseResources = (data, resources, shares, users) => {

@@ -38,6 +38,7 @@
   }
 
   .close-icon {
+    cursor: pointer;
     margin-right: -6px;
     width: 28px;
     height: 28px;

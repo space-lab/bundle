@@ -6,3 +6,31 @@
 
   padding: 0;
 }
+
+.invite-users-container {
+  .full-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    border-bottom: 1px solid #E3E3E3;
+  }
+
+  .invite {
+    padding: 0;
+  }
+
+  .members {
+    padding: 10px 15px;
+    background-color: rgba(244, 244, 244, 0.5);
+    line-height: 30px;
+
+    select {
+      margin-left: 10px;
+    }
+
+    button {
+      margin-left: auto;
+    }
+  }
+}
