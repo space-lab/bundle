@@ -23,7 +23,7 @@ $imageWidth: 130px;
   }
 
   &.completed {
-    opacity: 0.3;
+    opacity: 0.3 !important;
   }
 
   .link-drag-handler {
@@ -39,6 +39,7 @@ $imageWidth: 130px;
 
     cursor: grabbing;
     opacity: 0;
+    transition: all 200ms linear;
   }
 
   .link-thumbnail {
