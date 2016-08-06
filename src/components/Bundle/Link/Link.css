@@ -17,13 +17,28 @@ $imageWidth: 130px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.18);
 
-    .toolbar {
+    .toolbar, .link-drag-handler {
       opacity: 1;
     }
   }
 
   &.completed {
     opacity: 0.3;
+  }
+
+  .link-drag-handler {
+    position: absolute;
+    right: -25px;
+    top: 0;
+
+    width: 25px;
+    height: 90px;
+
+    padding-top: 8px;
+    text-align: right;
+
+    cursor: grabbing;
+    opacity: 0;
   }
 
   .link-thumbnail {

@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr'
 import { fromJS } from 'immutable'
-import { slimUrl, bestThumbnail } from 'helpers'
+import { slimUrl, bestThumbnail, reduceBundle } from 'helpers'
 import * as Schemas from 'normalizers'
 import { Link, User } from 'records'
 import request from 'axios'
@@ -49,4 +49,10 @@ export const toggleCompleteLink = id => async dispatch =>  {
   let link = new Link(result.get('links').first())
 
   dispatch({ type: 'UPDATE_LINK', link })
+}
+
+export const reorderLinks = (bundleId, links) => async dispatch =>  {
+  let { data } = await request.post(api.reorderLinks(bundleId), { links })
+
+  reduceBundle(data, dispatch)
 }

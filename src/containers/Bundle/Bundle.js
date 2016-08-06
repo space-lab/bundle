@@ -1,9 +1,13 @@
 import debounce from 'lodash.debounce'
 import { connect } from 'react-redux'
+import { compose } from 'recompose'
+import { DragDropContext } from 'react-dnd'
+import HTML5Backend from 'react-dnd-html5-backend'
+
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, Link, Permission, Toolbar,
+import { Content, Header, Bundle, Editable, AddLink, DraggableLink, Permission, Toolbar,
   ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
 
 let connectState = state => ({
@@ -28,7 +32,10 @@ let connectProps = {
   ...SearchActions
 }
 
-let enhancer = connect(connectState, connectProps)
+let enhancer = compose(
+  connect(connectState, connectProps),
+  DragDropContext(HTML5Backend)
+)
 
 class BundleContainer extends React.Component {
   componentWillMount () {
@@ -57,6 +64,17 @@ class BundleContainer extends React.Component {
   handleLinkComplete (link, event) {
     this.props.toggleCompleteLink(link.id)
     event.preventDefault()
+  }
+
+  changeLinkPosition (id, position) {
+    let props = this.props
+    let oldIndex = props.bundle.links.indexOf(id)
+    let newIndex = position - 1
+
+    let links = this.props.bundle.links.delete(oldIndex).insert(newIndex, id)
+    let payload = links.map((id, pos) => ({ id, position: pos + 1})).toJS()
+
+    props.reorderLinks(props.bundle.id, payload)
   }
 
   render () {
@@ -152,7 +170,9 @@ class BundleContainer extends React.Component {
           let user = props.users.get(link.creator)
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
-          return <Link key={link.id}
+          return <DraggableLink key={link.id}
+            id={link.id}
+            position={link.position}
             url={link.url}
             image={link.image}
             title={link.title || 'Link has no name'}
@@ -160,7 +180,8 @@ class BundleContainer extends React.Component {
             createdAt={link.created_at}
             completed={link.completed}
             creatorName={user.name}
-            creatorImage={user.image}>
+            creatorImage={user.image}
+            changeLinkPosition={::this.changeLinkPosition}>
             <Toolbar>
               <Permission allow>
                 <div className={completedClass} onClick={this.handleLinkComplete.bind(this, link)} />
@@ -170,7 +191,7 @@ class BundleContainer extends React.Component {
                 <div className='link-remove' onClick={this.handleLinkRemove.bind(this, link)} />
               </Permission>
             </Toolbar>
-          </Link>
+          </DraggableLink>
         })}
       </Bundle>
     </Content>
