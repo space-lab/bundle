@@ -4,7 +4,7 @@ import './Link.css'
 
 export default class Link extends React.Component {
   static propTypes = {
-    id: React.PropTypes.number.isRequired,
+    id: React.PropTypes.number,
     url: React.PropTypes.string.isRequired,
     image: React.PropTypes.string.isRequired,
     title: React.PropTypes.string.isRequired,

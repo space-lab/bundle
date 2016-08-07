@@ -7,8 +7,8 @@ import HTML5Backend from 'react-dnd-html5-backend'
 import { BundleSelectors, UserSelectors, LinkSelectors, CollectionSelectors } from 'selectors'
 import { AlertActions, BundleActions, CollectionActions, LinkActions, UserActions,
   ShareActions, SearchActions } from 'actions'
-import { Content, Header, Bundle, Editable, AddLink, DraggableLink, Permission, Toolbar,
-  ChangeCollection, JoinBundle, LeaveResource, ShareBundle } from 'components'
+import { Content, Header, Bundle, Editable, AddLink, ChangeCollection, Permission, Toolbar,
+  DraggableLink, Link, JoinBundle, LeaveResource, ShareBundle } from 'components'
 
 let connectState = state => ({
   bundle: BundleSelectors.current(state),
@@ -85,6 +85,7 @@ class BundleContainer extends React.Component {
 
     let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
     let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
+    let LinkComponent = props.bundle.canEdit(props.currentUser.id) ? DraggableLink : Link
 
     return <Content>
       <Header>
@@ -170,7 +171,7 @@ class BundleContainer extends React.Component {
           let user = props.users.get(link.creator)
           let completedClass = 'link-complete' + (link.completed ? ' completed' : '')
 
-          return <DraggableLink key={link.id}
+          return <LinkComponent key={link.id}
             id={link.id}
             position={link.position}
             url={link.url}
@@ -191,7 +192,7 @@ class BundleContainer extends React.Component {
                 <div className='link-remove' onClick={this.handleLinkRemove.bind(this, link)} />
               </Permission>
             </Toolbar>
-          </DraggableLink>
+          </LinkComponent>
         })}
       </Bundle>
     </Content>
