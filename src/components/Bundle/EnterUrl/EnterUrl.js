@@ -1,3 +1,4 @@
+import isUrl from 'validator/lib/isUrl'
 import './EnterUrl.css'
 
 export default class EnterUrl extends React.Component {
@@ -13,8 +14,10 @@ export default class EnterUrl extends React.Component {
   handleChange ({ target }) {
     let url = target.value
 
-    this.setState({ disabled: true })
-    this.props.handeUrlEnter(url, this.props.bundleId)
+    if (isUrl(url, { protocols: ['http', 'https'], require_protocol: true })) {
+      this.setState({ disabled: true })
+      this.props.handeUrlEnter(url, this.props.bundleId)
+    }
   }
 
   render () {
