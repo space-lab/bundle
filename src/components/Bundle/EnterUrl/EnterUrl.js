@@ -1,4 +1,4 @@
-import isUrl from 'validator/lib/isUrl'
+import isUrl from 'validator/lib/isURL'
 import './EnterUrl.css'
 
 export default class EnterUrl extends React.Component {
