@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie'
 import { Link, browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import { Bundle, Link as BundleLink } from 'components'
@@ -23,7 +24,7 @@ let enhancer = connect(connectState, connectProps)
 class PublicShare extends React.Component {
   componentWillMount () {
     let { params, user, authenticateUser, getResource } = this.props
-    let auth_token = localStorage.getItem('auth_token')
+    let auth_token = Cookie.get('auth_token')
 
     if (!user && auth_token) authenticateUser(auth_token)
 

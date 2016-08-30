@@ -1,3 +1,4 @@
+import Cookie from 'js-cookie'
 import { browserHistory } from 'react-router'
 import { connect } from 'react-redux'
 import Login from './Login'
@@ -21,7 +22,7 @@ class Auth extends React.Component {
   componentWillMount () {
     const { currentUser, setCurrentUser, authenticateUser } = this.props
     const { query } = this.props.location
-    const authToken = window.localStorage.getItem('auth_token')
+    const authToken = Cookie.get('auth_token')
 
     if (query.authenticated === 'true') {
       const user = JSON.parse(query.user)
@@ -34,7 +35,7 @@ class Auth extends React.Component {
   }
 
   getAuthToken () {
-    return window.localStorage.getItem('auth_token')
+    return Cookie.get('auth_token')
   }
 
   shouldNotRender () {

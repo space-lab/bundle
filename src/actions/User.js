@@ -1,10 +1,11 @@
+import request from 'axios'
+import Cookie from 'js-cookie'
 import { User } from 'records'
 import { fromJS } from 'immutable'
-import request from 'axios'
 import api from 'api'
 
 export const setCurrentUser = user => {
-  window.localStorage.setItem('auth_token', user.auth_token)
+  Cookie.set('auth_token', user.auth_token)
   request.defaults.headers.common['AUTH-TOKEN'] = user.auth_token
 
   return (dispatch) => {
@@ -31,7 +32,7 @@ export const updateUser = (user, payload) => async dispatch => {
 }
 
 export const logoutUser = () => {
-  window.localStorage.removeItem('auth_token')
+  Cookie.delete('auth_token')
   return { type: 'RESET_STATE' }
 }
 
