@@ -85,7 +85,7 @@ class BundleContainer extends React.Component {
 
     let shareType = props.bundle.shareTypeFor(currentUserId) || 'Bundle'
     let shareResourceId = shareType === 'Bundle' ? props.bundle.id : props.bundle.collection_id
-    let LinkComponent = props.bundle.canEdit(props.currentUser.id) ? DraggableLink : Link
+    let LinkComponent = props.bundle.canEdit(props.currentUser.id) || props.bundle.unlisted ? DraggableLink : Link
 
     return <Content>
       <Header>
@@ -154,7 +154,7 @@ class BundleContainer extends React.Component {
           placeholder='Description goes here...'
           onChange={value => this.handleUpdate({ description: value })} />
 
-        <Permission allow={props.bundle.canEdit(props.currentUser.id)}>
+        <Permission allow={props.bundle.canEdit(props.currentUser.id) || props.bundle.unlisted}>
           <AddLink
             bundle={props.bundle}
             user={props.currentUser}

@@ -19,29 +19,30 @@ const BundleRecord = Record({
   type: null,
   share_url: null,
   share_url_permission: null,
-  joined: false
+  joined: false,
+  unlisted: false
 })
 
 export default class Bundle extends BundleRecord {
   canRemove (userId) {
-    return this.creator === userId
+    return this.creator === userId && !this.unlisted
   }
 
   canShare (userId) {
-    return this.creator === userId
+    return this.creator === userId && !this.unlisted
   }
 
   canEdit (userId) {
-    return this.creator === userId || this.shares.some(share =>
-      share.user.id === userId && share.permission.get('name') === 'Edit')
+    return !this.unlisted && (this.creator === userId || this.shares.some(share =>
+      share.user.id === userId && share.permission.get('name') === 'Edit'))
   }
 
   canChangeCollection (userId) {
-    return this.creator === userId
+    return this.creator === userId && !this.unlisted
   }
 
   canLeave (userId) {
-    return (this.shareIdFor(userId) && this.joined && this.creator !== userId) || false
+    return !this.unlisted && (this.shareIdFor(userId) && this.joined && this.creator !== userId) || false
   }
 
   shareIdFor (userId) {

@@ -37,12 +37,14 @@ export default class ListToolbar extends React.Component {
         <ToolbarDeleteItem id={props.resource.id} remove={props.remove} />
       </Permission>
 
-      <ToolbarFavoriteItem
-        type={type}
-        id={id}
-        favorited={props.resource.favorited}
-        favorite={props.favorite}
-        unfavorite={props.unfavorite}/>
+      <Permission allow={!props.resource.unlisted}>
+        <ToolbarFavoriteItem
+          type={type}
+          id={id}
+          favorited={props.resource.favorited}
+          favorite={props.favorite}
+          unfavorite={props.unfavorite}/>
+      </Permission>
     </div>
   }
 
