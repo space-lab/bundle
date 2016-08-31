@@ -25,6 +25,7 @@ export const sorted = createSelector(all, bundles =>
   bundles
     .valueSeq()
     .sortBy(bundle => bundle.updated_at)
+    .sortBy(bundle => bundle.unlisted)
     .reverse()
     .toList())
 
