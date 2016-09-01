@@ -1,3 +1,4 @@
+import CopyToClipboard from 'react-copy-to-clipboard'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { SHARE_PERMISSIONS } from 'constants'
 import './UrlShare.css'
@@ -6,19 +7,7 @@ export default class UrlShare extends React.Component {
   static propTypes = {
     resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
-    getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
-    removeUrlShare: React.PropTypes.func.isRequired
-  }
-
-  handleUrlGet () {
-    let { getShareUrl, resourceName, resource } = this.props
-    getShareUrl(resourceName, resource.id)
-  }
-
-  handleShareUrlRemove () {
-    let { removeUrlShare, resourceName, resource } = this.props
-    removeUrlShare(resourceName, resource.id)
   }
 
   handleUrlPermissionChange ({ target }) {
@@ -32,38 +21,9 @@ export default class UrlShare extends React.Component {
     }
   }
 
-  renderButtonOrUrl () {
-    let { share_url } = this.props.resource
-
-    if (share_url) {
-      return (
-        <div className='url'>
-          <div className='url-icon'/>
-
-          <input
-            defaultValue={share_url}
-            readOnly
-            autoFocus
-            onFocus={({ target }) => target.select()}/>
-        </div>
-      )
-    } else {
-      return (
-        <div className='clickable' onClick={::this.handleUrlGet}>
-          <div className='url-icon'/>
-          <span>Get shareable url...</span>
-        </div>
-      )
-    }
-  }
-
   renderUrlPermissionsAndDelete () {
-    const { resource } = this.props
+    let { resource } = this.props
     let options = SHARE_PERMISSIONS
-      .map(item => ({ id: item.id, name: `Can ${item.name.toLowerCase()}`}))
-      .concat({ id: 3, name: 'Remove'})
-
-    if (!resource.share_url) return null
 
     return (
       <div className='permissions'>
@@ -72,7 +32,7 @@ export default class UrlShare extends React.Component {
           value={resource.share_url_permission}
           onChange={::this.handleUrlPermissionChange}>
           {options.map(option =>
-            <option key={option.id} value={option.id}>{option.name}</option>
+            <option key={option.id} value={option.id}>{`Can ${option.name.toLowerCase()}`}</option>
           )}
         </select>
       </div>
@@ -82,8 +42,14 @@ export default class UrlShare extends React.Component {
   render () {
     return (
       <div className='shareable-url'>
-        {::this.renderButtonOrUrl()}
-        {::this.renderUrlPermissionsAndDelete()}
+        <div className='dimmed-text'>People with this link</div>
+        <div>{this.renderUrlPermissionsAndDelete()}</div>
+        <CopyToClipboard text={this.props.resource.share_url}>
+          <div className='copy-link'>
+            <div className='url-icon'/>
+            <span className='dimmed-text'>Copy sharable link</span>
+          </div>
+        </CopyToClipboard>
       </div>
     )
   }

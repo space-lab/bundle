@@ -8,37 +8,28 @@ $blue: #1581E2;
   align-items: center;
   font-size: 15px;
 
-  .url, .clickable {
-    width: 100%;
-    display: inherit;
-    align-items: inherit;
-
-    .url-icon {
-      margin-right: 7px;
-      width: $icon-size;
-      height: $icon-size;
-      background-size: $icon-size;
-      background-image: url('/assets/images/link.svg');
-    }
+  .url-icon {
+    width: 22px;
+    height: 22px;
+    background-size: 22px;
+    background-image: url(/assets/images/link.svg);
+    display: inline-block;
+    margin-bottom: -7px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background-color: #EAEAEA;
   }
 
-  .url {
-    input {
-      border: none;
-      width: 80%;
-      font-size: 15px;
-      overflow: hidden;
-    }
+  .dimmed-text {
+    font-family: Avenir-Roman;
+    font-size: 14px;
+    color: #BBBBBB;
   }
 
-  .clickable {
+  .copy-link {
     cursor: pointer;
-    opacity: 1;
-    transition: all linear 200ms;
-    user-select: none;
 
-    &:hover {
-      color: $blue;
+    .url-icon:hover {
       opacity: 0.7;
     }
   }

@@ -23,9 +23,7 @@ class ShareResource extends React.Component {
     resetAutocompleteUsers: React.PropTypes.func,
     changeSharePermission: React.PropTypes.func.isRequired,
     removeShare: React.PropTypes.func.isRequired,
-    getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
-    removeUrlShare: React.PropTypes.func.isRequired,
     users: ImmutablePropTypes.list.isRequired,
     updateUsers: React.PropTypes.func.isRequired,
     permission: React.PropTypes.number.isRequired,
@@ -69,9 +67,7 @@ class ShareResource extends React.Component {
         <Permission allow={props.resourceName !== 'Collection'}>
           <div className='full-row'>
             <UrlShare
-              getShareUrl={props.getShareUrl}
               changeUrlPermission={props.changeUrlPermission}
-              removeUrlShare={props.removeUrlShare}
               resourceName={props.resourceName}
               resource={props.resource}/>
           </div>
