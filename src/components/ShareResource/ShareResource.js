@@ -65,14 +65,18 @@ class ShareResource extends React.Component {
       className='share-resource-modal'>
       <div className='invite-users-container'>
         <Permission allow={props.resourceName !== 'Collection'}>
-          <div className='full-row'>
-            <UrlShare
-              changeUrlPermission={props.changeUrlPermission}
-              resourceName={props.resourceName}
-              resource={props.resource}/>
+          <div>
+            <div className='row-heading'>Share with others</div>
+            <div className='full-row'>
+              <UrlShare
+                changeUrlPermission={props.changeUrlPermission}
+                resourceName={props.resourceName}
+                resource={props.resource}/>
+            </div>
           </div>
         </Permission>
 
+        <div className='row-heading'>Who has access</div>
         <div className='full-row invite'>
           <TagInput
             tags={props.users}
