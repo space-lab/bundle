@@ -12,22 +12,28 @@ export default class UrlShare extends React.Component {
   }
 
   handleUrlGet () {
-    const { getShareUrl, resourceName, resource } = this.props
+    let { getShareUrl, resourceName, resource } = this.props
     getShareUrl(resourceName, resource.id)
   }
 
   handleShareUrlRemove () {
-    const { removeUrlShare, resourceName, resource } = this.props
+    let { removeUrlShare, resourceName, resource } = this.props
     removeUrlShare(resourceName, resource.id)
   }
 
   handleUrlPermissionChange ({ target }) {
-    const { changeUrlPermission, resourceName, resource } = this.props
-    changeUrlPermission(resourceName, resource.id, target.value)
+    let permissionId = target.value
+    let { resourceName, resource } = this.props
+
+    if (permissionId == 3) {
+      this.props.removeUrlShare(resourceName, resource.id)
+    } else {
+      this.props.changeUrlPermission(resourceName, resource.id, permissionId)
+    }
   }
 
   renderButtonOrUrl () {
-    const { share_url } = this.props.resource
+    let { share_url } = this.props.resource
 
     if (share_url) {
       return (
@@ -53,23 +59,22 @@ export default class UrlShare extends React.Component {
 
   renderUrlPermissionsAndDelete () {
     const { resource } = this.props
-    const options = SHARE_PERMISSIONS
+    let options = SHARE_PERMISSIONS
+      .map(item => ({ id: item.id, name: `Can ${item.name.toLowerCase()}`}))
+      .concat({ id: 3, name: 'Remove'})
 
     if (!resource.share_url) return null
 
     return (
       <div className='permissions'>
         <select
+          className='own-select-dropdown'
           value={resource.share_url_permission}
           onChange={::this.handleUrlPermissionChange}>
           {options.map(option =>
             <option key={option.id} value={option.id}>{option.name}</option>
           )}
         </select>
-
-        <div
-          className='icon close-icon'
-          onClick={::this.handleShareUrlRemove}/>
       </div>
     )
   }

@@ -65,29 +65,6 @@ class ShareResource extends React.Component {
       style={props.shareModal.position}
       className='share-resource-modal'>
       <div className='invite-users-container'>
-        <div className='full-row invite'>
-          <TagInput
-            data={props.userAutocomplete}
-            resource={props.resource}
-            getData={props.getAutocompleteUsers}
-            resetData={props.resetAutocompleteUsers}
-            handleChange={::this.handleValueChange}/>
-        </div>
-
-        <div className='full-row members'>
-          <span>Members can</span>
-
-          <select value={props.permission} onChange={::this.handleMemberPermissionChange}>
-            {SHARE_PERMISSIONS.map(permission=>
-              <option key={permission.id} value={permission.id}>{permission.name}</option>
-            )}
-          </select>
-
-          <button className='main-button' onClick={::this.inviteUsers}>
-            Invite
-          </button>
-        </div>
-
         <Permission allow={props.resourceName !== 'Collection'}>
           <div className='full-row'>
             <UrlShare
@@ -98,6 +75,34 @@ class ShareResource extends React.Component {
               resource={props.resource}/>
           </div>
         </Permission>
+
+        <div className='full-row invite'>
+          <TagInput
+            data={props.userAutocomplete}
+            resource={props.resource}
+            getData={props.getAutocompleteUsers}
+            resetData={props.resetAutocompleteUsers}
+            handleChange={::this.handleValueChange}/>
+        </div>
+
+        <div className='full-row members'>
+          <span>Members</span>
+
+          <select
+            className='own-select-dropdown'
+            value={props.permission}
+            onChange={::this.handleMemberPermissionChange}>
+            {SHARE_PERMISSIONS.map(permission=>
+              <option key={permission.id} value={permission.id}>
+                {`Can ${permission.name.toLowerCase()}`}
+              </option>
+            )}
+          </select>
+
+          <button className='main-button' onClick={::this.inviteUsers}>
+            Invite
+          </button>
+        </div>
       </div>
 
       { props.resource.shares.map(share =>

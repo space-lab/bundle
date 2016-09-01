@@ -11,19 +11,28 @@ export default class ShareItem extends React.Component {
   }
 
   permissionChanged (e) {
+    let { id, type } = this.props.share
     let permissionId = e.target.value
-    let id = this.props.share.id
-    let type = this.props.share.type
+    let resourceId = this.props.resourceId
 
-    this.props.changeSharePermission(id, type, permissionId)
+    if (permissionId == 3) {
+      this.props.removeShare(id, type, resourceId)
+    } else {
+      this.props.changeSharePermission(id, type, permissionId)
+    }
   }
 
   renderPermission () {
     let permission = this.props.share.permission.get('id')
     let options = SHARE_PERMISSIONS
+      .map(item => ({ id: item.id, name: `Can ${item.name.toLowerCase()}`}))
+      .concat({ id: 3, name: 'Remove'})
 
     return (
-      <select value={permission} onChange={::this.permissionChanged}>
+      <select
+        value={permission}
+        onChange={::this.permissionChanged}
+        className='own-select-dropdown'>
         {options.map(item =>
           <option value={item.id} key={item.id}>{item.name}</option>
         )}
@@ -48,9 +57,6 @@ export default class ShareItem extends React.Component {
         <div className='user-permission'>
           {::this.renderPermission()}
         </div>
-
-        <span className='icon close-icon'
-          onClick={() => removeShare(share.id, share.type, resourceId)}/>
       </div>
     )
   }
