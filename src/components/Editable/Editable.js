@@ -20,7 +20,8 @@ export default class Editable extends React.Component {
     let { onChange, value } = this.props
     this.setState({ value })
 
-    if (onChange && value) onChange(value)
+    // well irakli knows better
+    // if (onChange && value) onChange(value)
   }
 
   componentWillReceiveProps ({ value }) {
