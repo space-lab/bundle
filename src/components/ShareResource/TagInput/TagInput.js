@@ -1,10 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { withState } from 'recompose'
 import { List, fromJS } from 'immutable'
 import { Autocomplete } from 'components'
 import './TagInput.css'
-
-const enhancer = withState('tags', 'updateTags', List())
 
 class TagInput extends React.Component {
   static propTypes = {
@@ -83,4 +80,4 @@ class TagInput extends React.Component {
   }
 }
 
-export default enhancer(TagInput)
+export default TagInput

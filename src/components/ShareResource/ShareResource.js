@@ -3,10 +3,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { compose, withState } from 'recompose'
 import { SHARE_PERMISSIONS } from 'constants'
 import { ShareItem, Modal, TagInput, UrlShare, Permission } from 'components'
+import { List, fromJS } from 'immutable'
 import './ShareResource.css'
 
 let enhancer = compose(
-  withState('users', 'updateUsers', []),
+  withState('users', 'updateUsers', List()),
   withState('permission', 'updatePermission', 1),
   listensToClickOutside
 )
@@ -25,7 +26,7 @@ class ShareResource extends React.Component {
     getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
     removeUrlShare: React.PropTypes.func.isRequired,
-    users: React.PropTypes.array.isRequired,
+    users: ImmutablePropTypes.list.isRequired,
     updateUsers: React.PropTypes.func.isRequired,
     permission: React.PropTypes.number.isRequired,
     updatePermission: React.PropTypes.func.isRequired,
@@ -46,7 +47,7 @@ class ShareResource extends React.Component {
     inviteUsers(resourceName, resourceId, { data })
       .then(() => {
         this.props.resetAutocompleteUsers()
-        this.props.updateUsers([])
+        this.props.updateUsers(List())
       })
   }
 
@@ -78,6 +79,8 @@ class ShareResource extends React.Component {
 
         <div className='full-row invite'>
           <TagInput
+            tags={props.users}
+            updateTags={props.updateUsers}
             data={props.userAutocomplete}
             resource={props.resource}
             getData={props.getAutocompleteUsers}
