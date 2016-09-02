@@ -89,22 +89,3 @@ $color: #6C90F3;
     background-color: $color;
   }
 }
-
-.own-select-dropdown {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  background: none;
-  font-family: Avenir-Medium;
-  font-size: 14px;
-  color: #ADB7BF;
-  cursor: pointer;
-
-  option {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: red;
-  }
-}

@@ -2,7 +2,7 @@ import listensToClickOutside from 'react-onclickoutside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { compose, withState } from 'recompose'
 import { SHARE_PERMISSIONS } from 'constants'
-import { ShareItem, Modal, TagInput, UrlShare, Permission } from 'components'
+import { ShareItem, Modal, TagInput, UrlShare, Permission, Select } from 'components'
 import { List, fromJS } from 'immutable'
 import './ShareResource.css'
 
@@ -91,16 +91,12 @@ class ShareResource extends React.Component {
         <div className='full-row members'>
           <span>Members</span>
 
-          <select
-            className='own-select-dropdown'
+          <Select
             value={props.permission}
-            onChange={::this.handleMemberPermissionChange}>
-            {SHARE_PERMISSIONS.map(permission=>
-              <option key={permission.id} value={permission.id}>
-                {`Can ${permission.name.toLowerCase()}`}
-              </option>
-            )}
-          </select>
+            onChange={::this.handleMemberPermissionChange}
+            options={SHARE_PERMISSIONS.map(item=> ({
+              id: item.id, name: `Can ${item.name.toLowerCase()}`
+            }))} />
 
           <button className='main-button' onClick={::this.inviteUsers}>
             Invite

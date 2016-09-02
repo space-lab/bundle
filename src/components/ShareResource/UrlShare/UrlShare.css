@@ -9,15 +9,13 @@ $blue: #1581E2;
   font-size: 15px;
 
   .url-icon {
-    width: 22px;
-    height: 22px;
-    background-size: 22px;
-    background-image: url(/assets/images/link.svg);
+    width: 28px;
+    height: 28px;
+    background-size: 28px;
+    background-image: url(/assets/images/url-share.svg);
     display: inline-block;
-    margin-bottom: -7px;
     margin-right: 6px;
     border-radius: 50%;
-    background-color: #EAEAEA;
   }
 
   .dimmed-text {
@@ -28,29 +26,21 @@ $blue: #1581E2;
 
   .copy-link {
     cursor: pointer;
+    width: 150px;
+    display: flex;
+    align-items: center;
 
     .url-icon:hover {
       opacity: 0.7;
+    }
+
+    .url-icon.active {
+      background-image: url(/assets/images/url-share-active.svg) !important;
     }
   }
 
   .permissions {
     display: flex;
     align-items: center;
-
-    .close-icon {
-      margin-right: -6px;
-      width: 27px;
-      height: 27px;
-      background: url(/assets/images/x.svg) center center no-repeat;
-      cursor: pointer;
-      user-select: none;
-      opacity: 1;
-      transition: opacity linear 200ms;
-
-      &:hover {
-        opacity: 0.5;
-      }
-    }
   }
 }

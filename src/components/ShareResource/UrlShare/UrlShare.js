@@ -1,9 +1,15 @@
 import CopyToClipboard from 'react-copy-to-clipboard'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { compose, withState } from 'recompose'
+import { Select } from 'components'
 import { SHARE_PERMISSIONS } from 'constants'
 import './UrlShare.css'
 
-export default class UrlShare extends React.Component {
+let enhancer = compose(
+  withState('copied', 'updateCopied', false)
+)
+
+class UrlShare extends React.Component {
   static propTypes = {
     resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
@@ -23,34 +29,37 @@ export default class UrlShare extends React.Component {
 
   renderUrlPermissionsAndDelete () {
     let { resource } = this.props
-    let options = SHARE_PERMISSIONS
+    let options = SHARE_PERMISSIONS.map(item => ({
+       id: item.id, name: `Can ${item.name.toLowerCase()}`
+     }))
 
     return (
       <div className='permissions'>
-        <select
-          className='own-select-dropdown'
+        <Select
           value={resource.share_url_permission}
-          onChange={::this.handleUrlPermissionChange}>
-          {options.map(option =>
-            <option key={option.id} value={option.id}>{`Can ${option.name.toLowerCase()}`}</option>
-          )}
-        </select>
+          options={options}
+          onChange={::this.handleUrlPermissionChange} />
       </div>
     )
   }
 
   render () {
+    let copyLinkClass = 'url-icon' + (this.props.copied ? ' active' : '')
+    let copyText = this.props.copied ? 'copied!!!' : 'Copy sharable link'
+
     return (
       <div className='shareable-url'>
         <div className='dimmed-text'>People with this link</div>
         <div>{this.renderUrlPermissionsAndDelete()}</div>
         <CopyToClipboard text={this.props.resource.share_url}>
-          <div className='copy-link'>
-            <div className='url-icon'/>
-            <span className='dimmed-text'>Copy sharable link</span>
+          <div className='copy-link' onClick={() => this.props.updateCopied(true)}>
+            <div className={copyLinkClass}/>
+            <span className='dimmed-text'>{copyText}</span>
           </div>
         </CopyToClipboard>
       </div>
     )
   }
 }
+
+export default enhancer(UrlShare)

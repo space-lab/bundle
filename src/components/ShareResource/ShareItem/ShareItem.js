@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { Select } from 'components'
 import { SHARE_PERMISSIONS } from 'constants'
 import './ShareItem.css'
 
@@ -28,16 +29,7 @@ export default class ShareItem extends React.Component {
       .map(item => ({ id: item.id, name: `Can ${item.name.toLowerCase()}`}))
       .concat({ id: 3, name: 'Remove'})
 
-    return (
-      <select
-        value={permission}
-        onChange={::this.permissionChanged}
-        className='own-select-dropdown'>
-        {options.map(item =>
-          <option value={item.id} key={item.id}>{item.name}</option>
-        )}
-      </select>
-    )
+    return <Select value={permission} options={options} onChange={::this.permissionChanged} />
   }
 
   render () {
