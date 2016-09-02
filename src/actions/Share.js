@@ -56,17 +56,6 @@ export const leaveShare = (id, resourceId, resourceType) => async dispatch => {
   dispatch({ type: 'REMOVE_SHARE', id, resourceId })
 }
 
-export const getShareUrl = (resourceName, resourceId) => async dispatch => {
-  let { data } = await request.post(api.urlShare(resourceName.toLowerCase(), resourceId))
-  let { share_url, share_url_permission } = data
-
-  let ACTION = resourceName === 'Bundle'
-    ? 'RECEIVE_BUNDLE_SHARE_URL'
-    : 'RECEIVE_COLLECTION_SHARE_URL'
-
-  dispatch({ type: ACTION, resourceId, share_url, share_url_permission })
-}
-
 export const changeUrlPermission = (resourceName, resourceId, permission) => async dispatch => {
   await request.put(api.urlShare(resourceName.toLowerCase(), resourceId), {
     permission_id: permission
@@ -77,16 +66,6 @@ export const changeUrlPermission = (resourceName, resourceId, permission) => asy
     : 'CHANGE_COLLECTION_SHARE_URL_PERMISSION'
 
   dispatch({ type: ACTION, resourceId, permission })
-}
-
-export const removeUrlShare = (resourceName, resourceId) => async dispatch => {
-  await request.delete(api.urlShare(resourceName.toLowerCase(), resourceId))
-
-  let ACTION = resourceName === 'Bundle'
-    ? 'REMOVE_BUNDLE_SHARE_URL'
-    : 'REMOVE_COLLECTION_SHARE_URL'
-
-  dispatch({ type: ACTION, resourceId })
 }
 
 export const joinUrlShare = (resource, id) => async dispatch => {

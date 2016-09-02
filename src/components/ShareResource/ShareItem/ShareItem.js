@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { Select } from 'components'
 import { SHARE_PERMISSIONS } from 'constants'
 import './ShareItem.css'
 
@@ -11,24 +12,22 @@ export default class ShareItem extends React.Component {
   }
 
   permissionChanged (e) {
+    let { id, type } = this.props.share
     let permissionId = e.target.value
-    let id = this.props.share.id
-    let type = this.props.share.type
+    let resourceId = this.props.resourceId
 
-    this.props.changeSharePermission(id, type, permissionId)
+    permissionId == 3
+      ? this.props.removeShare(id, type, resourceId)
+      : this.props.changeSharePermission(id, type, permissionId)
   }
 
   renderPermission () {
     let permission = this.props.share.permission.get('id')
     let options = SHARE_PERMISSIONS
+      .map(item => ({ id: item.id, name: `Can ${item.name.toLowerCase()}`}))
+      .concat({ id: 3, name: 'Remove'})
 
-    return (
-      <select value={permission} onChange={::this.permissionChanged}>
-        {options.map(item =>
-          <option value={item.id} key={item.id}>{item.name}</option>
-        )}
-      </select>
-    )
+    return <Select value={permission} options={options} onChange={::this.permissionChanged} />
   }
 
   render () {
@@ -48,9 +47,6 @@ export default class ShareItem extends React.Component {
         <div className='user-permission'>
           {::this.renderPermission()}
         </div>
-
-        <span className='icon close-icon'
-          onClick={() => removeShare(share.id, share.type, resourceId)}/>
       </div>
     )
   }

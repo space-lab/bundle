@@ -4,6 +4,7 @@ export Modal from './Modal'
 export DateTime from './DateTime'
 export Editable from './Editable/Editable'
 export Permission from './Permission/Permission'
+export Select from './Select/Select'
 
 export UserMenu from './UserMenu'
 export ResourceNavigation from './ResourceNavigation'

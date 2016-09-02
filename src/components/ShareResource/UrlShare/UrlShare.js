@@ -1,85 +1,64 @@
+import CopyToClipboard from 'react-copy-to-clipboard'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { compose, withState } from 'recompose'
+import { Select } from 'components'
 import { SHARE_PERMISSIONS } from 'constants'
 import './UrlShare.css'
 
-export default class UrlShare extends React.Component {
+let enhancer = compose(
+  withState('copied', 'updateCopied', false)
+)
+
+class UrlShare extends React.Component {
   static propTypes = {
     resourceName: React.PropTypes.string.isRequired,
     resource: ImmutablePropTypes.record.isRequired,
-    getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
-    removeUrlShare: React.PropTypes.func.isRequired
-  }
-
-  handleUrlGet () {
-    const { getShareUrl, resourceName, resource } = this.props
-    getShareUrl(resourceName, resource.id)
-  }
-
-  handleShareUrlRemove () {
-    const { removeUrlShare, resourceName, resource } = this.props
-    removeUrlShare(resourceName, resource.id)
   }
 
   handleUrlPermissionChange ({ target }) {
-    const { changeUrlPermission, resourceName, resource } = this.props
-    changeUrlPermission(resourceName, resource.id, target.value)
-  }
+    let permissionId = target.value
+    let { resourceName, resource } = this.props
 
-  renderButtonOrUrl () {
-    const { share_url } = this.props.resource
-
-    if (share_url) {
-      return (
-        <div className='url'>
-          <div className='url-icon'/>
-
-          <input
-            defaultValue={share_url}
-            readOnly
-            autoFocus
-            onFocus={({ target }) => target.select()}/>
-        </div>
-      )
-    } else {
-      return (
-        <div className='clickable' onClick={::this.handleUrlGet}>
-          <div className='url-icon'/>
-          <span>Get shareable url...</span>
-        </div>
-      )
-    }
+    permissionId == 3
+      ? this.props.removeUrlShare(resourceName, resource.id)
+      : this.props.changeUrlPermission(resourceName, resource.id, permissionId)
   }
 
   renderUrlPermissionsAndDelete () {
-    const { resource } = this.props
-    const options = SHARE_PERMISSIONS
-
-    if (!resource.share_url) return null
+    let { resource } = this.props
+    let options = SHARE_PERMISSIONS.map(item => ({
+       id: item.id, name: `Can ${item.name.toLowerCase()}`
+     }))
 
     return (
       <div className='permissions'>
-        <select
+        <Select
           value={resource.share_url_permission}
-          onChange={::this.handleUrlPermissionChange}>
-          {options.map(option =>
-            <option key={option.id} value={option.id}>{option.name}</option>
-          )}
-        </select>
-
-        <div
-          className='icon close-icon'
-          onClick={::this.handleShareUrlRemove}/>
+          options={options}
+          onChange={::this.handleUrlPermissionChange} />
       </div>
     )
   }
 
   render () {
+    let copyLinkClass = 'url-icon' + (this.props.copied ? ' active' : '')
+    let copyText = this.props.copied ? 'copied!!!' : 'Copy sharable link'
+
     return (
       <div className='shareable-url'>
-        {::this.renderButtonOrUrl()}
-        {::this.renderUrlPermissionsAndDelete()}
+        <div className='dimmed-text'>People with this link</div>
+        <div>{this.renderUrlPermissionsAndDelete()}</div>
+
+        <CopyToClipboard text={this.props.resource.share_url}>
+          <div className='copy-link' onClick={() => this.props.updateCopied(true)}>
+            <div className={copyLinkClass}/>
+            <span className='dimmed-text'>{copyText}</span>
+          </div>
+        </CopyToClipboard>
       </div>
     )
   }
 }
+
+export default enhancer(UrlShare)
