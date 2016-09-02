@@ -20,11 +20,9 @@ class UrlShare extends React.Component {
     let permissionId = target.value
     let { resourceName, resource } = this.props
 
-    if (permissionId == 3) {
-      this.props.removeUrlShare(resourceName, resource.id)
-    } else {
-      this.props.changeUrlPermission(resourceName, resource.id, permissionId)
-    }
+    permissionId == 3
+      ? this.props.removeUrlShare(resourceName, resource.id)
+      : this.props.changeUrlPermission(resourceName, resource.id, permissionId)
   }
 
   renderUrlPermissionsAndDelete () {
@@ -51,6 +49,7 @@ class UrlShare extends React.Component {
       <div className='shareable-url'>
         <div className='dimmed-text'>People with this link</div>
         <div>{this.renderUrlPermissionsAndDelete()}</div>
+
         <CopyToClipboard text={this.props.resource.share_url}>
           <div className='copy-link' onClick={() => this.props.updateCopied(true)}>
             <div className={copyLinkClass}/>

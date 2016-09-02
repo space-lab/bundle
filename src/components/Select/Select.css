@@ -3,8 +3,6 @@
   position: relative;
 
   select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
     width: 80px;
     border: none;
@@ -13,13 +11,6 @@
     font-size: 14px;
     color: #ADB7BF;
     cursor: pointer;
-
-    option {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      background: red;
-    }
   }
 
   .down-arrow-icon {

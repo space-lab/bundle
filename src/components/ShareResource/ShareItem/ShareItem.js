@@ -16,11 +16,9 @@ export default class ShareItem extends React.Component {
     let permissionId = e.target.value
     let resourceId = this.props.resourceId
 
-    if (permissionId == 3) {
-      this.props.removeShare(id, type, resourceId)
-    } else {
-      this.props.changeSharePermission(id, type, permissionId)
-    }
+    permissionId == 3
+      ? this.props.removeShare(id, type, resourceId)
+      : this.props.changeSharePermission(id, type, permissionId)
   }
 
   renderPermission () {
