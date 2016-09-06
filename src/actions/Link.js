@@ -10,7 +10,7 @@ export const fetchLink = (url, bundleId) => async dispatch => {
   let { data } = await request.get(api.fetchLink(url))
 
   let link = new Link({
-    url: data.url,
+    url: Array.isArray(data.url) ? data.url[0] : data.url,
     title: data.title || slimUrl(data.url),
     description: data.description,
     image: bestThumbnail(data)
