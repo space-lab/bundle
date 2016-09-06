@@ -2,13 +2,14 @@ import { connect } from 'react-redux'
 import { compose, withState } from 'recompose'
 import { browserHistory } from 'react-router'
 import { BundleActions } from 'actions'
-import { UserSelectors } from 'selectors'
+import { UserSelectors, RouteSelectors } from 'selectors'
 import SideNavigationTop from './top'
 import SideNavigationBottom from './bottom'
 import './index.css'
 
 let connectState = state => ({
-  currentUser: UserSelectors.current(state)
+  currentUser: UserSelectors.current(state),
+  Route: RouteSelectors.all(state)
 })
 
 let connectProps = {
@@ -21,8 +22,16 @@ let enhancer = compose(
 )
 
 class SideNavigation extends React.Component {
+  currentCollectionId () {
+    let Route = this.props.Route
+
+    return Route.navigationView == 'collectionsBundles' ? Route.collectionId : null
+  }
+
   handleBundleCreate () {
-    this.props.createBundle().then(bundle =>
+    let payload = { collection_id: this.currentCollectionId() }
+
+    this.props.createBundle(payload).then(bundle =>
       browserHistory.push('/bundle/' + bundle.id))
   }
 

@@ -1,0 +1,27 @@
+.bundle-select-dropdown {
+  display: flex;
+  position: relative;
+
+  select {
+    appearance: none;
+    width: 80px;
+    border: none;
+    background: none;
+    font-family: Avenir-Medium;
+    font-size: 14px;
+    color: #ADB7BF;
+    cursor: pointer;
+  }
+
+  .down-arrow-icon {
+    position: absolute;
+    z-index: -1;
+    right: 1px;
+    top: -3px;
+    width: 28px;
+    height: 28px;
+    background: url(/assets/images/down-arrow.svg) center center no-repeat;
+    cursor: pointer;
+    user-select: none;
+  }
+}

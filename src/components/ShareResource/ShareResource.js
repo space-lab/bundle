@@ -2,11 +2,12 @@ import listensToClickOutside from 'react-onclickoutside'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { compose, withState } from 'recompose'
 import { SHARE_PERMISSIONS } from 'constants'
-import { ShareItem, Modal, TagInput, UrlShare, Permission } from 'components'
+import { ShareItem, Modal, TagInput, UrlShare, Permission, Select } from 'components'
+import { List, fromJS } from 'immutable'
 import './ShareResource.css'
 
 let enhancer = compose(
-  withState('users', 'updateUsers', []),
+  withState('users', 'updateUsers', List()),
   withState('permission', 'updatePermission', 1),
   listensToClickOutside
 )
@@ -22,10 +23,8 @@ class ShareResource extends React.Component {
     resetAutocompleteUsers: React.PropTypes.func,
     changeSharePermission: React.PropTypes.func.isRequired,
     removeShare: React.PropTypes.func.isRequired,
-    getShareUrl: React.PropTypes.func.isRequired,
     changeUrlPermission: React.PropTypes.func.isRequired,
-    removeUrlShare: React.PropTypes.func.isRequired,
-    users: React.PropTypes.array.isRequired,
+    users: ImmutablePropTypes.list.isRequired,
     updateUsers: React.PropTypes.func.isRequired,
     permission: React.PropTypes.number.isRequired,
     updatePermission: React.PropTypes.func.isRequired,
@@ -46,7 +45,7 @@ class ShareResource extends React.Component {
     inviteUsers(resourceName, resourceId, { data })
       .then(() => {
         this.props.resetAutocompleteUsers()
-        this.props.updateUsers([])
+        this.props.updateUsers(List())
       })
   }
 
@@ -65,8 +64,23 @@ class ShareResource extends React.Component {
       style={props.shareModal.position}
       className='share-resource-modal'>
       <div className='invite-users-container'>
+        <Permission allow={props.resourceName !== 'Collection'}>
+          <div>
+            <div className='row-heading'>Share with others</div>
+            <div className='full-row'>
+              <UrlShare
+                changeUrlPermission={props.changeUrlPermission}
+                resourceName={props.resourceName}
+                resource={props.resource}/>
+            </div>
+          </div>
+        </Permission>
+
+        <div className='row-heading'>Who has access</div>
         <div className='full-row invite'>
           <TagInput
+            tags={props.users}
+            updateTags={props.updateUsers}
             data={props.userAutocomplete}
             resource={props.resource}
             getData={props.getAutocompleteUsers}
@@ -75,29 +89,19 @@ class ShareResource extends React.Component {
         </div>
 
         <div className='full-row members'>
-          <span>Members can</span>
+          <span>Members</span>
 
-          <select value={props.permission} onChange={::this.handleMemberPermissionChange}>
-            {SHARE_PERMISSIONS.map(permission=>
-              <option key={permission.id} value={permission.id}>{permission.name}</option>
-            )}
-          </select>
+          <Select
+            value={props.permission}
+            onChange={::this.handleMemberPermissionChange}
+            options={SHARE_PERMISSIONS.map(item=> ({
+              id: item.id, name: `Can ${item.name.toLowerCase()}`
+            }))} />
 
           <button className='main-button' onClick={::this.inviteUsers}>
             Invite
           </button>
         </div>
-
-        <Permission allow={props.resourceName !== 'Collection'}>
-          <div className='full-row'>
-            <UrlShare
-              getShareUrl={props.getShareUrl}
-              changeUrlPermission={props.changeUrlPermission}
-              removeUrlShare={props.removeUrlShare}
-              resourceName={props.resourceName}
-              resource={props.resource}/>
-          </div>
-        </Permission>
       </div>
 
       { props.resource.shares.map(share =>
